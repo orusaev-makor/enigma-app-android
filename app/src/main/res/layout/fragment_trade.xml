@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TradeFragment">
+
+    <View
+        android:id="@+id/trade_top_logo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginRight="150dp"
+        android:background="@drawable/ic_enigma_logo"
+        android:backgroundTint="@color/textColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/trade_fragment_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:text="Trade"
+        android:textAlignment="viewStart"
+        android:textColor="@color/textColor"
+        android:textSize="30sp"
+        tools:ignore="RtlCompat" />
+
+    <TextView
+        android:id="@+id/trade_from_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trade_fragment_title"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:text="From" />
+
+    <TextView
+        android:id="@+id/trade_to_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trade_fragment_title"
+        android:layout_marginStart="180dp"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/trade_from_text"
+        android:layout_toRightOf="@+id/trade_from_text"
+        android:text="To" />
+
+    <TextView
+        android:id="@+id/trade_from_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trade_from_text"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:text="04 Apr 2020"
+        android:textColor="@color/textColor" />
+
+    <TextView
+        android:id="@+id/trade_to_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trade_to_text"
+        android:layout_marginStart="180dp"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/trade_from_text"
+        android:layout_toRightOf="@+id/trade_from_text"
+        android:text="06 Oct 2020"
+        android:textColor="@color/textColor" />
+
+    <ImageView
+        android:id="@+id/trade_image_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_filter_list" />
+
+
+</RelativeLayout>
