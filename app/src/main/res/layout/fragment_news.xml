@@ -4,105 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".NewsFragment">
 
-    <View
-        android:id="@+id/news_top_logo"
-        android:backgroundTint="@color/textColor"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="150dp"
-        android:layout_marginRight="150dp"
-        android:background="@drawable/ic_enigma_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/news_fragment_title"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="130dp"
-        android:layout_marginRight="30dp"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:text="News"
-        android:textAlignment="viewStart"
-        android:textColor="@color/textColor"
-        android:textSize="30sp"
-        tools:ignore="RtlCompat" />
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/news_fragment_filters_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/news_fragment_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="30dp"
-        android:gravity="center"
-        android:text="Filters"
-        android:textAlignment="viewStart"
-        android:textColor="@color/textColor"
-        android:textSize="15sp"
-        tools:ignore="RtlCompat" />
+        <TextView
+            android:id="@+id/news_fragment_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="News"
+            android:layout_marginTop="65dp"
+            android:textColor="@color/textColor"
+            android:textSize="30sp" />
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/news_fragment_chip_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/news_fragment_filters_title"
-        android:layout_marginLeft="10dp">
+        <TextView
+            android:id="@+id/news_fragment_filters_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Filters"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/textColor"
+            android:textSize="15sp" />
 
-        <!-- Chips can be declared here, or added dynamically. -->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/news_fragment_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <!--        TODO: make rectangle border shape -->
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip5"
-            style="@style/Widget.MaterialComponents.Chip.Entry"
+            <!-- Chips can be declared here, or added dynamically. -->
+            <!--        TODO: make rectangle border shape -->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip5"
+                style="@style/Widget.MaterialComponents.Chip.Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_border"
+                android:text="BTC"
+                android:textColor="@color/textColor"
+                app:chipBackgroundColor="@color/colorPrimary"
+                app:chipStrokeColor="@color/textColor"
+                app:chipStrokeWidth="1dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip6"
+                style="@style/Widget.MaterialComponents.Chip.Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TradeBlock"
+                android:textColor="@color/textColor"
+                app:chipBackgroundColor="@color/colorPrimary"
+                app:chipStrokeColor="@color/textColor"
+                app:chipStrokeWidth="1dp" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/news_fragment_recycler_view"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                tools:listitem="@layout/news_item" />-->
+
+        <include
+            layout="@layout/news_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_border"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/news_fragment_chip_group" />
 
-            android:text="BTC"
-            android:textColor="@color/textColor"
-            app:chipBackgroundColor="@color/colorPrimary"
-            app:chipStrokeColor="@color/textColor"
-            app:chipStrokeWidth="1dp" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip6"
-            style="@style/Widget.MaterialComponents.Chip.Entry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TradeBlock"
-            android:textColor="@color/textColor"
-            app:chipBackgroundColor="@color/colorPrimary"
-            app:chipStrokeColor="@color/textColor"
-            app:chipStrokeWidth="1dp" />
-
-    </com.google.android.material.chip.ChipGroup>
-
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/news_fragment_recycler_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_below="@+id/news_fragment_chip_group"-->
-<!--        tools:listitem="@layout/news_item" />-->
-
-    <include
-        layout="@layout/news_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/news_fragment_chip_group"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        />
+    </LinearLayout>
 
 </RelativeLayout>

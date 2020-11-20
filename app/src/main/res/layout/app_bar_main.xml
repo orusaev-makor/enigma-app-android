@@ -13,9 +13,19 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/toolBar"
-            android:background="@color/textColor"
-            app:titleTextColor="@color/colorPrimary"
-            app:popupTheme="@style/Theme.EnigmaApp.AppBarOverlay"/>
+            android:background="@color/colorPrimary"
+            app:titleTextColor="@color/textColor"
+            app:popupTheme="@style/Theme.EnigmaApp.AppBarOverlay">
+
+            <View
+                android:id="@+id/trade_top_logo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_enigma_logo"
+                android:backgroundTint="@color/textColor"
+                android:layout_marginLeft="170dp"
+                />
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 

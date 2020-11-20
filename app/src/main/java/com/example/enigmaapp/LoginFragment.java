@@ -52,7 +52,7 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 //        Hides navbar on "Login" view:
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);

@@ -1,65 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView android:id="@+id/news_fragment_card_view"
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/news_fragment_chip_group"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/edit_text_border"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_marginTop="10dp"
+    app:strokeColor="@color/newsCardBorder"
+    app:strokeWidth="1dp">
 
-    <TextView
-        android:id="@+id/news_fragment_card_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="Now"
-        android:textColor="@color/red" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <TextView
-        android:id="@+id/news_fragment_card_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/news_fragment_card_date"
-        android:layout_marginTop="20dp"
-        android:padding="5dp"
-        android:text="In this week's issue, we look at volume and open interest trends on retail spot and futures market, examine the recent regulatory actions against derivatives venues, and assess the implications for BTC in the medium-term."
-        android:textColor="@color/textColor" />
+        <TextView
+            android:id="@+id/news_fragment_card_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Now"
+            android:textSize="13dp"
+            android:textColor="@color/red" />
 
-    <TextView
-        android:id="@+id/news_category1_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/news_fragment_card_text"
-        android:padding="3dp"
-        android:layout_marginTop="100dp"
-        android:text="BTC"
-        android:background="@drawable/underline_text"
-        android:textColor="@color/textColor" />
+        <TextView
+            android:id="@+id/news_fragment_card_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:text="In this week's issue, we look at volume and open interest trends on retail spot and futures market, examine the recent regulatory actions against derivatives venues, and assess the implications for BTC in the medium-term."
+            android:textColor="@color/textColor" />
 
-    <TextView
-        android:id="@+id/news_category2_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/news_fragment_card_text"
-        android:padding="3dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/underline_text"
-        android:text="TradeBlock"
-        android:textColor="@color/textColor" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/news_top_border"
+            android:gravity="start"
+            android:orientation="horizontal"
+            android:paddingTop="15dp"
+            android:paddingBottom="10dp">
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/news_card_categories_recycler_view"-->
-<!--        android:layout_below="@+id/news_fragment_card_text"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        tools:listitem="@layout/news_category_item"-->
-<!--        />-->
+<!--            TODO: add categories dynamically -->
+            <TextView
+                android:id="@+id/news_category1_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/underline_text"
+                android:text="BTC"
+                android:textSize="12dp"
+                android:textColor="@color/textColor" />
 
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/news_category2_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/news_fragment_card_text"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/underline_text"
+                android:text="TradeBlock"
+                android:textSize="12dp"
+                android:textColor="@color/textColor" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

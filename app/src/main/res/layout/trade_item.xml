@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:id="@+id/trade_fragment_card_view"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:background="@drawable/trade_top_border"-->
+<!--    app:cardElevation="0.5dp">-->
+
+<com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:strokeColor="@color/tradeCardBorder"
+    app:strokeWidth="0.5dp"
+    app:cardCornerRadius="0dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@drawable/trade_top_border"
+        android:scaleType="fitXY"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingTop="10sp"
+        android:paddingRight="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="BTC-USD"
+                android:textColor="@color/red"
+                android:textSize="26dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="end"
+                android:text="10'000.00"
+                android:textColor="@color/red"
+                android:textSize="26dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="2020-10-05"
+                android:textColor="@color/textColorDark"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="end"
+                android:text="QTY - 1.00"
+                android:textColor="@color/textColorDark"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
+
+<!--    </androidx.cardview.widget.CardView>-->
