@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingTop="10sp"
+        android:paddingRight="30dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Settlement Create"
+                android:textColor="@color/textColor"
+                android:textSize="25dp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:contentDescription="@string/close"
+                android:src="@drawable/ic_action_close"
+                app:tint="@color/textColor" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/editTextDate5"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_border"
+            android:drawableRight="@drawable/ic_arrow_drop_down"
+            android:drawableTint="@color/textColor"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="On Behalf"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColorHint="@color/textSecondaryColor"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/editTextDate6"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_border"
+            android:drawableRight="@drawable/ic_arrow_drop_down"
+            android:drawableTint="@color/textColor"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Type"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColorHint="@color/textSecondaryColor"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/editTextDate7"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_border"
+            android:drawableRight="@drawable/ic_arrow_drop_down"
+            android:drawableTint="@color/textColor"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Currency"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColorHint="@color/textSecondaryColor"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/editTextDate8"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_border"
+            android:drawableRight="@drawable/ic_arrow_drop_down"
+            android:drawableTint="@color/textColor"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Account"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColorHint="@color/textSecondaryColor"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Direction"
+            android:textColor="@color/textColor"
+            android:textSize="16dp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <RadioButton
+                android:id="@+id/radioButtonClient"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:buttonTint="@color/textColor"
+                android:checked="true"
+                android:fontFamily="@font/poppins_regular"
+                android:text="To Send"
+                android:textColor="@color/textColor"
+                android:textSize="16dp" />
+
+
+            <RadioButton
+                android:id="@+id/radioButtonBothLegs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:buttonTint="@color/textSecondaryColor"
+                android:fontFamily="@font/poppins_regular"
+                android:text="To Receive"
+                android:textColor="@color/textSecondaryColor"
+                android:textSize="16dp" />
+        </RadioGroup>
+
+
+        <EditText
+            android:id="@+id/editTextDate10"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_border"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Amount"
+            android:paddingLeft="10dp"
+            android:textColorHint="@color/textSecondaryColor"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/editTextDate11"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_border"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Comment"
+            android:paddingLeft="10dp"
+            android:textColorHint="@color/textSecondaryColor"
+            android:textSize="16dp" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/back_btn_border"
+            android:text="Create" />
+
+    </LinearLayout>
+
+</ScrollView>

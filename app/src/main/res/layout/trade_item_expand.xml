@@ -142,47 +142,9 @@
         android:gravity="center"
         />
 
-<!--    <include-->
-<!--        layout="@layout/bottom_actions_section"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
-
-    <LinearLayout
+    <include
+        layout="@layout/section_bottom_actions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30sp"
-        android:layout_marginBottom="15sp"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <ImageView
-            android:id="@+id/trade_action_edit"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="45sp"
-            android:src="@drawable/ic_action_edit"
-            app:tint="@color/textColor"
-            android:contentDescription="@string/edit"
-            android:layout_marginEnd="45sp" />
-
-        <ImageView
-            android:id="@+id/trade_action_mail"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="45sp"
-            android:src="@drawable/ic_action_mail"
-            app:tint="@color/textColor"
-            android:contentDescription="@string/mail"
-            android:layout_marginEnd="45sp" />
-
-        <ImageView
-            android:id="@+id/trade_action_bin"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_action_bin"
-            app:tint="@color/textColor"
-            android:contentDescription="@string/bin"/>
-
-    </LinearLayout>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
