@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="start"
+    android:orientation="vertical"
+    android:background="@drawable/edit_text_border"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="16dp"
+        android:textColor="@color/textColor"
+        android:buttonTint="@color/textColor"
+        android:text="Rest API" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="16dp"
+        android:textColor="@color/textColor"
+        android:buttonTint="@color/textColor"
+        android:checked="true"
+        android:text="OTC" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="16dp"
+        android:textColor="@color/textColor"
+        android:buttonTint="@color/textColor"
+        android:checked="true"
+        android:text="TradeBlock" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="16dp"
+        android:textColor="@color/textColor"
+        android:buttonTint="@color/textColor"
+        android:text="Fix API" />
+
+    <CheckBox
+        android:id="@+id/checkBox5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="16dp"
+        android:textColor="@color/textColor"
+        android:buttonTint="@color/textColor"
+        android:text="Electronic Platform" />
+
+    <TextView
+        android:id="@+id/news_category1_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/underline_text"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Show more +"
+        android:textSize="14sp"
+        android:textColor="@color/textColor" />
+
+</LinearLayout>

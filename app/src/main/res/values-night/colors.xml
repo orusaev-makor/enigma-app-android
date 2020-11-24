@@ -9,6 +9,9 @@
     <color name="textColorDark">#E9EAEB</color>
     <color name="textHintColor">#E9EAEB</color>
 
+    <!--    Trade: -->
+    <color name="textSecondaryColor">#80FFFFFF</color>
+
     <!--    Borders: -->
     <color name="newsCardBorder">@color/colorPrimaryDark</color>
     <color name="tradeCardBorder">#B3DEDFE3</color>

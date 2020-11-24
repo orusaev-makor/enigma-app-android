@@ -84,7 +84,7 @@ public class NewsFragment extends Fragment {
         String rText[];
 
         NewsAdapter (Context c, String date[], String text[]) {
-            super(c, R.layout.pnl_list_row, date);
+            super(c, R.layout.news_item, date);
             this.context = c;
             this.rDate = date;
             this.rText = text;

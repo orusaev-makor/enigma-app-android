@@ -16,7 +16,7 @@ class PnlListAdapter extends ArrayAdapter<String> {
     float rAmounts[];
 
     PnlListAdapter (Context c, String date[], float amount[]) {
-        super(c, R.layout.pnl_list_row, date);
+        super(c, R.layout.news_item, date);
         this.context = c;
         this.rDate = date;
         this.rAmounts = amount;
@@ -26,12 +26,12 @@ class PnlListAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = layoutInflater.inflate(R.layout.pnl_list_row, parent, false);
-        TextView myDate = row.findViewById(R.id.pnl_date_text_view);
-        TextView myAmount = row.findViewById(R.id.pnl_amount_text_view);
+        View row = layoutInflater.inflate(R.layout.news_item, parent, false);
+//        TextView myDate = row.findViewById(R.id.pnl_date_text_view);
+//        TextView myAmount = row.findViewById(R.id.pnl_amount_text_view);
 
-        myDate.setText(rDate[position]);
-        myAmount.setText(String.valueOf(rAmounts[position]));
+//        myDate.setText(rDate[position]);
+//        myAmount.setText(String.valueOf(rAmounts[position]));
         return row;
     }
 }

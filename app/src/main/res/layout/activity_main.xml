@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/drawerLayout"
     app:itemTextColor="@color/textColor"
-
+    android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 

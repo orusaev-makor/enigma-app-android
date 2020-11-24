@@ -21,9 +21,21 @@
     <color name="textColorDark">#0D0D0D</color>
     <color name="textHintColor">#800D2757</color>
 
+<!--    Trade & Settlement : -->
+    <color name="textSecondaryColor">#800D2757</color>
+
 <!--    Borders: -->
     <color name="newsCardBorder">#CECECE</color>
     <color name="tradeCardBorder">#CECECE</color>
+
+    <!--    Statuses: -->
+    <color name="statusPending">#D96010</color>
+    <color name="statusValidated">#089439</color>
+    <color name="statusCancelled">#FFC107</color>
+    <color name="statusRejected">#B3041C</color>
+    <color name="statusInSet">#7B71E6</color>
+    <color name="statusOpen">#3C91D9</color>
+
 
 
     <color name="gray">#80FFFFFF</color>

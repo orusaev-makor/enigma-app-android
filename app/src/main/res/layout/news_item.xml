@@ -39,28 +39,30 @@
             android:gravity="start"
             android:orientation="horizontal"
             android:paddingTop="15dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="5dp">
+            <!--            TODO: add categories dynamically -->
 
-<!--            TODO: add categories dynamically -->
             <TextView
                 android:id="@+id/news_category1_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:background="@drawable/underline_text"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="BTC"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:textColor="@color/textColor" />
-
             <TextView
                 android:id="@+id/news_category2_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/news_fragment_card_text"
-                android:layout_marginLeft="10dp"
                 android:background="@drawable/underline_text"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="TradeBlock"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:textColor="@color/textColor" />
 
         </LinearLayout>

@@ -8,7 +8,9 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:clickable="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:focusable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <LinearLayout
         android:orientation="vertical"

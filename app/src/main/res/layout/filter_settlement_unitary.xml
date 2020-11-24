@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingTop="10sp"
+        android:paddingRight="30dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Settlement Filter"
+                android:textColor="@color/textColor"
+                android:textSize="25dp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:contentDescription="@string/close"
+                android:src="@drawable/ic_action_close"
+                app:tint="@color/textColor" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Unitary"
+            android:textColor="@color/textHintColor"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/editTextDate3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/edit_text_border"
+            android:drawableRight="@drawable/ic_date_picker"
+            android:drawableTint="@color/textColor"
+            android:ems="10"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="02 Oct 2020 - 07 Oct 2020"
+            android:inputType="date"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColorHint="@color/textSecondaryColor"
+            android:textSize="16dp" />
+
+
+        <EditText
+            android:id="@+id/editTextDate12"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_border"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Input ID"
+            android:paddingLeft="10dp"
+            android:textColorHint="@color/textSecondaryColor"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/editTextDate5"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_border"
+            android:drawableRight="@drawable/ic_arrow_drop_down"
+            android:drawableTint="@color/textColor"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Companies"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColorHint="@color/textSecondaryColor"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/editTextDate6"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_border"
+            android:drawableRight="@drawable/ic_arrow_drop_down"
+            android:drawableTint="@color/textColor"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Currencies"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColorHint="@color/textSecondaryColor"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Direction"
+            android:textColor="@color/textColor"
+            android:textSize="16dp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <RadioButton
+                android:id="@+id/radioButtonBuy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:buttonTint="@color/textColor"
+                android:checked="true"
+                android:fontFamily="@font/poppins_regular"
+                android:text="To Send"
+                android:textColor="@color/textColor"
+                android:textSize="16dp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonSell"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:buttonTint="@color/textSecondaryColor"
+                android:fontFamily="@font/poppins_regular"
+                android:text="To Receive"
+                android:textColor="@color/textSecondaryColor"
+                android:textSize="16dp" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Select Status"
+            android:textColor="@color/textColor"
+            android:textSize="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <CheckBox
+                android:id="@+id/checkBoxRejected"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="16dp"
+                android:textColor="@color/statusRejected"
+                android:buttonTint="@color/statusRejected"
+                android:checked="true"
+                android:text="Rejected" />
+
+
+            <CheckBox
+                android:id="@+id/checkBoxPending"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/statusPending"
+                android:buttonTint="@color/statusPending"
+                android:textSize="16dp"
+                android:text="Booked" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-8dp"
+            android:textSize="16dp"
+            android:weightSum="1">
+
+            <CheckBox
+                android:id="@+id/checkBoxValidated"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/statusValidated"
+                android:buttonTint="@color/statusValidated"
+                android:textSize="16dp"
+                android:text="Validated" />
+
+            l        <CheckBox
+            android:id="@+id/checkBoxCanceled"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/statusInSet"
+            android:buttonTint="@color/statusInSet"
+            android:textSize="16dp"
+            android:text="In Set" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkBoxOpen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/statusOpen"
+            android:buttonTint="@color/statusOpen"
+            android:layout_marginTop="-8dp"
+            android:textSize="16dp"
+            android:text="Open" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/news_fragment_chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip7"
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OTC"
+                    android:textColor="@color/textColor"
+                    app:chipBackgroundColor="@color/colorPrimaryDark"
+                    app:chipCornerRadius="3dp"
+                    app:chipIconTint="@color/textColor"
+                    app:chipStrokeColor="@color/navy"
+                    app:chipStrokeWidth="0.5dp"
+                    app:closeIcon="@drawable/ic_action_close" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip9"
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="0dp"
+                    android:text="TradeBlock"
+                    android:textColor="@color/textColor"
+                    app:chipBackgroundColor="@color/colorPrimaryDark"
+                    app:chipCornerRadius="3dp"
+                    app:chipIconTint="@color/textColor"
+                    app:chipStrokeColor="@color/navy"
+                    app:chipStrokeWidth="0.5dp"
+                    app:closeIcon="@drawable/ic_action_close" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginBottom="40dp"
+            android:weightSum="1">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:layout_weight="0.5"
+                android:text="Reset"
+                android:textColor="@color/textColor"
+                android:textSize="15sp"
+                app:backgroundTint="@android:color/transparent"
+                app:cornerRadius="6dp"
+                app:rippleColor="#33AAAAAA"
+                app:strokeColor="@color/textColor"
+                app:strokeWidth="1dp" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="37sp"
+                android:layout_margin="0.5dp"
+                android:layout_marginLeft="4dp"
+                android:layout_weight="0.5"
+
+                android:background="@drawable/back_btn_border"
+                android:text="Filter" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>
