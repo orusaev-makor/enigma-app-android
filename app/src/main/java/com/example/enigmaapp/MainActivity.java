@@ -106,8 +106,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.app_bar_balance) {
-            LogoutFragment fragment = new LogoutFragment();
-//            BalanceFragment fragment = new BalanceFragment();
+//            LogoutFragment fragment = new LogoutFragment();
+            BalanceFragment fragment = new BalanceFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Balance");
             fragmentTransaction.commit();

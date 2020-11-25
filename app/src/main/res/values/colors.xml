@@ -27,6 +27,7 @@
 <!--    Borders: -->
     <color name="newsCardBorder">#CECECE</color>
     <color name="tradeCardBorder">#CECECE</color>
+    <color name="balanceCardBorder">#CECECE</color>
 
     <!--    Statuses: -->
     <color name="statusPending">#D96010</color>

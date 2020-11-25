@@ -15,5 +15,6 @@
     <!--    Borders: -->
     <color name="newsCardBorder">@color/colorPrimaryDark</color>
     <color name="tradeCardBorder">#B3DEDFE3</color>
+    <color name="balanceCardBorder">@color/colorPrimaryDark</color>
 
 </resources>
