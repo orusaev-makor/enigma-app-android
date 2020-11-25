@@ -421,7 +421,7 @@
                 android:layout_width="35dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.1"
-                android:contentDescription="@string/close"
+                android:contentDescription="add"
                 android:src="@drawable/ic_action_add"
                 app:tint="@color/textColor" />
 

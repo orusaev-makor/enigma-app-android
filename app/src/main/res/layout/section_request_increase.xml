@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/requestIncreaseBGC"
+    android:paddingBottom="5dp"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.65"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins_light"
+        android:text="Request Increase Limit"
+        android:textColor="@color/textColor"
+        android:gravity="end
+"
+        android:textSize="14dp" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="0.3"
+        android:src="@drawable/ic_arraow_forward"
+        app:tint="@color/textColor"
+        android:gravity="start"
+        android:layout_marginTop="10dp"
+        />
+
+</LinearLayout>

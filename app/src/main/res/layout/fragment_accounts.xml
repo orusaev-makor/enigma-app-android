@@ -1,24 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AccountsFragment">
+    android:layout_height="wrap_content">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="Accounts Fragment"
-        android:textSize="30sp" />
+        android:layout_height="match_parent"
+        tools:context=".AccountsFragment"
+        android:orientation="vertical">
 
-<!--    <include-->
-<!--        layout="@layout/new_settlement_select"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:paddingLeft="-10dp"-->
-<!--        android:paddingRight="-10dp" />-->
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Account"
+            android:textColor="@color/textColor"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="30dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Bank Account"
+            android:textColor="@color/textColor"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="18sp" />
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                            android:id="@+id/bank_accounts_recycler_view"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:paddingLeft="-10dp"-->
+<!--                            android:paddingRight="-10dp"-->
+<!--                            tools:listitem="@layout/account_item" />-->
+
+        <include
+            layout="@layout/account_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Cryptocurrency Wallet"
+            android:textColor="@color/textColor"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="18sp" />
+
+        <!--                <androidx.recyclerview.widget.RecyclerView-->
+        <!--                            android:id="@+id/crypto_wallet_recycler_view"-->
+        <!--                            android:layout_width="match_parent"-->
+        <!--                            android:layout_height="match_parent"-->
+        <!--                            android:paddingLeft="-10dp"-->
+        <!--                            android:paddingRight="-10dp"-->
+        <!--                            tools:listitem="@layout/account_item" />-->
+
+        <include
+            layout="@layout/account_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</ScrollView>

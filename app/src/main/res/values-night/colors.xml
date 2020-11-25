@@ -9,8 +9,11 @@
     <color name="textColorDark">#E9EAEB</color>
     <color name="textHintColor">#E9EAEB</color>
 
-    <!--    Trade: -->
+    <!--    Trade & Settlement : -->
     <color name="textSecondaryColor">#80FFFFFF</color>
+
+    <!--    Settings : -->
+    <color name="requestIncreaseBGC">#1A8B93B4</color>
 
     <!--    Borders: -->
     <color name="newsCardBorder">@color/colorPrimaryDark</color>

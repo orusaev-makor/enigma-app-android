@@ -24,6 +24,9 @@
 <!--    Trade & Settlement : -->
     <color name="textSecondaryColor">#800D2757</color>
 
+<!--    Settings : -->
+    <color name="requestIncreaseBGC">#1A0D2757</color>
+
 <!--    Borders: -->
     <color name="newsCardBorder">#CECECE</color>
     <color name="tradeCardBorder">#CECECE</color>
@@ -37,7 +40,10 @@
     <color name="statusInSet">#7B71E6</color>
     <color name="statusOpen">#3C91D9</color>
 
-
+<!-- Favorite colours: -->
+    <color name="starFavoriteMarked">#FBA746</color>
+    <color name="starFavoriteFade">#80FBA746</color>
+    <color name="starFavoriteUnmarked">#818181</color>
 
     <color name="gray">#80FFFFFF</color>
     <color name="red">#DB1515</color>
