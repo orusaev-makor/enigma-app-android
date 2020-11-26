@@ -14,6 +14,8 @@
 
     <!--    Settings : -->
     <color name="requestIncreaseBGC">#1A8B93B4</color>
+    <!--    Settings : -->
+    <color name="statisticsToggleBGC">#50FFFFFF</color>
 
     <!--    Borders: -->
     <color name="newsCardBorder">@color/colorPrimaryDark</color>

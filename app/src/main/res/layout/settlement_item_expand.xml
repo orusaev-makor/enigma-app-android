@@ -24,8 +24,8 @@
             android:fontFamily="@font/poppins_light"
             android:textColor="@color/textColorDark"
             android:textSize="16sp"
-            android:drawableTint="@color/textColorDark"
-            app:drawableLeftCompat="@drawable/ic_action_settlement" />
+            app:drawableLeftCompat="@drawable/ic_action_settlement"
+            app:drawableTint="@color/textColorDark" />
 
         <TextView
             android:layout_width="0dp"
@@ -80,24 +80,24 @@
             android:fontFamily="@font/poppins_light"
             android:text="@string/side"
             android:gravity=""
-            android:drawableLeft="@drawable/ic_settlement_side"
-            android:drawableTint="@color/textColor"
             android:textColor="@color/textColorDark"
             android:textSize="16sp"
-            android:drawableStart="@drawable/ic_settlement_side" />
+            app:drawableLeftCompat="@drawable/ic_settlement_side"
+            app:drawableTint="@color/textColor"
+            app:drawableStartCompat="@drawable/ic_settlement_side" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:layout_marginTop="25sp"
-            android:drawableLeft="@drawable/ic_settlement_type"
-            android:drawableTint="@color/textColor"
             android:text="@string/type"
             android:fontFamily="@font/poppins_light"
             android:textColor="@color/textColorDark"
             android:textSize="16sp"
-            android:drawableStart="@drawable/ic_settlement_type" />
+            app:drawableLeftCompat="@drawable/ic_settlement_type"
+            app:drawableTint="@color/textColor"
+            app:drawableStartCompat="@drawable/ic_settlement_type" />
 
     </LinearLayout>
 

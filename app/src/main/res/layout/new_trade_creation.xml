@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="30dp"
@@ -26,9 +26,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.9"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Trade Create"
+                android:text="@string/trade_create"
                 android:textColor="@color/textColor"
-                android:textSize="25dp" />
+                android:textSize="25sp" />
 
             <ImageView
                 android:layout_width="30dp"
@@ -45,9 +45,9 @@
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Trade type"
+            android:text="@string/trade_type"
             android:textColor="@color/textColor"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -63,9 +63,9 @@
                 android:buttonTint="@color/textColor"
                 android:checked="true"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Client"
+                android:text="@string/client"
                 android:textColor="@color/textColor"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/radioButtonHedge"
@@ -74,9 +74,9 @@
                 android:layout_weight="0.28"
                 android:buttonTint="@color/textSecondaryColor"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Hedge"
+                android:text="@string/hedge"
                 android:textColor="@color/textSecondaryColor"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/radioButtonBothLegs"
@@ -85,9 +85,9 @@
                 android:layout_weight="0.31"
                 android:buttonTint="@color/textSecondaryColor"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Both Legs"
+                android:text="@string/both_legs"
                 android:textColor="@color/textSecondaryColor"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
         </RadioGroup>
 
         <TextView
@@ -95,9 +95,9 @@
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Client Side"
+            android:text="@string/client_side"
             android:textColor="@color/textColor"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -113,9 +113,9 @@
                 android:buttonTint="@color/green"
                 android:checked="true"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Buy"
+                android:text="@string/buy"
                 android:textColor="@color/green"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/radioButtonSell"
@@ -124,9 +124,9 @@
                 android:layout_weight="0.28"
                 android:buttonTint="@color/red"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Sell"
+                android:text="@string/sell"
                 android:textColor="@color/red"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
         </RadioGroup>
 
@@ -145,7 +145,8 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:drawableEnd="@drawable/ic_date_picker" />
 
         <!--        <LinearLayout-->
         <!--            android:id="@+id/horizontal_layout"-->
@@ -177,11 +178,12 @@
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Execution Type"
+            android:hint="@string/execution_type"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
         <EditText
             android:id="@+id/editTextDate5"
@@ -192,11 +194,12 @@
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Product"
+            android:hint="@string/product"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
         <EditText
             android:id="@+id/editTextDate6"
@@ -207,11 +210,12 @@
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Company"
+            android:hint="@string/company"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
         <EditText
             android:id="@+id/editTextDate7"
@@ -222,11 +226,12 @@
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Client"
+            android:hint="@string/client"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
         <EditText
             android:id="@+id/editTextDate8"
@@ -237,11 +242,12 @@
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Broker"
+            android:hint="@string/broker"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
         <EditText
             android:id="@+id/editTextDate10"
@@ -250,10 +256,11 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Quantity"
+            android:hint="@string/quantity"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:paddingStart="10dp" />
 
         <EditText
             android:id="@+id/editTextDate11"
@@ -262,10 +269,11 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Client"
+            android:hint="@string/client"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:paddingStart="10dp" />
 
         <EditText
             android:id="@+id/editTextDate12"
@@ -274,10 +282,11 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Provider Price"
+            android:hint="@string/provider_price"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:paddingStart="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -291,7 +300,7 @@
                 android:layout_weight="0.6"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="end"
-                android:text="Sales P&amp;L= "
+                android:text="@string/sales_p_amp_l"
                 android:textColor="@color/textColor"
                 android:textSize="20sp" />
 
@@ -314,10 +323,11 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Comment"
+            android:hint="@string/comment"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:paddingStart="10dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -325,7 +335,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="40dp"
             android:background="@drawable/back_btn_border"
-            android:text="Review &amp; Submit" />
+            android:text="@string/review_amp_submit" />
 
     </LinearLayout>
 

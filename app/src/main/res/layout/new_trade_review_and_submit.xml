@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="30dp"
         android:paddingTop="10sp"
@@ -50,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Date"
+                android:text="@string/date"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16dp" />
 
@@ -80,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Execution Type"
+                android:text="@string/exec_type"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp" />
 
@@ -89,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Product"
+                android:text="@string/product"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp" />
 
@@ -133,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Trade Type"
+                android:text="@string/trade_type"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp" />
 
@@ -142,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Client Side"
+                android:text="@string/client_side"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp" />
 
@@ -189,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Company"
+                android:text="@string/company"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp" />
 
@@ -198,7 +197,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Client"
+                android:text="@string/client"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp" />
 
@@ -236,7 +235,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10sp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Broker"
+            android:text="@string/broker"
             android:textColor="@color/textSecondaryColor"
             android:textSize="16sp" />
 
@@ -264,7 +263,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Quantity"
+                android:text="@string/quantity"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp" />
 
@@ -291,7 +290,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Price"
+                android:text="@string/price"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp" />
 
@@ -318,7 +317,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Comment"
+                android:text="@string/comment"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp" />
 
@@ -345,7 +344,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Provider Price"
+                android:text="@string/provider_price"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp" />
 
@@ -412,7 +411,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_text_border"
-                    android:hint="Email"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -460,7 +459,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="4dp"
                 android:layout_weight="0.5"
-                android:text="Back"
+                android:text="@string/back"
                 android:textColor="@color/textColor"
                 android:textSize="15sp"
                 app:backgroundTint="@android:color/transparent"
@@ -488,7 +487,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_weight="0.5"
                 android:background="@drawable/back_btn_border"
-                android:text="Finish" />
+                android:text="@string/finish" />
 
         </LinearLayout>
 

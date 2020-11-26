@@ -17,9 +17,10 @@
             android:layout_weight="0.9"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
-            android:text="Your request has been sent and will be reviewed by us."
+            android:text="@string/your_request_has_been_sent_and_will_be_reviewed_by_us"
             android:textColor="@color/textColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:layout_marginStart="60dp" />
 
         <ImageView
             android:layout_width="0dp"

@@ -13,11 +13,10 @@
         android:layout_weight="0.65"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/poppins_light"
-        android:text="Request Increase Limit"
+        android:text="@string/request_increase_limit"
         android:textColor="@color/textColor"
-        android:gravity="end
-"
-        android:textSize="14dp" />
+        android:gravity="end"
+        android:textSize="14sp" />
 
     <ImageView
         android:layout_width="0dp"
@@ -27,6 +26,6 @@
         app:tint="@color/textColor"
         android:gravity="start"
         android:layout_marginTop="10dp"
-        />
+        android:contentDescription="@string/submit" />
 
 </LinearLayout>

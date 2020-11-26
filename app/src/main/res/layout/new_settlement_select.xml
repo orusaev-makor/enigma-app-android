@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="10sp">
 
@@ -26,9 +26,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.9"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Select Trade"
+                android:text="@string/select_trade"
                 android:textColor="@color/textColor"
-                android:textSize="25dp" />
+                android:textSize="25sp" />
 
             <ImageView
                 android:layout_width="30dp"
@@ -54,9 +54,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Date"
+                android:text="@string/date"
                 android:textColor="@color/textSecondaryColor"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -65,7 +65,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:text="05 Oct 2020"
                 android:textColor="@color/textColor"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Product"
+                android:text="@string/product"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp" />
 
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Execution Type"
+                android:text="@string/execution_type"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp" />
 
@@ -156,10 +156,12 @@
             android:layout_marginRight="30dp"
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Comment"
+            android:hint="@string/comment"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:paddingStart="10dp"
+            />
 
 
         <LinearLayout
@@ -177,14 +179,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="4dp"
                 android:layout_weight="0.5"
-                android:text="Reset"
+                android:text="@string/reset"
                 android:textColor="@color/textColor"
                 android:textSize="15sp"
                 app:backgroundTint="@android:color/transparent"
                 app:cornerRadius="6dp"
                 app:rippleColor="#33AAAAAA"
                 app:strokeColor="@color/textColor"
-                app:strokeWidth="1dp" />
+                app:strokeWidth="1dp"
+                android:layout_marginEnd="4dp" />
 
             <Button
                 android:layout_width="0dp"
@@ -193,7 +196,8 @@
                 android:layout_marginLeft="4dp"
                 android:layout_weight="0.5"
                 android:background="@drawable/back_btn_border"
-                android:text="Create" />
+                android:text="@string/create"
+                android:layout_marginStart="4dp" />
 
         </LinearLayout>
 

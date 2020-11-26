@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+<com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:strokeColor="@color/tradeCardBorder"
@@ -35,7 +36,10 @@
             android:src="@drawable/ic_usd"
             android:paddingLeft="20dp"
             android:layout_marginRight="5dp"
-            app:tint="@color/textColor" />
+            app:tint="@color/textColor"
+            tools:ignore="ContentDescription"
+            android:paddingStart="20dp"
+            android:layout_marginEnd="5dp" />
 
         <TextView
             android:layout_width="0dp"
@@ -44,7 +48,7 @@
             android:fontFamily="@font/poppins_regular"
             android:text="USD"
             android:textColor="@color/textColor"
-            android:textSize="22dp" />
+            android:textSize="22sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -55,7 +59,8 @@
             android:gravity="end"
             android:paddingRight="20dp"
             android:textColor="@color/textColor"
-            android:textSize="22dp" />
+            android:textSize="22sp"
+            android:paddingEnd="20dp" />
     </LinearLayout>
 
 
@@ -75,7 +80,8 @@
                 android:text="85%"
                 android:textColor="@color/textColor"
                 android:paddingLeft="20dp"
-                android:textSize="12dp" />
+                android:textSize="12sp"
+                android:paddingStart="20dp" />
 
             <ProgressBar
                 android:id="@+id/determinateBar"
@@ -88,7 +94,8 @@
                 android:progressDrawable="@drawable/progressbar"
                 android:progress="85"
                 android:max="100"
-                android:secondaryProgress="0"/>
+                android:secondaryProgress="0"
+                android:paddingEnd="20dp" />
 
         </LinearLayout>
 

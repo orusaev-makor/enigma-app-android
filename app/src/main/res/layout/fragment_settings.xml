@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".SettingsFragment">
 
@@ -19,9 +18,9 @@
             android:fontFamily="@font/poppins_regular"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="Settings"
+            android:text="@string/settings"
             android:textColor="@color/textColor"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -31,7 +30,7 @@
             android:fontFamily="@font/poppins_medium"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="FX currency Exposure Limit"
+            android:text="@string/fx_currency_exposure_limit"
             android:textColor="@color/textColor"
             android:textSize="18sp" />
 
@@ -54,7 +53,7 @@
             android:fontFamily="@font/poppins_medium"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="Max Quantity Per Trade"
+            android:text="@string/max_quantity_per_trade"
             android:textColor="@color/textColor"
             android:textSize="18sp" />
 

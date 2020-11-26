@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+<com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:strokeColor="@color/tradeCardBorder"
@@ -12,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="@drawable/trade_top_border"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +37,7 @@
             android:src="@drawable/ic_star"
             app:tint="@color/starFavoriteMarked"
             android:layout_marginTop="10dp"
-            />
+            android:contentDescription="@string/favorite_icon" />
 
         <TextView
             android:layout_width="0dp"
@@ -52,7 +54,7 @@
             android:src="@drawable/ic_usd"
             app:tint="@color/textColor"
             android:layout_marginTop="7dp"
-            />
+            android:contentDescription="@string/currency_icon" />
 
         <TextView
             android:layout_width="0dp"
@@ -73,7 +75,8 @@
             android:textColor="@color/textColor"
             android:paddingLeft="43dp"
             android:paddingBottom="5dp"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:paddingStart="43dp" />
 
     </LinearLayout>
 

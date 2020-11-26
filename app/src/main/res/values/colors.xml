@@ -27,6 +27,11 @@
 <!--    Settings : -->
     <color name="requestIncreaseBGC">#1A0D2757</color>
 
+<!--    Statistics : -->
+    <color name="statisticsToggleBGC">#1A0D2757</color>
+    <color name="statisticsNominalBar">#32ABD1</color>
+    <color name="statisticsUnitBar">#AF59D4</color>
+
 <!--    Borders: -->
     <color name="newsCardBorder">#CECECE</color>
     <color name="tradeCardBorder">#CECECE</color>

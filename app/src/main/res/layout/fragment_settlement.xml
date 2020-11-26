@@ -6,11 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".SettlementFragment">
 
         <LinearLayout
@@ -45,7 +43,6 @@
             android:textSize="18sp">
 
             <com.google.android.material.tabs.TabItem
-                tabTextAppearance="@font/poppins_semi_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/batch" />
@@ -97,15 +94,13 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
             android:backgroundTint="@color/textColor"
             android:src="@drawable/ic_action_add_circle"
             app:fabSize="normal"
-            app:tint="@color/colorPrimary" />
+            app:tint="@color/colorPrimary"
+            android:contentDescription="@string/add_settlement" />
     </FrameLayout >
 
 

@@ -7,7 +7,8 @@
 <!--    android:background="@drawable/trade_top_border"-->
 <!--    app:cardElevation="0.5dp">-->
 
-<com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+<com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:strokeColor="@color/tradeCardBorder"
@@ -19,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="@drawable/trade_top_border"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="match_parent"

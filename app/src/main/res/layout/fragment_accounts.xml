@@ -6,10 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".AccountsFragment"
         android:orientation="vertical">
 
@@ -19,18 +18,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="65dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Account"
+            android:text="@string/account"
             android:textColor="@color/textColor"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Bank Account"
+            android:text="@string/bank_account"
             android:textColor="@color/textColor"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
@@ -55,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Cryptocurrency Wallet"
+            android:text="@string/cryptocurrency_wallet"
             android:textColor="@color/textColor"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"

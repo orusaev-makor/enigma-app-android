@@ -5,11 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -29,12 +27,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins_semi_bold"
-            android:text="My Balance"
+            android:text="@string/my_balance"
             android:textColor="@color/textColor"
             android:textSize="18sp" />
 
-        <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -48,14 +45,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:paddingLeft="10dp"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:paddingStart="10dp">
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="20dp"
                     android:layout_weight="0.1"
                     android:src="@drawable/ic_btc"
-                    app:tint="@color/statusCancelled" />
+                    app:tint="@color/statusCancelled"
+                    android:contentDescription="@string/currency_icon" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -64,7 +63,7 @@
                     android:fontFamily="@font/poppins_light"
                     android:text="Bitcoin"
                     android:textColor="@color/textColor"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -79,7 +78,8 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text="327'524 . "
                     android:textColor="@color/green"
-                    android:textSize="28dp" />
+                    android:textSize="28sp"
+                    android:layout_marginStart="18dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                     android:fontFamily="@font/poppins_light"
                     android:text="00656017"
                     android:textColor="@color/green"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
@@ -107,14 +107,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:paddingLeft="10dp"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:paddingStart="10dp">
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="20dp"
                     android:layout_weight="0.1"
                     android:src="@drawable/ic_usd"
-                    app:tint="@color/textColor" />
+                    app:tint="@color/textColor"
+                    android:contentDescription="@string/currency_icon" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -123,7 +125,7 @@
                     android:fontFamily="@font/poppins_light"
                     android:text="USD"
                     android:textColor="@color/textColor"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -138,7 +140,8 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text="3'276'045 ."
                     android:textColor="@color/green"
-                    android:textSize="28dp" />
+                    android:textSize="28sp"
+                    android:layout_marginStart="18dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -147,13 +150,12 @@
                     android:fontFamily="@font/poppins_light"
                     android:text=" 43"
                     android:textColor="@color/green"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -167,14 +169,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:paddingLeft="10dp"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:paddingStart="10dp">
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="20dp"
                     android:layout_weight="0.1"
                     android:src="@drawable/ic_eur"
-                    app:tint="@color/textColor" />
+                    app:tint="@color/textColor"
+                    android:contentDescription="@string/currency_icon" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -183,7 +187,7 @@
                     android:fontFamily="@font/poppins_light"
                     android:text="EUR"
                     android:textColor="@color/textColor"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -198,7 +202,8 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text="-7'832'859 ."
                     android:textColor="@color/red"
-                    android:textSize="28dp" />
+                    android:textSize="28sp"
+                    android:layout_marginStart="18dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -207,13 +212,12 @@
                     android:fontFamily="@font/poppins_light"
                     android:text=" 00"
                     android:textColor="@color/red"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -228,9 +232,17 @@
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/poppins_semi_bold"
-                android:text="My Cryptocurrency"
+                android:text="@string/my_cryptocurrency"
                 android:textColor="@color/textColor"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:layout_marginStart="18dp" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:layout_marginTop="40dp"
+                android:id="@+id/balancePieChart"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_marginBottom="20dp"/>
 
         </com.google.android.material.card.MaterialCardView>
 

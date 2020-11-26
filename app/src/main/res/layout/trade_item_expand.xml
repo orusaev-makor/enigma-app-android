@@ -27,8 +27,8 @@
             android:backgroundTint="@color/textColor"
             android:textColor="@color/textColor"
             android:textSize="16sp"
-            android:drawableTint="@color/textColor"
-            app:drawableStartCompat="@drawable/ic_action_trade" />
+            app:drawableStartCompat="@drawable/ic_action_trade"
+            app:drawableTint="@color/textColor" />
 
         <TextView
             android:layout_width="0dp"
@@ -40,8 +40,8 @@
             android:fontFamily="@font/poppins_light"
             android:textColor="@color/textColor"
             android:textSize="16sp"
-            android:drawableTint="@color/textColor"
-            app:drawableLeftCompat="@drawable/ic_action_settlement" />
+            app:drawableLeftCompat="@drawable/ic_action_settlement"
+            app:drawableTint="@color/textColor" />
 
     </LinearLayout>
 

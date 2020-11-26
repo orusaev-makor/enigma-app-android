@@ -1,17 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
     tools:context=".StatisticsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="Statistics Fragment"
+        android:layout_marginTop="65dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/statistics"
+        android:textColor="@color/textColor"
         android:textSize="30sp" />
 
-</RelativeLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        app:cardCornerRadius="0dp"
+        app:strokeColor="@color/tradeCardBorder"
+        app:strokeWidth="0.5dp">
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggleButtonStatistics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/radioButtonMonthly"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:checked="true"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Monthly"
+                android:textColor="@color/textColor"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/radioButtonQuarterly"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Quarterly"
+                android:textColor="@color/textColor"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/radioButtonYearly"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/statisticsToggleBGC"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Yearly"
+                android:textColor="@color/textColor"
+                android:textSize="12sp" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:layout_marginTop="120dp"
+                    android:id="@+id/statisticsBarChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"/>
+<!--        <include-->
+<!--            layout="@layout/section_statistics_chart"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginTop="130dp" />-->
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

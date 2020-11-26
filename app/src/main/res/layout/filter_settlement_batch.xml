@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="30dp"
@@ -26,9 +26,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.9"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Settlement Filter"
+                android:text="@string/settlement_filter"
                 android:textColor="@color/textColor"
-                android:textSize="25dp" />
+                android:textSize="25sp" />
 
             <ImageView
                 android:layout_width="30dp"
@@ -43,9 +43,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Batch"
+            android:text="@string/batch"
             android:fontFamily="@font/poppins_regular"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textColor="@color/textHintColor"
             />
 
@@ -58,11 +58,12 @@
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Product"
+            android:hint="@string/product"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
         <EditText
             android:id="@+id/editTextDate6"
@@ -73,11 +74,12 @@
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
-            android:hint="Counterparty"
+            android:hint="@string/counterparty"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
         <include
             layout="@layout/section_status_select"
@@ -139,14 +141,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="4dp"
                 android:layout_weight="0.5"
-                android:text="Reset"
+                android:text="@string/reset"
                 android:textColor="@color/textColor"
                 android:textSize="15sp"
                 app:backgroundTint="@android:color/transparent"
                 app:cornerRadius="6dp"
                 app:rippleColor="#33AAAAAA"
                 app:strokeColor="@color/textColor"
-                app:strokeWidth="1dp" />
+                app:strokeWidth="1dp"
+                android:layout_marginEnd="4dp" />
 
             <Button
                 android:layout_width="0dp"
@@ -156,7 +159,8 @@
                 android:layout_weight="0.5"
 
                 android:background="@drawable/back_btn_border"
-                android:text="Filter" />
+                android:text="@string/filter"
+                android:layout_marginStart="4dp" />
 
         </LinearLayout>
 
