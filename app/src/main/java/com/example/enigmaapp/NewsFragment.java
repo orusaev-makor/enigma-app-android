@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -61,6 +62,9 @@ public class NewsFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //        Show navbar on "News" view:
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -77,29 +81,29 @@ public class NewsFragment extends Fragment {
         return v;
     }
 }
-
-    class NewsAdapter extends ArrayAdapter<String> {
-        Context context;
-        String rDate[];
-        String rText[];
-
-        NewsAdapter (Context c, String date[], String text[]) {
-            super(c, R.layout.news_item, date);
-            this.context = c;
-            this.rDate = date;
-            this.rText = text;
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row = layoutInflater.inflate(R.layout.news_item, parent, false);
-            TextView myDate = row.findViewById(R.id.news_fragment_card_date);
-            TextView myText = row.findViewById(R.id.news_fragment_card_text);
-
-            myDate.setText(rDate[position]);
-            myText.setText(rText[position]);
-            return row;
-        }
-    }
+//
+//    class NewsAdapter extends ArrayAdapter<String> {
+//        Context context;
+//        String rDate[];
+//        String rText[];
+//
+//        NewsAdapter (Context c, String date[], String text[]) {
+//            super(c, R.layout.news_item, date);
+//            this.context = c;
+//            this.rDate = date;
+//            this.rText = text;
+//        }
+//
+//        @NonNull
+//        @Override
+//        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+//            LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            View row = layoutInflater.inflate(R.layout.news_item, parent, false);
+//            TextView myDate = row.findViewById(R.id.news_fragment_card_date);
+//            TextView myText = row.findViewById(R.id.news_fragment_card_text);
+//
+//            myDate.setText(rDate[position]);
+//            myText.setText(rText[position]);
+//            return row;
+//        }
+//    }

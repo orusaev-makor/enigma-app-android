@@ -18,8 +18,7 @@
     <color name="statisticsToggleBGC">#50FFFFFF</color>
 
     <!--    Borders: -->
-    <color name="newsCardBorder">@color/colorPrimaryDark</color>
     <color name="tradeCardBorder">#B3DEDFE3</color>
-    <color name="balanceCardBorder">@color/colorPrimaryDark</color>
+    <color name="cardBorderNoDarkTheme">@color/colorPrimaryDark</color>
 
 </resources>

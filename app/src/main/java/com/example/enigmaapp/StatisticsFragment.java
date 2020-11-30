@@ -1,8 +1,11 @@
 package com.example.enigmaapp;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,11 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 
 import java.util.ArrayList;
 
@@ -60,6 +67,9 @@ public class StatisticsFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //        Show navbar on "Statistics" view:
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -73,7 +83,7 @@ public class StatisticsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_statistics, container, false);
-
+        final Typeface tfRegular = ResourcesCompat.getFont(getContext(), R.font.poppins_regular);
         barChart = (BarChart) v.findViewById(R.id.statisticsBarChart);
 
         BarDataSet barDataSet1 = new BarDataSet(barEntries1(), "Nominal (1,000$)");
@@ -84,17 +94,38 @@ public class StatisticsFragment extends Fragment {
         barDataSet2.setColor(Color.rgb(175, 89, 212));
         barDataSet2.setValueTextSize(0f);
 
+        Legend l = barChart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        l.setTextColor(R.color.textColor);
+        l.setDrawInside(true);
+        l.setTypeface(tfRegular);
+        l.setYOffset(-5f);
+        l.setXOffset(10f);
+//        l.setYEntrySpace(10f);
+        l.setXEntrySpace(15f);
+        l.setTextSize(12f);
+
         BarData data = new BarData(barDataSet1, barDataSet2);
         barChart.setData(data);
 
         String[] years = new String[]{"2017", "2018", "2019", "2020"};
         XAxis xAxis = barChart.getXAxis();
+        xAxis.setTypeface(tfRegular);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(years));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1);
+        xAxis.setGranularity(1f);
         xAxis.setCenterAxisLabels(true);
-        xAxis.setAxisMaximum(1);
+//        xAxis.setAxisMaximum(1);
 //        xAxis.setGranularityEnabled(true);
+        YAxis leftAxis = barChart.getAxisLeft();
+        leftAxis.setTypeface(tfRegular);
+        leftAxis.setValueFormatter(new LargeValueFormatter());
+        leftAxis.setDrawGridLines(false);
+//        leftAxis.setSpaceTop(15f);
+        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+
+        barChart.getAxisRight().setEnabled(false);
 
         barChart.setDrawBarShadow(false);
         barChart.setDrawValueAboveBar(false);

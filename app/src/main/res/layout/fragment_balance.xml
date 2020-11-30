@@ -37,7 +37,7 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/colorPrimaryDark"
             app:cardCornerRadius="5dp"
-            app:strokeColor="@color/balanceCardBorder"
+            app:strokeColor="@color/cardBorderNoDarkTheme"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -99,7 +99,7 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/colorPrimaryDark"
             app:cardCornerRadius="5dp"
-            app:strokeColor="@color/balanceCardBorder"
+            app:strokeColor="@color/cardBorderNoDarkTheme"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -161,7 +161,7 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/colorPrimaryDark"
             app:cardCornerRadius="5dp"
-            app:strokeColor="@color/balanceCardBorder"
+            app:strokeColor="@color/cardBorderNoDarkTheme"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -223,7 +223,7 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/colorPrimaryDark"
             app:cardCornerRadius="5dp"
-            app:strokeColor="@color/balanceCardBorder"
+            app:strokeColor="@color/cardBorderNoDarkTheme"
             app:strokeWidth="1dp">
 
             <TextView

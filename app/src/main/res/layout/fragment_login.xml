@@ -12,10 +12,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <!-- TODO: Update blank fragment layout -->
-
         <View
-            android:id="@+id/login_top_logo"
             android:layout_width="84dp"
             android:layout_height="84dp"
             android:layout_marginTop="45dp"
@@ -23,7 +20,6 @@
             android:backgroundTint="@color/textColor" />
 
         <TextView
-            android:id="@+id/login_welcome_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -34,7 +30,6 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/login_mid_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
@@ -47,7 +42,6 @@
             android:textSize="14sp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login_username_edit_wrap"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintTextColor="@color/textHintColor"
@@ -69,7 +63,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login_password_edit_wrap"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintTextColor="@color/textHintColor"
@@ -117,7 +110,7 @@
 
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/login_btn"
             android:layout_width="match_parent"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"

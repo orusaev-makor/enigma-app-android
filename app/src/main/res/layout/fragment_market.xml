@@ -1,17 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MarketFragment">
+    android:layout_height="wrap_content">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="Market Fragment"
-        android:textSize="30sp" />
+        android:orientation="vertical"
+        tools:context=".MarketFragment"
+        android:paddingLeft="30dp"
+        android:paddingTop="10sp"
+        android:paddingRight="30dp">
 
-</RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/market"
+            android:textColor="@color/textColor"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/editTextMarketSearch"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_border"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Search"
+            android:drawableLeft="@drawable/ic_search"
+            android:paddingLeft="10dp"
+            android:textColorHint="@color/textSecondaryColor"
+            android:textSize="16sp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/market_fragment_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                tools:listitem="@layout/market_item" />
+
+<!--        <include-->
+<!--            layout="@layout/market_item"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:paddingLeft="-10dp"-->
+<!--            android:paddingRight="-10dp" />-->
+
+    </LinearLayout>
+</ScrollView>

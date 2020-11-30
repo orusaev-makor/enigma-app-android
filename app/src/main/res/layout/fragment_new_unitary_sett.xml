@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|top"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingTop="50sp"
+    android:paddingRight="30dp"
+    tools:context=".NewUnitarySettFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/settlement_create"
+            android:textColor="@color/textColor"
+            android:textSize="25sp" />
+
+        <!--            <ImageView-->
+        <!--                android:layout_width="30dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="0.1"-->
+        <!--                android:contentDescription="@string/close"-->
+        <!--                android:src="@drawable/ic_action_close"-->
+        <!--                app:tint="@color/textColor" />-->
+        <!--            -->
+        <Button
+            android:id="@+id/new_settlement_close_btn"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.1"
+            android:textColor="@color/textColor"
+            android:background="@drawable/ic_action_close"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/new_unitary_on_behalf_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableEnd="@drawable/ic_arrow_drop_down"
+        android:drawableRight="@drawable/ic_arrow_drop_down"
+        android:drawableTint="@color/textColor"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="@string/on_behalf"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColorHint="@color/textSecondaryColor"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/new_unitary_type_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableEnd="@drawable/ic_arrow_drop_down"
+        android:drawableRight="@drawable/ic_arrow_drop_down"
+        android:drawableTint="@color/textColor"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="@string/type"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColorHint="@color/textSecondaryColor"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/new_unitary_currency_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableEnd="@drawable/ic_arrow_drop_down"
+        android:drawableRight="@drawable/ic_arrow_drop_down"
+        android:drawableTint="@color/textColor"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="@string/currency"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColorHint="@color/textSecondaryColor"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/new_unitary_account_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableEnd="@drawable/ic_arrow_drop_down"
+        android:drawableRight="@drawable/ic_arrow_drop_down"
+        android:drawableTint="@color/textColor"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="@string/account"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColorHint="@color/textSecondaryColor"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/direction"
+        android:textColor="@color/textColor"
+        android:textSize="16sp" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <RadioButton
+            android:id="@+id/radioButtonSend"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:buttonTint="@color/textColor"
+            android:checked="true"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/to_send"
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
+
+
+        <RadioButton
+            android:id="@+id/radioButtonReceive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:buttonTint="@color/textSecondaryColor"
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/to_receive"
+            android:textColor="@color/textSecondaryColor"
+            android:textSize="16sp" />
+    </RadioGroup>
+
+
+    <EditText
+        android:id="@+id/new_unitary_amount_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_border"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="@string/amount"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:textColorHint="@color/textSecondaryColor"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/new_unitary_comment_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_border"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="@string/comment"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:textColorHint="@color/textSecondaryColor"
+        android:textSize="16sp" />
+
+
+    <Button
+        android:id="@+id/new_unitary_create_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/back_btn_border"
+        android:text="@string/create" />
+
+
+</LinearLayout>

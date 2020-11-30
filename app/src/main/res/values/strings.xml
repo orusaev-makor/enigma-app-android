@@ -122,5 +122,8 @@
     <string name="statistics">Statistics</string>
     <string name="empty" />
 
+    <!--    Market -->
+    <string name="market">Market</string>
+
 
 </resources>

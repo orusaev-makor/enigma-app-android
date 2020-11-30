@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|top"
+    android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingTop="50sp"
+    android:paddingRight="30dp"
+    tools:context=".NewBatchSettFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/settlement_create"
+            android:textColor="@color/textColor"
+            android:textSize="25sp" />
+
+        <!--            <ImageView-->
+        <!--                android:layout_width="30dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="0.1"-->
+        <!--                android:contentDescription="@string/close"-->
+        <!--                android:src="@drawable/ic_action_close"-->
+        <!--                app:tint="@color/textColor" />-->
+        <!--            -->
+        <Button
+            android:id="@+id/new_settlement_close_btn"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.1"
+            android:textColor="@color/textColor"
+            android:background="@drawable/ic_action_close"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/new_batch_date_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableRight="@drawable/ic_date_picker"
+        android:drawableTint="@color/textColor"
+        android:ems="10"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="02 Oct 2020 - 07 Oct 2020"
+        android:inputType="date"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColorHint="@color/textSecondaryColor"
+        android:textSize="16sp"
+        android:drawableEnd="@drawable/ic_date_picker" />
+
+    <EditText
+        android:id="@+id/new_batch_product_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableRight="@drawable/ic_arrow_drop_down"
+        android:drawableTint="@color/textColor"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="@string/product"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColorHint="@color/textSecondaryColor"
+        android:textSize="16sp"
+        android:drawableEnd="@drawable/ic_arrow_drop_down" />
+
+    <EditText
+        android:id="@+id/new_batch_counterparty_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableRight="@drawable/ic_arrow_drop_down"
+        android:drawableTint="@color/textColor"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="@string/counterparty"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColorHint="@color/textSecondaryColor"
+        android:textSize="16sp"
+        android:drawableEnd="@drawable/ic_arrow_drop_down" />
+
+    <Button
+        android:id="@+id/new_batch_create_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="300dp"
+        android:background="@drawable/back_btn_border"
+        android:text="@string/finish" />
+
+</LinearLayout>

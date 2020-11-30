@@ -2,11 +2,16 @@ package com.example.enigmaapp;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +19,7 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class TradeFragment extends Fragment {
+    private FloatingActionButton createTradeBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,6 +54,9 @@ public class TradeFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //        Show navbar on "Trade" view:
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -59,6 +68,17 @@ public class TradeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trade, container, false);
+        View v = inflater.inflate(R.layout.fragment_trade, container, false);
+        createTradeBtn = v.findViewById(R.id.trade_create_btn);
+        createTradeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                NewTradeCreationFragment fragment = new NewTradeCreationFragment();
+                transaction.replace(R.id.frame_layout, fragment, "New Trade");
+                transaction.commit();
+            }
+        });
+        return v;
     }
 }

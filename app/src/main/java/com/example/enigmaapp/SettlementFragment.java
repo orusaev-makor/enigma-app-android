@@ -2,11 +2,15 @@ package com.example.enigmaapp;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +18,7 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class SettlementFragment extends Fragment {
+    private FloatingActionButton createUnitaryBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,6 +53,9 @@ public class SettlementFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //        Show navbar on "Settlement" view:
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -59,6 +67,32 @@ public class SettlementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settlement, container, false);
+        View v = inflater.inflate(R.layout.fragment_settlement, container, false);
+
+        // Unitary:
+//        createUnitaryBtn = v.findViewById(R.id.settlement_create_btn);
+//        createUnitaryBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                NewUnitarySettFragment fragment = new NewUnitarySettFragment();
+//                transaction.replace(R.id.frame_layout, fragment, "New Unitary Settlement");
+//                transaction.commit();
+//            }
+//        });
+
+        // Batch:
+        createUnitaryBtn = v.findViewById(R.id.settlement_create_btn);
+        createUnitaryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                NewBatchSettFragment fragment = new NewBatchSettFragment();
+                transaction.replace(R.id.frame_layout, fragment, "New Batch Settlement");
+                transaction.commit();
+            }
+        });
+
+        return v;
     }
 }

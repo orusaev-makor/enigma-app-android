@@ -1,8 +1,11 @@
 package com.example.enigmaapp;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -60,6 +64,9 @@ public class BalanceFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //        Hides navbar on "Balance" view:
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -72,41 +79,44 @@ public class BalanceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_balance, container, false);
+        final Typeface tfRegular = ResourcesCompat.getFont(getContext(), R.font.poppins_regular);
 
         pieChart = (PieChart) v.findViewById(R.id.balancePieChart);
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
-        pieChart.setExtraOffsets(5,10, 5, 5);
+        pieChart.setExtraOffsets(5, 10, 5, 5);
 
         pieChart.setDragDecelerationFrictionCoef(0.15f);
 
         pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleColor(Color.WHITE);
-        pieChart.setTransparentCircleRadius(61f);
+        pieChart.setHoleColor(R.color.colorPrimary);
+//        pieChart.setTransparentCircleRadius(61f);
 
         ArrayList<PieEntry> yValues = new ArrayList<>();
 
-        yValues.add(new PieEntry(34f, "SA"));
-        yValues.add(new PieEntry(23f, "USA"));
-        yValues.add(new PieEntry(14f, "UK"));
-        yValues.add(new PieEntry(35f, "India"));
-        yValues.add(new PieEntry(40f, "Russia"));
-        yValues.add(new PieEntry(23f, "Japan"));
+        yValues.add(new PieEntry(50f, "LTC"));
+        yValues.add(new PieEntry(25f, "ETH"));
+        yValues.add(new PieEntry(125f, "BTC"));
+        yValues.add(new PieEntry(25f, "ZD token"));
 
         // animate pie on creation:
 //        pieChart.animateY(1000);
 
-        PieDataSet dataSet = new PieDataSet(yValues, "Countries");
+        PieDataSet dataSet = new PieDataSet(yValues, "");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
 
         PieData data = new PieData(dataSet);
         data.setValueTextSize(10f);
-        data.setValueTextColor(Color.YELLOW);
+        data.setValueTextColor(R.color.textColor);
 
-        pieChart.setData(data)
-        ;
+        Legend l = pieChart.getLegend();
+        l.setTextColor(R.color.textColor);
+        l.setTextSize(12f);
+        l.setTypeface(tfRegular);
+
+        pieChart.setData(data);
         return v;
     }
 }

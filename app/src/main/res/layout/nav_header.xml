@@ -6,36 +6,29 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <View
-        android:id="@+id/login_top_logo"
-        android:backgroundTint="@color/textColor"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+
+    <ImageView
+        android:id="@+id/ivVectorImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/ic_enigma_logo"
-        app:layout_constraintHorizontal_bias="0.666"
-        android:layout_marginEnd="30dp" />
+        android:src="@drawable/ic_enigma_logo_with_writing" />
 
     <ImageView
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="140dp"
-        android:src="@mipmap/ic_launcher_round"
-        android:contentDescription="@string/user_profile_picture"
-        android:layout_marginStart="140dp" />
-
-
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_action_profile"
+        android:contentDescription="@string/user_profile_picture" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Client Name"
+        android:layout_gravity="center"
         android:textColor="@color/textColor"
-        android:layout_marginLeft="120dp"
         android:textSize="20sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="120dp" />
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

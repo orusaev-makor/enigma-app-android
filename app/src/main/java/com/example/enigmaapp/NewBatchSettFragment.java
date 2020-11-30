@@ -4,19 +4,21 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SettingsFragment#newInstance} factory method to
+ * Use the {@link NewBatchSettFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SettingsFragment extends Fragment {
+public class NewBatchSettFragment extends Fragment {
+    private Button createBtn;
+    private Button closeBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +29,7 @@ public class SettingsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public SettingsFragment() {
+    public NewBatchSettFragment() {
         // Required empty public constructor
     }
 
@@ -37,11 +39,11 @@ public class SettingsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingsFragment.
+     * @return A new instance of fragment NewBatchSettFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SettingsFragment newInstance(String param1, String param2) {
-        SettingsFragment fragment = new SettingsFragment();
+    public static NewBatchSettFragment newInstance(String param1, String param2) {
+        NewBatchSettFragment fragment = new NewBatchSettFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -51,8 +53,8 @@ public class SettingsFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        //        Show navbar on "Settings" view:
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        //        Hides navbar on "create settlement" view:
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -65,33 +67,34 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_settings, container, false);
+        View v = inflater.inflate(R.layout.fragment_new_batch_sett, container, false);
 
-        LinearLayout increaseExposureLimit = (LinearLayout) v.findViewById(R.id.request_increase_exposure_limit);
-        increaseExposureLimit.setOnClickListener(new View.OnClickListener() {
+        // Creating settlement and moving to "Select Trade" screen
+        createBtn = v.findViewById(R.id.new_batch_create_btn);
+        createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: set "request increase exposure limit" process
-                System.out.println("INCREASING EXPOSURE LIMIT............");
-                openDialog();
+                // TODO: add the creation process
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                SelectTradeFragment fragment = new SelectTradeFragment();
+                transaction.replace(R.id.frame_layout, fragment, "Select Trade");
+                transaction.commit();
             }
         });
 
-        LinearLayout increaseQuantityLimit = (LinearLayout) v.findViewById(R.id.request_increase_quantity_limit);
-        increaseQuantityLimit.setOnClickListener(new View.OnClickListener() {
+
+        // Close "Settlement creation" screen and go back to "Settlement Fragment":
+        closeBtn = v.findViewById(R.id.new_settlement_close_btn);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: set "request increase quantity limit" process
-                System.out.println("INCREASING QUANTITY LIMIT............");
-                openDialog();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                SettlementFragment fragment = new SettlementFragment();
+                transaction.replace(R.id.frame_layout, fragment, "Settlement");
+                transaction.commit();
             }
         });
 
         return v;
-    }
-
-    private void openDialog() {
-        SettingsConfirmationModal settingsModal = new SettingsConfirmationModal();
-        settingsModal.show(getFragmentManager(), "Settings Modal");
     }
 }

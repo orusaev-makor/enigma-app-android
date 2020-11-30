@@ -33,9 +33,8 @@
     <color name="statisticsUnitBar">#AF59D4</color>
 
 <!--    Borders: -->
-    <color name="newsCardBorder">#CECECE</color>
     <color name="tradeCardBorder">#CECECE</color>
-    <color name="balanceCardBorder">#CECECE</color>
+    <color name="cardBorderNoDarkTheme">#CECECE</color>
 
     <!--    Statuses: -->
     <color name="statusPending">#D96010</color>

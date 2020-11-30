@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="30dp"
         android:paddingTop="10sp"
-        android:paddingRight="30dp">
-
+        android:paddingRight="30dp"
+        tools:context=".NewTradeCreationFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,13 +31,21 @@
                 android:textColor="@color/textColor"
                 android:textSize="25sp" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
+<!--            <ImageView-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="0.1"-->
+<!--                android:contentDescription="@string/close"-->
+<!--                android:src="@drawable/ic_action_close"-->
+<!--                app:tint="@color/textColor" />-->
+<!--            -->
+            <Button
+                android:id="@+id/new_trade_close_btn"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="0.1"
-                android:contentDescription="@string/close"
-                android:src="@drawable/ic_action_close"
-                app:tint="@color/textColor" />
+                android:textColor="@color/textColor"
+                android:background="@drawable/ic_action_close"/>
 
         </LinearLayout>
 
@@ -131,7 +140,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/editTextDate3"
+            android:id="@+id/new_trade_date_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
@@ -148,29 +157,8 @@
             android:textSize="16sp"
             android:drawableEnd="@drawable/ic_date_picker" />
 
-        <!--        <LinearLayout-->
-        <!--            android:id="@+id/horizontal_layout"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:visibility="gone">-->
-
-        <!--            <Button-->
-        <!--                android:id="@+id/button1"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="Execution Type Option 1" />-->
-
-        <!--            <Button-->
-        <!--                android:id="@+id/button2"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="Execution Type Option 2" />-->
-        <!--            -->
-        <!--        </LinearLayout>-->
-
-
         <EditText
-            android:id="@+id/editTextDate4"
+            android:id="@+id/new_trade_execution_type_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -186,7 +174,7 @@
             android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
         <EditText
-            android:id="@+id/editTextDate5"
+            android:id="@+id/new_trade_product_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -202,7 +190,7 @@
             android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
         <EditText
-            android:id="@+id/editTextDate6"
+            android:id="@+id/new_trade_company_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -218,7 +206,7 @@
             android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
         <EditText
-            android:id="@+id/editTextDate7"
+            android:id="@+id/new_trade_client_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -234,7 +222,7 @@
             android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
         <EditText
-            android:id="@+id/editTextDate8"
+            android:id="@+id/new_trade_broker_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -250,7 +238,7 @@
             android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
         <EditText
-            android:id="@+id/editTextDate10"
+            android:id="@+id/new_trade_quantity_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -263,7 +251,7 @@
             android:paddingStart="10dp" />
 
         <EditText
-            android:id="@+id/editTextDate11"
+            android:id="@+id/new_trade_client1_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -276,7 +264,7 @@
             android:paddingStart="10dp" />
 
         <EditText
-            android:id="@+id/editTextDate12"
+            android:id="@+id/new_trade_price_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -317,7 +305,7 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/editTextDate13"
+            android:id="@+id/new_trade_comment_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -330,6 +318,7 @@
             android:paddingStart="10dp" />
 
         <Button
+            android:id="@+id/new_trade_submit_btn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
@@ -338,5 +327,4 @@
             android:text="@string/review_amp_submit" />
 
     </LinearLayout>
-
 </ScrollView>

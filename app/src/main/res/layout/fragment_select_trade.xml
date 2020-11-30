@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="10sp">
+        android:paddingTop="10sp"
+        tools:context=".SelectTradeFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,13 +30,21 @@
                 android:textColor="@color/textColor"
                 android:textSize="25sp" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
+            <!--            <ImageView-->
+            <!--                android:layout_width="30dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="0.1"-->
+            <!--                android:contentDescription="@string/close"-->
+            <!--                android:src="@drawable/ic_action_close"-->
+            <!--                app:tint="@color/textColor" />-->
+            <!--            -->
+            <Button
+                android:id="@+id/new_settlement_close_btn"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="0.1"
-                android:contentDescription="@string/close"
-                android:src="@drawable/ic_action_close"
-                app:tint="@color/textColor" />
+                android:textColor="@color/textColor"
+                android:background="@drawable/ic_action_close"/>
 
         </LinearLayout>
 
@@ -130,7 +138,7 @@
 
         </LinearLayout>
 
-<!--                    <androidx.recyclerview.widget.RecyclerView-->
+        <!--                    <androidx.recyclerview.widget.RecyclerView-->
         <!--                        android:id="@+id/trade_fragment_recycler_view"-->
         <!--                        android:layout_width="match_parent"-->
         <!--                        android:layout_height="wrap_content"-->
@@ -148,7 +156,7 @@
             android:layout_marginRight="-1dp" />
 
         <EditText
-            android:id="@+id/editTextDate11"
+            android:id="@+id/select_trade_comment"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
@@ -174,6 +182,7 @@
             android:weightSum="1">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/select_trade_reset_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -190,6 +199,7 @@
                 android:layout_marginEnd="4dp" />
 
             <Button
+                android:id="@+id/select_trade_create_btn"
                 android:layout_width="0dp"
                 android:layout_height="37sp"
                 android:layout_margin="0.5dp"
@@ -202,5 +212,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
 </ScrollView>
