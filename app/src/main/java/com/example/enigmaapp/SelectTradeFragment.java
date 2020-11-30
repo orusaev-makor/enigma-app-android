@@ -74,10 +74,7 @@ public class SelectTradeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: add the creation process
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SettlementFragment fragment = new SettlementFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Settlement");
-                transaction.commit();
+                openSettlementScreen();
             }
         });
 
@@ -99,13 +96,17 @@ public class SelectTradeFragment extends Fragment {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SettlementFragment fragment = new SettlementFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Settlement");
-                transaction.commit();
+                openSettlementScreen();
             }
         });
 
         return v;
+    }
+
+    private void openSettlementScreen() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        SettlementFragment fragment = new SettlementFragment();
+        transaction.replace(R.id.frame_layout, fragment, "Settlement");
+        transaction.commit();
     }
 }

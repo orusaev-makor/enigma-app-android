@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +21,7 @@ import android.widget.EditText;
 public class LoginFragment extends Fragment {
     private EditText userNameEdit;
     private EditText passwordEdit;
+    private TextView forgotPassword;
     private Button loginBtn;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -73,6 +75,7 @@ public class LoginFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         userNameEdit = v.findViewById(R.id.login_username_edit);
         passwordEdit = v.findViewById(R.id.login_password_edit);
+
         loginBtn = v.findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +85,17 @@ public class LoginFragment extends Fragment {
                 BalanceFragment fragment = new BalanceFragment();
                 transaction.replace(R.id.frame_layout, fragment, "Balance");
                 transaction.commit();
+            }
+        });
+
+        forgotPassword = v.findViewById(R.id.login_forgot_password);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ForgotPasswordFragment fragment = new ForgotPasswordFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame_layout, fragment, "Forgot Password");
+                fragmentTransaction.commit();
             }
         });
         return v;

@@ -77,10 +77,7 @@ public class NewTradeReviewAndSubmitFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: add the creation process
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                TradeFragment fragment = new TradeFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Trade");
-                transaction.commit();
+                openTradeScreen();
             }
         });
 
@@ -101,13 +98,17 @@ public class NewTradeReviewAndSubmitFragment extends Fragment {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                TradeFragment fragment = new TradeFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Trade");
-                transaction.commit();
+                openTradeScreen();
             }
         });
 
         return v;
+    }
+
+    private void openTradeScreen() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        TradeFragment fragment = new TradeFragment();
+        transaction.replace(R.id.frame_layout, fragment, "Trade");
+        transaction.commit();
     }
 }

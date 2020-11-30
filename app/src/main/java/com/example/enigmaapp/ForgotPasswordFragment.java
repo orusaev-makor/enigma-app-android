@@ -2,7 +2,6 @@ package com.example.enigmaapp;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -10,15 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NewUnitarySettFragment#newInstance} factory method to
+ * Use the {@link ForgotPasswordFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewUnitarySettFragment extends Fragment {
-    private Button createBtn;
-    private Button closeBtn;
+public class ForgotPasswordFragment extends Fragment {
+    Button sendBtn;
+    TextView back;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +29,7 @@ public class NewUnitarySettFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public NewUnitarySettFragment() {
+    public ForgotPasswordFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +39,11 @@ public class NewUnitarySettFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NewSettlementCreationFragment.
+     * @return A new instance of fragment ForgotPasswordFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewUnitarySettFragment newInstance(String param1, String param2) {
-        NewUnitarySettFragment fragment = new NewUnitarySettFragment();
+    public static ForgotPasswordFragment newInstance(String param1, String param2) {
+        ForgotPasswordFragment fragment = new ForgotPasswordFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -53,9 +53,6 @@ public class NewUnitarySettFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        //        Hides navbar on "create settlement" view:
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -67,34 +64,33 @@ public class NewUnitarySettFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_new_unitary_sett, container, false);
+        View v = inflater.inflate(R.layout.fragment_forgot_password, container, false);
 
-        // Creating unitary settlement and return to "Settlement Fragment"screen
-        createBtn = v.findViewById(R.id.new_unitary_create_btn);
-        createBtn.setOnClickListener(new View.OnClickListener() {
+        // Send "Forgot Password" email and show "Login" screen:
+        sendBtn = v.findViewById(R.id.forgot_password_send_btn);
+        sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: add the creation process
-                openSettlementScreen();
+                // TODO: add password recovery process
+                openLoginScreen();
             }
         });
 
-        // Close "Settlement creation" screen and go back to "Settlement Fragment":
-        closeBtn = v.findViewById(R.id.new_settlement_close_btn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
+        // Back to "Login" screen
+        back = v.findViewById(R.id.forgot_password_back_btn);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSettlementScreen();
+                openLoginScreen();
             }
         });
-
         return v;
     }
 
-    private void openSettlementScreen() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        SettlementFragment fragment = new SettlementFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Settlement");
-        transaction.commit();
+    private void openLoginScreen() {
+        LoginFragment fragment = new LoginFragment();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment, "Login");
+        fragmentTransaction.commit();
     }
 }
