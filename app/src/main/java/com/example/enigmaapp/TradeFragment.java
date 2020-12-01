@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -20,6 +21,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  */
 public class TradeFragment extends Fragment {
     private FloatingActionButton createTradeBtn;
+    private ImageView filterBtn;
+    private ImageView uploadBtn;
+    private ImageView refreshBtn;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,10 +70,11 @@ public class TradeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View v = inflater.inflate(R.layout.fragment_trade, container, false);
+
+        // Move fo "New Trade" screen:
         createTradeBtn = v.findViewById(R.id.trade_create_btn);
         createTradeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +83,39 @@ public class TradeFragment extends Fragment {
                 NewTradeCreationFragment fragment = new NewTradeCreationFragment();
                 transaction.replace(R.id.frame_layout, fragment, "New Trade");
                 transaction.commit();
+            }
+        });
+
+        // Move fo "Filter Trade" screen:
+        filterBtn = v.findViewById(R.id.trade_action_filter);
+        filterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                TradeFilterFragment fragment = new TradeFilterFragment();
+                transaction.replace(R.id.frame_layout, fragment, "Filter Trade");
+                transaction.commit();
+            }
+        });
+
+        // Refresh "Trade" screen:
+        refreshBtn = v.findViewById(R.id.trade_action_refresh);
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                TradeFragment fragment = new TradeFragment();
+                transaction.replace(R.id.frame_layout, fragment, "Trade");
+                transaction.commit();
+            }
+        });
+
+        // Upload "Trade" screen:
+        uploadBtn = v.findViewById(R.id.trade_action_upload);
+        uploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: add upload process
             }
         });
         return v;

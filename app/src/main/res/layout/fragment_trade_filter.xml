@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -12,8 +13,8 @@
         android:orientation="vertical"
         android:paddingLeft="30dp"
         android:paddingTop="10sp"
-        android:paddingRight="30dp">
-
+        android:paddingRight="30dp"
+        tools:context=".TradeFilterFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,22 +31,34 @@
                 android:textColor="@color/textColor"
                 android:textSize="25sp" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
+
+            <!--            <ImageView-->
+            <!--                android:layout_width="30dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="0.1"-->
+            <!--                android:contentDescription="@string/close"-->
+            <!--                android:src="@drawable/ic_action_close"-->
+            <!--                app:tint="@color/textColor" />-->
+            <!--            -->
+
+            <Button
+                android:id="@+id/filter_trade_close_btn"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="0.1"
-                android:contentDescription="@string/close"
-                android:src="@drawable/ic_action_close"
-                app:tint="@color/textColor" />
+                android:background="@drawable/ic_action_close"
+                android:textColor="@color/textColor" />
 
         </LinearLayout>
 
+
         <EditText
-            android:id="@+id/editTextDate3"
+            android:id="@+id/filter_trade_date_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/edit_text_border"
+            android:drawableEnd="@drawable/ic_date_picker"
             android:drawableRight="@drawable/ic_date_picker"
             android:drawableTint="@color/textColor"
             android:ems="10"
@@ -55,12 +68,10 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:drawableEnd="@drawable/ic_date_picker" />
-
+            android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/editTextDate12"
+            android:id="@+id/filter_trade_trade_id_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -72,37 +83,36 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/editTextDate5"
+            android:id="@+id/filter_trade_product_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_border"
+            android:drawableEnd="@drawable/ic_arrow_drop_down"
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/product"
-            android:paddingRight="10dp"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:drawableEnd="@drawable/ic_arrow_drop_down" />
+            android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/editTextDate4"
+            android:id="@+id/filter_trade_execution_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_border"
+            android:drawableEnd="@drawable/ic_arrow_drop_down"
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/execution_type"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:drawableEnd="@drawable/ic_arrow_drop_down" />
+            android:textSize="16sp" />
 
         <include
             layout="@layout/filter_trade_limited_dropdown"
@@ -111,11 +121,12 @@
             android:layout_marginTop="10dp" />
 
         <EditText
-            android:id="@+id/editTextDate6"
+            android:id="@+id/filter_trade_batched_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_border"
+            android:drawableEnd="@drawable/ic_arrow_drop_down"
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
@@ -123,8 +134,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:drawableEnd="@drawable/ic_arrow_drop_down" />
+            android:textSize="16sp" />
 
         <include
             layout="@layout/section_status_select"
@@ -137,7 +147,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/news_fragment_chip_group"
+                android:id="@+id/trade_filter_chip_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -151,12 +161,12 @@
                     android:background="@drawable/edit_text_border"
                     android:text="OTC"
                     android:textColor="@color/textColor"
-                    app:chipCornerRadius="3dp"
-                    app:closeIcon="@drawable/ic_action_close"
-                    app:chipIconTint="@color/textColor"
                     app:chipBackgroundColor="@color/colorPrimaryDark"
+                    app:chipCornerRadius="3dp"
+                    app:chipIconTint="@color/textColor"
                     app:chipStrokeColor="@color/navy"
-                    app:chipStrokeWidth="0.5dp"/>
+                    app:chipStrokeWidth="0.5dp"
+                    app:closeIcon="@drawable/ic_action_close" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip7"
@@ -164,13 +174,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TradeBlock"
-                    app:closeIcon="@drawable/ic_action_close"
-                    app:chipIconTint="@color/textColor"
-                    app:chipCornerRadius="3dp"
                     android:textColor="@color/textColor"
                     app:chipBackgroundColor="@color/colorPrimaryDark"
+                    app:chipCornerRadius="3dp"
+                    app:chipIconTint="@color/textColor"
                     app:chipStrokeColor="@color/navy"
-                    app:chipStrokeWidth="0.5dp" />
+                    app:chipStrokeWidth="0.5dp"
+                    app:closeIcon="@drawable/ic_action_close" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip8"
@@ -179,33 +189,33 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_border"
                     android:text="Rest API"
-                    app:closeIcon="@drawable/ic_action_close"
-                    app:chipIconTint="@color/textColor"
-                    app:chipCornerRadius="3dp"
                     android:textColor="@color/textColor"
                     app:chipBackgroundColor="@color/colorPrimaryDark"
+                    app:chipCornerRadius="3dp"
+                    app:chipIconTint="@color/textColor"
                     app:chipStrokeColor="@color/navy"
-                    app:chipStrokeWidth="0.5dp" />
+                    app:chipStrokeWidth="0.5dp"
+                    app:closeIcon="@drawable/ic_action_close" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip9"
-                    android:padding="0dp"
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="0dp"
                     android:text="TradeBlock"
-                    app:closeIcon="@drawable/ic_action_close"
-                    app:chipIconTint="@color/textColor"
-                    app:chipCornerRadius="3dp"
                     android:textColor="@color/textColor"
                     app:chipBackgroundColor="@color/colorPrimaryDark"
+                    app:chipCornerRadius="3dp"
+                    app:chipIconTint="@color/textColor"
                     app:chipStrokeColor="@color/navy"
-                    app:chipStrokeWidth="0.5dp" />
-
+                    app:chipStrokeWidth="0.5dp"
+                    app:closeIcon="@drawable/ic_action_close" />
 
 
             </com.google.android.material.chip.ChipGroup>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -214,9 +224,11 @@
             android:weightSum="1">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/filter_trade_reset_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_weight="0.5"
                 android:text="@string/reset"
@@ -226,22 +238,19 @@
                 app:cornerRadius="6dp"
                 app:rippleColor="#33AAAAAA"
                 app:strokeColor="@color/textColor"
-                app:strokeWidth="1dp"
-                android:layout_marginEnd="4dp" />
+                app:strokeWidth="1dp" />
 
             <Button
+                android:id="@+id/filter_trade_submit_btn"
                 android:layout_width="0dp"
                 android:layout_height="37sp"
                 android:layout_margin="0.5dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="0.5"
-
                 android:background="@drawable/back_btn_border"
-                android:text="@string/filter"
-                android:layout_marginStart="4dp" />
-
+                android:text="@string/filter" />
         </LinearLayout>
-
 
     </LinearLayout>
 
