@@ -21,4 +21,7 @@
     <color name="tradeCardBorder">#B3DEDFE3</color>
     <color name="cardBorderNoDarkTheme">@color/colorPrimaryDark</color>
 
+    <!--    Menu: -->
+    <color name="avatarBgc">#E9EAEB</color>
+
 </resources>

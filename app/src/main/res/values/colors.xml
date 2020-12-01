@@ -21,18 +21,18 @@
     <color name="textColorDark">#0D0D0D</color>
     <color name="textHintColor">#800D2757</color>
 
-<!--    Trade & Settlement : -->
+    <!--    Trade & Settlement : -->
     <color name="textSecondaryColor">#800D2757</color>
 
-<!--    Settings : -->
+    <!--    Settings : -->
     <color name="requestIncreaseBGC">#1A0D2757</color>
 
-<!--    Statistics : -->
+    <!--    Statistics : -->
     <color name="statisticsToggleBGC">#1A0D2757</color>
     <color name="statisticsNominalBar">#32ABD1</color>
     <color name="statisticsUnitBar">#AF59D4</color>
 
-<!--    Borders: -->
+    <!--    Borders: -->
     <color name="tradeCardBorder">#CECECE</color>
     <color name="cardBorderNoDarkTheme">#CECECE</color>
 
@@ -44,7 +44,7 @@
     <color name="statusInSet">#7B71E6</color>
     <color name="statusOpen">#3C91D9</color>
 
-<!-- Favorite colours: -->
+    <!-- Favorite colours: -->
     <color name="starFavoriteMarked">#FBA746</color>
     <color name="starFavoriteFade">#80FBA746</color>
     <color name="starFavoriteUnmarked">#818181</color>
@@ -54,5 +54,9 @@
     <color name="green">#28A745</color>
     <color name="navy">#0D2757</color>
     <color name="navyDark">#061839</color>
+
+    <!--    Menu: -->
+    <color name="avatarBgc">#F5F5F5</color>
+
 
 </resources>

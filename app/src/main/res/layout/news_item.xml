@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     app:strokeColor="@color/cardBorderNoDarkTheme"
-    app:strokeWidth="1dp">
+    app:strokeWidth="1dp"
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,14 +22,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Now"
-            android:textSize="13dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="15sp"
             android:textColor="@color/red" />
 
         <TextView
             android:id="@+id/news_fragment_card_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
+            android:layout_marginBottom="10dp"
             android:text="In this week's issue, we look at volume and open interest trends on retail spot and futures market, examine the recent regulatory actions against derivatives venues, and assess the implications for BTC in the medium-term."
             android:textColor="@color/textColor" />
 
@@ -51,7 +55,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="BTC"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textColor="@color/textColor" />
             <TextView
                 android:id="@+id/news_category2_text"
@@ -62,7 +66,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="TradeBlock"
-                android:textSize="12sp"
+                android:textSize="13sp"
                 android:textColor="@color/textColor" />
 
         </LinearLayout>

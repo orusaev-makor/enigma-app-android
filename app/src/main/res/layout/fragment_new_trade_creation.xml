@@ -12,7 +12,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="30dp"
-        android:paddingTop="10sp"
+        android:paddingTop="50sp"
         android:paddingRight="30dp"
         tools:context=".NewTradeCreationFragment">
 
@@ -58,46 +58,35 @@
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
-        <RadioGroup
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:weightSum="1">
 
-            <RadioButton
-                android:id="@+id/radioButtonClient"
+            <CheckBox
+                android:id="@+id/checkBoxClient"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.28"
+                android:layout_weight="0.30"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="16sp"
+                android:textColor="@color/textColor"
                 android:buttonTint="@color/textColor"
                 android:checked="true"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/client"
-                android:textColor="@color/textColor"
-                android:textSize="16sp" />
+                android:text="@string/client" />
 
-            <RadioButton
-                android:id="@+id/radioButtonHedge"
+
+            <CheckBox
+                android:id="@+id/checkBoxHedge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.28"
-                android:buttonTint="@color/textSecondaryColor"
+                android:layout_weight="0.3"
                 android:fontFamily="@font/poppins_regular"
-                android:text="@string/hedge"
                 android:textColor="@color/textSecondaryColor"
-                android:textSize="16sp" />
-
-            <RadioButton
-                android:id="@+id/radioButtonBothLegs"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.31"
                 android:buttonTint="@color/textSecondaryColor"
-                android:fontFamily="@font/poppins_regular"
-                android:text="@string/both_legs"
-                android:textColor="@color/textSecondaryColor"
-                android:textSize="16sp" />
-        </RadioGroup>
+                android:textSize="16sp"
+                android:text="@string/hedge" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

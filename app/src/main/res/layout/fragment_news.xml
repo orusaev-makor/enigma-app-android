@@ -15,7 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/news"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="75dp"
+            android:fontFamily="@font/poppins_regular"
             android:textColor="@color/textColor"
             android:textSize="30sp" />
 
@@ -41,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_border"
                 android:text="BTC"
-
                 app:closeIcon="@drawable/ic_action_close"
                 app:chipIconTint="@color/textColor"
                 app:chipCornerRadius="3dp"

@@ -127,6 +127,10 @@ public class SettlementFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: add upload process
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                SettUnitaryFilterFragment fragment = new SettUnitaryFilterFragment();
+                transaction.replace(R.id.frame_layout, fragment, "Filter Settlement");
+                transaction.commit();
             }
         });
 

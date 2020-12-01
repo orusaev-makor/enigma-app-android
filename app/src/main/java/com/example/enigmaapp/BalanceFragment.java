@@ -8,16 +8,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -29,7 +37,7 @@ import java.util.ArrayList;
  */
 public class BalanceFragment extends Fragment {
 
-    PieChart pieChart;
+    PieChart balanceChart;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,16 +89,20 @@ public class BalanceFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_balance, container, false);
         final Typeface tfRegular = ResourcesCompat.getFont(getContext(), R.font.poppins_regular);
 
-        pieChart = (PieChart) v.findViewById(R.id.balancePieChart);
-        pieChart.setUsePercentValues(true);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setExtraOffsets(5, 10, 5, 5);
+        // TODO: add percent values inside the PieChart
+        // TODO: add the current coins image under the chart
+        balanceChart = (PieChart) v.findViewById(R.id.balancePieChart);
+        balanceChart.setUsePercentValues(true);
+        balanceChart.getDescription().setEnabled(false);
+        balanceChart.setExtraOffsets(5, 10, 5, 5);
+        balanceChart.setDragDecelerationFrictionCoef(0.15f);
 
-        pieChart.setDragDecelerationFrictionCoef(0.15f);
-
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleColor(R.color.colorPrimary);
+//        pieChart.setDrawHoleEnabled(true);
+        balanceChart.setHoleColor(getResources().getColor(R.color.colorPrimary));
 //        pieChart.setTransparentCircleRadius(61f);
+        balanceChart.setCenterTextTypeface(tfRegular);
+        balanceChart.setCenterText(generateCenterSpannableText());
+        balanceChart.setDrawCenterText(true);
 
         ArrayList<PieEntry> yValues = new ArrayList<>();
 
@@ -105,18 +117,30 @@ public class BalanceFragment extends Fragment {
         PieDataSet dataSet = new PieDataSet(yValues, "");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
-        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
 
         PieData data = new PieData(dataSet);
         data.setValueTextSize(10f);
-        data.setValueTextColor(R.color.textColor);
+        data.setValueTextColor(Color.WHITE);
+        data.setValueFormatter(new PercentFormatter());
 
-        Legend l = pieChart.getLegend();
-        l.setTextColor(R.color.textColor);
-        l.setTextSize(12f);
-        l.setTypeface(tfRegular);
+        Legend l = balanceChart.getLegend();
+        l.setEnabled(false);
+//        l.setTextColor(R.color.textColor);
+//        l.setTextSize(12f);
+//        l.setTypeface(tfRegular);
 
-        pieChart.setData(data);
+        balanceChart.setData(data);
         return v;
     }
+
+    private SpannableString generateCenterSpannableText() {
+        SpannableString s = new SpannableString("MPAndroidChart\ndeveloped by Philipp Jahoda");
+        s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
+        s.setSpan(new ForegroundColorSpan(Color.GRAY), 14, s.length() - 15, 0);
+        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 14, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 14, s.length(), 0);
+        return s;
+    }
+
 }
