@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,6 +20,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  */
 public class SettlementFragment extends Fragment {
     private FloatingActionButton createUnitaryBtn;
+    private ImageView filterBtn;
+    private ImageView uploadBtn;
+    private ImageView refreshBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -90,6 +94,39 @@ public class SettlementFragment extends Fragment {
                 NewBatchSettFragment fragment = new NewBatchSettFragment();
                 transaction.replace(R.id.frame_layout, fragment, "New Batch Settlement");
                 transaction.commit();
+            }
+        });
+
+        // Move fo "Filter Settlement" screen:
+        filterBtn = v.findViewById(R.id.ic_action_filter);
+        filterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                SettBatchFilterFragment fragment = new SettBatchFilterFragment();
+                transaction.replace(R.id.frame_layout, fragment, "Filter Settlement");
+                transaction.commit();
+            }
+        });
+
+        // Refresh "Settlement" screen:
+        refreshBtn = v.findViewById(R.id.ic_action_refresh);
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                SettlementFragment fragment = new SettlementFragment();
+                transaction.replace(R.id.frame_layout, fragment, "Settlement");
+                transaction.commit();
+            }
+        });
+
+        // Upload "Settlement" screen:
+        uploadBtn = v.findViewById(R.id.ic_action_upload);
+        uploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: add upload process
             }
         });
 

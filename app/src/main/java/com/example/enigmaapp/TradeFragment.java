@@ -87,7 +87,7 @@ public class TradeFragment extends Fragment {
         });
 
         // Move fo "Filter Trade" screen:
-        filterBtn = v.findViewById(R.id.trade_action_filter);
+        filterBtn = v.findViewById(R.id.ic_action_filter);
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +99,7 @@ public class TradeFragment extends Fragment {
         });
 
         // Refresh "Trade" screen:
-        refreshBtn = v.findViewById(R.id.trade_action_refresh);
+        refreshBtn = v.findViewById(R.id.ic_action_refresh);
         refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +111,7 @@ public class TradeFragment extends Fragment {
         });
 
         // Upload "Trade" screen:
-        uploadBtn = v.findViewById(R.id.trade_action_upload);
+        uploadBtn = v.findViewById(R.id.ic_action_upload);
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -95,7 +95,7 @@ public class MarketFragment extends Fragment {
 
         LineData data = new LineData(dataSets);
 
-        mChart.setData(data);
+//        mChart.setData(data);
         return v;
     }
 }
