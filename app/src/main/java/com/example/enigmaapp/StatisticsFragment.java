@@ -117,8 +117,7 @@ public class StatisticsFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
         xAxis.setCenterAxisLabels(true);
-//        xAxis.setAxisMaximum(1);
-//        xAxis.setGranularityEnabled(true);
+
         YAxis leftAxis = statisticsChart.getAxisLeft();
         leftAxis.setTypeface(tfRegular);
         leftAxis.setValueFormatter(new LargeValueFormatter());
@@ -131,16 +130,15 @@ public class StatisticsFragment extends Fragment {
         statisticsChart.setDrawBarShadow(false);
         statisticsChart.setDrawValueAboveBar(false);
 
-//        mpBarChart.setDescription("");
         statisticsChart.getDescription().setEnabled(false);
         statisticsChart.setMaxVisibleValueCount(50);
         statisticsChart.setPinchZoom(false);
         statisticsChart.setDrawGridBackground(false);
         statisticsChart.setVisibleXRangeMaximum(10);
 
-        float groupSpace = 0.38f;
-        float barSpace = 0.02f;
-        float barWidth = 0.24f;
+        float groupSpace = 0.53f;
+        float barSpace = 0.06f;
+        float barWidth = 0.14f;
         data.setBarWidth(barWidth);
 
 
@@ -148,7 +146,7 @@ public class StatisticsFragment extends Fragment {
         statisticsChart.getXAxis().setAxisMaximum(0);
         statisticsChart.getXAxis().setAxisMaximum(0 + statisticsChart.getBarData().getGroupWidth(groupSpace, barSpace) * 4); // 4 is the number of bars
         statisticsChart.getAxisLeft().setAxisMinimum(0);
-        statisticsChart.groupBars(0.15f, groupSpace, barSpace);  // perform the "explicit" grouping
+        statisticsChart.groupBars(0.16f, groupSpace, barSpace);  // perform the "explicit" grouping
         //***** IMPORTANT
 
         statisticsChart.invalidate();

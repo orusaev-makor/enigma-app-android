@@ -103,7 +103,7 @@ public class BalanceFragment extends Fragment {
         balanceChart.setExtraOffsets(5, 10, 5, 5);
         balanceChart.setDragDecelerationFrictionCoef(0.15f);
 
-        balanceChart.setHoleColor(getResources().getColor(R.color.colorPrimary));
+        balanceChart.setHoleColor(getResources().getColor(R.color.colorPrimaryDark));
         balanceChart.setCenterTextTypeface(tfRegular);
         balanceChart.setDrawCenterText(true);
         balanceChart.setDrawEntryLabels(false);
@@ -167,7 +167,7 @@ public class BalanceFragment extends Fragment {
             public void onNothingSelected() {
                 balanceChart.setCenterText("");
                 coinNameText.setText("");
-                coinIcon.setBackgroundResource(0);
+                coinIcon.setImageResource(0);
             }
         });
 

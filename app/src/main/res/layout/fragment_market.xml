@@ -42,19 +42,25 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/market_fragment_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                tools:listitem="@layout/market_item" />
+<!--        <com.github.mikephil.charting.charts.LineChart-->
+<!--            android:id="@+id/marketItemLineChart"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="65dp" />-->
 
-<!--        <include-->
-<!--            layout="@layout/market_item"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:paddingLeft="-10dp"-->
-<!--            android:paddingRight="-10dp" />-->
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/market_fragment_recycler_view"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                tools:listitem="@layout/market_item" />-->
+
+        <include
+            android:layout_marginTop="30dp"
+            layout="@layout/market_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="-10dp"
+            android:paddingRight="-10dp" />
 
     </LinearLayout>
 </ScrollView>
