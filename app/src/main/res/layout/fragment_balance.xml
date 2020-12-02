@@ -245,9 +245,27 @@
                 android:layout_marginTop="40dp"
                 android:id="@+id/balancePieChart"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="250dp"
                 android:layout_marginBottom="20dp"/>
 
+            <ImageView
+                android:id="@+id/clicked_coin_icon"
+                android:layout_width="22sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="55dp"
+                android:layout_gravity="center|bottom"
+                app:tint="@color/textColor" />
+            <TextView
+                android:id="@+id/clicked_coin_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="320dp"
+                android:layout_marginBottom="35dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/textColor"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:layout_gravity="bottom" />
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>

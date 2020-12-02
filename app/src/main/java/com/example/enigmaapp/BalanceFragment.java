@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -26,6 +28,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -37,7 +40,8 @@ import java.util.ArrayList;
  */
 public class BalanceFragment extends Fragment {
 
-    PieChart balanceChart;
+    private PieChart balanceChart;
+    private String clickedCoin;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,6 +92,8 @@ public class BalanceFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_balance, container, false);
         final Typeface tfRegular = ResourcesCompat.getFont(getContext(), R.font.poppins_regular);
+        TextView coinNameText = v.findViewById(R.id.clicked_coin_name);
+        ImageView coinIcon = v.findViewById(R.id.clicked_coin_icon);
 
         // TODO: add percent values inside the PieChart
         // TODO: add the current coins image under the chart
@@ -97,19 +103,17 @@ public class BalanceFragment extends Fragment {
         balanceChart.setExtraOffsets(5, 10, 5, 5);
         balanceChart.setDragDecelerationFrictionCoef(0.15f);
 
-//        pieChart.setDrawHoleEnabled(true);
         balanceChart.setHoleColor(getResources().getColor(R.color.colorPrimary));
-//        pieChart.setTransparentCircleRadius(61f);
         balanceChart.setCenterTextTypeface(tfRegular);
-        balanceChart.setCenterText(generateCenterSpannableText());
         balanceChart.setDrawCenterText(true);
+        balanceChart.setDrawEntryLabels(false);
 
         ArrayList<PieEntry> yValues = new ArrayList<>();
 
-        yValues.add(new PieEntry(50f, "LTC"));
-        yValues.add(new PieEntry(25f, "ETH"));
-        yValues.add(new PieEntry(125f, "BTC"));
-        yValues.add(new PieEntry(25f, "ZD token"));
+        yValues.add(new PieEntry(22f, "LTC", 0));
+        yValues.add(new PieEntry(11f, "ETH", 1));
+        yValues.add(new PieEntry(56f, "BTC", 2));
+        yValues.add(new PieEntry(11f, "ZD token", 3));
 
         // animate pie on creation:
 //        pieChart.animateY(1000);
@@ -117,30 +121,57 @@ public class BalanceFragment extends Fragment {
         PieDataSet dataSet = new PieDataSet(yValues, "");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
-        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        dataSet.setColors(new int[]{
+                Color.rgb(230, 32, 26),
+                Color.rgb(49, 93, 158),
+                Color.rgb(251, 167, 70),
+                Color.rgb(139, 147, 180),
+                Color.rgb(70, 117, 69),
+                Color.rgb(187, 160, 37)
+        });
 
         PieData data = new PieData(dataSet);
-        data.setValueTextSize(10f);
-        data.setValueTextColor(Color.WHITE);
-        data.setValueFormatter(new PercentFormatter());
+        data.setDrawValues(false); // disable values in pie pieces
+//        data.setValueTextSize(10f);
+//        data.setValueTextColor(Color.WHITE);
+//        data.setValueFormatter(new PercentFormatter(balanceChart));
 
         Legend l = balanceChart.getLegend();
-        l.setEnabled(false);
-//        l.setTextColor(R.color.textColor);
-//        l.setTextSize(12f);
-//        l.setTypeface(tfRegular);
+        l.setEnabled(false); // disable legends
+
+
+        balanceChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                PieEntry pe = (PieEntry) e;
+                int index = (Integer) e.getData();
+                int currentColor = dataSet.getColor(index);
+//                System.out.println("GET DATA:  " + e.getData());
+//                System.out.println("h: " + h);
+//                System.out.println("e: " + e);
+
+                coinNameText.setText(pe.getLabel());
+                coinNameText.setTextColor(currentColor);
+                coinIcon.setImageResource(R.drawable.ic_btc);
+                coinIcon.setColorFilter(currentColor);
+
+                // set percentage in center of the chart pie
+                String value = String.valueOf(e.getY()) + "%";
+                balanceChart.setCenterText(value);
+                balanceChart.setCenterTextColor(currentColor);
+                balanceChart.setCenterTextSize(20f);
+            }
+
+            @Override
+            public void onNothingSelected() {
+                balanceChart.setCenterText("");
+                coinNameText.setText("");
+                coinIcon.setBackgroundResource(0);
+            }
+        });
 
         balanceChart.setData(data);
         return v;
     }
-
-    private SpannableString generateCenterSpannableText() {
-        SpannableString s = new SpannableString("MPAndroidChart\ndeveloped by Philipp Jahoda");
-        s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
-        s.setSpan(new ForegroundColorSpan(Color.GRAY), 14, s.length() - 15, 0);
-        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 14, s.length(), 0);
-        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 14, s.length(), 0);
-        return s;
-    }
-
 }

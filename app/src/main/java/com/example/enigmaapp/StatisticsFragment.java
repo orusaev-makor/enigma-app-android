@@ -103,11 +103,11 @@ public class StatisticsFragment extends Fragment {
         l.setTextSize(12f);
 
         BarData data = new BarData(barDataSet1, barDataSet2);
-        statisticsChart.setFitBars(true);
         statisticsChart.setData(data);
         statisticsChart.animateY(2000);
         statisticsChart.setHighlightPerTapEnabled(false);
         statisticsChart.setDragEnabled(true);
+        statisticsChart.setFitBars(true);
 
         String[] years = new String[]{"2017", "2018", "2019", "2020"};
         XAxis xAxis = statisticsChart.getXAxis();
@@ -136,11 +136,11 @@ public class StatisticsFragment extends Fragment {
         statisticsChart.setMaxVisibleValueCount(50);
         statisticsChart.setPinchZoom(false);
         statisticsChart.setDrawGridBackground(false);
-        statisticsChart.setVisibleXRangeMaximum(4);
+        statisticsChart.setVisibleXRangeMaximum(10);
 
-        float groupSpace = 0.06f;
+        float groupSpace = 0.38f;
         float barSpace = 0.02f;
-        float barWidth = 0.4f;
+        float barWidth = 0.24f;
         data.setBarWidth(barWidth);
 
 
