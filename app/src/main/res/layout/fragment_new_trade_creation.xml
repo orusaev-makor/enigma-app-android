@@ -31,21 +31,21 @@
                 android:textColor="@color/textColor"
                 android:textSize="25sp" />
 
-<!--            <ImageView-->
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="0.1"-->
-<!--                android:contentDescription="@string/close"-->
-<!--                android:src="@drawable/ic_action_close"-->
-<!--                app:tint="@color/textColor" />-->
-<!--            -->
+            <!--            <ImageView-->
+            <!--                android:layout_width="30dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="0.1"-->
+            <!--                android:contentDescription="@string/close"-->
+            <!--                android:src="@drawable/ic_action_close"-->
+            <!--                app:tint="@color/textColor" />-->
+            <!--            -->
             <Button
                 android:id="@+id/new_trade_close_btn"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="0.1"
-                android:textColor="@color/textColor"
-                android:background="@drawable/ic_action_close"/>
+                android:background="@drawable/ic_action_close"
+                android:textColor="@color/textColor" />
 
         </LinearLayout>
 
@@ -68,12 +68,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.30"
-                android:fontFamily="@font/poppins_regular"
-                android:textSize="16sp"
-                android:textColor="@color/textColor"
                 android:buttonTint="@color/textColor"
                 android:checked="true"
-                android:text="@string/client" />
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/client"
+                android:textColor="@color/textColor"
+                android:textSize="16sp" />
 
 
             <CheckBox
@@ -81,11 +81,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
-                android:fontFamily="@font/poppins_regular"
-                android:textColor="@color/textSecondaryColor"
                 android:buttonTint="@color/textSecondaryColor"
-                android:textSize="16sp"
-                android:text="@string/hedge" />
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/hedge"
+                android:textColor="@color/textSecondaryColor"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <TextView
@@ -134,6 +134,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/edit_text_border"
+            android:drawableEnd="@drawable/ic_date_picker"
             android:drawableRight="@drawable/ic_date_picker"
             android:drawableTint="@color/textColor"
             android:ems="10"
@@ -143,88 +144,129 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:drawableEnd="@drawable/ic_date_picker" />
+            android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/new_trade_execution_type_edit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/edit_text_border"
-            android:drawableRight="@drawable/ic_arrow_drop_down"
-            android:drawableTint="@color/textColor"
-            android:fontFamily="@font/poppins_regular"
-            android:hint="@string/execution_type"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:drawableEnd="@drawable/ic_arrow_drop_down" />
+            android:background="@color/colorPrimaryDark"
+            android:bottomLeftRadius="3dp"
+            android:bottomRightRadius="3dp"
+            android:topLeftRadius="3dp"
+            android:topRightRadius="3dp">
+            <Spinner
+                android:id="@+id/new_trade_spinner_execution"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:drawSelectorOnTop="true"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginRight="-10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:spinnerMode="dropdown"
+                android:textColor="@color/textSecondaryColor"
+                android:textSize="16sp" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/new_trade_product_edit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/edit_text_border"
-            android:drawableRight="@drawable/ic_arrow_drop_down"
-            android:drawableTint="@color/textColor"
-            android:fontFamily="@font/poppins_regular"
-            android:hint="@string/product"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:drawableEnd="@drawable/ic_arrow_drop_down" />
+            android:background="@color/colorPrimaryDark"
+            android:bottomLeftRadius="3dp"
+            android:bottomRightRadius="3dp"
+            android:topLeftRadius="3dp"
+            android:topRightRadius="3dp">
+            <Spinner
+                android:id="@+id/new_trade_spinner_product"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:drawSelectorOnTop="true"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginRight="-10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:spinnerMode="dropdown"
+                android:textColor="@color/textSecondaryColor"
+                android:textSize="16sp" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/new_trade_company_edit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/edit_text_border"
-            android:drawableRight="@drawable/ic_arrow_drop_down"
-            android:drawableTint="@color/textColor"
-            android:fontFamily="@font/poppins_regular"
-            android:hint="@string/company"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:drawableEnd="@drawable/ic_arrow_drop_down" />
+            android:background="@color/colorPrimaryDark"
+            android:bottomLeftRadius="3dp"
+            android:bottomRightRadius="3dp"
+            android:topLeftRadius="3dp"
+            android:topRightRadius="3dp">
+            <Spinner
+                android:id="@+id/new_trade_spinner_company"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:drawSelectorOnTop="true"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginRight="-10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:spinnerMode="dropdown"
+                android:textSize="16sp" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/new_trade_client_edit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/edit_text_border"
-            android:drawableRight="@drawable/ic_arrow_drop_down"
-            android:drawableTint="@color/textColor"
-            android:fontFamily="@font/poppins_regular"
-            android:hint="@string/client"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:drawableEnd="@drawable/ic_arrow_drop_down" />
+            android:background="@color/colorPrimaryDark"
+            android:bottomLeftRadius="3dp"
+            android:bottomRightRadius="3dp"
+            android:topLeftRadius="3dp"
+            android:topRightRadius="3dp">
+            <Spinner
+                android:id="@+id/new_trade_spinner_client"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:drawSelectorOnTop="true"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginRight="-10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:spinnerMode="dropdown"
+                android:textSize="16sp" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/new_trade_broker_edit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/edit_text_border"
-            android:drawableRight="@drawable/ic_arrow_drop_down"
-            android:drawableTint="@color/textColor"
-            android:fontFamily="@font/poppins_regular"
-            android:hint="@string/broker"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:drawableEnd="@drawable/ic_arrow_drop_down" />
+            android:background="@color/colorPrimaryDark"
+            android:bottomLeftRadius="3dp"
+            android:bottomRightRadius="3dp"
+            android:topLeftRadius="3dp"
+            android:topRightRadius="3dp">
+            <Spinner
+                android:id="@+id/new_trade_spinner_broker"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:drawSelectorOnTop="true"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginRight="-10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:spinnerMode="dropdown"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/new_trade_quantity_edit"
@@ -234,10 +276,10 @@
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/quantity"
+            android:paddingStart="10dp"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:paddingStart="10dp" />
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/new_trade_client1_edit"
@@ -247,10 +289,10 @@
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/client"
+            android:paddingStart="10dp"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:paddingStart="10dp" />
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/new_trade_price_edit"
@@ -260,10 +302,10 @@
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/provider_price"
+            android:paddingStart="10dp"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:paddingStart="10dp" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -301,10 +343,10 @@
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/comment"
+            android:paddingStart="10dp"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:paddingStart="10dp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/new_trade_submit_btn"

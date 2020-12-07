@@ -2,26 +2,24 @@ package com.example.enigmaapp;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.button.MaterialButton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AccountsFragment#newInstance} factory method to
+ * Use the {@link FilterListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccountsFragment extends Fragment {
-
-    private FloatingActionButton createAccountBtn;
-    private View accountLayout;
+public class FilterListFragment extends Fragment {
+    private MaterialButton resetBtn;
+    private Button submitBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,7 +30,7 @@ public class AccountsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AccountsFragment() {
+    public FilterListFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +40,11 @@ public class AccountsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AccountsFragment.
+     * @return A new instance of fragment FilterListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AccountsFragment newInstance(String param1, String param2) {
-        AccountsFragment fragment = new AccountsFragment();
+    public static FilterListFragment newInstance(String param1, String param2) {
+        FilterListFragment fragment = new FilterListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -56,9 +54,6 @@ public class AccountsFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        //        Show navbar on "Accounts" view:
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -70,31 +65,37 @@ public class AccountsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v=  inflater.inflate(R.layout.fragment_accounts, container, false);
+        View v = inflater.inflate(R.layout.fragment_filter_list, container, false);
 
-        accountLayout = v.findViewById(R.id.account_details_layout);
-        accountLayout.setOnClickListener(new View.OnClickListener() {
+        // Submit chosen filters and go back to "Filter Trade" screen
+        submitBtn = v.findViewById(R.id.filter_trade_submit_btn);
+        submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                AccountDetailsFragment fragment = new AccountDetailsFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Account Details");
-                transaction.commit();
+                // TODO: add filter process
+                openTradeFilterScreen();
             }
         });
 
-        // Move fo "New Trade" screen:
-        createAccountBtn = v.findViewById(R.id.account_create_btn);
-        createAccountBtn.setOnClickListener(new View.OnClickListener() {
+        // Reset "Filter List" screen
+        resetBtn = v.findViewById(R.id.filter_trade_reset_btn);
+        resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                NewAccountFragment fragment = new NewAccountFragment();
-                transaction.replace(R.id.frame_layout, fragment, "New Account");
+                FilterListFragment fragment = new FilterListFragment();
+                transaction.replace(R.id.frame_layout, fragment, "Trade Filter");
                 transaction.commit();
             }
         });
 
         return v;
+    }
+
+    private void openTradeFilterScreen() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        TradeFilterFragment fragment = new TradeFilterFragment();
+        transaction.replace(R.id.frame_layout, fragment, "Trade Filter");
+        transaction.commit();
     }
 }

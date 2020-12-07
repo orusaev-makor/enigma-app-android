@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:top="-50dp"
+
+        android:left="-5dp"
+        android:right="-5dp">
+<!--        <shape-->
+<!--            android:shape="line">-->
+<!--            <stroke android:width="1dp" android:color="#CECECE" />-->
+<!--        </shape>-->
+
+        <shape
+            android:shape="rectangle">
+            <stroke android:width="1dp" android:color="@color/dropDownItemBorder"/>
+            <solid android:color="@color/colorPrimaryDark" />
+        </shape>
+    </item>
+
+
+</layer-list>

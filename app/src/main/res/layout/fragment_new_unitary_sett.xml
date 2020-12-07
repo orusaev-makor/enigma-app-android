@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,87 +26,119 @@
             android:textColor="@color/textColor"
             android:textSize="25sp" />
 
-        <!--            <ImageView-->
-        <!--                android:layout_width="30dp"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_weight="0.1"-->
-        <!--                android:contentDescription="@string/close"-->
-        <!--                android:src="@drawable/ic_action_close"-->
-        <!--                app:tint="@color/textColor" />-->
-        <!--            -->
         <Button
             android:id="@+id/new_settlement_close_btn"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="0.1"
-            android:textColor="@color/textColor"
-            android:background="@drawable/ic_action_close"/>
+            android:background="@drawable/ic_action_close"
+            android:textColor="@color/textColor" />
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/new_unitary_on_behalf_edit"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_border"
-        android:drawableEnd="@drawable/ic_arrow_drop_down"
-        android:drawableRight="@drawable/ic_arrow_drop_down"
-        android:drawableTint="@color/textColor"
-        android:fontFamily="@font/poppins_regular"
-        android:hint="@string/on_behalf"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textColorHint="@color/textSecondaryColor"
-        android:textSize="16sp" />
+        android:background="@color/colorPrimaryDark"
+        android:bottomLeftRadius="3dp"
+        android:bottomRightRadius="3dp"
+        android:topLeftRadius="3dp"
+        android:topRightRadius="3dp">
 
-    <EditText
-        android:id="@+id/new_unitary_type_edit"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_border"
-        android:drawableEnd="@drawable/ic_arrow_drop_down"
-        android:drawableRight="@drawable/ic_arrow_drop_down"
-        android:drawableTint="@color/textColor"
-        android:fontFamily="@font/poppins_regular"
-        android:hint="@string/type"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textColorHint="@color/textSecondaryColor"
-        android:textSize="16sp" />
+        <Spinner
+            android:id="@+id/new_unitary_spinner_on_behalf"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginRight="-10dp"
+            android:drawSelectorOnTop="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/textSecondaryColor"
+            android:textSize="16sp" />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/new_unitary_currency_edit"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_border"
-        android:drawableEnd="@drawable/ic_arrow_drop_down"
-        android:drawableRight="@drawable/ic_arrow_drop_down"
-        android:drawableTint="@color/textColor"
-        android:fontFamily="@font/poppins_regular"
-        android:hint="@string/currency"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textColorHint="@color/textSecondaryColor"
-        android:textSize="16sp" />
+        android:background="@color/colorPrimaryDark"
+        android:bottomLeftRadius="3dp"
+        android:bottomRightRadius="3dp"
+        android:topLeftRadius="3dp"
+        android:topRightRadius="3dp">
 
-    <EditText
-        android:id="@+id/new_unitary_account_edit"
+        <Spinner
+            android:id="@+id/new_unitary_spinner_type"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginRight="-10dp"
+            android:drawSelectorOnTop="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/textSecondaryColor"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_border"
-        android:drawableEnd="@drawable/ic_arrow_drop_down"
-        android:drawableRight="@drawable/ic_arrow_drop_down"
-        android:drawableTint="@color/textColor"
-        android:fontFamily="@font/poppins_regular"
-        android:hint="@string/account"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textColorHint="@color/textSecondaryColor"
-        android:textSize="16sp" />
+        android:background="@color/colorPrimaryDark"
+        android:bottomLeftRadius="3dp"
+        android:bottomRightRadius="3dp"
+        android:topLeftRadius="3dp"
+        android:topRightRadius="3dp">
+
+        <Spinner
+            android:id="@+id/new_unitary_spinner_currency"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginRight="-10dp"
+            android:drawSelectorOnTop="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/textSecondaryColor"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorPrimaryDark"
+        android:bottomLeftRadius="3dp"
+        android:bottomRightRadius="3dp"
+        android:topLeftRadius="3dp"
+        android:topRightRadius="3dp">
+
+        <Spinner
+            android:id="@+id/new_unitary_spinner_account"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginRight="-10dp"
+            android:drawSelectorOnTop="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/textSecondaryColor"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"

@@ -74,28 +74,28 @@ public class SettlementFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_settlement, container, false);
 
         // Unitary:
-//        createUnitaryBtn = v.findViewById(R.id.settlement_create_btn);
-//        createUnitaryBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                NewUnitarySettFragment fragment = new NewUnitarySettFragment();
-//                transaction.replace(R.id.frame_layout, fragment, "New Unitary Settlement");
-//                transaction.commit();
-//            }
-//        });
-
-        // Batch:
         createUnitaryBtn = v.findViewById(R.id.settlement_create_btn);
         createUnitaryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                NewBatchSettFragment fragment = new NewBatchSettFragment();
-                transaction.replace(R.id.frame_layout, fragment, "New Batch Settlement");
+                NewUnitarySettFragment fragment = new NewUnitarySettFragment();
+                transaction.replace(R.id.frame_layout, fragment, "New Unitary Settlement");
                 transaction.commit();
             }
         });
+
+        // Batch:
+//        createUnitaryBtn = v.findViewById(R.id.settlement_create_btn);
+//        createUnitaryBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                NewBatchSettFragment fragment = new NewBatchSettFragment();
+//                transaction.replace(R.id.frame_layout, fragment, "New Batch Settlement");
+//                transaction.commit();
+//            }
+//        });
 
         // Move fo "Filter Settlement" screen:
         filterBtn = v.findViewById(R.id.ic_action_filter);

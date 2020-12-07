@@ -6,10 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AccountsFragment">
+
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:context=".AccountsFragment"
+        android:paddingBottom="80dp"
         android:orientation="vertical">
 
 
@@ -33,7 +40,7 @@
             android:textColor="@color/textColor"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:textSize="18sp" />
 <!--                <androidx.recyclerview.widget.RecyclerView-->
 <!--                            android:id="@+id/bank_accounts_recycler_view"-->
@@ -44,6 +51,7 @@
 <!--                            tools:listitem="@layout/account_item" />-->
 
         <include
+            android:id="@+id/account_details_layout"
             layout="@layout/account_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -58,7 +66,7 @@
             android:textColor="@color/textColor"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:textSize="18sp" />
 
         <!--                <androidx.recyclerview.widget.RecyclerView-->
@@ -75,5 +83,19 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/account_create_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/textColor"
+        android:src="@drawable/ic_action_add_circle"
+        app:fabSize="normal"
+        app:tint="@color/colorPrimary"
+        android:contentDescription="@string/add_account" />
+    </FrameLayout>
+
 
 </ScrollView>

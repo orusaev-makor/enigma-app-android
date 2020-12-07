@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="0dp"
+    app:strokeColor="@color/tradeCardBorder"
+    app:strokeWidth="0.5dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@drawable/trade_top_border"
+        android:scaleType="fitXY"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:drawableEnd="@drawable/ic_check"
+        android:drawableRight="@drawable/ic_check"
+        app:drawableTint="@color/check"
+        android:background="@color/colorPrimaryDark"
+        android:text="Product name"
+        android:gravity="left|center"
+        android:textColor="@color/textColor"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:textSize="16sp" />
+
+</com.google.android.material.card.MaterialCardView>

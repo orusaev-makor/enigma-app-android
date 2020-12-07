@@ -124,6 +124,8 @@
 
     <!--    Market -->
     <string name="market">Market</string>
+    <string name="add">Add</string>
+    <string name="add_account">Add Account</string>
 
 
 </resources>

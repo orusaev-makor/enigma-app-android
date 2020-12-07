@@ -10,7 +10,7 @@
     android:scrollbarStyle="insideOverlay"
     android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text_border"
@@ -56,6 +56,17 @@
             android:buttonTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
             android:text="Fix API"
+            android:textColor="@color/textColor"
+            android:textSize="16dp" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/textColor"
+            android:checked="true"
+            android:fontFamily="@font/poppins_regular"
+            android:text="OTC"
             android:textColor="@color/textColor"
             android:textSize="16dp" />
 
@@ -126,17 +137,6 @@
             android:buttonTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
             android:text="Rest API"
-            android:textColor="@color/textColor"
-            android:textSize="16dp" />
-
-        <CheckBox
-            android:id="@+id/checkBox2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/textColor"
-            android:checked="true"
-            android:fontFamily="@font/poppins_regular"
-            android:text="OTC"
             android:textColor="@color/textColor"
             android:textSize="16dp" />
 
@@ -221,6 +221,19 @@
             android:text="Electronic Platform"
             android:textColor="@color/textColor"
             android:textSize="16dp" />
+
+
+        <TextView
+            android:id="@+id/show_less_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/underline_text"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Show less -"
+            android:textSize="14sp"
+            android:textColor="@color/textColor" />
 
     </LinearLayout>
 </ScrollView>

@@ -6,22 +6,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AccountsFragment#newInstance} factory method to
+ * Use the {@link NewAccountFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccountsFragment extends Fragment {
+public class NewAccountFragment extends Fragment {
 
-    private FloatingActionButton createAccountBtn;
-    private View accountLayout;
+    Button submitBtn;
+    TextView currencyEdit;
+    TextView accountTypeEdit;
+    EditText detailsEdit;
+    EditText nameEdit;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,7 +37,7 @@ public class AccountsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AccountsFragment() {
+    public NewAccountFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +47,11 @@ public class AccountsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AccountsFragment.
+     * @return A new instance of fragment NewAccountFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AccountsFragment newInstance(String param1, String param2) {
-        AccountsFragment fragment = new AccountsFragment();
+    public static NewAccountFragment newInstance(String param1, String param2) {
+        NewAccountFragment fragment = new NewAccountFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -56,9 +61,8 @@ public class AccountsFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        //        Show navbar on "Accounts" view:
+        //        Show navbar on "create account" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -70,27 +74,17 @@ public class AccountsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v=  inflater.inflate(R.layout.fragment_accounts, container, false);
+        View v= inflater.inflate(R.layout.fragment_new_account, container, false);
 
-        accountLayout = v.findViewById(R.id.account_details_layout);
-        accountLayout.setOnClickListener(new View.OnClickListener() {
+        // Creating account and go back to "Accounts" screen
+        submitBtn = v.findViewById(R.id.new_account_submit_btn);
+        submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TODO: add the creation process
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                AccountDetailsFragment fragment = new AccountDetailsFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Account Details");
-                transaction.commit();
-            }
-        });
-
-        // Move fo "New Trade" screen:
-        createAccountBtn = v.findViewById(R.id.account_create_btn);
-        createAccountBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                NewAccountFragment fragment = new NewAccountFragment();
-                transaction.replace(R.id.frame_layout, fragment, "New Account");
+                AccountsFragment fragment = new AccountsFragment();
+                transaction.replace(R.id.frame_layout, fragment, "Accounts");
                 transaction.commit();
             }
         });

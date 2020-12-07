@@ -14,14 +14,16 @@
 
     <!--    Settings : -->
     <color name="requestIncreaseBGC">#1A8B93B4</color>
-    <!--    Settings : -->
+
+    <!--    Statistics : -->
     <color name="statisticsToggleBGC">#50FFFFFF</color>
 
-    <!--    Borders: -->
+    <!--    Borders : -->
     <color name="tradeCardBorder">#B3DEDFE3</color>
     <color name="cardBorderNoDarkTheme">@color/colorPrimaryDark</color>
+    <color name="dropDownItemBorder">#0D2757</color>
 
-    <!--    Menu: -->
+    <!--    Menu : -->
     <color name="avatarBgc">#E9EAEB</color>
 
 </resources>

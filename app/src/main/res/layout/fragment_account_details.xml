@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".AccountDetailsFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="75dp"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Add Account"
+            android:textColor="@color/textColor"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Name"
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/account_details_name"
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
+            android:background="@drawable/new_account_border"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="left|center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="USD Iban Client Test"
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Account Type"
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/account_details_account_type"
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
+            android:background="@drawable/new_account_border"
+            android:drawableEnd="@drawable/ic_arraow_forward"
+            android:drawableRight="@drawable/ic_arraow_forward"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="left|center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="USD Iban Client Test"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:drawableTint="@color/textColor" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Details"
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/account_details_details"
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
+            android:background="@drawable/new_account_border"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="left|center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Bank Leumi , ….."
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Currency"
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/account_details_currency"
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
+            android:background="@drawable/new_account_border"
+            android:drawableEnd="@drawable/ic_arraow_forward"
+            android:drawableRight="@drawable/ic_arraow_forward"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="left|center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="USD"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:drawableTint="@color/textColor" />
+
+
+        <Button
+            android:id="@+id/account_details_submit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="@color/starFavoriteMarked"
+            android:text="Make Account Default" />
+
+    </LinearLayout>
+</ScrollView>

@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -19,9 +21,21 @@ import com.google.android.material.button.MaterialButton;
  * create an instance of this fragment.
  */
 public class SettBatchFilterFragment extends Fragment {
+    // TODO: dismiss drop downs on touch event:
+//    private View mTouchOutsideView;
+//    private OnTouchOutsideViewListener mOnTouchOutsideViewListener;
+
     private Button closeBtn;
     private Button submitBtn;
     private MaterialButton resetBtn;
+
+    private TextView productText;
+    private boolean isProductClicked;
+    private LinearLayout productLayout;
+
+    private TextView counterpartyText;
+    private boolean isCounterpartyClicked;
+    private LinearLayout counterpartyLayout;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,6 +85,9 @@ public class SettBatchFilterFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_sett_batch_filter, container, false);
 
+        setProductField(v);
+        setCounterpartyField(v);
+
         // Submit "Filter" and go back to "Settlement" screen
         submitBtn = v.findViewById(R.id.filter_settlement_submit_btn);
         submitBtn.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +121,54 @@ public class SettBatchFilterFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void setCounterpartyField(View v) {
+        isCounterpartyClicked = false;
+        counterpartyLayout = v.findViewById(R.id.filter_settlement_counterparty_edit_layout_list);
+        counterpartyText = v.findViewById(R.id.filter_settlement_counterparty_edit);
+        counterpartyText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toggle execution drop down menu:
+                if (isCounterpartyClicked) {
+                    isCounterpartyClicked = false;
+                    removeAllListViews(counterpartyLayout);
+                } else {
+                    isCounterpartyClicked = true;
+                    View productView = getLayoutInflater().inflate(R.layout.filter_trade_limited_dropdown, null, false);
+                    addListView(counterpartyLayout, productView);
+                }
+            }
+        });
+    }
+
+    private void setProductField(View v) {
+        isProductClicked = false;
+        productLayout = v.findViewById(R.id.filter_settlement_product_edit_layout_list);
+        productText = v.findViewById(R.id.filter_settlement_product_edit);
+        productText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toggle execution drop down menu:
+                if (isProductClicked) {
+                    isProductClicked = false;
+                    removeAllListViews(productLayout);
+                } else {
+                    isProductClicked = true;
+                    View productView = getLayoutInflater().inflate(R.layout.filter_trade_limited_dropdown, null, false);
+                    addListView(productLayout, productView);
+                }
+            }
+        });
+    }
+
+    private void addListView(LinearLayout layout, View view) {
+        layout.addView(view);
+    }
+
+    private void removeAllListViews(LinearLayout layout) {
+        layout.removeAllViews();
     }
 
     private void openSettlementScreen() {

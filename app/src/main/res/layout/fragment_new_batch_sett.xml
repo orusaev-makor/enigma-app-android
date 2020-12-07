@@ -61,37 +61,58 @@
         android:textSize="16sp"
         android:drawableEnd="@drawable/ic_date_picker" />
 
-    <EditText
-        android:id="@+id/new_batch_product_edit"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_border"
-        android:drawableRight="@drawable/ic_arrow_drop_down"
-        android:drawableTint="@color/textColor"
-        android:fontFamily="@font/poppins_regular"
-        android:hint="@string/product"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textColorHint="@color/textSecondaryColor"
-        android:textSize="16sp"
-        android:drawableEnd="@drawable/ic_arrow_drop_down" />
+        android:background="@color/colorPrimaryDark"
+        android:bottomLeftRadius="3dp"
+        android:bottomRightRadius="3dp"
+        android:topLeftRadius="3dp"
+        android:topRightRadius="3dp">
 
-    <EditText
-        android:id="@+id/new_batch_counterparty_edit"
+        <Spinner
+            android:id="@+id/new_batch_spinner_product"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:drawSelectorOnTop="true"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginRight="-10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/textSecondaryColor"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@drawable/edit_text_border"
-        android:drawableRight="@drawable/ic_arrow_drop_down"
-        android:drawableTint="@color/textColor"
-        android:fontFamily="@font/poppins_regular"
-        android:hint="@string/counterparty"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textColorHint="@color/textSecondaryColor"
-        android:textSize="16sp"
-        android:drawableEnd="@drawable/ic_arrow_drop_down" />
+        android:background="@color/colorPrimaryDark"
+        android:bottomLeftRadius="3dp"
+        android:bottomRightRadius="3dp"
+        android:topLeftRadius="3dp"
+        android:topRightRadius="3dp">
+
+        <Spinner
+            android:id="@+id/new_batch_spinner_counterparty"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:drawSelectorOnTop="true"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginRight="-10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/textSecondaryColor"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/new_batch_create_btn"

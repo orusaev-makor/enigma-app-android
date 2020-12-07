@@ -79,7 +79,7 @@
         android:textColorHint="@color/textSecondaryColor"
         android:textSize="16dp" />
 
-    <EditText
+    <TextView
         android:id="@+id/filter_settlement_companies_edit"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -89,12 +89,19 @@
         android:drawableTint="@color/textColor"
         android:fontFamily="@font/poppins_regular"
         android:hint="Companies"
+        android:gravity="left|center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColorHint="@color/textSecondaryColor"
         android:textSize="16dp" />
 
-    <EditText
+    <LinearLayout
+        android:id="@+id/filter_settlement_companies_edit_layout_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"></LinearLayout>
+
+    <TextView
         android:id="@+id/filter_settlement_currencies_edit"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -104,10 +111,17 @@
         android:drawableTint="@color/textColor"
         android:fontFamily="@font/poppins_regular"
         android:hint="Currencies"
+        android:gravity="left|center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColorHint="@color/textSecondaryColor"
         android:textSize="16dp" />
+
+    <LinearLayout
+        android:id="@+id/filter_settlement_currencies_edit_layout_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"></LinearLayout>
 
     <TextView
         android:layout_width="match_parent"

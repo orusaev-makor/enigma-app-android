@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:strokeColor="@color/tradeCardBorder"
-    app:strokeWidth="1dp"
-    app:cardElevation="0dp"
     app:cardCornerRadius="0dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    app:cardElevation="0dp"
+    app:strokeColor="@color/tradeCardBorder"
+    android:background="@color/colorPrimaryDark"
+    android:backgroundTint="@color/colorPrimaryDark"
+    app:strokeWidth="1dp">
 
 
     <ImageView
@@ -20,65 +22,44 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="vertical"
-        android:paddingTop="10sp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="1">
-
+        android:background="@color/colorPrimaryDark"
+        android:paddingBottom="14dp"
+        android:paddingTop="13dp"
+        android:layout_marginTop="10dp">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="20dp"
+            android:paddingLeft="5dp"
             android:layout_weight="0.1"
+            android:contentDescription="@string/favorite_icon"
+            android:gravity="center"
             android:src="@drawable/ic_star"
-            app:tint="@color/starFavoriteMarked"
-            android:layout_marginTop="10dp"
-            android:contentDescription="@string/favorite_icon" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.12"
-            android:text="USD"
-            android:textColor="@color/textColor"
-            android:textSize="22sp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_weight="0.1"
-            android:src="@drawable/ic_usd"
-            app:tint="@color/textColor"
-            android:layout_marginTop="7dp"
-            android:contentDescription="@string/currency_icon" />
+            app:tint="@color/starFavoriteMarked" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
-            android:layout_marginTop="5dp"
-            android:gravity="end"
-            android:text="*** 677"
-            android:textColor="@color/textColor"
-            android:textSize="24sp" />
-    </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_light"
+            android:gravity="left"
             android:text="USD Iban Client Test"
             android:textColor="@color/textColor"
-            android:paddingLeft="43dp"
-            android:paddingBottom="5dp"
             android:textSize="16sp"
-            android:paddingStart="43dp" />
+            android:drawableTint="@color/starFavoriteMarked"
+            android:drawableLeft="@color/starFavoriteMarked" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="0.2"
+            android:contentDescription="@string/currency_icon"
+            android:gravity="right"
+            android:src="@drawable/ic_usd"
+            app:tint="@color/textColor" />
 
     </LinearLayout>
+
 
 </com.google.android.material.card.MaterialCardView>

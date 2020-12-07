@@ -3,6 +3,7 @@ package com.example.enigmaapp;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -10,8 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,9 +27,26 @@ import com.google.android.material.button.MaterialButton;
  * create an instance of this fragment.
  */
 public class TradeFilterFragment extends Fragment {
+    // TODO: dismiss drop downs on touch event:
+//    private View mTouchOutsideView;
+//    private OnTouchOutsideViewListener mOnTouchOutsideViewListener;
+
     private Button closeBtn;
     private Button submitBtn;
     private MaterialButton resetBtn;
+    private TextView dateText;
+
+    private TextView productText;
+    private boolean isProductClicked;
+    private LinearLayout productLayout;
+
+    private TextView executionText;
+    private boolean isExecutionClicked;
+    private LinearLayout executionLayout;
+
+    private TextView batchedText;
+    private boolean isBatchedClicked;
+    private LinearLayout batchedLayout;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,10 +92,21 @@ public class TradeFilterFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_trade_filter, container, false);
+
+        buildCalender(v);
+        setExecutionField(v);
+        setBatchedField(v);
+
+        productText = v.findViewById(R.id.filter_trade_product_edit);
+        productText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openProductList();
+            }
+        });
 
         // Submit "Filter" and go back to "Trade" screen
         submitBtn = v.findViewById(R.id.filter_trade_submit_btn);
@@ -105,6 +141,87 @@ public class TradeFilterFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void openProductList() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FilterListFragment fragment = new FilterListFragment();
+        transaction.replace(R.id.frame_layout, fragment, "Filter List");
+        transaction.commit();
+    }
+
+    private void setBatchedField(View v) {
+        isBatchedClicked = false;
+        batchedLayout = v.findViewById(R.id.filter_trade_batched_edit_layout_list);
+        batchedText = v.findViewById(R.id.filter_trade_batched_edit);
+        batchedText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isBatchedClicked) {
+                    isBatchedClicked = false;
+                    removeAllListViews(batchedLayout);
+                } else {
+                    isBatchedClicked = true;
+                    View batchedView = getLayoutInflater().inflate(R.layout.filter_trade_limited_dropdown, null, false);
+                    addListView(batchedLayout, batchedView);
+                }
+            }
+        });
+    }
+
+    private void setExecutionField(View v) {
+        isExecutionClicked = false;
+        executionLayout = v.findViewById(R.id.filter_trade_execution_edit_layout_list);
+        executionText = v.findViewById(R.id.filter_trade_execution_edit);
+        executionText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toggle execution drop down menu:
+                if (isExecutionClicked) {
+                    isExecutionClicked = false;
+                    removeAllListViews(executionLayout);
+                } else {
+                    isExecutionClicked = true;
+                    View executionView = getLayoutInflater().inflate(R.layout.filter_trade_limited_dropdown, null, false);
+                    addListView(executionLayout, executionView);
+                }
+            }
+        });
+    }
+
+    private void removeAllListViews(LinearLayout layout) {
+        layout.removeAllViews();
+    }
+
+    private void addListView(LinearLayout layout, View view) {
+        layout.addView(view);
+    }
+
+    private void buildCalender(View v) {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.clear();
+
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        builder.setTitleText("Select data range");
+        //To apply a dialog
+        builder.setTheme(R.style.ThemeOverlay_MaterialComponents_MaterialCalendar);
+
+        final MaterialDatePicker materialDatePicker = builder.build();
+
+        dateText = v.findViewById(R.id.filter_trade_date_edit);
+        dateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                materialDatePicker.show(getFragmentManager(), "Data Picker");
+            }
+        });
+
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+            @Override
+            public void onPositiveButtonClick(Object selection) {
+                dateText.setText(materialDatePicker.getHeaderText());
+            }
+        });
     }
 
     private void openTradeScreen() {

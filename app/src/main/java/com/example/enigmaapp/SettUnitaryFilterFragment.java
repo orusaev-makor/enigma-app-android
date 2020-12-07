@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -19,9 +21,25 @@ import com.google.android.material.button.MaterialButton;
  * create an instance of this fragment.
  */
 public class SettUnitaryFilterFragment extends Fragment {
+    // TODO: dismiss drop downs on touch event:
+//    private View mTouchOutsideView;
+//    private OnTouchOutsideViewListener mOnTouchOutsideViewListener;
+
     private Button closeBtn;
     private Button submitBtn;
     private MaterialButton resetBtn;
+
+    private TextView companiesText;
+    private boolean isCompaniesClicked;
+    private LinearLayout companiesLayout;
+
+    private TextView currenciesText;
+    private boolean isCurrenciesClicked;
+    private LinearLayout currenciesLayout;
+
+    private TextView showMore;
+    private TextView showLess;
+    boolean isExpended;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,6 +90,9 @@ public class SettUnitaryFilterFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_sett_unitary_filter, container, false);
 
+        setCompaniesField(v);
+        setCurrenciesField(v);
+        
         // Submit "Filter" and go back to "Settlement" screen
         submitBtn = v.findViewById(R.id.filter_settlement_submit_btn);
         submitBtn.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +110,7 @@ public class SettUnitaryFilterFragment extends Fragment {
             public void onClick(View v) {
                 // TODO: add proper reset process
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SettBatchFilterFragment fragment = new SettBatchFilterFragment();
+                SettUnitaryFilterFragment fragment = new SettUnitaryFilterFragment();
                 transaction.replace(R.id.frame_layout, fragment, "Settlement Filter");
                 transaction.commit();
             }
@@ -105,6 +126,68 @@ public class SettUnitaryFilterFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void setCurrenciesField(View v) {
+        isCurrenciesClicked = false;
+        currenciesLayout = v.findViewById(R.id.filter_settlement_currencies_edit_layout_list);
+        currenciesText = v.findViewById(R.id.filter_settlement_currencies_edit);
+        currenciesText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toggle execution drop down menu:
+
+                if (isCurrenciesClicked) {
+                    isCurrenciesClicked = false;
+                    removeAllListViews(currenciesLayout);
+                } else {
+                    isCurrenciesClicked = true;
+                    View productView = getLayoutInflater().inflate(R.layout.filter_trade_limited_dropdown, null, false);
+                    addListView(currenciesLayout, productView);
+                    setListLengthToggle(currenciesLayout, v);
+                }
+            }
+        });
+    }
+
+    private void setListLengthToggle(LinearLayout layout, View v) {
+        removeAllListViews(layout);
+        showLess = v.findViewById(R.id.show_more_text);
+        showLess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isExpended = true;
+
+            }
+        });
+    }
+
+    private void setCompaniesField(View v) {
+        isCompaniesClicked = false;
+        companiesLayout = v.findViewById(R.id.filter_settlement_companies_edit_layout_list);
+        companiesText = v.findViewById(R.id.filter_settlement_companies_edit);
+        companiesText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toggle execution drop down menu:
+                if (isCompaniesClicked) {
+                    isCompaniesClicked = false;
+                    removeAllListViews(companiesLayout);
+                } else {
+                    isCompaniesClicked = true;
+                    View productView = getLayoutInflater().inflate(R.layout.filter_trade_limited_dropdown, null, false);
+                    addListView(companiesLayout, productView);
+                }
+            }
+        });
+    }
+
+    private void removeAllListViews(LinearLayout layout) {
+        layout.removeAllViews();
+    }
+
+    private void addListView(LinearLayout layout, View view) {
+        layout.addView(view);
     }
 
     private void openSettlementScreen() {
