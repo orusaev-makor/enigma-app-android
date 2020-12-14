@@ -8,7 +8,7 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:orientation="vertical"
-    tools:context=".NewsFragment">
+    tools:context=".activity.fragment.NewsFragment">
 
         <TextView
             android:id="@+id/news_fragment_title"

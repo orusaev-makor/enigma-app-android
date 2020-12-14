@@ -9,7 +9,7 @@
     app:itemTextColor="@color/textColor"
     android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <include
         layout="@layout/app_bar_main"

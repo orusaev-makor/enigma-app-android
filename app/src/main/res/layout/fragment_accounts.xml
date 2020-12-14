@@ -6,19 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <FrameLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".AccountsFragment">
+        tools:context=".activity.fragment.AccountsFragment">
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".AccountsFragment"
+        tools:context=".activity.fragment.AccountsFragment"
         android:paddingBottom="80dp"
         android:orientation="vertical">
-
 
         <TextView
             android:layout_width="match_parent"
@@ -96,6 +94,5 @@
         app:tint="@color/colorPrimary"
         android:contentDescription="@string/add_account" />
     </FrameLayout>
-
 
 </ScrollView>

@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingTop="10sp"
-        tools:context=".FilterListFragment">
+        tools:context=".activity.fragment.FilterListFragment">
 
         <TextView
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             android:weightSum="1">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/filter_trade_reset_btn"
+                android:id="@+id/filter_reset_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                 app:strokeWidth="1dp" />
 
             <Button
-                android:id="@+id/filter_trade_submit_btn"
+                android:id="@+id/filter_submit_btn"
                 android:layout_width="0dp"
                 android:layout_height="37sp"
                 android:layout_margin="0.5dp"
@@ -75,11 +75,11 @@
         </LinearLayout>
 
 
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-        <!--            android:id="@+id/filter_item_recycler_view"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            tools:listitem="@layout/filter_item" />-->
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/filter_item_recycler_view"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    tools:listitem="@layout/filter_item" />-->
 
 
         <include

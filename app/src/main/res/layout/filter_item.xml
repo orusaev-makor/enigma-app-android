@@ -24,7 +24,7 @@
         android:drawableRight="@drawable/ic_check"
         app:drawableTint="@color/check"
         android:background="@color/colorPrimaryDark"
-        android:text="Product name"
+        android:text="Filter option name"
         android:gravity="left|center"
         android:textColor="@color/textColor"
         android:paddingLeft="30dp"

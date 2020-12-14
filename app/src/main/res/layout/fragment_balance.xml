@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        tools:context=".BalanceFragment">
+        tools:context=".activity.fragment.BalanceFragment">
 
         <TextView
             android:layout_width="match_parent"

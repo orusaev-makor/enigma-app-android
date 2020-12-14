@@ -23,9 +23,7 @@
             android:text="@string/settl_batch_id"
             android:fontFamily="@font/poppins_light"
             android:textColor="@color/textColorDark"
-            android:textSize="16sp"
-            app:drawableLeftCompat="@drawable/ic_action_settlement"
-            app:drawableTint="@color/textColor" />
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -83,38 +81,18 @@
             android:text="@string/side"
             android:gravity="start"
             android:textColor="@color/textColorDark"
-            android:textSize="16sp"
-            app:drawableLeftCompat="@drawable/ic_settlement_side"
-            app:drawableTint="@color/textColor"
-            app:drawableStartCompat="@drawable/ic_settlement_side" />
+            android:textSize="16sp" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="25sp"
-            android:weightSum="1">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.73"
-            android:gravity="end"
-            app:drawableRightCompat="@drawable/ic_settlement_type"
-            app:drawableTint="@color/textColor"
-            app:drawableEndCompat="@drawable/ic_settlement_type" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
             android:gravity="end"
             android:text="@string/type"
             android:fontFamily="@font/poppins_light"
             android:textColor="@color/textColorDark"
             android:textSize="16sp" />
-        </LinearLayout>
+
 
     </LinearLayout>
 

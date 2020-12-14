@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".NewAccountFragment">
+    tools:context=".activity.fragment.NewAccountFragment">
 
 
     <TextView
@@ -63,7 +69,7 @@
         android:drawableRight="@drawable/ic_arraow_forward"
         app:drawableTint="@color/textHintColor"
         android:background="@drawable/new_account_border"
-        android:text="Product name"
+        android:text="Choose account type"
         android:gravity="left|center"
         android:textColor="@color/textHintColor"
         android:paddingLeft="30dp"
@@ -130,8 +136,9 @@
         android:layout_gravity="center"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="80dp"
         android:background="@drawable/back_btn_border"
         android:text="Send request" />
 
 </LinearLayout>
+</ScrollView>

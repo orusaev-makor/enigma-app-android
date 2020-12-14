@@ -9,86 +9,105 @@
     <FrameLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".SettlementFragment">
+        tools:context=".activity.fragment.SettlementFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center|top"
             android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="75dp"
-            android:fontFamily="@font/poppins_regular"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="@string/settlement"
-            android:textColor="@color/textColor"
-            android:textSize="30sp" />
 
-        <!--        Date filters and button actions -->
-        <include
-            layout="@layout/section_top_filters"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:elevation="0dp"
-            android:fitsSystemWindows="false"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:textSize="18sp">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/batch" />
+                android:layout_marginTop="75dp"
+                android:fontFamily="@font/poppins_regular"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/settlement"
+                android:textColor="@color/textColor"
+                android:textSize="30sp" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/unitary" />
+            <!--        Date filters and button actions -->
+            <include
+                layout="@layout/section_top_filters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        </com.google.android.material.tabs.TabLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp"
+                android:weightSum="1">
 
-        <!--    <androidx.recyclerview.widget.RecyclerView-->
-        <!--        android:id="@+id/settlement_fragment_recycler_view"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="match_parent"-->
-        <!--        android:paddingLeft="-10dp"-->
-        <!--        android:paddingRight="-10dp"-->
-        <!--        tools:listitem="@layout/settlement_item" />-->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:textSize="18sp"
+                    android:textColor="@color/textColor"
+                    android:paddingLeft="20dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:background="@drawable/underline_selected_tab"
+                    android:text="@string/batch" />
 
-        <include
-            layout="@layout/settlement_item"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="-10dp"
-            android:paddingRight="-10dp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:textSize="18sp"
+                    android:textColor="@color/textSecondaryColor"
+                    android:paddingRight="20dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/poppins_regular"
+                    android:background="@drawable/underline_unselected_tab"
+                    android:text="@string/unitary" />
+            </LinearLayout>
 
-        <!--    <include-->
-        <!--        layout="@layout/filter_settlement_batch"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="match_parent"-->
-        <!--        android:paddingLeft="-10dp"-->
-        <!--        android:paddingRight="-10dp" />-->
+            <include
+                layout="@layout/settlement_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-16dp"
+                android:paddingLeft="-10dp"
+                android:paddingRight="-10dp" />
+            <!--    <androidx.recyclerview.widget.RecyclerView-->
+            <!--        android:id="@+id/settlement_fragment_recycler_view"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="match_parent"-->
+            <!--        android:paddingLeft="-10dp"-->
+            <!--        android:paddingRight="-10dp"-->
+            <!--        tools:listitem="@layout/settlement_item" />-->
 
-        <!--    <include-->
-        <!--        layout="@layout/filter_settlement_unitary"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="match_parent"-->
-        <!--        android:paddingLeft="-10dp"-->
-        <!--        android:paddingRight="-10dp" />-->
+            <!--        <include-->
+            <!--            layout="@layout/settlement_item"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="match_parent"-->
+            <!--            android:paddingLeft="-10dp"-->
+            <!--            android:paddingRight="-10dp" />-->
 
-        <!--    <include-->
-        <!--        layout="@layout/new_settlement_creation"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="match_parent"-->
-        <!--        android:paddingLeft="-10dp"-->
-        <!--        android:paddingRight="-10dp" />-->
+            <!--    <include-->
+            <!--        layout="@layout/filter_settlement_batch"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="match_parent"-->
+            <!--        android:paddingLeft="-10dp"-->
+            <!--        android:paddingRight="-10dp" />-->
+
+            <!--    <include-->
+            <!--        layout="@layout/filter_settlement_unitary"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="match_parent"-->
+            <!--        android:paddingLeft="-10dp"-->
+            <!--        android:paddingRight="-10dp" />-->
+
+            <!--    <include-->
+            <!--        layout="@layout/new_settlement_creation"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="match_parent"-->
+            <!--        android:paddingLeft="-10dp"-->
+            <!--        android:paddingRight="-10dp" />-->
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -98,11 +117,11 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
             android:backgroundTint="@color/textColor"
+            android:contentDescription="@string/add_settlement"
             android:src="@drawable/ic_action_add_circle"
             app:fabSize="normal"
-            app:tint="@color/colorPrimary"
-            android:contentDescription="@string/add_settlement" />
-    </FrameLayout >
+            app:tint="@color/colorPrimary" />
+    </FrameLayout>
 
 
 </ScrollView>

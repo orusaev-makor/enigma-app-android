@@ -27,8 +27,7 @@
             android:backgroundTint="@color/textColor"
             android:textColor="@color/textColor"
             android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_action_trade"
-            app:drawableTint="@color/textColor" />
+ />
 
         <TextView
             android:layout_width="0dp"
@@ -39,9 +38,9 @@
             android:text="@string/settl_batch_id"
             android:fontFamily="@font/poppins_light"
             android:textColor="@color/textColor"
+            android:gravity="end"
             android:textSize="16sp"
-            app:drawableLeftCompat="@drawable/ic_action_settlement"
-            app:drawableTint="@color/textColor" />
+ />
 
     </LinearLayout>
 
@@ -65,6 +64,8 @@
             android:layout_weight="0.5"
             android:text="368"
             android:textColor="@color/textColor"
+            android:gravity="end"
+
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -94,6 +95,8 @@
 
             android:text="@string/status"
             android:fontFamily="@font/poppins_light"
+            android:gravity="end"
+
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
@@ -119,6 +122,7 @@
             android:layout_weight="0.5"
             android:text="Cancelled"
             android:textColor="@color/statusCancelled"
+            android:gravity="end"
             android:textSize="18sp" />
 
     </LinearLayout>
