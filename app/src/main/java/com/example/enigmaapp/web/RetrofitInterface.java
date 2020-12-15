@@ -21,7 +21,7 @@ public interface RetrofitInterface {
                                                                              @Path("id") int userId);
 
     @PUT("/auth")
-    Call<User> executeLogin(@Body HashMap<String, String> map);
+    Call<LoginResult> executeLogin(@Body HashMap<String, String> map);
 
     @POST("/auth/password")
     Call<Void> executeForgotPassword(@Body HashMap<String, String> map);

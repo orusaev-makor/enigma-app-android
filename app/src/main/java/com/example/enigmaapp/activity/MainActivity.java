@@ -31,12 +31,10 @@ import com.example.enigmaapp.User;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.enigmaapp.activity.fragment.LoginFragment.currentUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
@@ -55,26 +53,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         System.out.println("HERE: " + AppCompatDelegate.getDefaultNightMode());
         System.out.println("THERE: " + AppCompatDelegate.MODE_NIGHT_YES);
-
-//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-//
-//        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//                .addInterceptor(loggingInterceptor)
-//                .connectTimeout(100, TimeUnit.SECONDS)
-//                .readTimeout(100,TimeUnit.SECONDS)
-//                .build();
-//
-//        retrofit = new Retrofit.Builder()
-//                .baseUrl(BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .client(okHttpClient)
-//                .build();
-//
-//        retrofitInterface = retrofit.create(RetrofitInterface.class);
-//
-
-//        setSigninScreen();
 
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -109,11 +87,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.app_bar_balance) {
-//            LogoutFragment fragment = new LogoutFragment();
-            BalanceFragment fragment = new BalanceFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.frame_layout, fragment, "Balance");
-            fragmentTransaction.commit();
+                BalanceFragment fragment = new BalanceFragment(currentUser);
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame_layout, fragment, "Balance");
+                fragmentTransaction.commit();
         }
         else if (id == R.id.app_bar_trade) {
             TradeFragment fragment = new TradeFragment();
@@ -201,45 +178,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            myAmount.setText(String.valueOf(rAmounts[position]));
 //            return row;
 //        }
-//    }
-
-//    private void handleLogin() {
-//        TextView loginErrorMsg = findViewById(R.id.login_error_message);
-//        EditText username = findViewById(R.id.login_username_edit);
-//        EditText passwordEdit = findViewById(R.id.login_password_edit);
-//
-//        loginErrorMsg.setText("");
-//
-//        HashMap<String, String> map = new HashMap<>();
-//        map.put("username", username.getText().toString());
-//        map.put("password", passwordEdit.getText().toString());
-//
-//        Call<User> call = retrofitInterface.executeLogin(map);
-//
-//        call.enqueue(new Callback<User>() {
-//            @Override
-//            public void onResponse(Call<User> call, Response<User> response) {
-//                if (!response.isSuccessful()) {
-//                    System.out.println( "Code: " + response.code() + "Error: " + response.message());
-//                    loginErrorMsg.setText("Wrong Credentials");
-//                    return;
-//                }
-//
-//                // After successful login: moving to next layout + setting up logout listener
-//                token = response.body().getUserDetails().getToken();
-//                List<User> users = response.body().getUsers();
-//                System.out.println("LOGIN DONE _ TOKEN: " + token);
-//                setNextView(users, token);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<User> call, Throwable t) {
-//                System.out.println( "t.getMessage(): " + t.getMessage());
-//
-//                Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-//                loginErrorMsg.setText(t.getMessage());
-//            }
-//        });
 //    }
 
     private void setNextView(List<User> users, String token) {
