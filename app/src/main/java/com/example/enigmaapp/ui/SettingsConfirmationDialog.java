@@ -1,4 +1,4 @@
-package com.example.enigmaapp;
+package com.example.enigmaapp.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -13,7 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class SettingsConfirmationModal extends AppCompatDialogFragment {
+import com.example.enigmaapp.R;
+
+public class SettingsConfirmationDialog extends AppCompatDialogFragment {
     @SuppressLint("ResourceAsColor")
     @NonNull
     @Override

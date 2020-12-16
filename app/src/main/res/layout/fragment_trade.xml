@@ -5,16 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".activity.fragment.TradeFragment">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center|top"
-            android:orientation="vertical">
+        tools:context=".activity.fragment.TradeFragment"
+        android:gravity="center|top"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -34,24 +30,24 @@
             android:layout_height="wrap_content" />
 
 
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/trade_fragment_recycler_view"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:paddingLeft="-10dp"-->
-<!--                    android:paddingRight="-10dp"-->
-<!--                    tools:listitem="@layout/trade_item" />-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/trade_fragment_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="-10dp"
+                    android:paddingRight="-10dp"
+                    tools:listitem="@layout/trade_item" />
 
-        <include
-            layout="@layout/trade_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"/>
+<!--        <include-->
+<!--            layout="@layout/trade_item"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"/>-->
 
-        <include
-            layout="@layout/trade_item_expand"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+<!--        <include-->
+<!--            layout="@layout/trade_item_expand"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
 
 <!--        <include-->
 <!--            layout="@layout/new_trade_creation"-->
@@ -62,18 +58,19 @@
 <!--            layout="@layout/filter_trade"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content" />-->
-        </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/trade_create_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
-            android:backgroundTint="@color/textColor"
-            android:src="@drawable/ic_action_add_circle"
-            app:fabSize="normal"
-            app:tint="@color/colorPrimary"
-            android:contentDescription="@string/add_trade" />
-    </FrameLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/trade_create_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/textColor"
+        android:src="@drawable/ic_action_add_circle"
+        app:fabSize="normal"
+        app:tint="@color/colorPrimary"
+        android:contentDescription="@string/add_trade" />
+
+    </LinearLayout>
+
 </ScrollView>

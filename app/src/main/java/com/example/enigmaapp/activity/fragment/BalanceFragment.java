@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.LoginResult;
+import com.example.enigmaapp.web.login.LoginResult;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -27,14 +27,11 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 
-import static com.example.enigmaapp.activity.fragment.LoginFragment.currentUser;
-
 public class BalanceFragment extends Fragment {
-
+    private String mUsername;
     private PieChart balanceChart;
     private String clickedCoin;
 
-    private String mUsername;
 
     public BalanceFragment(LoginResult currentUser) {
         this.mUsername = currentUser.getUsername();

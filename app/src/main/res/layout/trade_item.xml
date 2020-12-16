@@ -39,6 +39,7 @@
             android:weightSum="1">
 
             <TextView
+                android:id="@+id/trade_item_product"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -47,13 +48,14 @@
                 android:textSize="26sp" />
 
             <TextView
+                android:id="@+id/trade_item_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="end"
                 android:text="10'000.00"
                 android:textColor="@color/red"
-                android:textSize="26sp" />
+                android:textSize="22sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,16 +66,20 @@
             android:weightSum="1">
 
             <TextView
+                android:id="@+id/trade_item_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_light"
                 android:layout_weight="0.5"
                 android:text="2020-10-05"
                 android:textColor="@color/textColorDark"
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/trade_item_quantity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_light"
                 android:layout_weight="0.5"
                 android:gravity="end"
                 android:text="QTY - 1.00"

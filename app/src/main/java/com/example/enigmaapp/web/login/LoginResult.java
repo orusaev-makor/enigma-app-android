@@ -1,4 +1,4 @@
-package com.example.enigmaapp.web;
+package com.example.enigmaapp.web.login;
 
 import com.google.gson.annotations.SerializedName;
 

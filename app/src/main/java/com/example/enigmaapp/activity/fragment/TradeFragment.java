@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,61 +15,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.enigmaapp.R;
+import com.example.enigmaapp.model.TradeViewModel;
+import com.example.enigmaapp.ui.TradeItemAdapter;
+import com.example.enigmaapp.web.login.LoginResult;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TradeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TradeFragment extends Fragment {
+    private LoginResult mCurrenUser;
     private FloatingActionButton createTradeBtn;
     private ImageView filterBtn;
     private ImageView uploadBtn;
     private ImageView refreshBtn;
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public TradeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TradeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TradeFragment newInstance(String param1, String param2) {
-        TradeFragment fragment = new TradeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public TradeFragment(LoginResult currentUser) {
+        this.mCurrenUser = currentUser;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         //        Show navbar on "Trade" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
 
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -79,10 +50,7 @@ public class TradeFragment extends Fragment {
         createTradeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                NewTradeCreationFragment fragment = new NewTradeCreationFragment();
-                transaction.replace(R.id.frame_layout, fragment, "New Trade");
-                transaction.commit();
+                openNewTradeFragment();
             }
         });
 
@@ -91,10 +59,7 @@ public class TradeFragment extends Fragment {
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                TradeFilterFragment fragment = new TradeFilterFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Filter Trade");
-                transaction.commit();
+                openFilterTradeFragment();
             }
         });
 
@@ -103,10 +68,7 @@ public class TradeFragment extends Fragment {
         refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                TradeFragment fragment = new TradeFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Trade");
-                transaction.commit();
+                openTradeFragment();
             }
         });
 
@@ -118,6 +80,44 @@ public class TradeFragment extends Fragment {
                 // TODO: add upload process
             }
         });
+
+        RecyclerView recyclerView = v.findViewById(R.id.trade_fragment_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recyclerView.setHasFixedSize(true);
+
+        final TradeItemAdapter adapter = new TradeItemAdapter(requireContext());
+        recyclerView.setAdapter(adapter);
+
+        TradeViewModel viewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(TradeViewModel.class);
+
+        viewModel.getTrades().observe(requireActivity(), tradeItems -> {
+            adapter.submitList(tradeItems);
+        });
+        viewModel.fetchTrades();
+
         return v;
+    }
+
+    private void openFilterTradeFragment() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        TradeFilterFragment fragment = new TradeFilterFragment();
+        transaction.replace(R.id.frame_layout, fragment, "Filter Trade");
+        transaction.commit();
+    }
+
+    private void openTradeFragment() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        TradeFragment fragment = new TradeFragment(mCurrenUser);
+        transaction.replace(R.id.frame_layout, fragment, "Trade");
+        transaction.commit();
+    }
+
+    private void openNewTradeFragment() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        NewTradeCreationFragment fragment = new NewTradeCreationFragment();
+        transaction.replace(R.id.frame_layout, fragment, "New Trade");
+        transaction.commit();
     }
 }

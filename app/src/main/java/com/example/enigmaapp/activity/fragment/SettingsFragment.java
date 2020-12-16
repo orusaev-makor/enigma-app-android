@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.SettingsConfirmationModal;
+import com.example.enigmaapp.ui.SettingsConfirmationDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,7 +93,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void openDialog() {
-        SettingsConfirmationModal settingsModal = new SettingsConfirmationModal();
-        settingsModal.show(getFragmentManager(), "Settings Modal");
+        SettingsConfirmationDialog settingsDialog = new SettingsConfirmationDialog();
+        settingsDialog.show(getFragmentManager(), "Settings Dialog");
     }
 }

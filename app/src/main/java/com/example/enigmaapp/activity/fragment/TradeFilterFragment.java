@@ -21,6 +21,8 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import static com.example.enigmaapp.activity.fragment.LoginFragment.currentUser;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TradeFilterFragment#newInstance} factory method to
@@ -199,7 +201,7 @@ public class TradeFilterFragment extends Fragment {
 
     private void openTradeScreen() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        TradeFragment fragment = new TradeFragment();
+        TradeFragment fragment = new TradeFragment(currentUser);
         transaction.replace(R.id.frame_layout, fragment, "Trade");
         transaction.commit();
     }

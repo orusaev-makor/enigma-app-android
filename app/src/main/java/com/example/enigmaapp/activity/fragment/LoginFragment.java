@@ -15,13 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.User;
-import com.example.enigmaapp.activity.MainActivity;
-import com.example.enigmaapp.web.LoginResult;
+import com.example.enigmaapp.web.login.LoginResult;
 import com.example.enigmaapp.web.RetrofitClient;
 
 import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
