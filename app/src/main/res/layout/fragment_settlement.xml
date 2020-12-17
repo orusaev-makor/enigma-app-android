@@ -69,6 +69,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="-17dp"
+                    android:paddingLeft="-10dp"
+                    android:paddingRight="-10dp"
                     tools:listitem="@layout/settlement_item" />
 
             <!--        <include-->
