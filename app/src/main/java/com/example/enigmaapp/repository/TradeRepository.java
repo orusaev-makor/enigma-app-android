@@ -6,7 +6,6 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.enigmaapp.activity.fragment.LoginFragment;
 import com.example.enigmaapp.web.RetrofitClient;
 import com.example.enigmaapp.web.trade.TradeItemResult;
 import com.example.enigmaapp.web.trade.TradeResult;
@@ -21,7 +20,6 @@ import retrofit2.Response;
 public class TradeRepository {
 
     private MutableLiveData<List<TradeItemResult>> allTrades = new MutableLiveData<>();
-
     private Application application;
 
     public TradeRepository(Application application) {
@@ -32,7 +30,7 @@ public class TradeRepository {
         return allTrades;
     }
 
-    public void fetchTrades() {
+    public void fetchTrades(String token) {
         HashMap<String, String> params = new HashMap<>();
         params.put("items_per_page", "5");
         params.put("current_page", "1");
@@ -41,7 +39,7 @@ public class TradeRepository {
         params.put("product_id", "2");
         params.put("already_batched", "0");
 
-        Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(LoginFragment.currentUser.getToken(), params);
+        Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, params);
         call.enqueue(new Callback<TradeResult>() {
             @Override
             public void onResponse(Call<TradeResult> call, Response<TradeResult> response) {

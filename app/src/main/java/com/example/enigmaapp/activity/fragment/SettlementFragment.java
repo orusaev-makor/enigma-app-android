@@ -3,69 +3,49 @@ package com.example.enigmaapp.activity.fragment;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.enigmaapp.R;
+import com.example.enigmaapp.model.SettlementViewModel;
+import com.example.enigmaapp.model.UserViewModel;
+import com.example.enigmaapp.repository.SettlementRepository;
+import com.example.enigmaapp.ui.SettlementItemAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettlementFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
 public class SettlementFragment extends Fragment {
-    private FloatingActionButton createUnitaryBtn;
+    private String token;
+    private TextView batch;
+    private TextView unitary;
+    private boolean isBatch;
+    private FloatingActionButton addSettlementBtn;
     private ImageView filterBtn;
     private ImageView uploadBtn;
     private ImageView refreshBtn;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public SettlementFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettlementFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SettlementFragment newInstance(String param1, String param2) {
-        SettlementFragment fragment = new SettlementFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        //        Show navbar on "Settlement" view:
+        // Show navbar on "Settlement" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
 
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -74,52 +54,21 @@ public class SettlementFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_settlement, container, false);
 
-//        // Unitary:
-//        createUnitaryBtn = v.findViewById(R.id.settlement_create_btn);
-//        createUnitaryBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                NewUnitarySettFragment fragment = new NewUnitarySettFragment();
-//                transaction.replace(R.id.frame_layout, fragment, "New Unitary Settlement");
-//                transaction.commit();
-//            }
-//        });
-
-         Batch:
-        createUnitaryBtn = v.findViewById(R.id.settlement_create_btn);
-        createUnitaryBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                NewBatchSettFragment fragment = new NewBatchSettFragment();
-                transaction.replace(R.id.frame_layout, fragment, "New Batch Settlement");
-                transaction.commit();
-            }
-        });
+        Batch:
+        addSettlementBtn = v.findViewById(R.id.settlement_create_btn);
+        addSettlementBtn.setOnClickListener(v1 -> openAddScreen(isBatch));
 
         // Move fo "Filter Settlement" screen:
         filterBtn = v.findViewById(R.id.ic_action_filter);
-        filterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SettBatchFilterFragment fragment = new SettBatchFilterFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Filter Settlement");
-                transaction.commit();
-            }
-        });
+        filterBtn.setOnClickListener(v12 -> openFilterScreen(isBatch));
 
         // Refresh "Settlement" screen:
         refreshBtn = v.findViewById(R.id.ic_action_refresh);
-        refreshBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SettlementFragment fragment = new SettlementFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Settlement");
-                transaction.commit();
-            }
+        refreshBtn.setOnClickListener(v13 -> {
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            SettlementFragment fragment = new SettlementFragment();
+            transaction.replace(R.id.frame_layout, fragment, "Settlement");
+            transaction.commit();
         });
 
         // Upload "Settlement" screen:
@@ -128,13 +77,93 @@ public class SettlementFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: add upload process
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SettUnitaryFilterFragment fragment = new SettUnitaryFilterFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Filter Settlement");
-                transaction.commit();
+            }
+        });
+
+        RecyclerView recyclerView = v.findViewById(R.id.settlement_fragment_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        final SettlementItemAdapter adapter = new SettlementItemAdapter(requireContext());
+        recyclerView.setAdapter(adapter);
+
+        SettlementViewModel viewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(SettlementViewModel.class);
+
+        viewModel.getSettlements().observe(requireActivity(), new Observer<List<SettlementRepository.SettlementSummary>>() {
+            @Override
+            public void onChanged(List<SettlementRepository.SettlementSummary> settlementItems) {
+                adapter.submitList(settlementItems);
+            }
+        });
+
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(UserViewModel.class);
+        token = userViewModel.getCurrentUser().getToken();
+
+        viewModel.fetchBatchSettlements(token);
+        isBatch = true;
+
+        batch = v.findViewById(R.id.settlement_batch);
+        unitary = v.findViewById(R.id.settlement_unitary);
+
+        batch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.fetchBatchSettlements(token);
+                setSelectedTextView(batch);
+                setUnselectedTextView(unitary);
+                isBatch = true;
+            }
+        });
+
+        unitary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.fetchUnitarySettlements(token);
+                setSelectedTextView(unitary);
+                setUnselectedTextView(batch);
+                isBatch = false;
             }
         });
 
         return v;
+    }
+
+    private void openAddScreen(boolean isBatch) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        if (isBatch) {
+            NewBatchSettFragment fragment = new NewBatchSettFragment();
+            transaction.replace(R.id.frame_layout, fragment, "New Batch Settlement");
+        } else {
+            NewUnitarySettFragment fragment = new NewUnitarySettFragment();
+            transaction.replace(R.id.frame_layout, fragment, "New Unitary Settlement");
+        }
+        transaction.commit();
+    }
+
+    private void openFilterScreen(boolean isBatch) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        if (isBatch) {
+            SettBatchFilterFragment fragment = new SettBatchFilterFragment();
+            transaction.replace(R.id.frame_layout, fragment, "Filter Settlement");
+        } else {
+            SettUnitaryFilterFragment fragment = new SettUnitaryFilterFragment();
+            transaction.replace(R.id.frame_layout, fragment, "Filter Settlement");
+        }
+        transaction.commit();
+    }
+
+    private void setUnselectedTextView(TextView textView) {
+        textView.setTextColor(getResources().getColor(R.color.textSecondaryColor));
+        textView.setBackground(getResources().getDrawable(R.drawable.underline_unselected_tab));
+        textView.setTypeface(ResourcesCompat.getFont(getContext(), R.font.poppins_regular));
+    }
+
+    private void setSelectedTextView(TextView textView) {
+        textView.setTextColor(getResources().getColor(R.color.textColor));
+        textView.setBackground(getResources().getDrawable(R.drawable.underline_selected_tab));
+        textView.setTypeface(ResourcesCompat.getFont(getContext(), R.font.poppins_semi_bold));
     }
 }

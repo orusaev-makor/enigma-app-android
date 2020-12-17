@@ -1,14 +1,10 @@
 package com.example.enigmaapp.web.trade;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class TradeResult {
-    //    private TradeItemResult items;
-    private TradePagingParams paging;
-    //    private <ArrayList<TradeItemResult>> items;
 
+    private TradePagingParams paging;
     List<TradeItemResult> items;
 
     public List<TradeItemResult> getItems() {

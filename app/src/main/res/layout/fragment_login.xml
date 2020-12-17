@@ -58,6 +58,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/edit_text_border"
                 android:hint="@string/username_hint"
+                android:text="qatests"
                 android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -80,6 +81,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/edit_text_border"
                 android:hint="@string/password_hint"
+                android:text="Makor26!"
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>

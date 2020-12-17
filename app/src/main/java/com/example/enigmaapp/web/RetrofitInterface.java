@@ -1,6 +1,8 @@
 package com.example.enigmaapp.web;
 
 import com.example.enigmaapp.web.login.LoginResult;
+import com.example.enigmaapp.web.settlement.SettlementResult;
+import com.example.enigmaapp.web.settlement.UnitaryResult;
 import com.example.enigmaapp.web.trade.TradeResult;
 
 import java.util.ArrayList;
@@ -37,4 +39,12 @@ public interface RetrofitInterface {
     @GET("/trade")
     Call<TradeResult> executeGetTrades(@Header("Authorization") String token,
                                        @QueryMap Map<String, String> params);
+
+    // Settlements:
+    @GET("/settlement_batch")
+    Call<SettlementResult> executeGetBatch(@Header("Authorization") String token,
+                                           @QueryMap Map<String, String> params);
+    @GET("/settlement ")
+    Call<SettlementResult> executeGetUnitary(@Header("Authorization") String token,
+                                          @QueryMap Map<String, String> params);
 }

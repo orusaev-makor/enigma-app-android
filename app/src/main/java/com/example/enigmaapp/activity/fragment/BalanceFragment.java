@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
+import com.example.enigmaapp.model.UserViewModel;
 import com.example.enigmaapp.web.login.LoginResult;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -28,13 +30,10 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 
 public class BalanceFragment extends Fragment {
-    private String mUsername;
     private PieChart balanceChart;
-    private String clickedCoin;
 
-
-    public BalanceFragment(LoginResult currentUser) {
-        this.mUsername = currentUser.getUsername();
+    public BalanceFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -53,8 +52,13 @@ public class BalanceFragment extends Fragment {
 
         final Typeface tfRegular = ResourcesCompat.getFont(getContext(), R.font.poppins_regular);
 
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(UserViewModel.class);
+
+        String username = userViewModel.getCurrentUser().getUsername();
         TextView userGreeting = v.findViewById(R.id.user_greeting_text);
-        userGreeting.setText("Hello, " + mUsername);
+        userGreeting.setText("Hello, " + username);
 
         TextView coinNameText = v.findViewById(R.id.clicked_coin_name);
         ImageView coinIcon = v.findViewById(R.id.clicked_coin_icon);
@@ -119,7 +123,7 @@ public class BalanceFragment extends Fragment {
                 coinIcon.setColorFilter(currentColor);
 
                 // set percentage in center of the chart pie
-                String value = String.valueOf(e.getY()) + "%";
+                String value = e.getY() + "%";
                 balanceChart.setCenterText(value);
                 balanceChart.setCenterTextColor(currentColor);
                 balanceChart.setCenterTextSize(20f);

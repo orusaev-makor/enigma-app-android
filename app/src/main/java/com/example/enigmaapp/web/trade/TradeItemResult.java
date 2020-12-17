@@ -99,9 +99,7 @@ public class TradeItemResult {
         return price;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
+    public void setPrice(String price) { this.price = price; }
 
     public String getProviderPrice() {
         return providerPrice;

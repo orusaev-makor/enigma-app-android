@@ -20,8 +20,8 @@ public class TradeViewModel extends AndroidViewModel {
         repository = new TradeRepository(application);
     }
 
-    public void fetchTrades() {
-        repository.fetchTrades();
+    public void fetchTrades(String token) {
+        repository.fetchTrades(token);
     }
 
     public LiveData<List<TradeItemResult>> getTrades() {

@@ -16,19 +16,19 @@ import android.widget.ImageView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.TradeViewModel;
+import com.example.enigmaapp.model.UserViewModel;
 import com.example.enigmaapp.ui.TradeItemAdapter;
 import com.example.enigmaapp.web.login.LoginResult;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class TradeFragment extends Fragment {
-    private LoginResult mCurrenUser;
     private FloatingActionButton createTradeBtn;
     private ImageView filterBtn;
     private ImageView uploadBtn;
     private ImageView refreshBtn;
 
-    public TradeFragment(LoginResult currentUser) {
-        this.mCurrenUser = currentUser;
+    public TradeFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -95,7 +95,13 @@ public class TradeFragment extends Fragment {
         viewModel.getTrades().observe(requireActivity(), tradeItems -> {
             adapter.submitList(tradeItems);
         });
-        viewModel.fetchTrades();
+
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(UserViewModel.class);
+        String token = userViewModel.getCurrentUser().getToken();
+
+        viewModel.fetchTrades(token);
 
         return v;
     }
@@ -109,7 +115,7 @@ public class TradeFragment extends Fragment {
 
     private void openTradeFragment() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        TradeFragment fragment = new TradeFragment(mCurrenUser);
+        TradeFragment fragment = new TradeFragment();
         transaction.replace(R.id.frame_layout, fragment, "Trade");
         transaction.commit();
     }

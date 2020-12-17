@@ -8,14 +8,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
-import android.widget.Switch;
-import android.widget.Toast;
+
 
 import com.example.enigmaapp.activity.fragment.AccountsFragment;
 import com.example.enigmaapp.activity.fragment.BalanceFragment;
@@ -23,9 +23,8 @@ import com.example.enigmaapp.activity.fragment.LoginFragment;
 import com.example.enigmaapp.activity.fragment.MarketFragment;
 import com.example.enigmaapp.activity.fragment.NewsFragment;
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.login.LoginResult;
-import com.example.enigmaapp.web.RetrofitClient;
-import com.example.enigmaapp.web.RetrofitInterface;
+import com.example.enigmaapp.model.UserViewModel;
+
 import com.example.enigmaapp.activity.fragment.SettingsFragment;
 import com.example.enigmaapp.activity.fragment.SettlementFragment;
 import com.example.enigmaapp.activity.fragment.StatisticsFragment;
@@ -35,23 +34,10 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-
-import static com.example.enigmaapp.activity.fragment.LoginFragment.currentUser;
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mDrawerToggle;
-    private Switch themeSwitch;
-
-    private Retrofit retrofit;
-    private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://api-pnl-prev.enigma-securities.io/api-docs/";
-//    private String BASE_URL = "https://api-pnl.enigma-securities.io";
-    private static String token;
+    UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         System.out.println("HERE: " + AppCompatDelegate.getDefaultNightMode());
         System.out.println("THERE: " + AppCompatDelegate.MODE_NIGHT_YES);
+
+        userViewModel = new ViewModelProvider(this,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication()))
+                .get(UserViewModel.class);
 
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -93,13 +83,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.app_bar_balance) {
-                BalanceFragment fragment = new BalanceFragment(currentUser);
+                BalanceFragment fragment = new BalanceFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.frame_layout, fragment, "Balance");
                 fragmentTransaction.commit();
         }
         else if (id == R.id.app_bar_trade) {
-            TradeFragment fragment = new TradeFragment(currentUser);
+            TradeFragment fragment = new TradeFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Trade");
             fragmentTransaction.commit();
@@ -141,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.commit();
         }
         else if (id == R.id.app_bar_logout) {
-            handleLogout();
+            userViewModel.logoutCurrentUser();
             LoginFragment fragment = new LoginFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Login");
@@ -161,25 +151,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void handleLogout() {
-        Call<Void> call = RetrofitClient.getInstance().getRetrofitInterface().executeLogout(currentUser.getToken());
-
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.code() == 200) {
-                    currentUser = new LoginResult();
-                } else if (response.code() == 400) {
-                    Toast.makeText(MainActivity.this, "Please try again", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "ERROR: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
+//    private void handleLogout() {
+//        Call<Void> call = RetrofitClient.getInstance().getRetrofitInterface().executeLogout(currentUser.getToken());
+//
+//        call.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.code() == 200) {
+//                    currentUser = new LoginResult();
+//                } else if (response.code() == 400) {
+//                    Toast.makeText(MainActivity.this, "Please try again", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Toast.makeText(MainActivity.this, "ERROR: " + t.getMessage(), Toast.LENGTH_LONG).show();
+//            }
+//        });
+//    }
 
 //    class MyAdapter extends ArrayAdapter<String> {
 //        Context context;

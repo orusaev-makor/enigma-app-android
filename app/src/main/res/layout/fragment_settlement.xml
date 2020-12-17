@@ -6,16 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center|top"
+        android:orientation="vertical"
         tools:context=".activity.fragment.SettlementFragment">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center|top"
-            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -42,6 +38,7 @@
                 android:weightSum="1">
 
                 <TextView
+                    android:id="@+id/settlement_batch"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
@@ -54,6 +51,7 @@
                     android:text="@string/batch" />
 
                 <TextView
+                    android:id="@+id/settlement_unitary"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
@@ -66,20 +64,12 @@
                     android:text="@string/unitary" />
             </LinearLayout>
 
-            <include
-                layout="@layout/settlement_item"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="-16dp"
-                android:paddingLeft="-10dp"
-                android:paddingRight="-10dp" />
-            <!--    <androidx.recyclerview.widget.RecyclerView-->
-            <!--        android:id="@+id/settlement_fragment_recycler_view"-->
-            <!--        android:layout_width="match_parent"-->
-            <!--        android:layout_height="match_parent"-->
-            <!--        android:paddingLeft="-10dp"-->
-            <!--        android:paddingRight="-10dp"-->
-            <!--        tools:listitem="@layout/settlement_item" />-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/settlement_fragment_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="-17dp"
+                    tools:listitem="@layout/settlement_item" />
 
             <!--        <include-->
             <!--            layout="@layout/settlement_item"-->
@@ -108,7 +98,7 @@
             <!--        android:layout_height="match_parent"-->
             <!--        android:paddingLeft="-10dp"-->
             <!--        android:paddingRight="-10dp" />-->
-        </LinearLayout>
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/settlement_create_btn"
@@ -121,7 +111,7 @@
             android:src="@drawable/ic_action_add_circle"
             app:fabSize="normal"
             app:tint="@color/colorPrimary" />
-    </FrameLayout>
+    </LinearLayout>
 
 
 </ScrollView>

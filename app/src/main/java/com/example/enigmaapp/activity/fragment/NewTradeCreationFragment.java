@@ -17,8 +17,6 @@ import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 
-import static com.example.enigmaapp.activity.fragment.LoginFragment.currentUser;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NewTradeCreationFragment#newInstance} factory method to
@@ -121,7 +119,7 @@ public class NewTradeCreationFragment extends Fragment implements AdapterView.On
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                TradeFragment fragment = new TradeFragment(currentUser);
+                TradeFragment fragment = new TradeFragment();
                 transaction.replace(R.id.frame_layout, fragment, "Trade");
                 transaction.commit();
             }

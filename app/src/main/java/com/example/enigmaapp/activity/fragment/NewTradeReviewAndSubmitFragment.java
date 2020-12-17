@@ -14,8 +14,6 @@ import android.widget.Button;
 import com.example.enigmaapp.R;
 import com.google.android.material.button.MaterialButton;
 
-import static com.example.enigmaapp.activity.fragment.LoginFragment.currentUser;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NewTradeReviewAndSubmitFragment#newInstance} factory method to
@@ -110,7 +108,7 @@ public class NewTradeReviewAndSubmitFragment extends Fragment {
 
     private void openTradeScreen() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        TradeFragment fragment = new TradeFragment(currentUser);
+        TradeFragment fragment = new TradeFragment();
         transaction.replace(R.id.frame_layout, fragment, "Trade");
         transaction.commit();
     }

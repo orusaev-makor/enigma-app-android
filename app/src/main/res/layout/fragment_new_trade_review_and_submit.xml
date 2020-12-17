@@ -443,7 +443,6 @@
             android:layout_height="wrap_content">
 
             <!-- Chips can be declared here, or added dynamically. -->
-            <!--        TODO: make rectangle border shape -->
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip5"
                 style="@style/Widget.MaterialComponents.Chip.Entry"
@@ -453,6 +452,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Client@gmail.com"
+                app:chipCornerRadius="3dp"
                 android:textColor="@color/textColor" />
 
         </com.google.android.material.chip.ChipGroup>
