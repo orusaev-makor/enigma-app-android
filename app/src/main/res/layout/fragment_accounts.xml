@@ -40,20 +40,14 @@
             android:paddingRight="20dp"
             android:layout_marginBottom="15dp"
             android:textSize="18sp" />
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                            android:id="@+id/bank_accounts_recycler_view"-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:paddingLeft="-10dp"-->
-<!--                            android:paddingRight="-10dp"-->
-<!--                            tools:listitem="@layout/account_item" />-->
 
-        <include
-            android:id="@+id/account_details_layout"
-            layout="@layout/account_item"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bank_accounts_fiat_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="match_parent"
+            android:paddingLeft="-10dp"
+            android:paddingRight="-10dp"
+            tools:listitem="@layout/account_item" />
 
         <TextView
             android:layout_width="match_parent"
@@ -67,18 +61,13 @@
             android:layout_marginBottom="15dp"
             android:textSize="18sp" />
 
-        <!--                <androidx.recyclerview.widget.RecyclerView-->
-        <!--                            android:id="@+id/crypto_wallet_recycler_view"-->
-        <!--                            android:layout_width="match_parent"-->
-        <!--                            android:layout_height="match_parent"-->
-        <!--                            android:paddingLeft="-10dp"-->
-        <!--                            android:paddingRight="-10dp"-->
-        <!--                            tools:listitem="@layout/account_item" />-->
-
-        <include
-            layout="@layout/account_item"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bank_accounts_crypto_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:paddingLeft="-10dp"
+            android:paddingRight="-10dp"
+            tools:listitem="@layout/account_item" />
 
     </LinearLayout>
 

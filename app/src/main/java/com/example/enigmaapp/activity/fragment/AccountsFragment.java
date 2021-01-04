@@ -5,65 +5,39 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.enigmaapp.R;
+import com.example.enigmaapp.model.AccountsViewModel;
+import com.example.enigmaapp.model.UserViewModel;
+import com.example.enigmaapp.ui.AccountsItemAdapter;
+import com.example.enigmaapp.web.accounts.AccountsItemResult;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AccountsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class AccountsFragment extends Fragment {
 
     private FloatingActionButton createAccountBtn;
     private View accountLayout;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public AccountsFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AccountsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AccountsFragment newInstance(String param1, String param2) {
-        AccountsFragment fragment = new AccountsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         //        Show navbar on "Accounts" view:
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 
     @Override
@@ -71,17 +45,17 @@ public class AccountsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=  inflater.inflate(R.layout.fragment_accounts, container, false);
-
-        accountLayout = v.findViewById(R.id.account_details_layout);
-        accountLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                AccountDetailsFragment fragment = new AccountDetailsFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Account Details");
-                transaction.commit();
-            }
-        });
+//
+//        accountLayout = v.findViewById(R.id.account_details_layout);
+//        accountLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                AccountDetailsFragment fragment = new AccountDetailsFragment();
+//                transaction.replace(R.id.frame_layout, fragment, "Account Details");
+//                transaction.commit();
+//            }
+//        });
 
         // Move fo "New Trade" screen:
         createAccountBtn = v.findViewById(R.id.account_create_btn);
@@ -95,6 +69,72 @@ public class AccountsFragment extends Fragment {
             }
         });
 
+        RecyclerView recyclerViewFiat = v.findViewById(R.id.bank_accounts_fiat_recycler_view);
+        recyclerViewFiat.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        final AccountsItemAdapter fiatAdapter = new AccountsItemAdapter(requireContext(), true);
+        recyclerViewFiat.setAdapter(fiatAdapter);
+
+        AccountsViewModel viewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(AccountsViewModel.class);
+
+        viewModel.getFiatAccounts().observe(requireActivity(), new Observer<List<AccountsItemResult>>() {
+            @Override
+            public void onChanged(List<AccountsItemResult> accountsItems) {
+                fiatAdapter.submitList(accountsItems);
+            }
+        });
+
+        fiatAdapter.setOnItemClickListener(new AccountsItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(AccountsItemResult accountsItem) {
+                System.out.println("Item Clicked: " + accountsItem.getAccountName()
+                        + " / Currency: " + accountsItem.getCurrency()
+                        + " / CryptoCurrency: " + accountsItem.getCryptoCurrency());
+                openAccountDetailsFragment(accountsItem);
+            }
+        });
+
+        RecyclerView recyclerViewCrypto = v.findViewById(R.id.bank_accounts_crypto_recycler_view);
+        recyclerViewCrypto.setLayoutManager((new LinearLayoutManager(getContext())));
+
+        final AccountsItemAdapter cryptoAdapter = new AccountsItemAdapter(requireContext(), false);
+        recyclerViewCrypto.setAdapter(cryptoAdapter);
+
+        viewModel.getCryptoAccounts().observe(requireActivity(), new Observer<List<AccountsItemResult>>() {
+            @Override
+            public void onChanged(List<AccountsItemResult> accountsItems) {
+                accountsItems.size();
+                cryptoAdapter.submitList(accountsItems);
+            }
+        });
+
+
+        cryptoAdapter.setOnItemClickListener(new AccountsItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(AccountsItemResult accountsItem) {
+                System.out.println("Item Clicked: " + accountsItem.getAccountName()
+                        + " / Currency: " + accountsItem.getCurrency()
+                        + " / CryptoCurrency: " + accountsItem.getCryptoCurrency());
+                openAccountDetailsFragment(accountsItem);
+            }
+        });
+
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(UserViewModel.class);
+        String token = userViewModel.getCurrentUser().getToken();
+
+        viewModel.fetchAccounts(token);
+
         return v;
+    }
+
+    private void openAccountDetailsFragment(AccountsItemResult accountsItem) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        AccountDetailsFragment fragment = new AccountDetailsFragment(accountsItem);
+        transaction.replace(R.id.frame_layout, fragment, "Account Details");
+        transaction.commit();
     }
 }

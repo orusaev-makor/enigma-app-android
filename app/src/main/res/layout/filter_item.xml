@@ -18,6 +18,7 @@
         tools:ignore="ContentDescription" />
 
     <TextView
+        android:id="@+id/filter_option"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:drawableEnd="@drawable/ic_check"

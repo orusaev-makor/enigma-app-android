@@ -1,9 +1,10 @@
 package com.example.enigmaapp.web;
 
+import com.example.enigmaapp.web.accounts.AccountsItemResult;
 import com.example.enigmaapp.web.login.LoginResult;
 import com.example.enigmaapp.web.settlement.SettlementResult;
-import com.example.enigmaapp.web.settlement.UnitaryResult;
 import com.example.enigmaapp.web.trade.TradeResult;
+import com.example.enigmaapp.web.trade.dataset.TradeDatasetResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +36,10 @@ public interface RetrofitInterface {
     @DELETE("/auth")
     Call<Void> executeLogout(@Header("Authorization") String token);
 
+    // Balance:
+    @GET("/balance")
+    Call<Object> executeGetBalance(@Header("Authorization") String token);
+
     // Trades:
     @GET("/trade")
     Call<TradeResult> executeGetTrades(@Header("Authorization") String token,
@@ -44,7 +49,16 @@ public interface RetrofitInterface {
     @GET("/settlement_batch")
     Call<SettlementResult> executeGetBatch(@Header("Authorization") String token,
                                            @QueryMap Map<String, String> params);
-    @GET("/settlement ")
+    @GET("/settlement")
     Call<SettlementResult> executeGetUnitary(@Header("Authorization") String token,
                                           @QueryMap Map<String, String> params);
+
+
+    // Accounts:
+    @GET("/account")
+    Call<ArrayList<AccountsItemResult>> executeGetAccounts(@Header("Authorization") String token);
+
+    // Datasets:
+    @GET("/dataset/trade")
+    Call<TradeDatasetResult> executeGetTradeDataset(@Header("Authorization") String token);
 }

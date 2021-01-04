@@ -152,9 +152,7 @@ public class SettlementRepository {
             return counterparty;
         }
 
-        public void setCounterparty(String counterparty) {
-            this.counterparty = counterparty;
-        }
+        public void setCounterparty(String counterparty) { this.counterparty = counterparty; }
 
         public String getDate() {
             return date;
@@ -172,9 +170,7 @@ public class SettlementRepository {
             this.status = status;
         }
 
-        public int getId() {
-            return id;
-        }
+        public int getId() { return id; }
 
         public void setId(int id) {
             this.id = id;

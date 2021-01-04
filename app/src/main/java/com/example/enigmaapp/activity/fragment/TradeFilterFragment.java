@@ -74,10 +74,11 @@ public class TradeFilterFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         //        Hide navbar on "Trade filter" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
-        super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -95,7 +96,8 @@ public class TradeFilterFragment extends Fragment {
         productText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openProductList();
+                openMultiSelectFilter("product");
+//                openProductList();
             }
         });
 
@@ -147,6 +149,13 @@ public class TradeFilterFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void openMultiSelectFilter(String type) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        MultiSelectFilterFragment fragment = new MultiSelectFilterFragment(type);
+        transaction.replace(R.id.frame_layout, fragment, "Multi Select Filter List");
+        transaction.commit();
     }
 
     private void openBatchedList() {

@@ -37,7 +37,6 @@ public class TradeFragment extends Fragment {
 
         //        Show navbar on "Trade" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-
     }
 
     @Override

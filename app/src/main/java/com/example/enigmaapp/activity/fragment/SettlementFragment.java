@@ -42,10 +42,10 @@ public class SettlementFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         // Show navbar on "Settlement" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-
-        super.onCreate(savedInstanceState);
     }
 
     @Override

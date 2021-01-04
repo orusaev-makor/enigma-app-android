@@ -57,10 +57,11 @@ public class NewsFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         //        Show navbar on "News" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
 
-        super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);

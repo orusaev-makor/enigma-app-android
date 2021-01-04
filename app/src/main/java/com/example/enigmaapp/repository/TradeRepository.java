@@ -44,7 +44,7 @@ public class TradeRepository {
             @Override
             public void onResponse(Call<TradeResult> call, Response<TradeResult> response) {
                 if (!response.isSuccessful()) {
-                    System.out.println("Code: " + response.code() + "Error: " + response.message());
+                    System.out.println("fetchTrades - Code: " + response.code() + "Error: " + response.message());
                     return;
                 }
                 allTrades.setValue(response.body().getItems());

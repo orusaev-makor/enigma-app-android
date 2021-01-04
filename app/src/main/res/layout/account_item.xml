@@ -21,7 +21,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:background="@color/colorPrimaryDark"
         android:paddingBottom="14dp"
@@ -29,19 +29,19 @@
         android:layout_marginTop="10dp">
 
         <ImageView
-            android:layout_width="0dp"
+            android:id="@+id/account_item_fav_icon"
+            android:layout_width="20dp"
             android:layout_height="20dp"
-            android:paddingLeft="5dp"
-            android:layout_weight="0.1"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="5dp"
             android:contentDescription="@string/favorite_icon"
-            android:gravity="center"
-            android:src="@drawable/ic_star"
-            app:tint="@color/starFavoriteMarked" />
+            android:gravity="left|center"
+/>
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/account_item_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.6"
             android:fontFamily="@font/poppins_light"
             android:gravity="left"
             android:text="USD Iban Client Test"
@@ -49,17 +49,17 @@
             android:textSize="16sp"
             android:drawableTint="@color/starFavoriteMarked"
             android:drawableLeft="@color/starFavoriteMarked" />
+    </LinearLayout>
 
         <ImageView
-            android:layout_width="0dp"
+            android:id="@+id/account_item_currency_icon"
+            android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_weight="0.2"
             android:contentDescription="@string/currency_icon"
-            android:gravity="right"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="25dp"
             android:src="@drawable/ic_usd"
             app:tint="@color/textColor" />
-
-    </LinearLayout>
 
 
 </com.google.android.material.card.MaterialCardView>
