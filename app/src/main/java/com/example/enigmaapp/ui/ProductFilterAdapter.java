@@ -33,7 +33,7 @@ public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, Produ
 
         @Override
         public boolean areContentsTheSame(@NonNull TradeDatasetProduct oldItem, @NonNull TradeDatasetProduct newItem) {
-            return oldItem.getName().equals(newItem.getName());
+            return oldItem.getIsChecked() == newItem.getIsChecked();
         }
     };
 
@@ -79,7 +79,7 @@ public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, Produ
     }
 
     public interface OnItemClickListener {
-        void onItemClick(TradeDatasetProduct tradeItem);
+        void onItemClick(TradeDatasetProduct item);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

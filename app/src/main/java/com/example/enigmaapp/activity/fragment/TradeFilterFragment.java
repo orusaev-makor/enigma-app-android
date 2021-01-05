@@ -15,24 +15,18 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.model.TradeFilterViewModel;
+import com.example.enigmaapp.model.TradeViewModel;
 import com.example.enigmaapp.model.UserViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.TimeZone;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TradeFilterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TradeFilterFragment extends Fragment {
-    // TODO: dismiss drop downs on touch event:
-//    private View mTouchOutsideView;
-//    private OnTouchOutsideViewListener mOnTouchOutsideViewListener;
 
     private Button closeBtn;
     private Button submitBtn;
@@ -43,49 +37,18 @@ public class TradeFilterFragment extends Fragment {
     private TextView executionText;
     private TextView batchedText;
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public static HashMap<String, String> paramsToSend = new HashMap<>();
 
     public TradeFilterFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TradeFilterFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TradeFilterFragment newInstance(String param1, String param2) {
-        TradeFilterFragment fragment = new TradeFilterFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //        Hide navbar on "Trade filter" view:
+        // Hide navbar on "Trade filter" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -95,10 +58,9 @@ public class TradeFilterFragment extends Fragment {
 
         buildCalender(v);
 
-
-        TradeFilterViewModel viewModel = new ViewModelProvider(requireActivity(),
+        TradeViewModel viewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(TradeFilterViewModel.class);
+                .get(TradeViewModel.class);
 
         UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
@@ -120,7 +82,8 @@ public class TradeFilterFragment extends Fragment {
         executionText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openExecutionTypeList();
+                openMultiSelectFilter("execution type");
+//                openExecutionTypeList();
             }
         });
         batchedText = v.findViewById(R.id.filter_trade_batched_edit);
@@ -137,6 +100,7 @@ public class TradeFilterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: add filter process
+                viewModel.setParams(paramsToSend);
                 openTradeScreen();
             }
         });
@@ -147,6 +111,8 @@ public class TradeFilterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: add proper reset process
+                paramsToSend.clear();
+                viewModel.resetParams();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 TradeFilterFragment fragment = new TradeFilterFragment();
                 transaction.replace(R.id.frame_layout, fragment, "Trade Filter");
@@ -176,20 +142,6 @@ public class TradeFilterFragment extends Fragment {
     private void openBatchedList() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         FilterBatchedFragment fragment = new FilterBatchedFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Filter List");
-        transaction.commit();
-    }
-
-    private void openExecutionTypeList() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FilterExecutionTypeFragment fragment = new FilterExecutionTypeFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Filter List");
-        transaction.commit();
-    }
-
-    private void openProductList() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FilterListFragment fragment = new FilterListFragment();
         transaction.replace(R.id.frame_layout, fragment, "Filter List");
         transaction.commit();
     }
@@ -225,6 +177,30 @@ public class TradeFilterFragment extends Fragment {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         TradeFragment fragment = new TradeFragment();
         transaction.replace(R.id.frame_layout, fragment, "Trade");
+        transaction.commit();
+    }
+
+    public static void setParams(HashMap<String, String> params) {
+        Iterator it = params.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            System.out.println(pair.getKey() + " = " + pair.getValue());
+            paramsToSend.put(pair.getKey().toString(), pair.getValue().toString());
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+    }
+
+    private void openExecutionTypeList() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FilterExecutionTypeFragment fragment = new FilterExecutionTypeFragment();
+        transaction.replace(R.id.frame_layout, fragment, "Filter List");
+        transaction.commit();
+    }
+
+    private void openProductList() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FilterListFragment fragment = new FilterListFragment();
+        transaction.replace(R.id.frame_layout, fragment, "Filter List");
         transaction.commit();
     }
 }
