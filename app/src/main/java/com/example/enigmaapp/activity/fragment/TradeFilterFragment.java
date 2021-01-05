@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
+import com.example.enigmaapp.model.TradeFilterViewModel;
+import com.example.enigmaapp.model.UserViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -91,6 +94,18 @@ public class TradeFilterFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_trade_filter, container, false);
 
         buildCalender(v);
+
+
+        TradeFilterViewModel viewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(TradeFilterViewModel.class);
+
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(UserViewModel.class);
+        String token = userViewModel.getCurrentUser().getToken();
+
+        viewModel.fetchTradeDataset(token);
 
         productText = v.findViewById(R.id.filter_trade_product_edit);
         productText.setOnClickListener(new View.OnClickListener() {

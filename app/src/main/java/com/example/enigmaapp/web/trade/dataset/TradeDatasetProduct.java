@@ -3,6 +3,11 @@ package com.example.enigmaapp.web.trade.dataset;
 public class TradeDatasetProduct {
     private int id;
     private String name;
+    private boolean isChecked = false;
+
+    public boolean getIsChecked() { return isChecked; }
+
+    public void setIsChecked(boolean checked) { isChecked = checked; }
 
     public int getId() {
         return id;

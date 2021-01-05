@@ -1,6 +1,5 @@
 package com.example.enigmaapp.web.trade.dataset;
 
-import com.example.enigmaapp.web.trade.TradeItemResult;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -16,11 +15,13 @@ public class TradeDatasetResult {
     ArrayList<String> displayingSide;
     @SerializedName("execution_type")
     ArrayList<String> executionType;
-    List<TradeDatasetBroker> brokers;
-    List<TradeDatasetCounterparty> counterparties;
+    List<TradeDatasetBroker> broker;
+    List<TradeDatasetCounterparty> counterparty;
     List<TradeDatasetCompany> companies;
-    List<TradeDatasetProvider> providers;
-    List<TradeDatasetProduct> products;
+    List<TradeDatasetProvider> provider;
+    List<TradeDatasetProduct> product;
+//    @SerializedName("execution_type")
+//    List<TradeDatasetExecutionType> executionType;
 
     public ArrayList<String> getSide() {
         return side;
@@ -38,7 +39,7 @@ public class TradeDatasetResult {
         this.tradeType = tradeType;
     }
 
-    public ArrayList<String> getStatus() {
+    public List<String> getStatus() {
         return status;
     }
 
@@ -54,7 +55,7 @@ public class TradeDatasetResult {
         this.displayingSide = displayingSide;
     }
 
-    public ArrayList<String> getExecutionType() {
+    public List<String> getExecutionType() {
         return executionType;
     }
 
@@ -62,20 +63,20 @@ public class TradeDatasetResult {
         this.executionType = executionType;
     }
 
-    public List<TradeDatasetBroker> getBrokers() {
-        return brokers;
+    public List<TradeDatasetBroker> getBroker() {
+        return broker;
     }
 
-    public void setBrokers(List<TradeDatasetBroker> brokers) {
-        this.brokers = brokers;
+    public void setBroker(List<TradeDatasetBroker> broker) {
+        this.broker = broker;
     }
 
-    public List<TradeDatasetCounterparty> getCounterparties() {
-        return counterparties;
+    public List<TradeDatasetCounterparty> getCounterparty() {
+        return counterparty;
     }
 
-    public void setCounterparties(List<TradeDatasetCounterparty> counterparties) {
-        this.counterparties = counterparties;
+    public void setCounterparty(List<TradeDatasetCounterparty> counterparty) {
+        this.counterparty = counterparty;
     }
 
     public List<TradeDatasetCompany> getCompanies() {
@@ -86,19 +87,19 @@ public class TradeDatasetResult {
         this.companies = companies;
     }
 
-    public List<TradeDatasetProvider> getProviders() {
-        return providers;
+    public List<TradeDatasetProvider> getProvider() {
+        return provider;
     }
 
-    public void setProviders(List<TradeDatasetProvider> providers) {
-        this.providers = providers;
+    public void setProvider(List<TradeDatasetProvider> provider) {
+        this.provider = provider;
     }
 
-    public List<TradeDatasetProduct> getProducts() {
-        return products;
+    public List<TradeDatasetProduct> getProduct() {
+        return product;
     }
 
-    public void setProducts(List<TradeDatasetProduct> products) {
-        this.products = products;
+    public void setProduct(List<TradeDatasetProduct> product) {
+        this.product = product;
     }
 }

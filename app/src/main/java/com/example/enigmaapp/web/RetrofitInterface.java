@@ -37,7 +37,7 @@ public interface RetrofitInterface {
     Call<Void> executeLogout(@Header("Authorization") String token);
 
     // Balance:
-    @GET("/balance")
+    @GET("/balance/248")
     Call<Object> executeGetBalance(@Header("Authorization") String token);
 
     // Trades:
@@ -55,7 +55,7 @@ public interface RetrofitInterface {
 
 
     // Accounts:
-    @GET("/account")
+    @GET("/account/248")
     Call<ArrayList<AccountsItemResult>> executeGetAccounts(@Header("Authorization") String token);
 
     // Datasets:

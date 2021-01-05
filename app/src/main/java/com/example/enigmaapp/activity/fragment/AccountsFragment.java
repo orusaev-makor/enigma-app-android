@@ -105,7 +105,6 @@ public class AccountsFragment extends Fragment {
         viewModel.getCryptoAccounts().observe(requireActivity(), new Observer<List<AccountsItemResult>>() {
             @Override
             public void onChanged(List<AccountsItemResult> accountsItems) {
-                accountsItems.size();
                 cryptoAdapter.submitList(accountsItems);
             }
         });

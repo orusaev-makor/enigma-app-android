@@ -35,9 +35,9 @@ public class TradeRepository {
         params.put("items_per_page", "5");
         params.put("current_page", "1");
         params.put("sort", "trade_id desc");
-        params.put("counterparty_id", "249");
-        params.put("product_id", "2");
-        params.put("already_batched", "0");
+//        params.put("counterparty_id", "249");
+//        params.put("product_id", "2");
+//        params.put("already_batched", "0");
 
         Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, params);
         call.enqueue(new Callback<TradeResult>() {
