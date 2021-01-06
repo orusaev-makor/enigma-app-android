@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.enigmaapp.repository.TradeRepository;
 import com.example.enigmaapp.web.trade.TradeItemResult;
+import com.example.enigmaapp.web.trade.dataset.TradeDatasetBatched;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetExecutionType;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
@@ -39,15 +40,17 @@ public class TradeViewModel extends AndroidViewModel {
         repository.fetchTradeDataset(token);
     }
 
-    public LiveData<TradeDatasetResult> getTradeDataset() {
-        return repository.getTradeDataset();
-    }
+    public LiveData<TradeDatasetResult> getTradeDataset() { return repository.getTradeDataset(); }
 
     public MutableLiveData<List<TradeDatasetProduct>> getProductsDataset() { return repository.getProductsDataset(); }
 
     public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() { return repository.getCounterpartyDataset(); }
 
     public MutableLiveData<List<TradeDatasetExecutionType>> getExecutionTypeDataset() { return repository.getExecutionTypeDataset(); }
+
+    public MutableLiveData<List<TradeDatasetBatched>> getBatchedDataset() {
+        return repository.getBatchedDataset();
+    }
 
     public MutableLiveData<ArrayList<String>> getStatusDataset() { return repository.getStatusDataset(); }
 
@@ -56,15 +59,6 @@ public class TradeViewModel extends AndroidViewModel {
     public void resetParams() { repository.resetParams(); }
 
     public void removeFromParams(String key) {
-        switch (key) {
-            case "product":
-                repository.removeFromParams("product_id");
-                break;
-            case "execution type":
-                repository.removeFromParams("execution_type");
-                break;
-            default:
-                break;
-        }
+        repository.removeFromParams(key);
     }
 }

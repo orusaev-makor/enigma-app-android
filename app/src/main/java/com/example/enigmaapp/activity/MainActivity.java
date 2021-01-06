@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        System.out.println("HERE: " + AppCompatDelegate.getDefaultNightMode());
-        System.out.println("THERE: " + AppCompatDelegate.MODE_NIGHT_YES);
 
         userViewModel = new ViewModelProvider(this,
                 ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication()))

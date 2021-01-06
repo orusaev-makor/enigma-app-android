@@ -6,10 +6,10 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.enigmaapp.web.ProxyRetrofitQueryMap;
 import com.example.enigmaapp.web.RetrofitClient;
 import com.example.enigmaapp.web.trade.TradeItemResult;
 import com.example.enigmaapp.web.trade.TradeResult;
+import com.example.enigmaapp.web.trade.dataset.TradeDatasetBatched;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetExecutionType;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
@@ -20,20 +20,21 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TradeRepository {
-    private HashMap<String, String> params = new HashMap<>();
+
+    private HashMap<String, String> params1 = new HashMap<>();
     private MutableLiveData<List<TradeItemResult>> allTrades = new MutableLiveData<>();
     private Application application;
     private MutableLiveData<TradeDatasetResult> tradeDataset = new MutableLiveData<>();
     private MutableLiveData<List<TradeDatasetProduct>> productsDataset = new MutableLiveData<List<TradeDatasetProduct>>();
     private MutableLiveData<List<TradeDatasetCounterparty>> counterpartyDataset = new MutableLiveData<List<TradeDatasetCounterparty>>();
     private MutableLiveData<List<TradeDatasetExecutionType>> executionTypeDataset = new MutableLiveData<List<TradeDatasetExecutionType>>();
+    private MutableLiveData<List<TradeDatasetBatched>> batcedDataset = new MutableLiveData<List<TradeDatasetBatched>>();
     private MutableLiveData<ArrayList<String>> statusDataset = new MutableLiveData<ArrayList<String>>();
 
     public TradeRepository(Application application) {
@@ -68,16 +69,14 @@ public class TradeRepository {
 //
 //        System.out.println(" MAP : " + map);
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put("items_per_page", "5");
-        params.put("current_page", "1");
-        params.put("sort", "trade_id desc");
 //        params.put("counterparty_id", "249");
 //        params.put("product_id", "2");
 //        params.put("already_batched", "0");
-
-        setParams(params);
-        Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, this.params);
+        params1.put("items_per_page", "5");
+        params1.put("current_page", "1");
+        params1.put("sort", "trade_id desc");
+        System.out.println("params1 ______________ " + params1);
+        Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, params1);
 //        Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, map);
         call.enqueue(new Callback<TradeResult>() {
             @Override
@@ -97,34 +96,29 @@ public class TradeRepository {
         });
     }
 
-    public void setParams(HashMap<String, String> params) {
+    public HashMap<String, String> setParams(HashMap<String, String> params) {
         Iterator it = params.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-            System.out.println(pair.getKey() + " = " + pair.getValue());
-            this.params.put(pair.getKey().toString(), pair.getValue().toString());
+            System.out.println("setting params in repository: " + pair.getKey() + " = " + pair.getValue());
+            params1.put(pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }
+        return params1;
     }
 
+    public void resetParams() { this.params1.clear(); }
+
     public void removeFromParams(String key) {
-        System.out.println("removeFromParams key received:  " + key);
-        Iterator it = params.entrySet().iterator();
+        System.out.println("removeFromParams in repository - key received:  " + key);
+        Iterator it = params1.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
-            if (entry.getKey() == key) {
-                System.out.println("removeFromParams - found key! -> " + key);
+            if (entry.getKey().equals(key)) {
+                System.out.println("removeFromParams in repository - found key! -> " + key);
                 it.remove();
             }
         }
-    }
-
-    public void resetParams() {
-        this.params.clear();
-    }
-
-    public HashMap<String, String> getParams() {
-        return params;
     }
 
     public LiveData<TradeDatasetResult> getTradeDataset() {
@@ -141,6 +135,10 @@ public class TradeRepository {
 
     public MutableLiveData<List<TradeDatasetExecutionType>> getExecutionTypeDataset() {
         return executionTypeDataset;
+    }
+
+    public MutableLiveData<List<TradeDatasetBatched>> getBatchedDataset() {
+        return batcedDataset;
     }
 
     public MutableLiveData<ArrayList<String>> getStatusDataset() {
@@ -178,6 +176,12 @@ public class TradeRepository {
 
         ArrayList statusArray = (ArrayList) dataset.getExecutionType();
         statusDataset.setValue(statusArray);
+
+        ArrayList batchedArray = new ArrayList();
+        batchedArray.add(new TradeDatasetBatched("All trades", "-1"));
+        batchedArray.add(new TradeDatasetBatched("Not batched only", "0"));
+        batchedArray.add(new TradeDatasetBatched("Batched only", "1"));
+        batcedDataset.setValue(batchedArray);
     }
 
     private List<TradeDatasetExecutionType> setExecutionList(ArrayList arrayList) {

@@ -13,17 +13,17 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetExecutionType;
+import com.example.enigmaapp.web.trade.dataset.TradeDatasetBatched;
 
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastExecutionPos;
+import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastBatchedPos;
 
-public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutionType,ExecutionTypeFilterAdapter.ItemHolder> {
+public class BatchedFilterAdapter extends ListAdapter<TradeDatasetBatched, BatchedFilterAdapter.ItemHolder> {
 
     private int lastCheckedPos = 0;
     private OnItemClickListener listener;
     private Context context;
 
-    public ExecutionTypeFilterAdapter(Context context) {
+    public BatchedFilterAdapter(Context context) {
         super(DIFF_CALLBACK);
         this.context = context;
     }
@@ -32,15 +32,16 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
         this.lastCheckedPos = lastCheckedPos;
     }
 
-    private static final DiffUtil.ItemCallback<TradeDatasetExecutionType> DIFF_CALLBACK = new DiffUtil.ItemCallback<TradeDatasetExecutionType>() {
+    private static final DiffUtil.ItemCallback<TradeDatasetBatched> DIFF_CALLBACK = new DiffUtil.ItemCallback<TradeDatasetBatched>() {
         @Override
-        public boolean areItemsTheSame(@NonNull TradeDatasetExecutionType oldItem, @NonNull TradeDatasetExecutionType newItem) {
+        public boolean areItemsTheSame(@NonNull TradeDatasetBatched oldItem, @NonNull TradeDatasetBatched newItem) {
             return oldItem.getName() == newItem.getName();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull TradeDatasetExecutionType oldItem, @NonNull TradeDatasetExecutionType newItem) {
-            return oldItem.getIsChecked() == newItem.getIsChecked();
+        public boolean areContentsTheSame(@NonNull TradeDatasetBatched oldItem, @NonNull TradeDatasetBatched newItem) {
+            return oldItem.getIsChecked() == newItem.getIsChecked()
+                    && oldItem.getValue().equals(newItem.getValue());
         }
     };
 
@@ -53,26 +54,26 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExecutionTypeFilterAdapter.ItemHolder holder, int position) {
-        TradeDatasetExecutionType currentExecutionType = getItem(position);
+    public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
+        TradeDatasetBatched currentExecutionType = getItem(position);
 
-        holder.textViewExecutionTypeName.setText(currentExecutionType.getName());
-        if (currentExecutionType.getIsChecked() && lastCheckedPos == position || lastExecutionPos == position) {
+        holder.textViewBatchedName.setText(currentExecutionType.getName());
+        if (currentExecutionType.getIsChecked() && lastCheckedPos == position || lastBatchedPos == position) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
-            holder.textViewExecutionTypeName.setTextColor(context.getResources().getColor(R.color.textColor));
+            holder.textViewBatchedName.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {
             holder.checkedIcon.setVisibility(View.INVISIBLE);
-            holder.textViewExecutionTypeName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
+            holder.textViewBatchedName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
         }
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
-        private TextView textViewExecutionTypeName;
+        private TextView textViewBatchedName;
         private ImageView checkedIcon;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
-            textViewExecutionTypeName = itemView.findViewById(R.id.filter_option_name);
+            textViewBatchedName = itemView.findViewById(R.id.filter_option_name);
             checkedIcon = itemView.findViewById(R.id.filter_option_checked_icon);
 
             itemView.setOnClickListener(v -> {
@@ -85,7 +86,7 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
     }
 
     public interface OnItemClickListener {
-        void onItemClick(TradeDatasetExecutionType item, int position);
+        void onItemClick(TradeDatasetBatched item, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

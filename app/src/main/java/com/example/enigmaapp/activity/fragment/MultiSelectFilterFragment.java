@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +19,11 @@ import android.widget.TextView;
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.TradeViewModel;
 import com.example.enigmaapp.model.UserViewModel;
+import com.example.enigmaapp.ui.BatchedFilterAdapter;
 import com.example.enigmaapp.ui.ExecutionTypeFilterAdapter;
 import com.example.enigmaapp.ui.ProductFilterAdapter;
 import com.example.enigmaapp.web.ProxyRetrofitQueryMap;
+import com.example.enigmaapp.web.trade.dataset.TradeDatasetBatched;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetExecutionType;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
 import com.google.android.material.button.MaterialButton;
@@ -33,8 +34,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.removeFromParams;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.setParams;
-import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.updateUserInputField;
 
 public class MultiSelectFilterFragment extends Fragment {
     private String mFilterType;
@@ -47,6 +48,8 @@ public class MultiSelectFilterFragment extends Fragment {
     private HashMap<String, String> params = new HashMap<>();
     public static int lastProductPos = -1;
     public static int lastExecutionPos = -1;
+    public static int lastBatchedPos = -1;
+    private TradeViewModel viewModel;
 
     public MultiSelectFilterFragment(String filterType) {
         this.mFilterType = filterType;
@@ -76,6 +79,7 @@ public class MultiSelectFilterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openTradeFilterScreen();
+                setParams(params);
                 // TODO: add this section back when multi select is supported by server
 //                List<String> strList = new ArrayList<>();
 //                strList.add("17");
@@ -102,7 +106,7 @@ public class MultiSelectFilterFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        recyclerView.setHasFixedSize(true);
 
-        TradeViewModel viewModel = new ViewModelProvider(requireActivity(),
+        viewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(TradeViewModel.class);
 
@@ -110,79 +114,106 @@ public class MultiSelectFilterFragment extends Fragment {
         switch (mFilterType) {
 
             case "product":
-                final ProductFilterAdapter productFilterAdapter = new ProductFilterAdapter(requireActivity());
-                recyclerView.setAdapter(productFilterAdapter);
-                viewModel.getProductsDataset().observe(requireActivity(), new Observer<List<TradeDatasetProduct>>() {
-                    @Override
-                    public void onChanged(List<TradeDatasetProduct> tradeDatasetProducts) {
-                        productFilterAdapter.submitList(tradeDatasetProducts);
-                    }
-                });
-                productFilterAdapter.setOnItemClickListener(new ProductFilterAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(TradeDatasetProduct productItem, int position) {
-                        System.out.println(" Clicked : " + productItem.getName());
+                final ProductFilterAdapter productAdapter = new ProductFilterAdapter(requireActivity());
+                recyclerView.setAdapter(productAdapter);
 
-                        if (productItem.getIsChecked()) {
-                            productItem.setIsChecked(false);
-                            Iterator it = params.entrySet().iterator();
-                            while (it.hasNext()) {
-                                HashMap.Entry entry = (HashMap.Entry) it.next();
-                                if (entry.getKey().equals("product_id") && productItem.getId().equals(entry.getValue())) {
-                                    it.remove();
-                                }
+                viewModel.getProductsDataset().observe(requireActivity(), productItems -> productAdapter.submitList(productItems));
+
+                productAdapter.setOnItemClickListener((productItem, position) -> {
+                    System.out.println(" Clicked : " + productItem.getName());
+
+                    if (productItem.getIsChecked()) {
+                        productItem.setIsChecked(false);
+                        Iterator it = params.entrySet().iterator();
+                        while (it.hasNext()) {
+                            HashMap.Entry entry = (HashMap.Entry) it.next();
+                            if (entry.getKey().equals("product_id") && productItem.getId().equals(entry.getValue())) {
+                                it.remove();
                             }
-                        } else {
-                            productFilterAdapter.setLastCheckedPos(position);
-                            productItem.setIsChecked(true);
-                            lastProductPos = position;
-                            params.put("product_id", productItem.getId());
-//                            updateUserInputField("product", productItem.getName());
-                            setParams(params);
-                            prefEditor.putString("productReceived", productItem.getName());
-                            prefEditor.apply();
-                            System.out.println("---- Prefes chnged : productReceived: " + prefs.getString("productReceived", ""));
                         }
-                        productFilterAdapter.notifyDataSetChanged();
+                    } else {
+                        productAdapter.setLastCheckedPos(position);
+                        productItem.setIsChecked(true);
+                        lastProductPos = position;
+                        params.put("product_id", productItem.getId());
+//                        setParams(params);
+                        prefEditor.putString("productReceived", productItem.getName());
+                        prefEditor.apply();
                     }
+
+                    productAdapter.notifyDataSetChanged();
                 });
                 break;
 
             case "execution type":
-                final ExecutionTypeFilterAdapter executionTypeFilterAdapter = new ExecutionTypeFilterAdapter(requireActivity());
-                recyclerView.setAdapter(executionTypeFilterAdapter);
-                viewModel.getExecutionTypeDataset().observe(requireActivity(), new Observer<List<TradeDatasetExecutionType>>() {
+                final ExecutionTypeFilterAdapter executionTypeAdapter = new ExecutionTypeFilterAdapter(requireActivity());
+                recyclerView.setAdapter(executionTypeAdapter);
+
+                viewModel.getExecutionTypeDataset().observe(requireActivity(), executionTypeItems -> executionTypeAdapter.submitList(executionTypeItems));
+
+                executionTypeAdapter.setOnItemClickListener((executionTypeItem, position) -> {
+                    System.out.println(" Clicked : " + executionTypeItem.getName());
+
+                    if (executionTypeItem.getIsChecked()) {
+                        executionTypeItem.setIsChecked(false);
+                        Iterator it = params.entrySet().iterator();
+                        while (it.hasNext()) {
+                            HashMap.Entry entry = (HashMap.Entry) it.next();
+                            if (entry.getKey().equals("execution_type") && executionTypeItem.getName().equals(entry.getValue())) {
+                                it.remove();
+                            }
+                        }
+                    } else {
+                        executionTypeAdapter.setLastCheckedPos(position);
+                        executionTypeItem.setIsChecked(true);
+                        lastExecutionPos = position;
+                        params.put("execution_type", executionTypeItem.getName());
+                        prefEditor.putString("executionTypeReceived", executionTypeItem.getName());
+                        prefEditor.apply();
+//                        setParams(params);
+                    }
+
+                    executionTypeAdapter.notifyDataSetChanged();
+                });
+                break;
+
+            case "batched":
+                final BatchedFilterAdapter batchedAdapter = new BatchedFilterAdapter(requireActivity());
+                recyclerView.setAdapter(batchedAdapter);
+
+                viewModel.getBatchedDataset().observe(requireActivity(), new Observer<List<TradeDatasetBatched>>() {
                     @Override
-                    public void onChanged(List<TradeDatasetExecutionType> tradeDatasetExecutionTypes) {
-                        executionTypeFilterAdapter.submitList(tradeDatasetExecutionTypes);
+                    public void onChanged(List<TradeDatasetBatched> batchedItems) {
+                        batchedAdapter.submitList(batchedItems);
                     }
                 });
-                executionTypeFilterAdapter.setOnItemClickListener(new ExecutionTypeFilterAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(TradeDatasetExecutionType executionTypeItem, int position) {
-                        System.out.println(" Clicked : " + executionTypeItem.getName());
 
-                        if (executionTypeItem.getIsChecked()) {
-                            executionTypeItem.setIsChecked(false);
+                batchedAdapter.setOnItemClickListener(new BatchedFilterAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(TradeDatasetBatched batchedItem, int position) {
+                        System.out.println(" Clicked : " + batchedItem.getName());
+
+                        if (batchedItem.getIsChecked()) {
+                            batchedItem.setIsChecked(false);
                             Iterator it = params.entrySet().iterator();
                             while (it.hasNext()) {
                                 HashMap.Entry entry = (HashMap.Entry) it.next();
-                                if (entry.getKey().equals("execution_type") && executionTypeItem.getName().equals(entry.getValue())) {
+                                if (entry.getKey().equals("already_batched") && batchedItem.getValue().equals(entry.getValue())) {
                                     it.remove();
                                 }
                             }
                         } else {
-                            executionTypeFilterAdapter.setLastCheckedPos(position);
-                            executionTypeItem.setIsChecked(true);
-                            lastExecutionPos = position;
-                            params.put("execution_type", executionTypeItem.getName());
-                            prefEditor.putString("executionTypeReceived", executionTypeItem.getName());
+                            batchedAdapter.setLastCheckedPos(position);
+                            batchedItem.setIsChecked(true);
+                            lastBatchedPos = position;
+                            params.put("already_batched", batchedItem.getValue());
+                            prefEditor.putString("batchedReceived", batchedItem.getName());
                             prefEditor.apply();
-                            setParams(params);
+//                            setParams(params);
                         }
-                        executionTypeFilterAdapter.notifyDataSetChanged();
-                    }
 
+                        batchedAdapter.notifyDataSetChanged();
+                    }
                 });
                 break;
 
@@ -197,12 +228,31 @@ public class MultiSelectFilterFragment extends Fragment {
             public void onClick(View v) {
                 openMultiSelectFilter(mFilterType);
                 resetPrefs();
-                viewModel.removeFromParams(mFilterType);
+                resetParam();
                 resetLastPos();
             }
         });
 
         return v;
+    }
+
+    private void resetParam() {
+        switch (mFilterType) {
+            case "product":
+                removeFromParams("product_id");
+                viewModel.removeFromParams("product_id");
+                break;
+            case "execution type":
+                removeFromParams("execution_type");
+                viewModel.removeFromParams("execution_type");
+                break;
+            case "batched":
+                removeFromParams("already_batched");
+                viewModel.removeFromParams("already_batched");
+                break;
+            default:
+                break;
+        }
     }
 
     private void resetLastPos() {
@@ -212,6 +262,9 @@ public class MultiSelectFilterFragment extends Fragment {
                 break;
             case "execution type":
                 lastExecutionPos = -1;
+                break;
+            case "batched":
+                lastBatchedPos = -1;
                 break;
             default:
                 break;
@@ -226,6 +279,10 @@ public class MultiSelectFilterFragment extends Fragment {
                 break;
             case "execution type":
                 prefEditor.putString("executionTypeReceived", "");
+                prefEditor.apply();
+                break;
+            case "batched":
+                prefEditor.putString("batchedReceived", "");
                 prefEditor.apply();
                 break;
             default:
