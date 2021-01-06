@@ -1,5 +1,6 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,21 +22,26 @@ import com.example.enigmaapp.model.TradeViewModel;
 import com.example.enigmaapp.model.UserViewModel;
 import com.example.enigmaapp.ui.ExecutionTypeFilterAdapter;
 import com.example.enigmaapp.ui.ProductFilterAdapter;
+import com.example.enigmaapp.web.ProxyRetrofitQueryMap;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetExecutionType;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
 import com.google.android.material.button.MaterialButton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.setParams;
+import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.updateUserInputField;
 
 public class MultiSelectFilterFragment extends Fragment {
     private String mFilterType;
     private TextView titleText;
     private TextView subtitleText;
-
+    private SharedPreferences.Editor prefEditor;
+    private SharedPreferences prefs;
     private MaterialButton resetBtn;
     private Button submitBtn;
     private HashMap<String, String> params = new HashMap<>();
@@ -46,6 +53,9 @@ public class MultiSelectFilterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
+//        prefEditor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
     }
 
     @Override
@@ -64,19 +74,26 @@ public class MultiSelectFilterFragment extends Fragment {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: add filter process
-                System.out.println(" Params sent from multi select fragmentL: " + params);
-                setParams(params);
                 openTradeFilterScreen();
-            }
-        });
+                // TODO: add this section back when multi select is supported by server
+//                List<String> strList = new ArrayList<>();
+//                strList.add("17");
+//                strList.add("6");
+//                HashMap<String, Object> mapToSend = new HashMap<>();
+//
+//                mapToSend.put("product_id", strList);
+//                ProxyRetrofitQueryMap map = new ProxyRetrofitQueryMap(mapToSend);
+//                System.out.println(" MAP : " + map);
 
-        // Reset "Filter List" screen
-        resetBtn = v.findViewById(R.id.multi_select_reset_btn);
-        resetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMultiSelectFilter(mFilterType);
+//                List<String> values1 = new ArrayList<>();
+//                values1.add("10");
+//                values1.add("11");
+//                map.put("filter[1]", values1);
+//
+//                List<String> values2 = new ArrayList<>();
+//                values1.add("20");
+//                values1.add("21");
+//                map.put("filter[2]", values2);
             }
         });
 
@@ -84,12 +101,30 @@ public class MultiSelectFilterFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        recyclerView.setHasFixedSize(true);
 
-
-
         TradeViewModel viewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(TradeViewModel.class);
 
+
+        // Reset "Filter List" screen
+        resetBtn = v.findViewById(R.id.multi_select_reset_btn);
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMultiSelectFilter(mFilterType);
+                resetPrefs();
+                switch (mFilterType) {
+                    case "product":
+                        viewModel.removeFromParams("product_id");
+                        break;
+                    case "execution type":
+                        viewModel.removeFromParams("execution_type");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
         switch (mFilterType) {
 
@@ -104,10 +139,9 @@ public class MultiSelectFilterFragment extends Fragment {
                 });
                 productFilterAdapter.setOnItemClickListener(new ProductFilterAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(TradeDatasetProduct productItem) {
+                    public void onItemClick(TradeDatasetProduct productItem, int position) {
                         System.out.println(" Clicked : " + productItem.getName());
 
-//                        setParams(params);
                         if (productItem.getIsChecked()) {
                             productItem.setIsChecked(false);
                             Iterator it = params.entrySet().iterator();
@@ -118,8 +152,14 @@ public class MultiSelectFilterFragment extends Fragment {
                                 }
                             }
                         } else {
+                            productFilterAdapter.setLastCheckedPos(position);
                             productItem.setIsChecked(true);
                             params.put("product_id", productItem.getId());
+//                            updateUserInputField("product", productItem.getName());
+                            setParams(params);
+                            prefEditor.putString("productReceived", productItem.getName());
+                            prefEditor.apply();
+                            System.out.println("---- Prefes chnged : productReceived: " + prefs.getString("productReceived", ""));
                         }
                         productFilterAdapter.notifyDataSetChanged();
                     }
@@ -137,25 +177,29 @@ public class MultiSelectFilterFragment extends Fragment {
                 });
                 executionTypeFilterAdapter.setOnItemClickListener(new ExecutionTypeFilterAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(TradeDatasetExecutionType executionTypeItem) {
+                    public void onItemClick(TradeDatasetExecutionType executionTypeItem, int position) {
                         System.out.println(" Clicked : " + executionTypeItem.getName());
-
 
                         if (executionTypeItem.getIsChecked()) {
                             executionTypeItem.setIsChecked(false);
                             Iterator it = params.entrySet().iterator();
                             while (it.hasNext()) {
                                 HashMap.Entry entry = (HashMap.Entry) it.next();
-                                if (entry.getKey().equals("product_id") && executionTypeItem.getName().equals(entry.getValue())) {
+                                if (entry.getKey().equals("execution_type") && executionTypeItem.getName().equals(entry.getValue())) {
                                     it.remove();
                                 }
                             }
                         } else {
+                            executionTypeFilterAdapter.setLastCheckedPos(position);
                             executionTypeItem.setIsChecked(true);
                             params.put("execution_type", executionTypeItem.getName());
+                            prefEditor.putString("executionTypeReceived", executionTypeItem.getName());
+                            prefEditor.apply();
+                            setParams(params);
                         }
                         executionTypeFilterAdapter.notifyDataSetChanged();
                     }
+
                 });
                 break;
 
@@ -164,6 +208,21 @@ public class MultiSelectFilterFragment extends Fragment {
         }
 
         return v;
+    }
+
+    private void resetPrefs() {
+        switch (mFilterType) {
+            case "product":
+                prefEditor.putString("productReceived", "");
+                prefEditor.apply();
+                break;
+            case "execution type":
+                prefEditor.putString("executionTypeReceived", "");
+                prefEditor.apply();
+                break;
+            default:
+                break;
+        }
     }
 
     private void openTradeFilterScreen() {

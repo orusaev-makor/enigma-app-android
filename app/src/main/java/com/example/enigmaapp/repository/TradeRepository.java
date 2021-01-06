@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.enigmaapp.web.ProxyRetrofitQueryMap;
 import com.example.enigmaapp.web.RetrofitClient;
 import com.example.enigmaapp.web.trade.TradeItemResult;
 import com.example.enigmaapp.web.trade.TradeResult;
@@ -18,8 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import java.util.Spliterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,20 +45,40 @@ public class TradeRepository {
     }
 
     public void fetchTrades(String token) {
-        this.params.put("items_per_page", "5");
-        this.params.put("current_page", "1");
-        this.params.put("sort", "trade_id desc");
+//        List<String> itemsPerPageValues = new ArrayList<>();
+//        itemsPerPageValues.add("5");
+//
+//        HashMap<String, Object> mapToSend = new HashMap<>();
+//        mapToSend.put("items_per_page", itemsPerPageValues);
+//
+//        ProxyRetrofitQueryMap map = new ProxyRetrofitQueryMap(mapToSend);
+//
+//        List<String> currentPageValues = new ArrayList<>();
+//        currentPageValues.add("1");
+//        map.put("current_page", currentPageValues);
+//
+//        List<String> sortValues = new ArrayList<>();
+//        sortValues.add("trade_id desc");
+//        map.put("sort", sortValues);
+//
+//        List<String> productIdsValues = new ArrayList<>();
+//        productIdsValues.add("17");
+//        productIdsValues.add("6");
+//        map.put("product_id", productIdsValues);
+//
+//        System.out.println(" MAP : " + map);
 
-//        HashMap<String, String> params = new HashMap<>();
-//        params.put("items_per_page", "5");
-//        params.put("current_page", "1");
-//        params.put("sort", "trade_id desc");
+        HashMap<String, String> params = new HashMap<>();
+        params.put("items_per_page", "5");
+        params.put("current_page", "1");
+        params.put("sort", "trade_id desc");
 //        params.put("counterparty_id", "249");
 //        params.put("product_id", "2");
 //        params.put("already_batched", "0");
 
-//        setParams(params);
+        setParams(params);
         Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, this.params);
+//        Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, map);
         call.enqueue(new Callback<TradeResult>() {
             @Override
             public void onResponse(Call<TradeResult> call, Response<TradeResult> response) {
@@ -85,21 +106,42 @@ public class TradeRepository {
             it.remove(); // avoids a ConcurrentModificationException
         }
     }
+
+    public void removeFromParams(String key) {
+        System.out.println("removeFromParams key received:  " + key);
+        Iterator it = params.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            if (entry.getKey() == key) {
+                System.out.println("removeFromParams - found key! -> " + key);
+                it.remove();
+            }
+        }
+    }
+
     public void resetParams() {
         this.params.clear();
     }
 
-    public HashMap<String, String> getParams() { return params; }
+    public HashMap<String, String> getParams() {
+        return params;
+    }
 
     public LiveData<TradeDatasetResult> getTradeDataset() {
         return tradeDataset;
     }
 
-    public MutableLiveData<List<TradeDatasetProduct>> getProductsDataset() { return productsDataset; }
+    public MutableLiveData<List<TradeDatasetProduct>> getProductsDataset() {
+        return productsDataset;
+    }
 
-    public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() { return counterpartyDataset; }
+    public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() {
+        return counterpartyDataset;
+    }
 
-    public MutableLiveData<List<TradeDatasetExecutionType>> getExecutionTypeDataset() { return executionTypeDataset; }
+    public MutableLiveData<List<TradeDatasetExecutionType>> getExecutionTypeDataset() {
+        return executionTypeDataset;
+    }
 
     public MutableLiveData<ArrayList<String>> getStatusDataset() {
         return statusDataset;

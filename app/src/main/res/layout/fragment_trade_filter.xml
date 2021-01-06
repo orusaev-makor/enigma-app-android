@@ -53,11 +53,12 @@
             android:drawableTint="@color/textColor"
             android:ems="10"
             android:fontFamily="@font/poppins_regular"
-            android:hint="03 Dec 2020"
             android:gravity="left|center"
+            android:hint="03 Dec 2020"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
+            android:textColor="@color/textColor"
             android:textSize="16sp" />
 
         <TextView
@@ -71,6 +72,7 @@
             android:gravity="left|center"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
+            android:textColor="@color/textColor"
             android:textSize="16sp" />
 
         <TextView
@@ -88,6 +90,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
+            android:textColor="@color/textColor"
             android:textSize="16sp" />
 
         <TextView
@@ -105,6 +108,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
+            android:textColor="@color/textColor"
             android:textSize="16sp" />
 
 
@@ -129,6 +133,7 @@
             android:gravity="left|center"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
+            android:textColor="@color/textColor"
             android:textSize="16sp" />
 
         <include

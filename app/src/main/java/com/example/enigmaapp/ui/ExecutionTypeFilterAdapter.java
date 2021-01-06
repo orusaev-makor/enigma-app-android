@@ -16,6 +16,8 @@ import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetExecutionType;
 
 public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutionType,ExecutionTypeFilterAdapter.ItemHolder> {
+
+    private int lastCheckedPos = 0;
     private OnItemClickListener listener;
     private Context context;
 
@@ -24,6 +26,13 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
         this.context = context;
     }
 
+    public int getLastCheckedPos() {
+        return lastCheckedPos;
+    }
+
+    public void setLastCheckedPos(int lastCheckedPos) {
+        this.lastCheckedPos = lastCheckedPos;
+    }
 
     private static final DiffUtil.ItemCallback<TradeDatasetExecutionType> DIFF_CALLBACK = new DiffUtil.ItemCallback<TradeDatasetExecutionType>() {
         @Override
@@ -50,7 +59,7 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
         TradeDatasetExecutionType currentExecutionType = getItem(position);
 
         holder.textViewExecutionTypeName.setText(currentExecutionType.getName());
-        if (currentExecutionType.getIsChecked()) {
+        if (currentExecutionType.getIsChecked() && lastCheckedPos == position) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewExecutionTypeName.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {
@@ -73,14 +82,14 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (listener != null && position != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(getItem(position));
+                    listener.onItemClick(getItem(position), position);
                 }
             });
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(TradeDatasetExecutionType item);
+        void onItemClick(TradeDatasetExecutionType item, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

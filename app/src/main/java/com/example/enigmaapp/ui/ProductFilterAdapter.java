@@ -17,12 +17,21 @@ import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
 
 public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, ProductFilterAdapter.ProductOptionHolder> {
 
+    private int lastCheckedPos = 0;
     private OnItemClickListener listener;
     private Context context;
 
     public ProductFilterAdapter(Context context) {
         super(DIFF_CALLBACK);
         this.context = context;
+    }
+
+    public int getLastCheckedPos() {
+        return lastCheckedPos;
+    }
+
+    public void setLastCheckedPos(int lastCheckedPos) {
+        this.lastCheckedPos = lastCheckedPos;
     }
 
     private static final DiffUtil.ItemCallback<TradeDatasetProduct> DIFF_CALLBACK = new DiffUtil.ItemCallback<TradeDatasetProduct>() {
@@ -50,7 +59,7 @@ public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, Produ
         TradeDatasetProduct currentProduct = getItem(position);
 
         holder.textViewProductName.setText(currentProduct.getName());
-        if (currentProduct.getIsChecked()) {
+        if (currentProduct.getIsChecked() && lastCheckedPos == position) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {
@@ -68,18 +77,17 @@ public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, Produ
             textViewProductName = itemView.findViewById(R.id.filter_option_name);
             checkedIcon = itemView.findViewById(R.id.filter_option_checked_icon);
 
-
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (listener != null && position != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(getItem(position));
+                    listener.onItemClick(getItem(position), position);
                 }
             });
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(TradeDatasetProduct item);
+        void onItemClick(TradeDatasetProduct item, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

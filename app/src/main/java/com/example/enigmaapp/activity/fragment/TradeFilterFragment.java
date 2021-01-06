@@ -1,5 +1,7 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +9,7 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.Preference;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,11 +36,14 @@ public class TradeFilterFragment extends Fragment {
     private MaterialButton resetBtn;
     private TextView dateText;
 
-    private TextView productText;
+    private static TextView productText;
     private TextView executionText;
     private TextView batchedText;
 
     public static HashMap<String, String> paramsToSend = new HashMap<>();
+    SharedPreferences prefs;
+    static SharedPreferences.Editor prefEditor;
+    private Activity activity;
 
     public TradeFilterFragment() {
         // Required empty public constructor
@@ -49,6 +55,40 @@ public class TradeFilterFragment extends Fragment {
 
         // Hide navbar on "Trade filter" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        activity = getActivity();
+        prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
+//        prefs.registerOnSharedPreferenceChangeListener(listener);
+    }
+
+
+//    private SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+//        @Override
+//        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+//            System.out.println(" In listener - changed key _____________: " + key);
+//            switch (key) {
+//                case "productReceived":
+//                    System.out.println(" IN LISTERNER :::: productText.setText(prefs.getString(\"productReceived\", \"\")); "
+//                            + prefs.getString("productReceived", ""));
+//                    productText.setText(prefs.getString("productReceived", ""));
+//                    break;
+//                case "executionTypeReceived":
+//                    executionText.setText(prefs.getString("executionTypeReceived", ""));
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
+//    };
+
+//    public void unregisterListener() {
+//        prefs.unregisterOnSharedPreferenceChangeListener(listener);
+//    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+//        unregisterListener();
     }
 
     @Override
@@ -70,23 +110,15 @@ public class TradeFilterFragment extends Fragment {
         viewModel.fetchTradeDataset(token);
 
         productText = v.findViewById(R.id.filter_trade_product_edit);
-        productText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMultiSelectFilter("product");
-//                openProductList();
-            }
-        });
+        productText.setText(prefs.getString("productReceived", ""));
+        productText.setOnClickListener(v1 -> openMultiSelectFilter("product"));
 
         executionText = v.findViewById(R.id.filter_trade_execution_edit);
-        executionText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMultiSelectFilter("execution type");
-//                openExecutionTypeList();
-            }
-        });
+        executionText.setText(prefs.getString("executionTypeReceived", ""));
+        executionText.setOnClickListener(v12 -> openMultiSelectFilter("execution type"));
+
         batchedText = v.findViewById(R.id.filter_trade_batched_edit);
+        batchedText.setText(prefs.getString("batchedReceived", ""));
         batchedText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +131,6 @@ public class TradeFilterFragment extends Fragment {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: add filter process
                 viewModel.setParams(paramsToSend);
                 openTradeScreen();
             }
@@ -113,10 +144,9 @@ public class TradeFilterFragment extends Fragment {
                 // TODO: add proper reset process
                 paramsToSend.clear();
                 viewModel.resetParams();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                TradeFilterFragment fragment = new TradeFilterFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Trade Filter");
-                transaction.commit();
+                resetPrefs();
+                openFilterTradeScreen();
+
             }
         });
 
@@ -130,6 +160,19 @@ public class TradeFilterFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void resetPrefs() {
+        prefEditor.putString("productReceived", "");
+        prefEditor.putString("executionTypeReceived", "");
+        prefEditor.apply();
+    }
+
+    private void openFilterTradeScreen() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        TradeFilterFragment fragment = new TradeFilterFragment();
+        transaction.replace(R.id.frame_layout, fragment, "Trade Filter");
+        transaction.commit();
     }
 
     private void openMultiSelectFilter(String type) {
@@ -186,21 +229,21 @@ public class TradeFilterFragment extends Fragment {
             HashMap.Entry pair = (HashMap.Entry) it.next();
             System.out.println(pair.getKey() + " = " + pair.getValue());
             paramsToSend.put(pair.getKey().toString(), pair.getValue().toString());
+//            updateUserInputField(pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }
     }
 
-    private void openExecutionTypeList() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FilterExecutionTypeFragment fragment = new FilterExecutionTypeFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Filter List");
-        transaction.commit();
-    }
-
-    private void openProductList() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FilterListFragment fragment = new FilterListFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Filter List");
-        transaction.commit();
+    public static void updateUserInputField(String key, String value) {
+                System.out.println(" Im in new switch case! key: FIRST PRINT  " + key + " // value: " + value);
+        switch (key) {
+            case "product":
+                System.out.println(" Im in new switch case! key: SECOND PRINT  " + key + " // value: " + value);
+                productText.setText(value);
+                System.out.println(" After set text : " + productText.getText());
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -43,7 +43,7 @@ public interface RetrofitInterface {
     // Trades:
     @GET("/trade")
     Call<TradeResult> executeGetTrades(@Header("Authorization") String token,
-                                       @QueryMap Map<String, String> params);
+                                       @QueryMap HashMap<String, String> params);
 
     // Settlements:
     @GET("/settlement_batch")

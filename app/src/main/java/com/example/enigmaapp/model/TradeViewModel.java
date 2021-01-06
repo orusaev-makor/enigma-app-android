@@ -54,4 +54,8 @@ public class TradeViewModel extends AndroidViewModel {
     public void setParams(HashMap<String, String> params) { repository.setParams(params); }
 
     public void resetParams() { repository.resetParams(); }
+
+    public void removeFromParams(String key) {
+        repository.removeFromParams(key);
+    }
 }
