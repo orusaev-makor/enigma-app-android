@@ -123,8 +123,6 @@ public class TradeFilterFragment extends Fragment {
                 resetPrefs();
                 openFilterTradeScreen();
                 resetLastPos();
-                resetStatusSelect();
-
             }
         });
 
@@ -147,6 +145,7 @@ public class TradeFilterFragment extends Fragment {
                     prefEditor.putBoolean("isRejectClicked", false);
                     prefEditor.apply();
                     paramsToSend.remove("status[0]");
+                    viewModel.removeFromParams("status[0]");
                 } else {
                     prefEditor.putBoolean("isRejectClicked", true);
                     prefEditor.apply();
@@ -165,6 +164,7 @@ public class TradeFilterFragment extends Fragment {
                     prefEditor.putBoolean("isBookedClicked", false);
                     prefEditor.apply();
                     paramsToSend.remove("status[1]");
+                    viewModel.removeFromParams("status[1]");
                 } else {
                     prefEditor.putBoolean("isBookedClicked", true);
                     prefEditor.apply();
@@ -182,6 +182,7 @@ public class TradeFilterFragment extends Fragment {
                     prefEditor.putBoolean("isValidatedClicked", false);
                     prefEditor.apply();
                     paramsToSend.remove("status[2]");
+                    viewModel.removeFromParams("status[2]");
                 } else {
                     prefEditor.putBoolean("isValidatedClicked", true);
                     prefEditor.apply();
@@ -199,6 +200,8 @@ public class TradeFilterFragment extends Fragment {
                     prefEditor.putBoolean("isCancelledClicked", false);
                     prefEditor.apply();
                     paramsToSend.remove("status[3]");
+                    viewModel.removeFromParams("status[3]");
+
                 } else {
                     prefEditor.putBoolean("isCancelledClicked", true);
                     prefEditor.apply();
@@ -216,6 +219,7 @@ public class TradeFilterFragment extends Fragment {
                     prefEditor.putBoolean("isOpenClicked", false);
                     prefEditor.apply();
                     paramsToSend.remove("status[4]");
+                    viewModel.removeFromParams("status[4]");
                 } else {
                     prefEditor.putBoolean("isOpenClicked", true);
                     prefEditor.apply();
@@ -225,15 +229,6 @@ public class TradeFilterFragment extends Fragment {
         });
 
         return v;
-    }
-
-    private void resetStatusSelect() {
-        prefEditor.putBoolean("isRejectClicked", false);
-        prefEditor.putBoolean("isBookedClicked", false);
-        prefEditor.putBoolean("isValidatedClicked", false);
-        prefEditor.putBoolean("isCancelledClicked", false);
-        prefEditor.putBoolean("isOpenClicked", false);
-        prefEditor.apply();
     }
 
     private void resetLastPos() {
@@ -246,6 +241,11 @@ public class TradeFilterFragment extends Fragment {
         prefEditor.putString("productReceived", "");
         prefEditor.putString("executionTypeReceived", "");
         prefEditor.putString("batchedReceived", "");
+        prefEditor.putBoolean("isRejectClicked", false);
+        prefEditor.putBoolean("isBookedClicked", false);
+        prefEditor.putBoolean("isValidatedClicked", false);
+        prefEditor.putBoolean("isCancelledClicked", false);
+        prefEditor.putBoolean("isOpenClicked", false);
         prefEditor.apply();
     }
 
