@@ -117,7 +117,7 @@ public class TradeFilterFragment extends Fragment {
             public void onClick(View v) {
                 // TODO: add proper reset process
                 paramsToSend.clear();
-//                viewModel.resetParams();
+                viewModel.resetParams();
                 resetPrefs();
                 openFilterTradeScreen();
                 resetLastPos();
