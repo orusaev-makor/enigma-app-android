@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetExecutionType;
 
+import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastExecutionPos;
+
 public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutionType,ExecutionTypeFilterAdapter.ItemHolder> {
 
     private int lastCheckedPos = 0;
@@ -57,9 +59,10 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
     @Override
     public void onBindViewHolder(@NonNull ExecutionTypeFilterAdapter.ItemHolder holder, int position) {
         TradeDatasetExecutionType currentExecutionType = getItem(position);
+        System.out.println("in onBindViewHolder - currentExecutionType isChecked? " + currentExecutionType.getIsChecked());
 
         holder.textViewExecutionTypeName.setText(currentExecutionType.getName());
-        if (currentExecutionType.getIsChecked() && lastCheckedPos == position) {
+        if (currentExecutionType.getIsChecked() && lastCheckedPos == position || lastExecutionPos == position) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewExecutionTypeName.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {
@@ -67,7 +70,6 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
             holder.textViewExecutionTypeName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
         }
     }
-
 
     class ItemHolder extends RecyclerView.ViewHolder {
         private TextView textViewExecutionTypeName;
@@ -77,7 +79,6 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
             super(itemView);
             textViewExecutionTypeName = itemView.findViewById(R.id.filter_option_name);
             checkedIcon = itemView.findViewById(R.id.filter_option_checked_icon);
-
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();

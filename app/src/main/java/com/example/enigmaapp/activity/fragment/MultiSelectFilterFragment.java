@@ -45,6 +45,8 @@ public class MultiSelectFilterFragment extends Fragment {
     private MaterialButton resetBtn;
     private Button submitBtn;
     private HashMap<String, String> params = new HashMap<>();
+    public static int lastProductPos = -1;
+    public static int lastExecutionPos = -1;
 
     public MultiSelectFilterFragment(String filterType) {
         this.mFilterType = filterType;
@@ -55,7 +57,6 @@ public class MultiSelectFilterFragment extends Fragment {
         super.onCreate(savedInstanceState);
         prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
         prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
-//        prefEditor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
     }
 
     @Override
@@ -106,26 +107,6 @@ public class MultiSelectFilterFragment extends Fragment {
                 .get(TradeViewModel.class);
 
 
-        // Reset "Filter List" screen
-        resetBtn = v.findViewById(R.id.multi_select_reset_btn);
-        resetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMultiSelectFilter(mFilterType);
-                resetPrefs();
-                switch (mFilterType) {
-                    case "product":
-                        viewModel.removeFromParams("product_id");
-                        break;
-                    case "execution type":
-                        viewModel.removeFromParams("execution_type");
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-
         switch (mFilterType) {
 
             case "product":
@@ -154,6 +135,7 @@ public class MultiSelectFilterFragment extends Fragment {
                         } else {
                             productFilterAdapter.setLastCheckedPos(position);
                             productItem.setIsChecked(true);
+                            lastProductPos = position;
                             params.put("product_id", productItem.getId());
 //                            updateUserInputField("product", productItem.getName());
                             setParams(params);
@@ -192,6 +174,7 @@ public class MultiSelectFilterFragment extends Fragment {
                         } else {
                             executionTypeFilterAdapter.setLastCheckedPos(position);
                             executionTypeItem.setIsChecked(true);
+                            lastExecutionPos = position;
                             params.put("execution_type", executionTypeItem.getName());
                             prefEditor.putString("executionTypeReceived", executionTypeItem.getName());
                             prefEditor.apply();
@@ -207,7 +190,32 @@ public class MultiSelectFilterFragment extends Fragment {
                 break;
         }
 
+        // Reset "Filter List" screen
+        resetBtn = v.findViewById(R.id.multi_select_reset_btn);
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMultiSelectFilter(mFilterType);
+                resetPrefs();
+                viewModel.removeFromParams(mFilterType);
+                resetLastPos();
+            }
+        });
+
         return v;
+    }
+
+    private void resetLastPos() {
+        switch (mFilterType) {
+            case "product":
+                lastProductPos = -1;
+                break;
+            case "execution type":
+                lastExecutionPos = -1;
+                break;
+            default:
+                break;
+        }
     }
 
     private void resetPrefs() {
@@ -233,7 +241,6 @@ public class MultiSelectFilterFragment extends Fragment {
     }
 
     private void openMultiSelectFilter(String type) {
-
         TradeViewModel viewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(TradeViewModel.class);

@@ -56,6 +56,15 @@ public class TradeViewModel extends AndroidViewModel {
     public void resetParams() { repository.resetParams(); }
 
     public void removeFromParams(String key) {
-        repository.removeFromParams(key);
+        switch (key) {
+            case "product":
+                repository.removeFromParams("product_id");
+                break;
+            case "execution type":
+                repository.removeFromParams("execution_type");
+                break;
+            default:
+                break;
+        }
     }
 }

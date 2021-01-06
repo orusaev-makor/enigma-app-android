@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
 
+import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastProductPos;
+
 public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, ProductFilterAdapter.ProductOptionHolder> {
 
     private int lastCheckedPos = 0;
@@ -59,7 +61,7 @@ public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, Produ
         TradeDatasetProduct currentProduct = getItem(position);
 
         holder.textViewProductName.setText(currentProduct.getName());
-        if (currentProduct.getIsChecked() && lastCheckedPos == position) {
+        if (currentProduct.getIsChecked() && lastCheckedPos == position || lastProductPos == position) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {

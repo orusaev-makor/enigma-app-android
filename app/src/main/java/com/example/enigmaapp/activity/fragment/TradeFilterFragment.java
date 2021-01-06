@@ -29,6 +29,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TimeZone;
 
+import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastExecutionPos;
+import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastProductPos;
+
 public class TradeFilterFragment extends Fragment {
 
     private Button closeBtn;
@@ -146,6 +149,7 @@ public class TradeFilterFragment extends Fragment {
                 viewModel.resetParams();
                 resetPrefs();
                 openFilterTradeScreen();
+                resetLastPos();
 
             }
         });
@@ -160,6 +164,11 @@ public class TradeFilterFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void resetLastPos() {
+        lastProductPos = -1;
+        lastExecutionPos = -1;
     }
 
     private void resetPrefs() {
