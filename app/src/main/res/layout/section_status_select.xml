@@ -29,12 +29,11 @@
             android:textSize="16sp"
             android:textColor="@color/statusRejected"
             android:buttonTint="@color/statusRejected"
-            android:checked="true"
             android:text="@string/rejected" />
 
 
         <CheckBox
-            android:id="@+id/checkBoxPending"
+            android:id="@+id/checkBoxBooked"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -72,7 +71,7 @@
             android:textColor="@color/statusCancelled"
             android:buttonTint="@color/statusCancelled"
             android:textSize="16sp"
-            android:text="@string/cancelled" />
+            android:text="@string/canceled" />
     </LinearLayout>
 
     <CheckBox

@@ -20,8 +20,6 @@ public class TradeDatasetResult {
     List<TradeDatasetCompany> companies;
     List<TradeDatasetProvider> provider;
     List<TradeDatasetProduct> product;
-//    @SerializedName("execution_type")
-//    List<TradeDatasetExecutionType> executionType;
 
     public ArrayList<String> getSide() {
         return side;

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
@@ -40,9 +41,11 @@ public class TradeFilterFragment extends Fragment {
     private MaterialButton resetBtn;
     private TextView dateText;
 
-    private static TextView productText;
+    private TextView productText;
     private TextView executionText;
     private TextView batchedText;
+
+    private View statusSelectView;
 
     public static HashMap<String, String> paramsToSend = new HashMap<>();
     SharedPreferences prefs;
@@ -96,7 +99,6 @@ public class TradeFilterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openMultiSelectFilter("batched");
-//                openBatchedList();
             }
         });
 
@@ -121,6 +123,7 @@ public class TradeFilterFragment extends Fragment {
                 resetPrefs();
                 openFilterTradeScreen();
                 resetLastPos();
+                resetStatusSelect();
 
             }
         });
@@ -134,7 +137,103 @@ public class TradeFilterFragment extends Fragment {
             }
         });
 
+        statusSelectView = v.findViewById(R.id.layout_status_select);
+        CheckBox reject = (CheckBox) statusSelectView.findViewById(R.id.checkBoxRejected);
+        reject.setChecked(prefs.getBoolean("isRejectClicked", false));
+        reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (prefs.getBoolean("isRejectClicked", false)) {
+                    prefEditor.putBoolean("isRejectClicked", false);
+                    prefEditor.apply();
+                    paramsToSend.remove("status[0]");
+                } else {
+                    prefEditor.putBoolean("isRejectClicked", true);
+                    prefEditor.apply();
+                    paramsToSend.put("status[0]", "rejected");
+                }
+                System.out.println("clicked on reject! " + prefs.getBoolean("isRejectClicked", false));
+            }
+        });
+
+        CheckBox book = (CheckBox) statusSelectView.findViewById(R.id.checkBoxBooked);
+        book.setChecked(prefs.getBoolean("isBookedClicked", false));
+        book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (prefs.getBoolean("isBookedClicked", false)) {
+                    prefEditor.putBoolean("isBookedClicked", false);
+                    prefEditor.apply();
+                    paramsToSend.remove("status[1]");
+                } else {
+                    prefEditor.putBoolean("isBookedClicked", true);
+                    prefEditor.apply();
+                    paramsToSend.put("status[1]", "booked");
+                }
+            }
+        });
+
+        CheckBox validate = (CheckBox) statusSelectView.findViewById(R.id.checkBoxValidated);
+        validate.setChecked(prefs.getBoolean("isValidatedClicked", false));
+        validate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (prefs.getBoolean("isValidatedClicked", false)) {
+                    prefEditor.putBoolean("isValidatedClicked", false);
+                    prefEditor.apply();
+                    paramsToSend.remove("status[2]");
+                } else {
+                    prefEditor.putBoolean("isValidatedClicked", true);
+                    prefEditor.apply();
+                    paramsToSend.put("status[2]", "validated");
+                }
+            }
+        });
+
+        CheckBox cancel = (CheckBox) statusSelectView.findViewById(R.id.checkBoxCanceled);
+        cancel.setChecked(prefs.getBoolean("isCancelledClicked", false));
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (prefs.getBoolean("isCancelledClicked", false)) {
+                    prefEditor.putBoolean("isCancelledClicked", false);
+                    prefEditor.apply();
+                    paramsToSend.remove("status[3]");
+                } else {
+                    prefEditor.putBoolean("isCancelledClicked", true);
+                    prefEditor.apply();
+                    paramsToSend.put("status[3]", "canceled");
+                }
+            }
+        });
+
+        CheckBox open = (CheckBox) statusSelectView.findViewById(R.id.checkBoxOpen);
+        open.setChecked(prefs.getBoolean("isOpenClicked", false));
+        open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (prefs.getBoolean("isOpenClicked", false)) {
+                    prefEditor.putBoolean("isOpenClicked", false);
+                    prefEditor.apply();
+                    paramsToSend.remove("status[4]");
+                } else {
+                    prefEditor.putBoolean("isOpenClicked", true);
+                    prefEditor.apply();
+                    paramsToSend.put("status[4]", "open");
+                }
+            }
+        });
+
         return v;
+    }
+
+    private void resetStatusSelect() {
+        prefEditor.putBoolean("isRejectClicked", false);
+        prefEditor.putBoolean("isBookedClicked", false);
+        prefEditor.putBoolean("isValidatedClicked", false);
+        prefEditor.putBoolean("isCancelledClicked", false);
+        prefEditor.putBoolean("isOpenClicked", false);
+        prefEditor.apply();
     }
 
     private void resetLastPos() {
@@ -161,13 +260,6 @@ public class TradeFilterFragment extends Fragment {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         MultiSelectFilterFragment fragment = new MultiSelectFilterFragment(type);
         transaction.replace(R.id.frame_layout, fragment, "Multi Select Filter List");
-        transaction.commit();
-    }
-
-    private void openBatchedList() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FilterBatchedFragment fragment = new FilterBatchedFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Filter List");
         transaction.commit();
     }
 

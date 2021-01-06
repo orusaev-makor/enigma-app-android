@@ -69,12 +69,11 @@ public class TradeRepository {
 //
 //        System.out.println(" MAP : " + map);
 
-//        params.put("counterparty_id", "249");
-//        params.put("product_id", "2");
-//        params.put("already_batched", "0");
         params1.put("items_per_page", "5");
         params1.put("current_page", "1");
         params1.put("sort", "trade_id desc");
+//        params1.put("status[0]", "rejected");
+//        params1.put("status[1]", "booked");
         System.out.println("params1 ______________ " + params1);
         Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, params1);
 //        Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, map);

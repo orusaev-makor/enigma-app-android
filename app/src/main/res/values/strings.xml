@@ -83,7 +83,7 @@
 
     <!--   Section - status select -->
     <string name="select_status">Select Status</string>
-    <string name="cancelled">Cancelled</string>
+    <string name="canceled">Canceled</string>
     <string name="validated">Validated</string>
     <string name="booked">Booked</string>
     <string name="rejected">Rejected</string>

@@ -137,6 +137,7 @@
             android:textSize="16sp" />
 
         <include
+            android:id="@+id/layout_status_select"
             layout="@layout/section_status_select"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
