@@ -35,8 +35,8 @@ public class AccountsFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        //        Show navbar on "Accounts" view:
         super.onCreate(savedInstanceState);
+        // Show navbar on "Accounts" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 

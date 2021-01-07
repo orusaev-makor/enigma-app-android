@@ -7,7 +7,10 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
+import com.example.enigmaapp.model.BalanceViewModel;
 import com.example.enigmaapp.model.UserViewModel;
+import com.example.enigmaapp.ui.BalanceItemAdapter;
+import com.example.enigmaapp.web.balance.BalanceItemResult;
 import com.example.enigmaapp.web.login.LoginResult;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -28,6 +34,8 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class BalanceFragment extends Fragment {
     private PieChart balanceChart;
@@ -40,7 +48,7 @@ public class BalanceFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //        Show navbar on "Balance" view:
+        // Show navbar on "Balance" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 
@@ -138,6 +146,29 @@ public class BalanceFragment extends Fragment {
         });
 
         balanceChart.setData(data);
+
+        RecyclerView recyclerView = v.findViewById(R.id.balance_recycled_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        final BalanceItemAdapter balanceAdapter = new BalanceItemAdapter(requireContext());
+        recyclerView.setAdapter(balanceAdapter);
+
+        BalanceViewModel viewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(BalanceViewModel.class);
+
+        viewModel.getBalanceMap().observe(requireActivity(), new Observer<List<BalanceItemResult>>() {
+            @Override
+            public void onChanged(List<BalanceItemResult> balanceItemResults) {
+                System.out.println("in on change - balanceItemResults : " + balanceItemResults);
+                balanceAdapter.submitList(balanceItemResults);
+            }
+        });
+
+        String token = userViewModel.getCurrentUser().getToken();
+
+        viewModel.fetchBalances(token);
+
         return v;
     }
 }

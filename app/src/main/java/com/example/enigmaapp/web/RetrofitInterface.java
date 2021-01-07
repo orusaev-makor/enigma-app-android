@@ -38,7 +38,7 @@ public interface RetrofitInterface {
 
     // Balance:
     @GET("/balance/248")
-    Call<Object> executeGetBalance(@Header("Authorization") String token);
+    Call<HashMap<String, String>> executeGetBalance(@Header("Authorization") String token);
 
     // Trades:
     @GET("/trade")

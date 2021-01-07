@@ -21,7 +21,7 @@ import com.example.enigmaapp.web.accounts.AccountsItemResult;
 
 public class AccountsItemAdapter extends ListAdapter<AccountsItemResult, AccountsItemAdapter.ItemHolder> {
 
-    private AccountsItemAdapter.OnItemClickListener listener;
+    private OnItemClickListener listener;
     private Context context;
     private boolean isFiat;
 
