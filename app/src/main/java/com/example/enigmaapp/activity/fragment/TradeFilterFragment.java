@@ -268,7 +268,7 @@ public class TradeFilterFragment extends Fragment {
                 Long endDate = dates.second;
 
                 // format and send to shared prefs & params:
-                SimpleDateFormat simpleFormat = new SimpleDateFormat("YYYY-MM-DD");
+                SimpleDateFormat simpleFormat = new SimpleDateFormat("YYYY-MM-dd");
                 String startDateFormatted = simpleFormat.format(startDate);
                 String endDateFormatted = simpleFormat.format(endDate);
 
