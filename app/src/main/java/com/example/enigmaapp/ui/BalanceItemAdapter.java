@@ -53,7 +53,6 @@ public class BalanceItemAdapter extends ListAdapter<BalanceItemResult, BalanceIt
         String currentValue = currentBalance.getValue();
         String LargeVal = currentValue.substring(0, currentValue.indexOf("."));
         String SmallVal = currentValue.substring(currentValue.indexOf("."));
-        System.out.println("In Balance Adapter _____ onBindViewHolder - currentValue : " + currentValue);
 
         holder.balanceValueLarge.setText(LargeVal);
         holder.balanceValueSmall.setText(SmallVal);

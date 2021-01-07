@@ -1,6 +1,7 @@
 package com.example.enigmaapp.activity.fragment;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -87,7 +88,7 @@ public class BalanceFragment extends Fragment {
         yValues.add(new PieEntry(22f, "LTC", 0));
         yValues.add(new PieEntry(11f, "ETH", 1));
         yValues.add(new PieEntry(56f, "BTC", 2));
-        yValues.add(new PieEntry(11f, "ZD token", 3));
+        yValues.add(new PieEntry(11f, "XMR", 3));
 
         // animate pie on creation:
 //        pieChart.animateY(1000);
@@ -121,14 +122,18 @@ public class BalanceFragment extends Fragment {
                 PieEntry pe = (PieEntry) e;
                 int index = (Integer) e.getData();
                 int currentColor = dataSet.getColor(index);
-//                System.out.println("GET DATA:  " + e.getData());
-//                System.out.println("h: " + h);
-//                System.out.println("e: " + e);
+                System.out.println("GET DATA:  " + e.getData());
+                System.out.println("h: " + h);
+                System.out.println("e: " + e);
 
                 coinNameText.setText(pe.getLabel());
                 coinNameText.setTextColor(currentColor);
-                coinIcon.setImageResource(R.drawable.btc);
-                coinIcon.setColorFilter(currentColor);
+                int id = getContext().getResources().getIdentifier("com.example.enigmaapp:drawable/" + pe.getLabel().toLowerCase(), null, null);
+                coinIcon.setImageResource(id);
+//                coinIcon.setImageResource(R.drawable.btc);
+//                final int newColor = res.getColor(R.color.new_color);
+//                coinIcon.setColorFilter(currentColor, PorterDuff.Mode.SRC_ATOP);
+//                coinIcon.setColorFilter(currentColor);
 
                 // set percentage in center of the chart pie
                 String value = e.getY() + "%";
