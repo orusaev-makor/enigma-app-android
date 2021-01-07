@@ -39,38 +39,18 @@
                     android:paddingRight="-10dp"
                     tools:listitem="@layout/trade_item" />
 
-<!--        <include-->
-<!--            layout="@layout/trade_item"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="20dp"/>-->
-
-<!--        <include-->
-<!--            layout="@layout/trade_item_expand"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content" />-->
-
-<!--        <include-->
-<!--            layout="@layout/new_trade_creation"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content" />-->
-
-<!--        <include-->
-<!--            layout="@layout/filter_trade"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content" />-->
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/trade_create_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/textColor"
-        android:src="@drawable/ic_action_add_circle"
-        app:fabSize="normal"
-        app:tint="@color/colorPrimary"
-        android:contentDescription="@string/add_trade" />
+<!--        TODO: add back create action button after read only version -->
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/trade_create_btn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="end"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:backgroundTint="@color/textColor"-->
+<!--        android:src="@drawable/ic_action_add_circle"-->
+<!--        app:fabSize="normal"-->
+<!--        app:tint="@color/colorPrimary"-->
+<!--        android:contentDescription="@string/add_trade" />-->
 
     </LinearLayout>
 

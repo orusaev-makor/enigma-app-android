@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 public class TradeRepository {
 
-    private HashMap<String, String> params1 = new HashMap<>();
+    private HashMap<String, String> params = new HashMap<>();
     private MutableLiveData<List<TradeItemResult>> allTrades = new MutableLiveData<>();
     private Application application;
     private MutableLiveData<TradeDatasetResult> tradeDataset = new MutableLiveData<>();
@@ -69,15 +69,16 @@ public class TradeRepository {
 //
 //        System.out.println(" MAP : " + map);
 
-        params1.put("items_per_page", "5");
-        params1.put("current_page", "1");
-        params1.put("sort", "trade_id desc");
+        params.put("items_per_page", "5");
+        params.put("current_page", "1");
+        params.put("sort", "trade_id desc");
+//        params1.put("trade_id", "431308");
 //        params1.put("start_date", "2020-05-07");
 //        params1.put("end_date", "2020-05-08");
 //        params1.put("status[0]", "rejected");
 //        params1.put("status[1]", "booked");
-        System.out.println("params1 ______________ " + params1);
-        Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, params1);
+        System.out.println("params1 ______________ " + params);
+        Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, params);
 //        Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, map);
         call.enqueue(new Callback<TradeResult>() {
             @Override
@@ -97,22 +98,26 @@ public class TradeRepository {
         });
     }
 
-    public HashMap<String, String> setParams(HashMap<String, String> params) {
-        Iterator it = params.entrySet().iterator();
+    public HashMap<String, String> setParams(HashMap<String, String> paramsReceived) {
+        Iterator it = paramsReceived.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-            System.out.println("setting params in repository: " + pair.getKey() + " = " + pair.getValue());
-            params1.put(pair.getKey().toString(), pair.getValue().toString());
+            System.out.println("setting paramsReceived in repository: " + pair.getKey() + " = " + pair.getValue());
+            params.put(pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }
-        return params1;
+        return params;
     }
 
-    public void resetParams() { this.params1.clear(); }
+    public HashMap<String, String> getParams() {
+        return params;
+    }
+
+    public void resetParams() { this.params.clear(); }
 
     public void removeFromParams(String key) {
         System.out.println("removeFromParams in repository - key received:  " + key);
-        Iterator it = params1.entrySet().iterator();
+        Iterator it = params.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             if (entry.getKey().equals(key)) {

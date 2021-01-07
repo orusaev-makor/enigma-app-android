@@ -28,9 +28,7 @@ public class TradeViewModel extends AndroidViewModel {
         repository = new TradeRepository(application);
     }
 
-    public void fetchTrades(String token) {
-        repository.fetchTrades(token);
-    }
+    public void fetchTrades(String token) { repository.fetchTrades(token); }
 
     public LiveData<List<TradeItemResult>> getTrades() {
         return repository.getTrades();
@@ -53,6 +51,8 @@ public class TradeViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<ArrayList<String>> getStatusDataset() { return repository.getStatusDataset(); }
+
+    public HashMap<String, String> getParams() { return repository.getParams(); }
 
     public void setParams(HashMap<String, String> params) { repository.setParams(params); }
 

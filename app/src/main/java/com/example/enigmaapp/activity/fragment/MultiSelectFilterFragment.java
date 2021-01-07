@@ -137,7 +137,7 @@ public class MultiSelectFilterFragment extends Fragment {
                         lastProductPos = position;
                         params.put("product_id", productItem.getId());
 //                        setParams(params);
-                        prefEditor.putString("productReceived", productItem.getName());
+                        prefEditor.putString("productTradeFilter", productItem.getName());
                         prefEditor.apply();
                     }
 
@@ -168,7 +168,7 @@ public class MultiSelectFilterFragment extends Fragment {
                         executionTypeItem.setIsChecked(true);
                         lastExecutionPos = position;
                         params.put("execution_type", executionTypeItem.getName());
-                        prefEditor.putString("executionTypeReceived", executionTypeItem.getName());
+                        prefEditor.putString("executionTradeFilter", executionTypeItem.getName());
                         prefEditor.apply();
 //                        setParams(params);
                     }
@@ -207,7 +207,7 @@ public class MultiSelectFilterFragment extends Fragment {
                             batchedItem.setIsChecked(true);
                             lastBatchedPos = position;
                             params.put("already_batched", batchedItem.getValue());
-                            prefEditor.putString("batchedReceived", batchedItem.getName());
+                            prefEditor.putString("batchedTradeFilter", batchedItem.getName());
                             prefEditor.apply();
 //                            setParams(params);
                         }
@@ -274,15 +274,15 @@ public class MultiSelectFilterFragment extends Fragment {
     private void resetPrefs() {
         switch (mFilterType) {
             case "product":
-                prefEditor.putString("productReceived", "");
+                prefEditor.putString("productTradeFilter", "");
                 prefEditor.apply();
                 break;
             case "execution type":
-                prefEditor.putString("executionTypeReceived", "");
+                prefEditor.putString("executionTradeFilter", "");
                 prefEditor.apply();
                 break;
             case "batched":
-                prefEditor.putString("batchedReceived", "");
+                prefEditor.putString("batchedTradeFilter", "");
                 prefEditor.apply();
                 break;
             default:

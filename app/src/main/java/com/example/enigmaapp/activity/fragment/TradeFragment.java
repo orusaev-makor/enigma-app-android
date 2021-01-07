@@ -25,7 +25,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+
+import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.paramsToSend;
 
 public class TradeFragment extends Fragment {
     private FloatingActionButton createTradeBtn;
@@ -53,9 +56,10 @@ public class TradeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_trade, container, false);
 
+        // TODO: add back create action button after read only version
         // Move fo "New Trade" screen:
-        createTradeBtn = v.findViewById(R.id.trade_create_btn);
-        createTradeBtn.setOnClickListener(v12 -> openNewTradeFragment());
+//        createTradeBtn = v.findViewById(R.id.trade_create_btn);
+//        createTradeBtn.setOnClickListener(v12 -> openNewTradeFragment());
 
         // Move fo "Filter Trade" screen:
         filterBtn = v.findViewById(R.id.ic_action_filter);
@@ -76,11 +80,9 @@ public class TradeFragment extends Fragment {
 
         topSection = v.findViewById(R.id.layout_top_section);
         TextView fromDate = topSection.findViewById(R.id.trade_from_date);
-//        fromDate.setText(prefs.getString("startDateReceived", getTodayDate()));
-        fromDate.setText(prefs.getString("startDateReceived", "-"));
+        fromDate.setText(prefs.getString("startDateTradeFilter", "-"));
         TextView toDate = topSection.findViewById(R.id.trade_to_date);
-//        toDate.setText(prefs.getString("endDateReceived", getTodayDate()));
-        toDate.setText(prefs.getString("endDateReceived", "-"));
+        toDate.setText(prefs.getString("endDateTradeFilter", "-"));
 
         RecyclerView recyclerView = v.findViewById(R.id.trade_fragment_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -107,10 +109,6 @@ public class TradeFragment extends Fragment {
         return v;
     }
 
-    public static String getTodayDate() {
-        return new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date());
-    }
-
     private void openFilterTradeFragment() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         TradeFilterFragment fragment = new TradeFilterFragment();
@@ -125,6 +123,7 @@ public class TradeFragment extends Fragment {
         transaction.commit();
     }
 
+    // TODO: add back after read only version
     private void openNewTradeFragment() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         NewTradeCreationFragment fragment = new NewTradeCreationFragment();
