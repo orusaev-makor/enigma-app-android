@@ -36,6 +36,7 @@ import java.util.TimeZone;
 import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastBatchedPos;
 import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastExecutionPos;
 import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastProductPos;
+import static com.example.enigmaapp.activity.fragment.TradeFragment.getTodayDate;
 
 public class TradeFilterFragment extends Fragment {
 
@@ -98,118 +99,89 @@ public class TradeFilterFragment extends Fragment {
 
         batchedText = v.findViewById(R.id.filter_trade_batched_edit);
         batchedText.setText(prefs.getString("batchedReceived", ""));
-        batchedText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMultiSelectFilter("batched");
-            }
-        });
+        batchedText.setOnClickListener(v110 -> openMultiSelectFilter("batched"));
 
         // Submit "Filter" and go back to "Trade" screen
         submitBtn = v.findViewById(R.id.filter_trade_submit_btn);
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.setParams(paramsToSend);
-                openTradeScreen();
-            }
+        submitBtn.setOnClickListener(v19 -> {
+            viewModel.setParams(paramsToSend);
+            openTradeScreen();
         });
 
         // Reset "Filter Trade" screen
         resetBtn = v.findViewById(R.id.filter_trade_reset_btn);
-        resetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add proper reset process
-                paramsToSend.clear();
-                viewModel.resetParams();
-                resetPrefs();
-                openFilterTradeScreen();
-                resetLastPos();
-            }
+        resetBtn.setOnClickListener(v18 -> {
+            paramsToSend.clear();
+            viewModel.resetParams();
+            resetPrefs();
+            openFilterTradeScreen();
+            resetLastPos();
         });
 
         // Close "Filter Trade" screen and go back to "Trade Fragment":
         closeBtn = v.findViewById(R.id.close_btn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openTradeScreen();
-            }
-        });
+        closeBtn.setOnClickListener(v17 -> openTradeScreen());
 
         statusSelectView = v.findViewById(R.id.layout_status_select);
         CheckBox reject = (CheckBox) statusSelectView.findViewById(R.id.checkBoxRejected);
         reject.setChecked(prefs.getBoolean("isRejectClicked", false));
-        reject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (prefs.getBoolean("isRejectClicked", false)) {
-                    prefEditor.putBoolean("isRejectClicked", false);
-                    prefEditor.apply();
-                    paramsToSend.remove("status[0]");
-                    viewModel.removeFromParams("status[0]");
-                } else {
-                    prefEditor.putBoolean("isRejectClicked", true);
-                    prefEditor.apply();
-                    paramsToSend.put("status[0]", "rejected");
-                }
-                System.out.println("clicked on reject! " + prefs.getBoolean("isRejectClicked", false));
+        reject.setOnClickListener(v16 -> {
+            if (prefs.getBoolean("isRejectClicked", false)) {
+                prefEditor.putBoolean("isRejectClicked", false);
+                prefEditor.apply();
+                paramsToSend.remove("status[0]");
+                viewModel.removeFromParams("status[0]");
+            } else {
+                prefEditor.putBoolean("isRejectClicked", true);
+                prefEditor.apply();
+                paramsToSend.put("status[0]", "rejected");
             }
+            System.out.println("clicked on reject! " + prefs.getBoolean("isRejectClicked", false));
         });
 
         CheckBox book = (CheckBox) statusSelectView.findViewById(R.id.checkBoxBooked);
         book.setChecked(prefs.getBoolean("isBookedClicked", false));
-        book.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (prefs.getBoolean("isBookedClicked", false)) {
-                    prefEditor.putBoolean("isBookedClicked", false);
-                    prefEditor.apply();
-                    paramsToSend.remove("status[1]");
-                    viewModel.removeFromParams("status[1]");
-                } else {
-                    prefEditor.putBoolean("isBookedClicked", true);
-                    prefEditor.apply();
-                    paramsToSend.put("status[1]", "booked");
-                }
+        book.setOnClickListener(v15 -> {
+            if (prefs.getBoolean("isBookedClicked", false)) {
+                prefEditor.putBoolean("isBookedClicked", false);
+                prefEditor.apply();
+                paramsToSend.remove("status[1]");
+                viewModel.removeFromParams("status[1]");
+            } else {
+                prefEditor.putBoolean("isBookedClicked", true);
+                prefEditor.apply();
+                paramsToSend.put("status[1]", "booked");
             }
         });
 
         CheckBox validate = (CheckBox) statusSelectView.findViewById(R.id.checkBoxValidated);
         validate.setChecked(prefs.getBoolean("isValidatedClicked", false));
-        validate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (prefs.getBoolean("isValidatedClicked", false)) {
-                    prefEditor.putBoolean("isValidatedClicked", false);
-                    prefEditor.apply();
-                    paramsToSend.remove("status[2]");
-                    viewModel.removeFromParams("status[2]");
-                } else {
-                    prefEditor.putBoolean("isValidatedClicked", true);
-                    prefEditor.apply();
-                    paramsToSend.put("status[2]", "validated");
-                }
+        validate.setOnClickListener(v14 -> {
+            if (prefs.getBoolean("isValidatedClicked", false)) {
+                prefEditor.putBoolean("isValidatedClicked", false);
+                prefEditor.apply();
+                paramsToSend.remove("status[2]");
+                viewModel.removeFromParams("status[2]");
+            } else {
+                prefEditor.putBoolean("isValidatedClicked", true);
+                prefEditor.apply();
+                paramsToSend.put("status[2]", "validated");
             }
         });
 
         CheckBox cancel = (CheckBox) statusSelectView.findViewById(R.id.checkBoxCanceled);
         cancel.setChecked(prefs.getBoolean("isCancelledClicked", false));
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (prefs.getBoolean("isCancelledClicked", false)) {
-                    prefEditor.putBoolean("isCancelledClicked", false);
-                    prefEditor.apply();
-                    paramsToSend.remove("status[3]");
-                    viewModel.removeFromParams("status[3]");
+        cancel.setOnClickListener(v13 -> {
+            if (prefs.getBoolean("isCancelledClicked", false)) {
+                prefEditor.putBoolean("isCancelledClicked", false);
+                prefEditor.apply();
+                paramsToSend.remove("status[3]");
+                viewModel.removeFromParams("status[3]");
 
-                } else {
-                    prefEditor.putBoolean("isCancelledClicked", true);
-                    prefEditor.apply();
-                    paramsToSend.put("status[3]", "canceled");
-                }
+            } else {
+                prefEditor.putBoolean("isCancelledClicked", true);
+                prefEditor.apply();
+                paramsToSend.put("status[3]", "canceled");
             }
         });
 
@@ -244,6 +216,8 @@ public class TradeFilterFragment extends Fragment {
         prefEditor.putString("productReceived", "");
         prefEditor.putString("executionTypeReceived", "");
         prefEditor.putString("batchedReceived", "");
+        prefEditor.putString("startDateReceived", "-");
+        prefEditor.putString("endDateReceived", "-");
         prefEditor.putBoolean("isRejectClicked", false);
         prefEditor.putBoolean("isBookedClicked", false);
         prefEditor.putBoolean("isValidatedClicked", false);
@@ -278,38 +252,41 @@ public class TradeFilterFragment extends Fragment {
         final MaterialDatePicker materialDatePicker = builder.build();
 
         dateText = v.findViewById(R.id.filter_trade_date_edit);
-        String date_n = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date());
-        dateText.setHint(date_n);
+        String today = getTodayDate();
+        dateText.setHint(today);
 
-        dateText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                materialDatePicker.show(getFragmentManager(), "Data Picker");
-            }
-        });
+        dateText.setOnClickListener(v1 -> materialDatePicker.show(getFragmentManager(), "Data Picker"));
 
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Object selection) {
+                // display selection
+                dateText.setText(materialDatePicker.getHeaderText());
+
                 Pair<Long, Long> dates = (Pair<Long, Long>) materialDatePicker.getSelection();
                 Long startDate = dates.first;
                 Long endDate = dates.second;
 
-//              Display it by setText
-                dateText.setText(materialDatePicker.getHeaderText());
+                // format and send to shared prefs & params:
+                SimpleDateFormat simpleFormat = new SimpleDateFormat("YYYY-MM-DD");
+                String startDateFormatted = simpleFormat.format(startDate);
+                String endDateFormatted = simpleFormat.format(endDate);
 
-                setDateParams(startDate, endDate);
+                setDateParams(startDateFormatted, endDateFormatted);
+                setDatePrefs(startDateFormatted, endDateFormatted);
             }
         });
     }
 
-    private void setDateParams(Long startDate, Long endDate) {
-//        SimpleDateFormat simpleFormat = new SimpleDateFormat("dd MMM yyyy");
-        SimpleDateFormat simpleFormat = new SimpleDateFormat("YYYY-MM-DD");
-        String startDateFormatted = simpleFormat.format(startDate);
-        String endDateFormatted = simpleFormat.format(endDate);
-        paramsToSend.put("start_date", startDateFormatted);
-        paramsToSend.put("end_date", endDateFormatted);
+    private void setDatePrefs(String startDate, String endDate) {
+        prefEditor.putString("startDateReceived", startDate);
+        prefEditor.putString("endDateReceived", endDate);
+        prefEditor.apply();
+    }
+
+    private void setDateParams(String startDate, String endDate) {
+        paramsToSend.put("start_date", startDate);
+        paramsToSend.put("end_date", endDate);
     }
 
     private void openTradeScreen() {

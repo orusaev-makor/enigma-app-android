@@ -1,5 +1,6 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,19 +14,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.TradeViewModel;
 import com.example.enigmaapp.model.UserViewModel;
 import com.example.enigmaapp.ui.TradeItemAdapter;
-import com.example.enigmaapp.web.login.LoginResult;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class TradeFragment extends Fragment {
     private FloatingActionButton createTradeBtn;
     private ImageView filterBtn;
     private ImageView uploadBtn;
     private ImageView refreshBtn;
+    private View topSection;
+    SharedPreferences prefs;
 
     public TradeFragment() {
         // Required empty public constructor
@@ -37,6 +45,7 @@ public class TradeFragment extends Fragment {
 
         //        Show navbar on "Trade" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override
@@ -46,30 +55,15 @@ public class TradeFragment extends Fragment {
 
         // Move fo "New Trade" screen:
         createTradeBtn = v.findViewById(R.id.trade_create_btn);
-        createTradeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openNewTradeFragment();
-            }
-        });
+        createTradeBtn.setOnClickListener(v12 -> openNewTradeFragment());
 
         // Move fo "Filter Trade" screen:
         filterBtn = v.findViewById(R.id.ic_action_filter);
-        filterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFilterTradeFragment();
-            }
-        });
+        filterBtn.setOnClickListener(v1 -> openFilterTradeFragment());
 
         // Refresh "Trade" screen:
         refreshBtn = v.findViewById(R.id.ic_action_refresh);
-        refreshBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openTradeFragment();
-            }
-        });
+        refreshBtn.setOnClickListener(v13 -> openTradeFragment());
 
         // Upload "Trade" screen:
         uploadBtn = v.findViewById(R.id.ic_action_upload);
@@ -79,6 +73,14 @@ public class TradeFragment extends Fragment {
                 // TODO: add upload process
             }
         });
+
+        topSection = v.findViewById(R.id.layout_top_section);
+        TextView fromDate = topSection.findViewById(R.id.trade_from_date);
+//        fromDate.setText(prefs.getString("startDateReceived", getTodayDate()));
+        fromDate.setText(prefs.getString("startDateReceived", "-"));
+        TextView toDate = topSection.findViewById(R.id.trade_to_date);
+//        toDate.setText(prefs.getString("endDateReceived", getTodayDate()));
+        toDate.setText(prefs.getString("endDateReceived", "-"));
 
         RecyclerView recyclerView = v.findViewById(R.id.trade_fragment_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -103,6 +105,10 @@ public class TradeFragment extends Fragment {
         viewModel.fetchTrades(token);
 
         return v;
+    }
+
+    public static String getTodayDate() {
+        return new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date());
     }
 
     private void openFilterTradeFragment() {
