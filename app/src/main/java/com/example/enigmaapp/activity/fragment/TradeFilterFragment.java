@@ -56,6 +56,7 @@ public class TradeFilterFragment extends Fragment {
     private HashMap<String, String> paramsFromRepository = new HashMap<>();
 
     public static HashMap<String, String> paramsToSend = new HashMap<>();
+
     SharedPreferences prefs;
     static SharedPreferences.Editor prefEditor;
     private Activity activity;

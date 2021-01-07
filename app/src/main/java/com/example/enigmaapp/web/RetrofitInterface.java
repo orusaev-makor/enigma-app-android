@@ -55,7 +55,8 @@ public interface RetrofitInterface {
 
 
     // Accounts:
-    @GET("/account/248")
+//    @GET("/account/248")
+    @GET("/account")
     Call<ArrayList<AccountsItemResult>> executeGetAccounts(@Header("Authorization") String token);
 
     // Datasets:

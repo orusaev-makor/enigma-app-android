@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_weight="0.1"
-                android:src="@drawable/ic_btc"
+                android:src="@drawable/btc"
                 android:contentDescription="@string/currency_icon" />
 
             <TextView

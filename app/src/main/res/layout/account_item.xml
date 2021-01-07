@@ -58,8 +58,7 @@
             android:contentDescription="@string/currency_icon"
             android:layout_gravity="right|center"
             android:layout_marginRight="25dp"
-            android:src="@drawable/ic_usd"
-            app:tint="@color/textColor" />
+            android:src="@drawable/usd" />
 
 
 </com.google.android.material.card.MaterialCardView>

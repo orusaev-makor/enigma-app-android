@@ -69,7 +69,9 @@ public class AccountsRepository {
         for (AccountsItemResult account : accountsList) {
 
             String currency = account.getCurrency();
+            System.out.println(" String currency = account.getCurrency();" + currency);
             String cryptoCurrency = account.getCryptoCurrency();
+            System.out.println(" String currency = account.cryptoCurrency();" + cryptoCurrency);
 
             if (cryptoCurrency != null) {
                 if (allCryptoAccounts.getValue() == null) {

@@ -34,10 +34,9 @@
             android:layout_height="20dp"
             android:layout_marginTop="6dp"
             android:layout_weight="0.1"
-            android:src="@drawable/ic_usd"
+            android:src="@drawable/usd"
             android:paddingLeft="20dp"
             android:layout_marginRight="5dp"
-            app:tint="@color/textColor"
             tools:ignore="ContentDescription"
             android:paddingStart="20dp"
             android:layout_marginEnd="5dp" />

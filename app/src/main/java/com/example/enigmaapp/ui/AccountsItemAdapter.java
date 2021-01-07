@@ -70,36 +70,13 @@ public class AccountsItemAdapter extends ListAdapter<AccountsItemResult, Account
 
         holder.accountName.setText(currentAccountItem.getAccountName());
 
-        System.out.println(" in adapter - currency : " + currency + " -- cryptoCurrency: " + cryptoCurrency);
+        String coinName = currentAccountItem.getCurrency();
+         if (coinName == null) {
+             coinName = currentAccountItem.getCryptoCurrency();
+         }
 
-        if (currency != null) {
-            switch (currency) {
-                case "USD":
-                    holder.currencyIcon.setImageResource(R.drawable.ic_usd);
-                    break;
-                case "EUR":
-                    holder.currencyIcon.setImageResource(R.drawable.ic_eur);
-                    break;
-                default:
-                    break;
-            }
-        } else {
-//            switch (cryptoCurrency) {
-//                case "USDT":
-//                    // TODO: get USDT icon
-//                    holder.currencyIcon.setImageResource(R.drawable.ic_usd);
-//                    break;
-//                case "USDC":
-//                    // TODO: get USDC icon
-//                    holder.currencyIcon.setImageResource(R.drawable.ic_eur);
-//                    break;
-//                case "BTC":
-                    holder.currencyIcon.setImageResource(R.drawable.ic_btc);
-//                    break;
-//                default:
-//                    break;
-//            }
-        }
+        int id = context.getResources().getIdentifier("com.example.enigmaapp:drawable/" + coinName.toLowerCase(), null, null);
+        holder.currencyIcon.setImageResource(id);
 
         int starColor;
 

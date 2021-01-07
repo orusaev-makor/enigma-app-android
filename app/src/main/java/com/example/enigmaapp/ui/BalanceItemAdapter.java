@@ -64,19 +64,9 @@ public class BalanceItemAdapter extends ListAdapter<BalanceItemResult, BalanceIt
             holder.balanceValueSmall.setTextColor(context.getResources().getColor(R.color.red));
         }
 
-        switch (currentBalance.getName()) {
-            case "USD":
-                holder.balanceIcon.setImageResource(R.drawable.ic_usd);
-                break;
-            case "EUR":
-                holder.balanceIcon.setImageResource(R.drawable.ic_eur);
-                break;
-            case "BTC":
-                holder.balanceIcon.setImageResource(R.drawable.ic_btc);
-                break;
-            default:
-                break;
-        }
+        String coinName = currentBalance.getName().toLowerCase();
+        int id = context.getResources().getIdentifier("com.example.enigmaapp:drawable/" + coinName, null, null);
+        holder.balanceIcon.setImageResource(id);
     }
 
     public class ItemHolder extends RecyclerView.ViewHolder {

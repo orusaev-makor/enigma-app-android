@@ -127,7 +127,7 @@ public class BalanceFragment extends Fragment {
 
                 coinNameText.setText(pe.getLabel());
                 coinNameText.setTextColor(currentColor);
-                coinIcon.setImageResource(R.drawable.ic_btc);
+                coinIcon.setImageResource(R.drawable.btc);
                 coinIcon.setColorFilter(currentColor);
 
                 // set percentage in center of the chart pie
