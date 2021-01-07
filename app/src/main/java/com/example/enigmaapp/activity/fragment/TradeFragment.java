@@ -29,6 +29,8 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.paramsToSend;
+import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.prefEditor;
+import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.resetPrefs;
 
 public class TradeFragment extends Fragment {
     private FloatingActionButton createTradeBtn;

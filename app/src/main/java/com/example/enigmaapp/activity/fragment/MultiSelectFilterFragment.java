@@ -136,7 +136,6 @@ public class MultiSelectFilterFragment extends Fragment {
                         productItem.setIsChecked(true);
                         lastProductPos = position;
                         params.put("product_id", productItem.getId());
-//                        setParams(params);
                         prefEditor.putString("productTradeFilter", productItem.getName());
                         prefEditor.apply();
                     }
@@ -170,7 +169,6 @@ public class MultiSelectFilterFragment extends Fragment {
                         params.put("execution_type", executionTypeItem.getName());
                         prefEditor.putString("executionTradeFilter", executionTypeItem.getName());
                         prefEditor.apply();
-//                        setParams(params);
                     }
 
                     executionTypeAdapter.notifyDataSetChanged();
@@ -209,7 +207,6 @@ public class MultiSelectFilterFragment extends Fragment {
                             params.put("already_batched", batchedItem.getValue());
                             prefEditor.putString("batchedTradeFilter", batchedItem.getName());
                             prefEditor.apply();
-//                            setParams(params);
                         }
 
                         batchedAdapter.notifyDataSetChanged();

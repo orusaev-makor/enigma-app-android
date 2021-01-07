@@ -43,7 +43,7 @@ public class TradeFilterFragment extends Fragment {
     private Button closeBtn;
     private Button submitBtn;
     private MaterialButton resetBtn;
-    private TextView dateText;
+    private static TextView dateText;
     private EditText tradeIdTextEdit;
 
     private TextView productText;
@@ -111,6 +111,11 @@ public class TradeFilterFragment extends Fragment {
 
         productText = v.findViewById(R.id.filter_trade_product_edit);
         productText.setText(prefs.getString("productTradeFilter", ""));
+
+        String product = getValueFromParams("product_id");
+        System.out.println("FOUND product - getValueFromParams :  " + product);
+        String execution = getValueFromParams("execution_type");
+        System.out.println("FOUND execution - getValueFromParams :  " + execution);
         productText.setOnClickListener(v1 -> openMultiSelectFilter("product"));
 
         executionText = v.findViewById(R.id.filter_trade_execution_edit);
@@ -142,9 +147,9 @@ public class TradeFilterFragment extends Fragment {
         closeBtn = v.findViewById(R.id.close_btn);
         closeBtn.setOnClickListener(v17 -> {
             openTradeScreen();
-            paramsToSend.clear();
-            viewModel.resetParams();
-            resetLastPos();
+//            paramsToSend.clear();
+//            viewModel.resetParams();
+//            resetLastPos();
         });
 
         statusSelectView = v.findViewById(R.id.layout_status_select);
@@ -220,12 +225,14 @@ public class TradeFilterFragment extends Fragment {
     }
 
     private String getValueFromParams(String key) {
+        System.out.println("in getValueFromParams looooooooking for key: " + key);
         Iterator it = paramsFromRepository.entrySet().iterator();
         String res = "";
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             if (entry.getKey().equals(key)) {
                 res = entry.getValue().toString();
+                System.out.println("in getValueFromParams fooooooooound res: " + res);
                 System.out.println("removeFromParams in repository - found key! -> " + key);
                 break;
 //                it.remove();
@@ -234,13 +241,13 @@ public class TradeFilterFragment extends Fragment {
         return res;
     }
 
-    private void resetLastPos() {
+    public static void resetLastPos() {
         lastProductPos = -1;
         lastExecutionPos = -1;
         lastBatchedPos = -1;
     }
 
-    private void resetPrefs() {
+    public static void resetPrefs() {
         prefEditor.putString("tradeIdTradeFilter", "");
         prefEditor.putString("productTradeFilter", "");
         prefEditor.putString("executionTradeFilter", "");
