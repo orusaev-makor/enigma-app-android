@@ -72,6 +72,8 @@ public class TradeRepository {
         params1.put("items_per_page", "5");
         params1.put("current_page", "1");
         params1.put("sort", "trade_id desc");
+//        params1.put("start_date", "2020-05-07");
+//        params1.put("end_date", "2020-05-08");
 //        params1.put("status[0]", "rejected");
 //        params1.put("status[1]", "booked");
         System.out.println("params1 ______________ " + params1);

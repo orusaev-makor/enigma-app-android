@@ -24,9 +24,12 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -275,6 +278,9 @@ public class TradeFilterFragment extends Fragment {
         final MaterialDatePicker materialDatePicker = builder.build();
 
         dateText = v.findViewById(R.id.filter_trade_date_edit);
+        String date_n = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date());
+        dateText.setHint(date_n);
+
         dateText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -285,9 +291,25 @@ public class TradeFilterFragment extends Fragment {
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Object selection) {
+                Pair<Long, Long> dates = (Pair<Long, Long>) materialDatePicker.getSelection();
+                Long startDate = dates.first;
+                Long endDate = dates.second;
+
+//              Display it by setText
                 dateText.setText(materialDatePicker.getHeaderText());
+
+                setDateParams(startDate, endDate);
             }
         });
+    }
+
+    private void setDateParams(Long startDate, Long endDate) {
+//        SimpleDateFormat simpleFormat = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat simpleFormat = new SimpleDateFormat("YYYY-MM-DD");
+        String startDateFormatted = simpleFormat.format(startDate);
+        String endDateFormatted = simpleFormat.format(endDate);
+        paramsToSend.put("start_date", startDateFormatted);
+        paramsToSend.put("end_date", endDateFormatted);
     }
 
     private void openTradeScreen() {
