@@ -4,9 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginResult {
 
-    private String id;
-    private String username;
-    private String email;
+    private String id, username, email;
 
     @SerializedName("key")
     private String token;

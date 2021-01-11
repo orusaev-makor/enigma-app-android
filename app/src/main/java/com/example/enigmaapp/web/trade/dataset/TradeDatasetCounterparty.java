@@ -5,9 +5,7 @@ import java.util.ArrayList;
 public class TradeDatasetCounterparty {
 
     private int id;
-    private String name;
-    private String company;
-    private String broker;
+    private String name, company, broker;
     private ArrayList<String> mail;
 
     public int getId() {

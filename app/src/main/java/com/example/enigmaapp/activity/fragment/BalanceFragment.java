@@ -165,7 +165,6 @@ public class BalanceFragment extends Fragment {
         viewModel.getBalanceMap().observe(requireActivity(), new Observer<List<BalanceItemResult>>() {
             @Override
             public void onChanged(List<BalanceItemResult> balanceItemResults) {
-                System.out.println("in on change - balanceItemResults : " + balanceItemResults);
                 balanceAdapter.submitList(balanceItemResults);
             }
         });

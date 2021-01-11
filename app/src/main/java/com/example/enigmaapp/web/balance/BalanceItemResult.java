@@ -1,8 +1,7 @@
 package com.example.enigmaapp.web.balance;
 
 public class BalanceItemResult {
-    private String name;
-    private String value;
+    private String name, value;
 
     public BalanceItemResult(String name, String value) {
         this.name = name;

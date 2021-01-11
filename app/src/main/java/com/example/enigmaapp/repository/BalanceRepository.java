@@ -45,13 +45,12 @@ public class BalanceRepository {
                     return;
                 }
                 setBalancesList(response.body());
-                System.out.println(" ++++++ balanceMap received ++++++ : " + response.body());
             }
 
             @Override
             public void onFailure(Call<HashMap<String, String>> call, Throwable t) {
                 System.out.println("t.getMessage(): " + t.getMessage());
-                Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

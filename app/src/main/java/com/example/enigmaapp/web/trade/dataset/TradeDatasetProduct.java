@@ -1,8 +1,7 @@
 package com.example.enigmaapp.web.trade.dataset;
 
 public class TradeDatasetProduct {
-    private String id;
-    private String name;
+    private String id, name;
     private boolean isChecked = false;
 
     public boolean getIsChecked() { return isChecked; }

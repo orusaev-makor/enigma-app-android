@@ -1,6 +1,7 @@
 package com.example.enigmaapp.repository;
 
 import android.app.Application;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
@@ -24,6 +25,8 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.enigmaapp.activity.fragment.TradeFragment.progressBarTrade;
 
 public class TradeRepository {
 
@@ -70,7 +73,7 @@ public class TradeRepository {
 //        System.out.println(" MAP : " + map);
 
         params.put("items_per_page", "5");
-        params.put("current_page", "1");
+//        params.put("current_page", "1");
         params.put("sort", "trade_id desc");
 //        params1.put("trade_id", "431308");
 //        params1.put("start_date", "2020-05-07");
@@ -87,6 +90,7 @@ public class TradeRepository {
                     System.out.println("fetchTrades - Code: " + response.code() + "Error: " + response.message());
                     return;
                 }
+                progressBarTrade.setVisibility(View.INVISIBLE);
                 allTrades.setValue(response.body().getItems());
             }
 

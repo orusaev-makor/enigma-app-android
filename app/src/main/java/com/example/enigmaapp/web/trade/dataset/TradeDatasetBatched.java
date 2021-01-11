@@ -1,8 +1,7 @@
 package com.example.enigmaapp.web.trade.dataset;
 
 public class TradeDatasetBatched {
-    private String name;
-    private String value;
+    private String name, value;
     private boolean isChecked = false;
 
     public TradeDatasetBatched(String name, String value) {
