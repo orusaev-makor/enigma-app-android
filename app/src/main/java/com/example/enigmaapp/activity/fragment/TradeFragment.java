@@ -1,5 +1,7 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -22,8 +24,10 @@ import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.TradeViewModel;
 import com.example.enigmaapp.model.UserViewModel;
 import com.example.enigmaapp.ui.TradeItemAdapter;
+import com.example.enigmaapp.web.trade.TradeItemResult;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TradeFragment extends Fragment {
@@ -34,6 +38,9 @@ public class TradeFragment extends Fragment {
     private View topSection;
     private int page = 1;
     public static ProgressBar progressBarTrade;
+    public static TradeItemAdapter tradeAdapter;
+    private NestedScrollView nestedScrollView;
+    private RecyclerView recyclerView;
     private HashMap<String, String> pageParams = new HashMap<>();
     SharedPreferences prefs;
 
@@ -45,7 +52,7 @@ public class TradeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //        Show navbar on "Trade" view:
+        // Show navbar on "Trade" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
@@ -83,32 +90,27 @@ public class TradeFragment extends Fragment {
         TextView toDate = topSection.findViewById(R.id.trade_to_date);
         toDate.setText(prefs.getString("endDateTradeFilter", "-"));
 
-        NestedScrollView nestedScrollView = v.findViewById(R.id.scroll_trade);
-        progressBarTrade = v.findViewById(R.id.progress_bar_trade);
-
-        RecyclerView recyclerView = v.findViewById(R.id.trade_fragment_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recyclerView.setHasFixedSize(true);
-
-        final TradeItemAdapter adapter = new TradeItemAdapter(requireContext());
-        recyclerView.setAdapter(adapter);
-
-        TradeViewModel viewModel = new ViewModelProvider(requireActivity(),
-                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(TradeViewModel.class);
-
-        viewModel.getTrades().observe(requireActivity(), tradeItems -> {
-            adapter.submitList(tradeItems);
-        });
-
         UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(UserViewModel.class);
         String token = userViewModel.getCurrentUser().getToken();
 
+        TradeViewModel viewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(TradeViewModel.class);
+
         pageParams.put("current_page", String.valueOf(page));
         viewModel.setParams(pageParams);
         viewModel.fetchTrades(token);
+
+        nestedScrollView = v.findViewById(R.id.scroll_trade);
+        progressBarTrade = v.findViewById(R.id.progress_bar_trade);
+        recyclerView = v.findViewById(R.id.trade_fragment_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        ArrayList<TradeItemResult> data = viewModel.getTrades();
+        tradeAdapter = new TradeItemAdapter(requireContext(), data);
+        recyclerView.setAdapter(tradeAdapter);
 
         nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override

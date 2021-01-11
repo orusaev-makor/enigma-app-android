@@ -18,31 +18,18 @@ import com.example.enigmaapp.web.trade.TradeItemResult;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 
-public class TradeItemAdapter extends ListAdapter<TradeItemResult, TradeItemAdapter.ItemHolder> {
+//public class TradeItemAdapter extends ListAdapter<TradeItemResult, TradeItemAdapter.ItemHolder> {
+public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.ItemHolder> {
 
-    private OnItemClickListener listener;
+    private ArrayList<TradeItemResult> dataArrayList;
     private Context context;
 
-    public TradeItemAdapter(Context context) {
-        super(DIFF_CALLBACK);
+    public TradeItemAdapter(Context context, ArrayList<TradeItemResult> dataArrayList) {
         this.context = context;
+        this.dataArrayList = dataArrayList;
     }
-
-    private static final DiffUtil.ItemCallback<TradeItemResult> DIFF_CALLBACK = new DiffUtil.ItemCallback<TradeItemResult>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull TradeItemResult oldItem, @NonNull TradeItemResult newItem) {
-            return oldItem.getTradeItemId() == newItem.getTradeItemId();
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull TradeItemResult oldItem, @NonNull TradeItemResult newItem) {
-            return oldItem.getProduct().equals(newItem.getProduct()) &&
-                    oldItem.getPrice().equals(newItem.getPrice()) &&
-                    oldItem.getDate().equals(newItem.getDate()) &&
-                    oldItem.getQuantity().equals(newItem.getQuantity());
-        }
-    };
 
     @NonNull
     @Override
@@ -54,8 +41,7 @@ public class TradeItemAdapter extends ListAdapter<TradeItemResult, TradeItemAdap
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-        TradeItemResult currentTradeItem = getItem(position);
-
+        TradeItemResult currentTradeItem = dataArrayList.get(position);
         holder.textViewProduct.setText(currentTradeItem.getProduct());
 
         DecimalFormat decim = new DecimalFormat("#,###.00");
@@ -78,6 +64,11 @@ public class TradeItemAdapter extends ListAdapter<TradeItemResult, TradeItemAdap
         holder.textViewQuantity.setText(quantity);
     }
 
+    @Override
+    public int getItemCount() {
+        return dataArrayList.size();
+    }
+
     class ItemHolder extends RecyclerView.ViewHolder {
         private TextView textViewProduct;
         private TextView textViewPrice;
@@ -90,21 +81,6 @@ public class TradeItemAdapter extends ListAdapter<TradeItemResult, TradeItemAdap
             textViewPrice = itemView.findViewById(R.id.trade_item_price);
             textViewDate = itemView.findViewById(R.id.trade_item_date);
             textViewQuantity = itemView.findViewById(R.id.trade_item_quantity);
-
-            itemView.setOnClickListener(v -> {
-                int position = getAdapterPosition();
-                if (listener != null && position != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(getItem(position));
-                }
-            });
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(TradeItemResult tradeItem);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
     }
 }

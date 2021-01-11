@@ -27,11 +27,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.enigmaapp.activity.fragment.TradeFragment.progressBarTrade;
+import static com.example.enigmaapp.activity.fragment.TradeFragment.tradeAdapter;
 
 public class TradeRepository {
 
     private HashMap<String, String> params = new HashMap<>();
-    private MutableLiveData<List<TradeItemResult>> allTrades = new MutableLiveData<>();
+    private ArrayList<TradeItemResult> allTrades = new ArrayList<>();
     private Application application;
     private MutableLiveData<TradeDatasetResult> tradeDataset = new MutableLiveData<>();
     private MutableLiveData<List<TradeDatasetProduct>> productsDataset = new MutableLiveData<List<TradeDatasetProduct>>();
@@ -44,7 +45,7 @@ public class TradeRepository {
         this.application = application;
     }
 
-    public LiveData<List<TradeItemResult>> getTrades() {
+    public ArrayList<TradeItemResult> getTrades() {
         return allTrades;
     }
 
@@ -71,9 +72,7 @@ public class TradeRepository {
 //        map.put("product_id", productIdsValues);
 //
 //        System.out.println(" MAP : " + map);
-
         params.put("items_per_page", "5");
-//        params.put("current_page", "1");
         params.put("sort", "trade_id desc");
 //        params1.put("trade_id", "431308");
 //        params1.put("start_date", "2020-05-07");
@@ -82,16 +81,16 @@ public class TradeRepository {
 //        params1.put("status[1]", "booked");
         System.out.println("params1 ______________ " + params);
         Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, params);
-//        Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, map);
         call.enqueue(new Callback<TradeResult>() {
             @Override
             public void onResponse(Call<TradeResult> call, Response<TradeResult> response) {
-                if (!response.isSuccessful()) {
-                    System.out.println("fetchTrades - Code: " + response.code() + "Error: " + response.message());
+                if (response.isSuccessful() && response.body() != null) {
+                    progressBarTrade.setVisibility(View.INVISIBLE);
+                    List<TradeItemResult> results = response.body().getItems();
+                    parseTradeResult(results);
                     return;
                 }
-                progressBarTrade.setVisibility(View.INVISIBLE);
-                allTrades.setValue(response.body().getItems());
+                System.out.println("fetchTrades - Code: " + response.code() + "Error: " + response.message());
             }
 
             @Override
@@ -100,6 +99,13 @@ public class TradeRepository {
                 Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void parseTradeResult(List<TradeItemResult> list) {
+        for (TradeItemResult item : list) {
+            allTrades.add(item);
+        }
+        tradeAdapter.notifyDataSetChanged();
     }
 
     public HashMap<String, String> setParams(HashMap<String, String> paramsReceived) {
@@ -117,7 +123,9 @@ public class TradeRepository {
         return params;
     }
 
-    public void resetParams() { this.params.clear(); }
+    public void resetParams() {
+        this.params.clear();
+    }
 
     public void removeFromParams(String key) {
         System.out.println("removeFromParams in repository - key received:  " + key);
