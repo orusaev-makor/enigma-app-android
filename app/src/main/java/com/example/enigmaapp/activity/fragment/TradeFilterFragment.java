@@ -73,7 +73,6 @@ public class TradeFilterFragment extends Fragment {
         activity = getActivity();
         prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
         prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
-
     }
 
     @Override

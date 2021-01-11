@@ -31,9 +31,9 @@ import static com.example.enigmaapp.activity.fragment.TradeFragment.tradeAdapter
 
 public class TradeRepository {
 
+    private Application application;
     private HashMap<String, String> params = new HashMap<>();
     private ArrayList<TradeItemResult> allTrades = new ArrayList<>();
-    private Application application;
     private MutableLiveData<TradeDatasetResult> tradeDataset = new MutableLiveData<>();
     private MutableLiveData<List<TradeDatasetProduct>> productsDataset = new MutableLiveData<List<TradeDatasetProduct>>();
     private MutableLiveData<List<TradeDatasetCounterparty>> counterpartyDataset = new MutableLiveData<List<TradeDatasetCounterparty>>();

@@ -1,6 +1,7 @@
 package com.example.enigmaapp.repository;
 
 import android.app.Application;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
@@ -11,27 +12,35 @@ import com.example.enigmaapp.web.settlement.SettlementResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.progressBarSettlement;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.settlementAdapter;
+
 public class SettlementRepository {
 
-    private MutableLiveData<List<SettlementSummary>> allSettlements = new MutableLiveData<>();
     private Application application;
+    private HashMap<String, String> params = new HashMap<>();
+    private ArrayList<SettlementSummary> allBatch = new ArrayList<>();
+    private ArrayList<SettlementSummary> allUnitary = new ArrayList<>();
 
     public SettlementRepository(Application application) {
         this.application = application;
     }
 
-    public MutableLiveData<List<SettlementSummary>> getAllSettlements() {
-        return allSettlements;
+    public ArrayList<SettlementSummary> getUnitary() {
+        return allUnitary;
     }
+    public ArrayList<SettlementSummary> getBatch() { return allBatch; }
 
-    public void fetchBatchSettlements(String token) {
+    public void fetchBatch(String token) {
         HashMap<String, String> params = new HashMap<>();
+        params.put("items_per_page", "5");
         params.put("sort", "settlement_batch_id desc");
 //        params.put("product_id", "1");
 //        params.put("counterparty_id", "99");
@@ -44,11 +53,14 @@ public class SettlementRepository {
         call.enqueue(new Callback<SettlementResult>() {
             @Override
             public void onResponse(Call<SettlementResult> call, Response<SettlementResult> response) {
-                if (!response.isSuccessful()) {
-                    System.out.println("Code: " + response.code() + "Error: " + response.message());
+                if (response.isSuccessful() && response.body() != null) {
+                    progressBarSettlement.setVisibility(View.INVISIBLE);
+                    List<SettlementItemResult> results = response.body().getItems();
+                    batchToSummaryList(results);
+                    settlementAdapter.notifyDataSetChanged();
                     return;
                 }
-                allSettlements.setValue(batchToSummaryList(response.body().getItems()));
+                System.out.println("Code: " + response.code() + "Error: " + response.message());
             }
 
             @Override
@@ -59,10 +71,9 @@ public class SettlementRepository {
         });
     }
 
-    public void fetchUnitarySettlements(String token) {
+    public void fetchUnitary(String token) {
         HashMap<String, String> params = new HashMap<>();
         params.put("items_per_page", "5");
-        params.put("current_page", "1");
         params.put("sort", "settlement_id desc");
 //        params.put("start_date", "2020-05-07");
 //        params.put("end_date", "2020-05-08");
@@ -82,11 +93,14 @@ public class SettlementRepository {
         call.enqueue(new Callback<SettlementResult>() {
             @Override
             public void onResponse(Call<SettlementResult> call, Response<SettlementResult> response) {
-                if (!response.isSuccessful()) {
-                    System.out.println("Code: " + response.code() + "Error: " + response.message());
+                if (response.isSuccessful() && response.body() != null) {
+                    progressBarSettlement.setVisibility(View.INVISIBLE);
+                    List<SettlementItemResult> results = response.body().getItems();
+                    unitaryToSummaryList(results);
+                    settlementAdapter.notifyDataSetChanged();
                     return;
                 }
-                allSettlements.setValue(unitaryToSummaryList(response.body().getItems()));
+                System.out.println("Code: " + response.code() + "Error: " + response.message());
             }
 
             @Override
@@ -97,28 +111,35 @@ public class SettlementRepository {
         });
     }
 
-    private List<SettlementSummary> batchToSummaryList(List<SettlementItemResult> list) {
-        List<SettlementSummary> result = new ArrayList<SettlementSummary>();
+    private void batchToSummaryList(List<SettlementItemResult> list) {
         for (int i = 0; i < list.size(); i++) {
             SettlementItemResult item = list.get(i);
             SettlementSummary summary = new SettlementSummary(item.getProduct(),
-                    item.getCounterparty(), item.getSentAt(), item.getStatus(),  item.getSettlementId(),
+                    item.getCounterparty(), item.getSentAt(), item.getStatus(), item.getSettlementId(),
                     item.getBatchId(), true);
-            result.add(summary);
+            allBatch.add(summary);
         }
-        return result;
     }
 
-    private List<SettlementSummary> unitaryToSummaryList(List<SettlementItemResult> list) {
-        List<SettlementSummary> result = new ArrayList<SettlementSummary>();
+    private void unitaryToSummaryList(List<SettlementItemResult> list) {
         for (int i = 0; i < list.size(); i++) {
             SettlementItemResult item = list.get(i);
             SettlementSummary summary = new SettlementSummary(item.getCurrency(),
                     item.getCounterparty(), item.getSentAt(), item.getStatus(), item.getSettlementId(),
                     item.getBatchId(), false);
-            result.add(summary);
+            allUnitary.add(summary);
         }
-        return result;
+    }
+
+    public HashMap<String, String> setParams(HashMap<String, String> paramsReceived) {
+        Iterator it = paramsReceived.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            System.out.println("setting paramsReceived in repository: " + pair.getKey() + " = " + pair.getValue());
+            params.put(pair.getKey().toString(), pair.getValue().toString());
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+        return params;
     }
 
     public class SettlementSummary {
@@ -130,7 +151,7 @@ public class SettlementRepository {
         private int batchId;
         private boolean isBatch;
 
-        public SettlementSummary(String name, String counterparty, String date, String status, int id, int batchId,  boolean isBatch) {
+        public SettlementSummary(String name, String counterparty, String date, String status, int id, int batchId, boolean isBatch) {
             this.name = name;
             this.counterparty = counterparty;
             this.date = date;

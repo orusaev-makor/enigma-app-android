@@ -106,7 +106,7 @@ public class SelectTradeFragment extends Fragment {
 
     private void openSettlementScreen() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        SettlementFragment fragment = new SettlementFragment();
+        SettlementFragment fragment = new SettlementFragment(true);
         transaction.replace(R.id.frame_layout, fragment, "Settlement");
         transaction.commit();
     }

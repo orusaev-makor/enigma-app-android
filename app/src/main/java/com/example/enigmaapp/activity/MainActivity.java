@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.commit();
         }
         else if (id == R.id.app_bar_settlement) {
-            SettlementFragment fragment = new SettlementFragment();
+            SettlementFragment fragment = new SettlementFragment(true);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Settlement");
             fragmentTransaction.commit();

@@ -108,7 +108,7 @@ public class NewBatchSettFragment extends Fragment implements AdapterView.OnItem
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SettlementFragment fragment = new SettlementFragment();
+                SettlementFragment fragment = new SettlementFragment(true);
                 transaction.replace(R.id.frame_layout, fragment, "Settlement");
                 transaction.commit();
             }

@@ -120,7 +120,7 @@ public class NewUnitarySettFragment extends Fragment implements AdapterView.OnIt
 
     private void openSettlementScreen() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        SettlementFragment fragment = new SettlementFragment();
+        SettlementFragment fragment = new SettlementFragment(false);
         transaction.replace(R.id.frame_layout, fragment, "Settlement");
         transaction.commit();
     }

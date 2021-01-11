@@ -45,29 +45,19 @@ public class AccountsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=  inflater.inflate(R.layout.fragment_accounts, container, false);
-//
-//        accountLayout = v.findViewById(R.id.account_details_layout);
-//        accountLayout.setOnClickListener(new View.OnClickListener() {
+
+        // TODO: add back create action button after read only version
+        // Move fo "New Account" screen:
+//        createAccountBtn = v.findViewById(R.id.account_create_btn);
+//        createAccountBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                AccountDetailsFragment fragment = new AccountDetailsFragment();
-//                transaction.replace(R.id.frame_layout, fragment, "Account Details");
+//                NewAccountFragment fragment = new NewAccountFragment();
+//                transaction.replace(R.id.frame_layout, fragment, "New Account");
 //                transaction.commit();
 //            }
 //        });
-
-        // Move fo "New Trade" screen:
-        createAccountBtn = v.findViewById(R.id.account_create_btn);
-        createAccountBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                NewAccountFragment fragment = new NewAccountFragment();
-                transaction.replace(R.id.frame_layout, fragment, "New Account");
-                transaction.commit();
-            }
-        });
 
         RecyclerView recyclerViewFiat = v.findViewById(R.id.bank_accounts_fiat_recycler_view);
         recyclerViewFiat.setLayoutManager(new LinearLayoutManager(getContext()));

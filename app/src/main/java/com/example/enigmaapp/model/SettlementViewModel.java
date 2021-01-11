@@ -4,12 +4,11 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
 import com.example.enigmaapp.repository.SettlementRepository;
-import com.example.enigmaapp.web.settlement.SettlementItemResult;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SettlementViewModel extends AndroidViewModel {
 
@@ -20,16 +19,13 @@ public class SettlementViewModel extends AndroidViewModel {
         repository = new SettlementRepository(application);
     }
 
-    public void fetchBatchSettlements(String token) {
-        repository.fetchBatchSettlements(token);
+    public void fetchBatch(String token) {
+        repository.fetchBatch(token);
     }
+    public void fetchUnitary(String token) { repository.fetchUnitary(token); }
 
-    public LiveData<List<SettlementRepository.SettlementSummary>> getSettlements() {
-        return repository.getAllSettlements();
-    }
+    public ArrayList<SettlementRepository.SettlementSummary> getBatch() { return repository.getBatch(); }
+    public ArrayList<SettlementRepository.SettlementSummary> getUnitary() { return repository.getUnitary(); }
 
-    public void fetchUnitarySettlements(String token) {
-        repository.fetchUnitarySettlements(token);
-    }
-
+    public void setParams(HashMap<String, String> params) { repository.setParams(params); }
 }

@@ -1,16 +1,16 @@
 package com.example.enigmaapp.web.settlement;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class SettlementResult {
 
-    List<SettlementItemResult> items;
+    ArrayList<SettlementItemResult> items;
 
-    public List<SettlementItemResult> getItems() {
+    public ArrayList<SettlementItemResult> getItems() {
         return items;
     }
 
-    public void setItems(List<SettlementItemResult> items) {
+    public void setItems(ArrayList<SettlementItemResult> items) {
         this.items = items;
     }
 }

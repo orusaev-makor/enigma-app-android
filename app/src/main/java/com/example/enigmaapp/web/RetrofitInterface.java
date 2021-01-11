@@ -38,6 +38,7 @@ public interface RetrofitInterface {
 
     // Balance:
     @GET("/balance/248")
+//    @GET("/balance")
     Call<HashMap<String, String>> executeGetBalance(@Header("Authorization") String token);
 
     // Trades:
@@ -55,8 +56,8 @@ public interface RetrofitInterface {
 
 
     // Accounts:
-//    @GET("/account/248")
-    @GET("/account")
+    @GET("/account/248")
+//    @GET("/account")
     Call<ArrayList<AccountsItemResult>> executeGetAccounts(@Header("Authorization") String token);
 
     // Datasets:
