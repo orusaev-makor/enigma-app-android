@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
@@ -22,15 +24,7 @@ import com.example.enigmaapp.model.UserViewModel;
 import com.example.enigmaapp.ui.TradeItemAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
-
-import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.paramsToSend;
-import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.prefEditor;
-import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.resetPrefs;
 
 public class TradeFragment extends Fragment {
     private FloatingActionButton createTradeBtn;
@@ -38,6 +32,9 @@ public class TradeFragment extends Fragment {
     private ImageView uploadBtn;
     private ImageView refreshBtn;
     private View topSection;
+    private int page = 1;
+    public static ProgressBar progressBarTrade;
+    private HashMap<String, String> pageParams = new HashMap<>();
     SharedPreferences prefs;
 
     public TradeFragment() {
@@ -86,6 +83,9 @@ public class TradeFragment extends Fragment {
         TextView toDate = topSection.findViewById(R.id.trade_to_date);
         toDate.setText(prefs.getString("endDateTradeFilter", "-"));
 
+        NestedScrollView nestedScrollView = v.findViewById(R.id.scroll_trade);
+        progressBarTrade = v.findViewById(R.id.progress_bar_trade);
+
         RecyclerView recyclerView = v.findViewById(R.id.trade_fragment_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        recyclerView.setHasFixedSize(true);
@@ -106,8 +106,24 @@ public class TradeFragment extends Fragment {
                 .get(UserViewModel.class);
         String token = userViewModel.getCurrentUser().getToken();
 
+        pageParams.put("current_page", String.valueOf(page));
+        viewModel.setParams(pageParams);
         viewModel.fetchTrades(token);
 
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                // check condition
+                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+                    // when reach last item position
+                    page++;
+                    pageParams.put("current_page", String.valueOf(page));
+                    viewModel.setParams(pageParams);
+                    progressBarTrade.setVisibility(View.VISIBLE);
+                    viewModel.fetchTrades(token);
+                }
+            }
+        });
         return v;
     }
 
