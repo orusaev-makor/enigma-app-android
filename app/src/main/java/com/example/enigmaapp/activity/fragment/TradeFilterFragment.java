@@ -254,7 +254,7 @@ public class TradeFilterFragment extends Fragment {
         prefEditor.putString("executionTradeFilter", "");
         prefEditor.putString("batchedTradeFilter", "");
         prefEditor.putString("startDateTradeFilter", "-");
-        prefEditor.putString("endDateTradeFilter", "-");
+        prefEditor.putString("endDateTradeFilter", getTodayDate());
         prefEditor.putBoolean("isRejectTradeFilter", false);
         prefEditor.putBoolean("isBookedTradeFilter", false);
         prefEditor.putBoolean("isValidatedTradeFilter", false);

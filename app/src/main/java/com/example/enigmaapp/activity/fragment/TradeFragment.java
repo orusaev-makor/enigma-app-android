@@ -30,6 +30,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
+
 public class TradeFragment extends Fragment {
     private FloatingActionButton createTradeBtn;
     private ImageView filterBtn;
@@ -88,7 +90,7 @@ public class TradeFragment extends Fragment {
         TextView fromDate = topSection.findViewById(R.id.trade_from_date);
         fromDate.setText(prefs.getString("startDateTradeFilter", "-"));
         TextView toDate = topSection.findViewById(R.id.trade_to_date);
-        toDate.setText(prefs.getString("endDateTradeFilter", "-"));
+        toDate.setText(prefs.getString("endDateTradeFilter", getTodayDate()));
 
         UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))

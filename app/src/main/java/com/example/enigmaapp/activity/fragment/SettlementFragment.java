@@ -99,6 +99,9 @@ public class SettlementFragment extends Fragment {
         if (isBatch) {
             fromDate.setText("-");
             toDate.setText(getTodayDate());
+        } else {
+            fromDate.setText(prefs.getString("startDateUnitaryFilter", "-"));
+            toDate.setText(prefs.getString("endDateUnitaryFilter", getTodayDate()));
         }
 
 

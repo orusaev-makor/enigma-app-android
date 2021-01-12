@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center|top"
@@ -49,23 +49,25 @@
             android:textColor="@color/textHintColor"
             android:textSize="16dp" />
 
-        <EditText
+
+        <TextView
             android:id="@+id/filter_unitary_date"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/edit_text_border"
+            android:drawableEnd="@drawable/ic_date_picker"
             android:drawableRight="@drawable/ic_date_picker"
             android:drawableTint="@color/textColor"
             android:ems="10"
             android:fontFamily="@font/poppins_regular"
-            android:hint="02 Oct 2020 - 07 Oct 2020"
-            android:inputType="date"
+            android:gravity="left|center"
+            android:hint="03 Dec 2020"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            android:textColor="@color/textColor"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
-
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/filter_unitary_input_id"
@@ -74,6 +76,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/textColor"
             android:hint="Input ID"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
@@ -86,6 +89,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_border"
             android:drawableRight="@drawable/ic_arrow_drop_down"
+            android:textColor="@color/textColor"
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
             android:gravity="left|center"
@@ -104,6 +108,7 @@
             android:background="@drawable/edit_text_border"
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
+            android:textColor="@color/textColor"
             android:fontFamily="@font/poppins_regular"
             android:gravity="left|center"
             android:hint="Currencies"

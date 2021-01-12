@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,17 +16,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.SettlementViewModel;
 import com.example.enigmaapp.model.UserViewModel;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TimeZone;
 
+import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 import static com.example.enigmaapp.activity.fragment.UnitarySelectFilterFragment.lastUnitaryCounterpartyPos;
 
 
@@ -33,6 +41,8 @@ public class SettUnitaryFilterFragment extends Fragment {
     private Button closeBtn;
     private Button submitBtn;
     private MaterialButton resetBtn;
+    private static TextView dateText;
+    private EditText tradeIdTextEdit;
 
     private TextView counterpartyText;
     private TextView currencyText;
@@ -67,6 +77,8 @@ public class SettUnitaryFilterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_sett_unitary_filter, container, false);
+
+        buildCalender(v);
 
         viewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
@@ -168,6 +180,64 @@ public class SettUnitaryFilterFragment extends Fragment {
         return v;
     }
 
+
+    private void buildCalender(View v) {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.clear();
+
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        builder.setTitleText("Select data range");
+        //To apply a dialog
+        builder.setTheme(R.style.ThemeOverlay_MaterialComponents_MaterialCalendar);
+
+        final MaterialDatePicker materialDatePicker = builder.build();
+
+        dateText = v.findViewById(R.id.filter_unitary_date);
+        String today = getTodayDate();
+        dateText.setHint(today);
+        String dateTextFromPrefs = "";
+        dateTextFromPrefs = prefs.getString("startDateUnitaryFilter", "-");
+        if (!dateTextFromPrefs.equals("-")) {
+            dateTextFromPrefs += " - " + prefs.getString("endDateUnitaryFilter", "");
+            dateText.setText(dateTextFromPrefs);
+        }
+
+        dateText.setOnClickListener(v1 -> materialDatePicker.show(getFragmentManager(), "Data Picker"));
+
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+            @Override
+            public void onPositiveButtonClick(Object selection) {
+                Pair<Long, Long> dates = (Pair<Long, Long>) materialDatePicker.getSelection();
+                Long startDate = dates.first;
+                Long endDate = dates.second;
+
+                // format and send to backend:
+                SimpleDateFormat serverFormat = new SimpleDateFormat("YYYY-MM-dd");
+                String startDateForServer = serverFormat.format(startDate);
+                String endDateForServer = serverFormat.format(endDate);
+                setDateParams(startDateForServer, endDateForServer);
+
+                // format for display:
+                SimpleDateFormat clientFormat = new SimpleDateFormat("MMM dd YYYY");
+                String startDateForClient = clientFormat.format(startDate);
+                String endDateForClient = clientFormat.format(endDate);
+                dateText.setText(startDateForClient + " - " + endDateForClient);
+                setDatePrefs(startDateForClient, endDateForClient);
+            }
+        });
+    }
+
+    private void setDatePrefs(String startDate, String endDate) {
+        prefEditor.putString("startDateUnitaryFilter", startDate);
+        prefEditor.putString("endDateUnitaryFilter", endDate);
+        prefEditor.apply();
+    }
+
+    private void setDateParams(String startDate, String endDate) {
+        unitaryParamsToSend.put("start_date", startDate);
+        unitaryParamsToSend.put("end_date", endDate);
+    }
+
     private void checkBoxSetupToFalse(String prefKey, String paramKey) {
         prefEditor.putBoolean(prefKey, false);
         prefEditor.apply();
@@ -193,7 +263,10 @@ public class SettUnitaryFilterFragment extends Fragment {
         prefEditor.putBoolean("isValidatedUnitaryFilter", false);
         prefEditor.putBoolean("isSettledUnitaryFilter", false);
         prefEditor.putBoolean("isInSettUnitaryFilter", false);
+        prefEditor.putString("startDateUnitaryFilter", "-");
+        prefEditor.putString("endDateUnitaryFilter", getTodayDate());
         prefEditor.apply();
+        dateText.setText("");
     }
 
     private void openFilterUnitaryScreen() {
