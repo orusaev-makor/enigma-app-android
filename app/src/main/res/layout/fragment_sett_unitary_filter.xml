@@ -133,19 +133,18 @@
             android:weightSum="1">
 
             <RadioButton
-                android:id="@+id/radioButtonSend"
+                android:id="@+id/radioButtonUnitarySendSide"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
-                android:buttonTint="@color/textColor"
-                android:checked="true"
+                android:buttonTint="@color/textSecondaryColor"
                 android:fontFamily="@font/poppins_regular"
                 android:text="To Send"
-                android:textColor="@color/textColor"
+                android:textColor="@color/textSecondaryColor"
                 android:textSize="16dp" />
 
             <RadioButton
-                android:id="@+id/radioButtonReceive"
+                android:id="@+id/radioButtonUnitaryReceiveSide"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"

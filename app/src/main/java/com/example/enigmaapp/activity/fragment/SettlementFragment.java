@@ -1,6 +1,8 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
@@ -39,6 +42,7 @@ public class SettlementFragment extends Fragment {
     private ImageView filterBtn;
     private ImageView uploadBtn;
     private ImageView refreshBtn;
+
     private View topSection;
     private int page = 1;
     private boolean isBatch;
@@ -172,6 +176,7 @@ public class SettlementFragment extends Fragment {
 
         return v;
     }
+
 
     // TODO: add back create action button after read only version
     private void openAddScreen(boolean isBatch) {

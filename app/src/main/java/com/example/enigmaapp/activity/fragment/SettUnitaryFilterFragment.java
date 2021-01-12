@@ -1,7 +1,9 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
@@ -43,6 +46,9 @@ public class SettUnitaryFilterFragment extends Fragment {
     private MaterialButton resetBtn;
     private static TextView dateText;
     private EditText tradeIdTextEdit;
+
+    private RadioButton send;
+    private RadioButton receive;
 
     private TextView counterpartyText;
     private TextView currencyText;
@@ -84,6 +90,28 @@ public class SettUnitaryFilterFragment extends Fragment {
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(SettlementViewModel.class);
 
+
+        send = v.findViewById(R.id.radioButtonUnitarySendSide);
+        receive = v.findViewById(R.id.radioButtonUnitaryReceiveSide);
+
+        // init radio with "send"
+        send.setChecked(true);
+        if (send.isChecked()) {
+            handleSideCheck("send");
+        } else {
+            handleSideCheck("receive");
+        }
+
+        send.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    handleSideCheck("send");
+                } else {
+                    handleSideCheck("receive");
+                }
+            }
+        });
 
         paramsFromRepository = viewModel.getUnitaryParams();
         System.out.println("paramsFromRepository : " + paramsFromRepository);
@@ -180,6 +208,28 @@ public class SettUnitaryFilterFragment extends Fragment {
         return v;
     }
 
+    private void handleSideCheck(String side) {
+            markRadioBtn(side);
+            String str = "to " + side;
+            unitaryParamsToSend.put("side", str);
+            prefEditor.putString("side", str);
+            prefEditor.apply();
+    }
+
+    @SuppressLint("NewApi")
+    private void markRadioBtn(String side) {
+        if (side.equals("send")) {
+            send.setTextColor(getContext().getResources().getColor(R.color.textColor));
+            send.setButtonTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.textColor)));
+            receive.setTextColor(getContext().getResources().getColor(R.color.textSecondaryColor));
+            receive.setButtonTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.textSecondaryColor)));
+        } else {
+            receive.setTextColor(getContext().getResources().getColor(R.color.textColor));
+            receive.setButtonTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.textColor)));
+            send.setTextColor(getContext().getResources().getColor(R.color.textSecondaryColor));
+            send.setButtonTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.textSecondaryColor)));
+        }
+    }
 
     private void buildCalender(View v) {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
