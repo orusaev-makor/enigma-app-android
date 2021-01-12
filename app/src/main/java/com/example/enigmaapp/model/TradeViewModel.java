@@ -60,7 +60,5 @@ public class TradeViewModel extends AndroidViewModel {
         repository.removeFromParams(key);
     }
 
-    public void resetTradesList() {
-        repository.resetTradesList();
-    }
+    public void resetTradesList() { repository.resetTradesList(); }
 }

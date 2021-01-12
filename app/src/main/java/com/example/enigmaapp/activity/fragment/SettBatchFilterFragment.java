@@ -141,13 +141,13 @@ public class SettBatchFilterFragment extends Fragment {
             }
         });
 
-        CheckBox book = (CheckBox) statusSelectView.findViewById(R.id.checkBoxBookedBatch);
-        book.setChecked(prefs.getBoolean("isRejectBatchFilter", false));
-        book.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        CheckBox pending = (CheckBox) statusSelectView.findViewById(R.id.checkBoxPendingBatch);
+        pending.setChecked(prefs.getBoolean("isPendingBatchFilter", false));
+        pending.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                checkBoxSetupToTrue("isBookedBatchFilter", "status[1]", "booked");
+                checkBoxSetupToTrue("isPendingBatchFilter", "status[1]", "pending");
             } else {
-                checkBoxSetupToFalse("isBookedBatchFilter", "status[1]");
+                checkBoxSetupToFalse("isPendingBatchFilter", "status[1]");
             }
         });
 
@@ -161,25 +161,25 @@ public class SettBatchFilterFragment extends Fragment {
             }
         });
 
-        CheckBox cancel = (CheckBox) statusSelectView.findViewById(R.id.checkBoxCanceledBatch);
-        cancel.setChecked(prefs.getBoolean("isCanceledBatchFilter", false));
-        cancel.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        CheckBox settled = (CheckBox) statusSelectView.findViewById(R.id.checkBoxSettledBatch);
+        settled.setChecked(prefs.getBoolean("isSettledBatchFilter", false));
+        settled.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                checkBoxSetupToTrue("isCanceledBatchFilter", "status[3]", "canceled");
+                checkBoxSetupToTrue("isSettledBatchFilter", "status[3]", "settled");
             } else {
-                checkBoxSetupToFalse("isCanceledBatchFilter", "status[3]");
+                checkBoxSetupToFalse("isSettledBatchFilter", "status[3]");
             }
         });
 
-        CheckBox open = (CheckBox) statusSelectView.findViewById(R.id.checkBoxOpenBatch);
-        open.setChecked(prefs.getBoolean("isOpenBatchFilter", false));
-        open.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        CheckBox inSett = (CheckBox) statusSelectView.findViewById(R.id.checkBoxInSetBatch);
+        inSett.setChecked(prefs.getBoolean("isInSettBatchFilter", false));
+        inSett.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    checkBoxSetupToTrue("isOpenBatchFilter", "status[4]", "open");
+                    checkBoxSetupToTrue("isInSettBatchFilter", "status[4]", "in sett");
                 } else {
-                    checkBoxSetupToFalse("isOpenBatchFilter", "status[4]");
+                    checkBoxSetupToFalse("isInSettBatchFilter", "status[4]");
                 }
             }
         });
@@ -203,11 +203,11 @@ public class SettBatchFilterFragment extends Fragment {
     private void resetPrefs() {
         prefEditor.putString("productBatchFilter", "");
         prefEditor.putString("counterpartyBatchFilter", "");
-        prefEditor.putBoolean("isRejectTradeFilter", false);
-        prefEditor.putBoolean("isBookedBatchFilter", false);
+        prefEditor.putBoolean("isRejectBatchFilter", false);
+        prefEditor.putBoolean("isPendingBatchFilter", false);
         prefEditor.putBoolean("isValidatedBatchFilter", false);
-        prefEditor.putBoolean("isCanceledBatchFilter", false);
-        prefEditor.putBoolean("isOpenBatchFilter", false);
+        prefEditor.putBoolean("isSettledBatchFilter", false);
+        prefEditor.putBoolean("isInSettBatchFilter", false);
         prefEditor.apply();
     }
 

@@ -29,7 +29,8 @@ import static com.example.enigmaapp.activity.fragment.SettlementFragment.settlem
 public class SettlementRepository {
 
     private Application application;
-    private HashMap<String, String> params = new HashMap<>();
+    private HashMap<String, String> batchParams = new HashMap<>();
+    private HashMap<String, String> unitaryParams = new HashMap<>();
     private ArrayList<SettlementSummary> allBatch = new ArrayList<>();
     private ArrayList<SettlementSummary> allUnitary = new ArrayList<>();
 
@@ -47,17 +48,17 @@ public class SettlementRepository {
     public ArrayList<SettlementSummary> getBatch() { return allBatch; }
 
     public void fetchBatch(String token) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("items_per_page", "5");
-        params.put("sort", "settlement_batch_id desc");
+//        HashMap<String, String> params = new HashMap<>();
+        batchParams.put("items_per_page", "5");
+        batchParams.put("sort", "settlement_batch_id desc");
 //        params.put("product_id", "1");
 //        params.put("counterparty_id", "99");
-        params.put("status[0]", "pending");
-        params.put("status[1]", "confirmed");
-        params.put("status[2]", "settled");
-        params.put("status[3]", "rejected");
-
-        Call<SettlementResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetBatch(token, params);
+//        params.put("status[0]", "pending");
+//        params.put("status[1]", "confirmed");
+//        params.put("status[2]", "settled");
+//        params.put("status[3]", "rejected");
+        System.out.println("params1 fetching batch ______________ " + batchParams);
+        Call<SettlementResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetBatch(token, batchParams);
         call.enqueue(new Callback<SettlementResult>() {
             @Override
             public void onResponse(Call<SettlementResult> call, Response<SettlementResult> response) {
@@ -80,24 +81,28 @@ public class SettlementRepository {
     }
 
     public void fetchUnitary(String token) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("items_per_page", "5");
-        params.put("sort", "settlement_id desc");
+//        HashMap<String, String> params = new HashMap<>();
+        unitaryParams.put("items_per_page", "5");
+        unitaryParams.put("sort", "settlement_id desc");
 //        params.put("start_date", "2020-05-07");
 //        params.put("end_date", "2020-05-08");
-        params.put("currency", "EUR");
-        params.put("side", "to send");
+//        params.put("currency", "EUR");
+//        params.put("side", "to send");
 //        params.put("counterparty_id", "64");
-        params.put("status[0]", "confirmed");
-        params.put("status[1]", "pending");
-        params.put("status[2]", "settled");
-        params.put("status[3]", "rejected");
+//        params.put("status[0]", "confirmed");
+//        params.put("status[1]", "pending");
+//        params.put("status[2]", "settled");
+//        params.put("status[3]", "rejected");
 //        params.put("counterparty_id_list[0]", "14");
 //        params.put("counterparty_id_list[1]", "99");
-        params.put("currency_list[0]", "EUR");
-        params.put("currency_list[1]", "BTC");
-        params.put("currency_list[3]", "USD");
-        Call<SettlementResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetUnitary(token, params);
+//        params.put("currency_list[0]", "EUR");
+//        params.put("currency_list[1]", "BTC");
+//        params.put("currency_list[3]", "USD");
+
+        System.out.println("params1 fetching unitary ______________ " + unitaryParams);
+
+
+        Call<SettlementResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetUnitary(token, unitaryParams);
         call.enqueue(new Callback<SettlementResult>() {
             @Override
             public void onResponse(Call<SettlementResult> call, Response<SettlementResult> response) {
@@ -144,13 +149,13 @@ public class SettlementRepository {
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
             System.out.println("setting paramsReceived in repository: " + pair.getKey() + " = " + pair.getValue());
-            params.put(pair.getKey().toString(), pair.getValue().toString());
+            batchParams.put(pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }
-        return params;
+        return batchParams;
     }
 
-    public HashMap<String, String> getParams() { return params; }
+    public HashMap<String, String> getBatchParams() { return batchParams; }
 
     public void fetchBatchDataset(String token) {
         Call<BatchDatasetResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetBatchDataset(token);
@@ -187,7 +192,7 @@ public class SettlementRepository {
 
     public void removeFromParams(String key) {
         System.out.println("Batch__ removeFromParams in repository - key received:  " + key);
-        Iterator it = params.entrySet().iterator();
+        Iterator it = batchParams.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             if (entry.getKey().equals(key)) {
@@ -200,7 +205,9 @@ public class SettlementRepository {
     public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() {
         return counterpartyDataset; }
 
-    public void resetParams() { this.params.clear(); }
+    public void resetParams() { this.batchParams.clear(); }
+    public void resetBatchList() { this.allBatch.clear(); }
+    public void resetUnitaryList() { this.allUnitary.clear(); }
 
     public class SettlementSummary {
         private String name;

@@ -78,7 +78,7 @@ public class TradeRepository {
 //        params1.put("end_date", "2020-05-08");
 //        params1.put("status[0]", "rejected");
 //        params1.put("status[1]", "booked");
-        System.out.println("params1 ______________ " + params);
+        System.out.println("params1 fetching trade ______________ " + params);
         Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, params);
         call.enqueue(new Callback<TradeResult>() {
             @Override

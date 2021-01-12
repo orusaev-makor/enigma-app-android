@@ -33,7 +33,7 @@
 
 
         <CheckBox
-            android:id="@+id/checkBoxBookedBatch"
+            android:id="@+id/checkBoxPendingBatch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -41,7 +41,7 @@
             android:textColor="@color/statusPending"
             android:buttonTint="@color/statusPending"
             android:textSize="16sp"
-            android:text="@string/booked" />
+            android:text="@string/pending" />
     </LinearLayout>
 
     <LinearLayout
@@ -63,25 +63,25 @@
             android:text="@string/validated" />
 
         <CheckBox
-            android:id="@+id/checkBoxCanceledBatch"
+            android:id="@+id/checkBoxSettledBatch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/statusCanceled"
-            android:buttonTint="@color/statusCanceled"
+            android:textColor="@color/statusSettled"
+            android:buttonTint="@color/statusSettled"
             android:textSize="16sp"
-            android:text="@string/canceled" />
+            android:text="@string/settled" />
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/checkBoxOpenBatch"
+        android:id="@+id/checkBoxInSetBatch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_regular"
-        android:textColor="@color/statusOpen"
-        android:buttonTint="@color/statusOpen"
+        android:textColor="@color/statusInSet"
+        android:buttonTint="@color/statusInSet"
         android:layout_marginTop="-8dp"
         android:textSize="16sp"
-        android:text="@string/open" />
+        android:text="@string/in_sett" />
 </LinearLayout>

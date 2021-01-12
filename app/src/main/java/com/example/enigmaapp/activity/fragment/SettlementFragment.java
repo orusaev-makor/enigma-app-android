@@ -76,10 +76,7 @@ public class SettlementFragment extends Fragment {
         // Refresh "Settlement" screen:
         refreshBtn = v.findViewById(R.id.ic_action_refresh);
         refreshBtn.setOnClickListener(v13 -> {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            SettlementFragment fragment = new SettlementFragment(isBatch);
-            transaction.replace(R.id.frame_layout, fragment, "Settlement");
-            transaction.commit();
+            openSettlementScreen(isBatch);
         });
 
         // Upload "Settlement" screen:
@@ -100,8 +97,13 @@ public class SettlementFragment extends Fragment {
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(SettlementViewModel.class);
 
-
         pageParams.put("current_page", String.valueOf(page));
+        if (page == 1 && isBatch) {
+            viewModel.resetBatchList();
+        }
+        if (page == 1 && !isBatch) {
+            viewModel.resetUnitaryList();
+        }
         viewModel.setParams(pageParams);
 
         batch = v.findViewById(R.id.settlement_batch);
