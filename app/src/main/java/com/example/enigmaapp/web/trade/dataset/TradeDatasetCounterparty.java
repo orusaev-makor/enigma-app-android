@@ -4,15 +4,20 @@ import java.util.ArrayList;
 
 public class TradeDatasetCounterparty {
 
-    private int id;
-    private String name, company, broker;
+    private String name, company, broker, id;
     private ArrayList<String> mail;
+    private boolean isChecked = false;
 
-    public int getId() {
+    public boolean getIsChecked() { return isChecked; }
+
+    public void setIsChecked(boolean checked) { isChecked = checked; }
+
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

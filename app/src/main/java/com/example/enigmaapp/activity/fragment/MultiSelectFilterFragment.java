@@ -22,20 +22,15 @@ import com.example.enigmaapp.model.UserViewModel;
 import com.example.enigmaapp.ui.BatchedFilterAdapter;
 import com.example.enigmaapp.ui.ExecutionTypeFilterAdapter;
 import com.example.enigmaapp.ui.ProductFilterAdapter;
-import com.example.enigmaapp.web.ProxyRetrofitQueryMap;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetBatched;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetExecutionType;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
 import com.google.android.material.button.MaterialButton;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.removeFromParams;
-import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.setParams;
+import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.removeFromTradeParams;
+import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.setTradeFilterParams;
 
 public class MultiSelectFilterFragment extends Fragment {
     private String mFilterType;
@@ -46,9 +41,9 @@ public class MultiSelectFilterFragment extends Fragment {
     private MaterialButton resetBtn;
     private Button submitBtn;
     private HashMap<String, String> params = new HashMap<>();
-    public static int lastProductPos = -1;
-    public static int lastExecutionPos = -1;
-    public static int lastBatchedPos = -1;
+    public static int lastTradeProductPos = -1;
+    public static int lastTradeExecutionPos = -1;
+    public static int lastTradeBatchedPos = -1;
     private TradeViewModel viewModel;
 
     public MultiSelectFilterFragment(String filterType) {
@@ -79,7 +74,7 @@ public class MultiSelectFilterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openTradeFilterScreen();
-                setParams(params);
+                setTradeFilterParams(params);
                 // TODO: add this section back when multi select is supported by server
 //                List<String> strList = new ArrayList<>();
 //                strList.add("17");
@@ -114,7 +109,7 @@ public class MultiSelectFilterFragment extends Fragment {
         switch (mFilterType) {
 
             case "product":
-                final ProductFilterAdapter productAdapter = new ProductFilterAdapter(requireActivity());
+                final ProductFilterAdapter productAdapter = new ProductFilterAdapter(requireActivity(), true);
                 recyclerView.setAdapter(productAdapter);
 
                 viewModel.getProductsDataset().observe(requireActivity(), productItems -> productAdapter.submitList(productItems));
@@ -134,7 +129,7 @@ public class MultiSelectFilterFragment extends Fragment {
                     } else {
                         productAdapter.setLastCheckedPos(position);
                         productItem.setIsChecked(true);
-                        lastProductPos = position;
+                        lastTradeProductPos = position;
                         params.put("product_id", productItem.getId());
                         prefEditor.putString("productTradeFilter", productItem.getName());
                         prefEditor.apply();
@@ -165,7 +160,7 @@ public class MultiSelectFilterFragment extends Fragment {
                     } else {
                         executionTypeAdapter.setLastCheckedPos(position);
                         executionTypeItem.setIsChecked(true);
-                        lastExecutionPos = position;
+                        lastTradeExecutionPos = position;
                         params.put("execution_type", executionTypeItem.getName());
                         prefEditor.putString("executionTradeFilter", executionTypeItem.getName());
                         prefEditor.apply();
@@ -203,7 +198,7 @@ public class MultiSelectFilterFragment extends Fragment {
                         } else {
                             batchedAdapter.setLastCheckedPos(position);
                             batchedItem.setIsChecked(true);
-                            lastBatchedPos = position;
+                            lastTradeBatchedPos = position;
                             params.put("already_batched", batchedItem.getValue());
                             prefEditor.putString("batchedTradeFilter", batchedItem.getName());
                             prefEditor.apply();
@@ -236,15 +231,15 @@ public class MultiSelectFilterFragment extends Fragment {
     private void resetParam() {
         switch (mFilterType) {
             case "product":
-                removeFromParams("product_id");
+                removeFromTradeParams("product_id");
                 viewModel.removeFromParams("product_id");
                 break;
             case "execution type":
-                removeFromParams("execution_type");
+                removeFromTradeParams("execution_type");
                 viewModel.removeFromParams("execution_type");
                 break;
             case "batched":
-                removeFromParams("already_batched");
+                removeFromTradeParams("already_batched");
                 viewModel.removeFromParams("already_batched");
                 break;
             default:
@@ -255,13 +250,13 @@ public class MultiSelectFilterFragment extends Fragment {
     private void resetLastPos() {
         switch (mFilterType) {
             case "product":
-                lastProductPos = -1;
+                lastTradeProductPos = -1;
                 break;
             case "execution type":
-                lastExecutionPos = -1;
+                lastTradeExecutionPos = -1;
                 break;
             case "batched":
-                lastBatchedPos = -1;
+                lastTradeBatchedPos = -1;
                 break;
             default:
                 break;

@@ -34,9 +34,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastBatchedPos;
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastExecutionPos;
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastProductPos;
+import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeBatchedPos;
+import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeExecutionPos;
+import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeProductPos;
 
 public class TradeFilterFragment extends Fragment {
 
@@ -55,7 +55,7 @@ public class TradeFilterFragment extends Fragment {
 
     private HashMap<String, String> paramsFromRepository = new HashMap<>();
 
-    public static HashMap<String, String> paramsToSend = new HashMap<>();
+    public static HashMap<String, String> tradeParamsToSend = new HashMap<>();
 
     SharedPreferences prefs;
     static SharedPreferences.Editor prefEditor;
@@ -102,7 +102,7 @@ public class TradeFilterFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    paramsToSend.put("trade_id", tradeIdTextEdit.getText().toString());
+                    tradeParamsToSend.put("trade_id", tradeIdTextEdit.getText().toString());
                     prefEditor.putString("tradeIdTradeFilter", tradeIdTextEdit.getText().toString());
                     prefEditor.apply();
                 }
@@ -113,9 +113,10 @@ public class TradeFilterFragment extends Fragment {
         productText.setText(prefs.getString("productTradeFilter", ""));
 
         String product = getValueFromParams("product_id");
-        System.out.println("FOUND product - getValueFromParams :  " + product);
+//        System.out.println("FOUND product - getValueFromParams :  " + product);
         String execution = getValueFromParams("execution_type");
-        System.out.println("FOUND execution - getValueFromParams :  " + execution);
+//        System.out.println("FOUND execution - getValueFromParams :  " + execution);
+        productText.setOnClickListener(v1 -> openMultiSelectFilter("product"));
         productText.setOnClickListener(v1 -> openMultiSelectFilter("product"));
 
         executionText = v.findViewById(R.id.filter_trade_execution_edit);
@@ -129,25 +130,25 @@ public class TradeFilterFragment extends Fragment {
         // Submit "Filter" and go back to "Trade" screen
         submitBtn = v.findViewById(R.id.filter_trade_submit_btn);
         submitBtn.setOnClickListener(v19 -> {
-            viewModel.setParams(paramsToSend);
+            viewModel.setParams(tradeParamsToSend);
             openTradeScreen();
         });
 
         // Reset "Filter Trade" screen
         resetBtn = v.findViewById(R.id.filter_trade_reset_btn);
         resetBtn.setOnClickListener(v18 -> {
-            paramsToSend.clear();
+            tradeParamsToSend.clear();
             viewModel.resetParams();
             resetPrefs();
             openFilterTradeScreen();
-            resetLastPos();
+            resetTradeLastPos();
         });
 
         // Close "Filter Trade" screen and go back to "Trade Fragment":
         closeBtn = v.findViewById(R.id.close_btn);
         closeBtn.setOnClickListener(v17 -> {
             openTradeScreen();
-//            paramsToSend.clear();
+//            tradeParamsToSend.clear();
 //            viewModel.resetParams();
 //            resetLastPos();
         });
@@ -214,13 +215,13 @@ public class TradeFilterFragment extends Fragment {
     private void checkBoxSetupToTrue(String prefKey, String paramKey, String paramVal) {
         prefEditor.putBoolean(prefKey, true);
         prefEditor.apply();
-        paramsToSend.put(paramKey, paramVal);
+        tradeParamsToSend.put(paramKey, paramVal);
     }
 
     private void checkBoxSetupToFalse(String prefKey, String paramKey) {
         prefEditor.putBoolean(prefKey, false);
         prefEditor.apply();
-        paramsToSend.remove(paramKey);
+        tradeParamsToSend.remove(paramKey);
         viewModel.removeFromParams(paramKey);
     }
 
@@ -241,13 +242,13 @@ public class TradeFilterFragment extends Fragment {
         return res;
     }
 
-    public static void resetLastPos() {
-        lastProductPos = -1;
-        lastExecutionPos = -1;
-        lastBatchedPos = -1;
+    public static void resetTradeLastPos() {
+        lastTradeProductPos = -1;
+        lastTradeExecutionPos = -1;
+        lastTradeBatchedPos = -1;
     }
 
-    public static void resetPrefs() {
+    private void resetPrefs() {
         prefEditor.putString("tradeIdTradeFilter", "");
         prefEditor.putString("productTradeFilter", "");
         prefEditor.putString("executionTradeFilter", "");
@@ -330,8 +331,8 @@ public class TradeFilterFragment extends Fragment {
     }
 
     private void setDateParams(String startDate, String endDate) {
-        paramsToSend.put("start_date", startDate);
-        paramsToSend.put("end_date", endDate);
+        tradeParamsToSend.put("start_date", startDate);
+        tradeParamsToSend.put("end_date", endDate);
     }
 
     private String getTodayDate() {
@@ -345,19 +346,19 @@ public class TradeFilterFragment extends Fragment {
         transaction.commit();
     }
 
-    public static void setParams(HashMap<String, String> params) {
+    public static void setTradeFilterParams(HashMap<String, String> params) {
         Iterator it = params.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
             System.out.println("setting params in trade filter fragment: " + pair.getKey() + " = " + pair.getValue());
-            paramsToSend.put(pair.getKey().toString(), pair.getValue().toString());
+            tradeParamsToSend.put(pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }
-        System.out.println("PARAMS TO SEND: " + paramsToSend);
+        System.out.println("TRADE PARAMS TO SEND: " + tradeParamsToSend);
     }
 
-    public static void removeFromParams(String key) {
-        Iterator it = paramsToSend.entrySet().iterator();
+    public static void removeFromTradeParams(String key) {
+        Iterator it = tradeParamsToSend.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             if (entry.getKey().equals(key)) {

@@ -63,6 +63,7 @@
         android:gravity="left|center"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
+        android:textColor="@color/textColor"
         android:textColorHint="@color/textSecondaryColor"
         android:textSize="16sp"
         android:drawableEnd="@drawable/ic_arrow_drop_down" />
@@ -81,6 +82,8 @@
         android:gravity="left|center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:textColor="@color/textColor"
+
         android:textColorHint="@color/textSecondaryColor"
         android:textSize="16sp"
         android:drawableEnd="@drawable/ic_arrow_drop_down" />

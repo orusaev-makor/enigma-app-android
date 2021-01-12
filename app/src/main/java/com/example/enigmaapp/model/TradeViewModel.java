@@ -50,8 +50,6 @@ public class TradeViewModel extends AndroidViewModel {
         return repository.getBatchedDataset();
     }
 
-    public MutableLiveData<ArrayList<String>> getStatusDataset() { return repository.getStatusDataset(); }
-
     public HashMap<String, String> getParams() { return repository.getParams(); }
 
     public void setParams(HashMap<String, String> params) { repository.setParams(params); }

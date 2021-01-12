@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetBatched;
 
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastBatchedPos;
+import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeBatchedPos;
 
 public class BatchedFilterAdapter extends ListAdapter<TradeDatasetBatched, BatchedFilterAdapter.ItemHolder> {
 
@@ -58,7 +58,7 @@ public class BatchedFilterAdapter extends ListAdapter<TradeDatasetBatched, Batch
         TradeDatasetBatched currentExecutionType = getItem(position);
 
         holder.textViewBatchedName.setText(currentExecutionType.getName());
-        if (currentExecutionType.getIsChecked() && lastCheckedPos == position || lastBatchedPos == position) {
+        if (currentExecutionType.getIsChecked() && lastCheckedPos == position || lastTradeBatchedPos == position) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewBatchedName.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {

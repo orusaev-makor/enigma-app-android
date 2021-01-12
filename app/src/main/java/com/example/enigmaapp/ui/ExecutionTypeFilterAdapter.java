@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetExecutionType;
 
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastExecutionPos;
+import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeExecutionPos;
 
 public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutionType,ExecutionTypeFilterAdapter.ItemHolder> {
 
@@ -57,7 +57,7 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
         TradeDatasetExecutionType currentExecutionType = getItem(position);
 
         holder.textViewExecutionTypeName.setText(currentExecutionType.getName());
-        if (currentExecutionType.getIsChecked() && lastCheckedPos == position || lastExecutionPos == position) {
+        if (currentExecutionType.getIsChecked() && lastCheckedPos == position || lastTradeExecutionPos == position) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewExecutionTypeName.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {

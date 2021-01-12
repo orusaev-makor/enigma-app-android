@@ -34,7 +34,9 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.resetLastPos;
+import static com.example.enigmaapp.activity.fragment.SettBatchFilterFragment.resetBatchLastPos;
+import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.resetTradeLastPos;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
@@ -385,12 +387,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onDestroy() {
         super.onDestroy();
 
-        // reset trade filters:
-        resetLastPos();
-        resetTradePrefs();
+        // reset all filters:
+        resetTradeLastPos();
+        resetBatchLastPos();
+        resetAllPrefs();
     }
 
-    private void resetTradePrefs() {
+    private void resetAllPrefs() {
         prefEditor.putString("tradeIdTradeFilter", "");
         prefEditor.putString("productTradeFilter", "");
         prefEditor.putString("executionTradeFilter", "");
@@ -402,6 +405,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         prefEditor.putBoolean("isValidatedTradeFilter", false);
         prefEditor.putBoolean("isCancelledTradeFilter", false);
         prefEditor.putBoolean("isOpenTradeFilter", false);
+        prefEditor.putString("productBatchFilter", "");
+        prefEditor.putString("counterpartyBatchFilter", "");
         prefEditor.apply();
     }
 }

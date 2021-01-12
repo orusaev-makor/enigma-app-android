@@ -39,7 +39,6 @@ public class TradeRepository {
     private MutableLiveData<List<TradeDatasetCounterparty>> counterpartyDataset = new MutableLiveData<List<TradeDatasetCounterparty>>();
     private MutableLiveData<List<TradeDatasetExecutionType>> executionTypeDataset = new MutableLiveData<List<TradeDatasetExecutionType>>();
     private MutableLiveData<List<TradeDatasetBatched>> batcedDataset = new MutableLiveData<List<TradeDatasetBatched>>();
-    private MutableLiveData<ArrayList<String>> statusDataset = new MutableLiveData<ArrayList<String>>();
 
     public TradeRepository(Application application) {
         this.application = application;
@@ -159,10 +158,6 @@ public class TradeRepository {
         return batcedDataset;
     }
 
-    public MutableLiveData<ArrayList<String>> getStatusDataset() {
-        return statusDataset;
-    }
-
     public void fetchTradeDataset(String token) {
         Call<TradeDatasetResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTradeDataset(token);
         call.enqueue(new Callback<TradeDatasetResult>() {
@@ -191,9 +186,6 @@ public class TradeRepository {
         ArrayList executionTypeArray = (ArrayList) dataset.getExecutionType();
         List<TradeDatasetExecutionType> executionList = setExecutionList(executionTypeArray);
         executionTypeDataset.setValue(executionList);
-
-        ArrayList statusArray = (ArrayList) dataset.getExecutionType();
-        statusDataset.setValue(statusArray);
 
         ArrayList batchedArray = new ArrayList();
         batchedArray.add(new TradeDatasetBatched("All trades", "-1"));

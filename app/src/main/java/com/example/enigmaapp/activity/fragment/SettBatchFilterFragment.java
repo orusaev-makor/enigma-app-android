@@ -1,10 +1,13 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +16,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
+import com.example.enigmaapp.model.SettlementViewModel;
+import com.example.enigmaapp.model.TradeViewModel;
+import com.example.enigmaapp.model.UserViewModel;
 import com.google.android.material.button.MaterialButton;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettBatchFilterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchCounterpartyPos;
+import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchProductPos;
+
+
 public class SettBatchFilterFragment extends Fragment {
-    // TODO: dismiss drop downs on touch event:
-//    private View mTouchOutsideView;
-//    private OnTouchOutsideViewListener mOnTouchOutsideViewListener;
 
     private Button closeBtn;
     private Button submitBtn;
@@ -32,48 +38,28 @@ public class SettBatchFilterFragment extends Fragment {
     private TextView productText;
     private TextView counterpartyText;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private View statusSelectView;
+    private SettlementViewModel viewModel;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private HashMap<String, String> paramsFromRepository = new HashMap<>();
+    public static HashMap<String, String> batchParamsToSend = new HashMap<>();
+
+    SharedPreferences prefs;
+    static SharedPreferences.Editor prefEditor;
+    private Activity activity;
 
     public SettBatchFilterFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettBatchFilterFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SettBatchFilterFragment newInstance(String param1, String param2) {
-        SettBatchFilterFragment fragment = new SettBatchFilterFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //        Hide navbar on "Settlement filter" view:
+        // Hide navbar on "Settlement filter" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        activity = getActivity();
+        prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override
@@ -81,19 +67,40 @@ public class SettBatchFilterFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_sett_batch_filter, container, false);
 
+        viewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(SettlementViewModel.class);
+
+        paramsFromRepository = viewModel.getParams();
+        System.out.println("paramsFromRepository : " + paramsFromRepository);
+
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(UserViewModel.class);
+        String token = userViewModel.getCurrentUser().getToken();
+
+        viewModel.fetchBatchDataset(token);
+
         productText = v.findViewById(R.id.filter_settlement_product_edit);
+        productText.setText(prefs.getString("productBatchFilter", ""));
+
+//        String product = getValueFromParams("product_id");
+//        System.out.println("FOUND product - getValueFromParams :  " + product);
+//        String counterparty = getValueFromParams("counterparty_id");
+//        System.out.println("FOUND execution - getValueFromParams :  " + counterparty);
         productText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openProductList();
+                openBatchSelectFilter("product");
             }
         });
 
         counterpartyText = v.findViewById(R.id.filter_settlement_counterparty_edit);
+        counterpartyText.setText(prefs.getString("counterpartyBatchFilter", ""));
         counterpartyText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openCounterpartyList();
+                openBatchSelectFilter("counterparty");
             }
         });
 
@@ -102,7 +109,7 @@ public class SettBatchFilterFragment extends Fragment {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: add filter process
+                viewModel.setParams(batchParamsToSend);
                 openSettlementScreen();
             }
         });
@@ -113,10 +120,11 @@ public class SettBatchFilterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: add proper reset process
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SettBatchFilterFragment fragment = new SettBatchFilterFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Settlement Filter");
-                transaction.commit();
+                batchParamsToSend.clear();
+                viewModel.resetParams();
+                resetPrefs();
+                openFilterBatchScreen();
+                resetBatchLastPos();
             }
         });
 
@@ -132,17 +140,28 @@ public class SettBatchFilterFragment extends Fragment {
         return v;
     }
 
-    private void openCounterpartyList() {
+    private void resetPrefs() {
+        prefEditor.putString("productBatchFilter", "");
+        prefEditor.putString("counterpartyBatchFilter", "");
+        prefEditor.apply();
+    }
+
+    public static void resetBatchLastPos() {
+        lastBatchProductPos = -1;
+        lastBatchCounterpartyPos = -1;
+    }
+
+    private void openFilterBatchScreen() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FilterCounterpartyFragment fragment = new FilterCounterpartyFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Filter Counterparty");
+        SettBatchFilterFragment fragment = new SettBatchFilterFragment();
+        transaction.replace(R.id.frame_layout, fragment, "Settlement Filter");
         transaction.commit();
     }
 
-    private void openProductList() {
+    private void openBatchSelectFilter(String type) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FilterProductSettFragment fragment = new FilterProductSettFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Filter Product");
+        BatchSelectFilterFragment fragment = new BatchSelectFilterFragment(type);
+        transaction.replace(R.id.frame_layout, fragment, "Filter Counterparty");
         transaction.commit();
     }
 
@@ -151,5 +170,26 @@ public class SettBatchFilterFragment extends Fragment {
         SettlementFragment fragment = new SettlementFragment(true);
         transaction.replace(R.id.frame_layout, fragment, "Settlement");
         transaction.commit();
+    }
+
+    public static void setBatchFilterParams(HashMap<String, String> params) {
+        Iterator it = params.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            System.out.println("setting params in batch filter fragment: " + pair.getKey() + " = " + pair.getValue());
+            batchParamsToSend.put(pair.getKey().toString(), pair.getValue().toString());
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+        System.out.println("BATCH PARAMS TO SEND: " + batchParamsToSend);
+    }
+
+    public static void removeFromBatchParams(String key) {
+        Iterator it = batchParamsToSend.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            if(entry.getKey().equals(key)) {
+                it.remove();
+            }
+        }
     }
 }

@@ -15,17 +15,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
 
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastProductPos;
+import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchProductPos;
+import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeProductPos;
 
 public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, ProductFilterAdapter.ProductOptionHolder> {
 
     private int lastCheckedPos = 0;
     private OnItemClickListener listener;
     private Context context;
+    private Boolean isTradeFilter;
 
-    public ProductFilterAdapter(Context context) {
+    public ProductFilterAdapter(Context context, Boolean isTradeFilter) {
         super(DIFF_CALLBACK);
         this.context = context;
+        this.isTradeFilter = isTradeFilter;
     }
 
     public int getLastCheckedPos() {
@@ -61,10 +64,13 @@ public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, Produ
         TradeDatasetProduct currentProduct = getItem(position);
 
         holder.textViewProductName.setText(currentProduct.getName());
-        if (currentProduct.getIsChecked() && lastCheckedPos == position || lastProductPos == position) {
+        if (isTradeFilter && currentProduct.getIsChecked() && lastCheckedPos == position || lastTradeProductPos == position) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textColor));
-        } else {
+        } else if (!isTradeFilter && currentProduct.getIsChecked() && lastCheckedPos == position || lastBatchProductPos == position) {
+            holder.checkedIcon.setVisibility(View.VISIBLE);
+            holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textColor));
+        }else{
             holder.checkedIcon.setVisibility(View.INVISIBLE);
             holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
         }

@@ -9,11 +9,18 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.enigmaapp.web.RetrofitClient;
 import com.example.enigmaapp.web.settlement.SettlementItemResult;
 import com.example.enigmaapp.web.settlement.SettlementResult;
+import com.example.enigmaapp.web.settlement.dataset.BatchDatasetCounterparty;
+import com.example.enigmaapp.web.settlement.dataset.BatchDatasetProduct;
+import com.example.enigmaapp.web.settlement.dataset.BatchDatasetResult;
+import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
+import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
+import com.example.enigmaapp.web.trade.dataset.TradeDatasetResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,6 +35,10 @@ public class SettlementRepository {
     private HashMap<String, String> params = new HashMap<>();
     private ArrayList<SettlementSummary> allBatch = new ArrayList<>();
     private ArrayList<SettlementSummary> allUnitary = new ArrayList<>();
+
+    private MutableLiveData<ArrayList<String>> statusDataset = new MutableLiveData<ArrayList<String>>();
+    private MutableLiveData<List<TradeDatasetProduct>> productsDataset = new MutableLiveData<List<TradeDatasetProduct>>();
+    private MutableLiveData<List<TradeDatasetCounterparty>> counterpartyDataset = new MutableLiveData<List<TradeDatasetCounterparty>>();
 
     public SettlementRepository(Application application) {
         this.application = application;
@@ -141,6 +152,61 @@ public class SettlementRepository {
         }
         return params;
     }
+
+    public HashMap<String, String> getParams() { return params; }
+
+    public void fetchBatchDataset(String token) {
+        Call<BatchDatasetResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetBatchDataset(token);
+
+        call.enqueue(new Callback<BatchDatasetResult>() {
+            @Override
+            public void onResponse(Call<BatchDatasetResult> call, Response<BatchDatasetResult> response) {
+                if (!response.isSuccessful()) {
+                    System.out.println("Code: " + response.code() + "Error: " + response.message());
+                    return;
+                }
+                setDatasetLists(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<BatchDatasetResult> call, Throwable t) {
+                System.out.println("t.getMessage(): " + t.getMessage());
+                Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void setDatasetLists(BatchDatasetResult dataset) {
+        System.out.println("Plain _________________ vdataset - getProducts :  " + dataset.getProducts());
+        System.out.println("Plain _________________ vdataset   - getStatus :  " + dataset.getStatus());
+        ArrayList productsArray = (ArrayList) dataset.getProducts();
+        productsDataset.setValue(productsArray);
+
+        ArrayList counterpartyArray = (ArrayList) dataset.getCounterparty();
+        counterpartyDataset.setValue(counterpartyArray);
+        System.out.println("Dataset in Repository - productsArray: " + productsArray);
+        System.out.println("Dataset in Repository - counterpartyArray: " + counterpartyArray);
+    }
+
+    public MutableLiveData<List<TradeDatasetProduct>> getProductsDataset() {
+        return productsDataset;
+    }
+
+    public void removeFromParams(String key) {
+        System.out.println("removeFromParams in repository - key received:  " + key);
+        Iterator it = params.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            if (entry.getKey().equals(key)) {
+                System.out.println("removeFromParams in repository - found key! -> " + key);
+                it.remove();
+            }
+        }
+    }
+
+    public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() { return counterpartyDataset; }
+
+    public void resetParams() { this.params.clear(); }
 
     public class SettlementSummary {
         private String name;
