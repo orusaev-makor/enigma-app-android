@@ -9,12 +9,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.enigmaapp.web.RetrofitClient;
 import com.example.enigmaapp.web.settlement.SettlementItemResult;
 import com.example.enigmaapp.web.settlement.SettlementResult;
-import com.example.enigmaapp.web.settlement.dataset.BatchDatasetCounterparty;
-import com.example.enigmaapp.web.settlement.dataset.BatchDatasetProduct;
 import com.example.enigmaapp.web.settlement.dataset.BatchDatasetResult;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -204,7 +201,9 @@ public class SettlementRepository {
         }
     }
 
-    public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() { return counterpartyDataset; }
+    public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() {
+        System.out.println(" in repo - couterpary datast: " + counterpartyDataset);
+        return counterpartyDataset; }
 
     public void resetParams() { this.params.clear(); }
 

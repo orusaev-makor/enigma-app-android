@@ -125,6 +125,7 @@ public class BatchSelectFilterFragment extends Fragment {
                 viewModel.getCounterpartyDataset().observe(requireActivity(), new Observer<List<TradeDatasetCounterparty>>() {
                     @Override
                     public void onChanged(List<TradeDatasetCounterparty> counterpartiesItems) {
+                        System.out.println("counterpartiesItems ++++++++++++++++++++++++  " + counterpartiesItems);
                         counterpartyAdapter.submitList(counterpartiesItems);
                     }
                 });

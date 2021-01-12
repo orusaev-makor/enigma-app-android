@@ -64,10 +64,11 @@ public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, Produ
         TradeDatasetProduct currentProduct = getItem(position);
 
         holder.textViewProductName.setText(currentProduct.getName());
-        if (isTradeFilter && currentProduct.getIsChecked() && lastCheckedPos == position || lastTradeProductPos == position) {
+        System.out.println("in ProductFilterAdapter, onBindViewHolder; isTradeFilter: " + isTradeFilter + " // ");
+        if (currentProduct.getIsChecked() && lastCheckedPos == position || lastTradeProductPos == position && isTradeFilter) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textColor));
-        } else if (!isTradeFilter && currentProduct.getIsChecked() && lastCheckedPos == position || lastBatchProductPos == position) {
+        } else if (currentProduct.getIsChecked() && lastCheckedPos == position || lastBatchProductPos == position && !isTradeFilter) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textColor));
         }else{

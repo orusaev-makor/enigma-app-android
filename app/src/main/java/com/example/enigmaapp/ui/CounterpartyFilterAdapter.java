@@ -14,6 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
+import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
+
+import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchCounterpartyPos;
+import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchProductPos;
+import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeProductPos;
 
 public class CounterpartyFilterAdapter extends ListAdapter<TradeDatasetCounterparty, CounterpartyFilterAdapter.CounterpartyOptionHolder> {
 
@@ -58,7 +63,17 @@ public class CounterpartyFilterAdapter extends ListAdapter<TradeDatasetCounterpa
 
     @Override
     public void onBindViewHolder(@NonNull CounterpartyOptionHolder holder, int position) {
+        TradeDatasetCounterparty currentProduct = getItem(position);
 
+        holder.textViewCounterpartyName.setText(currentProduct.getName());
+
+        if (currentProduct.getIsChecked() && lastCheckedPos == position || lastBatchCounterpartyPos == position) {
+            holder.checkedIcon.setVisibility(View.VISIBLE);
+            holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textColor));
+        } else{
+            holder.checkedIcon.setVisibility(View.INVISIBLE);
+            holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
+        }
     }
 
     public class CounterpartyOptionHolder extends RecyclerView.ViewHolder {
