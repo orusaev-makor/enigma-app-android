@@ -48,15 +48,9 @@ public class SettlementRepository {
     public ArrayList<SettlementSummary> getBatch() { return allBatch; }
 
     public void fetchBatch(String token) {
-//        HashMap<String, String> params = new HashMap<>();
         batchParams.put("items_per_page", "5");
         batchParams.put("sort", "settlement_batch_id desc");
-//        params.put("product_id", "1");
-//        params.put("counterparty_id", "99");
-//        params.put("status[0]", "pending");
-//        params.put("status[1]", "confirmed");
-//        params.put("status[2]", "settled");
-//        params.put("status[3]", "rejected");
+
         System.out.println("params1 fetching batch ______________ " + batchParams);
         Call<SettlementResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetBatch(token, batchParams);
         call.enqueue(new Callback<SettlementResult>() {

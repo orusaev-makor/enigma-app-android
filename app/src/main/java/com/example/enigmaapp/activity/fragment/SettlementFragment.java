@@ -1,5 +1,6 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
+
 public class SettlementFragment extends Fragment {
     private String token;
     private TextView batch;
@@ -36,6 +39,7 @@ public class SettlementFragment extends Fragment {
     private ImageView filterBtn;
     private ImageView uploadBtn;
     private ImageView refreshBtn;
+    private View topSection;
     private int page = 1;
     private boolean isBatch;
     public static ProgressBar progressBarSettlement;
@@ -44,6 +48,7 @@ public class SettlementFragment extends Fragment {
     private RecyclerView recyclerView;
     private HashMap<String, String> pageParams = new HashMap<>();
     private ArrayList<SettlementRepository.SettlementSummary> data = new ArrayList<>();
+    SharedPreferences prefs;
 
     public SettlementFragment(boolean isBatch) {
         // Required empty public constructor
@@ -53,9 +58,9 @@ public class SettlementFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Show navbar on "Settlement" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override
@@ -87,6 +92,15 @@ public class SettlementFragment extends Fragment {
                 // TODO: add upload process
             }
         });
+
+        topSection = v.findViewById(R.id.layout_settlement_top_section);
+        TextView fromDate = topSection.findViewById(R.id.trade_from_date);
+        TextView toDate = topSection.findViewById(R.id.trade_to_date);
+        if (isBatch) {
+            fromDate.setText("-");
+            toDate.setText(getTodayDate());
+        }
+
 
         UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))

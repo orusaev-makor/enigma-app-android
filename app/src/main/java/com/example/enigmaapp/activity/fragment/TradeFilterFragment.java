@@ -335,7 +335,7 @@ public class TradeFilterFragment extends Fragment {
         tradeParamsToSend.put("end_date", endDate);
     }
 
-    private String getTodayDate() {
+    public static String getTodayDate() {
         return new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date());
     }
 

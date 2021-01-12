@@ -22,6 +22,7 @@
 
         <!--        Date filters and button actions -->
         <include
+            android:id="@+id/layout_settlement_top_section"
             layout="@layout/section_top_filters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

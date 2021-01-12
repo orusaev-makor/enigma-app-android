@@ -84,7 +84,7 @@ public class TradeFragment extends Fragment {
             }
         });
 
-        topSection = v.findViewById(R.id.layout_top_section);
+        topSection = v.findViewById(R.id.layout_trade_top_section);
         TextView fromDate = topSection.findViewById(R.id.trade_from_date);
         fromDate.setText(prefs.getString("startDateTradeFilter", "-"));
         TextView toDate = topSection.findViewById(R.id.trade_to_date);
