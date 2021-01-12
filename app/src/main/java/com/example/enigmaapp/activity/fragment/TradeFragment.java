@@ -100,6 +100,9 @@ public class TradeFragment extends Fragment {
                 .get(TradeViewModel.class);
 
         pageParams.put("current_page", String.valueOf(page));
+        if (page == 1) {
+            viewModel.resetTradesList();
+        }
         viewModel.setParams(pageParams);
         viewModel.fetchTrades(token);
 

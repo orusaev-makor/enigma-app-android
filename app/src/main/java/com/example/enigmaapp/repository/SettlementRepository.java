@@ -174,15 +174,11 @@ public class SettlementRepository {
     }
 
     private void setDatasetLists(BatchDatasetResult dataset) {
-        System.out.println("Plain _________________ vdataset - getProducts :  " + dataset.getProducts());
-        System.out.println("Plain _________________ vdataset   - getStatus :  " + dataset.getStatus());
         ArrayList productsArray = (ArrayList) dataset.getProducts();
         productsDataset.setValue(productsArray);
 
         ArrayList counterpartyArray = (ArrayList) dataset.getCounterparty();
         counterpartyDataset.setValue(counterpartyArray);
-        System.out.println("Dataset in Repository - productsArray: " + productsArray);
-        System.out.println("Dataset in Repository - counterpartyArray: " + counterpartyArray);
     }
 
     public MutableLiveData<List<TradeDatasetProduct>> getProductsDataset() {
@@ -202,7 +198,6 @@ public class SettlementRepository {
     }
 
     public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() {
-        System.out.println(" in repo - couterpary datast: " + counterpartyDataset);
         return counterpartyDataset; }
 
     public void resetParams() { this.params.clear(); }

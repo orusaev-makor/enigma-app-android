@@ -104,6 +104,7 @@ public class TradeRepository {
         for (TradeItemResult item : list) {
             allTrades.add(item);
         }
+        System.out.println("______ in repo - all trade size: " + allTrades.size());
         tradeAdapter.notifyDataSetChanged();
     }
 
@@ -124,6 +125,10 @@ public class TradeRepository {
 
     public void resetParams() {
         this.params.clear();
+    }
+
+    public void resetTradesList() {
+        this.allTrades.clear();
     }
 
     public void removeFromParams(String key) {
