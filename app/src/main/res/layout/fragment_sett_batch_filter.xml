@@ -51,7 +51,7 @@
         />
 
     <TextView
-        android:id="@+id/filter_settlement_product_edit"
+        android:id="@+id/filter_batch_product"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="15dp"
@@ -70,7 +70,7 @@
 
 
     <TextView
-        android:id="@+id/filter_settlement_counterparty_edit"
+        android:id="@+id/filter_batch_counterparty"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="15dp"

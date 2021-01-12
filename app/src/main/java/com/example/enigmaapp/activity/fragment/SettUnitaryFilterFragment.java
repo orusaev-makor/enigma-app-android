@@ -1,76 +1,65 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
+import com.example.enigmaapp.model.SettlementViewModel;
+import com.example.enigmaapp.model.UserViewModel;
 import com.google.android.material.button.MaterialButton;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettUnitaryFilterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import static com.example.enigmaapp.activity.fragment.UnitarySelectFilterFragment.lastUnitaryCounterpartyPos;
+
+
 public class SettUnitaryFilterFragment extends Fragment {
     private Button closeBtn;
     private Button submitBtn;
     private MaterialButton resetBtn;
 
-    private TextView companiesText;
-    private TextView currenciesText;
+    private TextView counterpartyText;
+    private TextView currencyText;
 
+    private View statusSelectView;
+    private SettlementViewModel viewModel;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private HashMap<String, String> paramsFromRepository = new HashMap<>();
+    public static HashMap<String, String> unitaryParamsToSend = new HashMap<>();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    SharedPreferences prefs;
+    static SharedPreferences.Editor prefEditor;
+    private Activity activity;
 
     public SettUnitaryFilterFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettUnitaryFilterFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SettUnitaryFilterFragment newInstance(String param1, String param2) {
-        SettUnitaryFilterFragment fragment = new SettUnitaryFilterFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //        Hide navbar on "Settlement filter" view:
+        // Hide navbar on "Settlement filter" view:
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        activity = getActivity();
+        prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -79,69 +68,145 @@ public class SettUnitaryFilterFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_sett_unitary_filter, container, false);
 
+        viewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(SettlementViewModel.class);
 
-        companiesText = v.findViewById(R.id.filter_settlement_companies_edit);
-        companiesText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCompaniesList();
-            }
-        });
 
-        currenciesText = v.findViewById(R.id.filter_settlement_currencies_edit);
-        currenciesText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCurrenciesList();
-            }
-        });
+        paramsFromRepository = viewModel.getUnitaryParams();
+        System.out.println("paramsFromRepository : " + paramsFromRepository);
+
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(UserViewModel.class);
+        String token = userViewModel.getCurrentUser().getToken();
+
+        viewModel.fetchUnitaryDataset(token);
+
+        counterpartyText = v.findViewById(R.id.filter_unitary_counterparty);
+        counterpartyText.setText(prefs.getString("counterpartyUnitaryFilter", ""));
+        counterpartyText.setOnClickListener(v1 -> openUnitarySelectFilter("counterparty"));
+
+        currencyText = v.findViewById(R.id.filter_unitary_currencies);
+        currencyText.setOnClickListener(v12 -> openUnitarySelectFilter("currency"));
 
         // Submit "Filter" and go back to "Settlement" screen
         submitBtn = v.findViewById(R.id.filter_settlement_submit_btn);
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add filter process
-                openSettlementScreen();
-            }
+        submitBtn.setOnClickListener(v15 -> {
+            viewModel.setUnitaryParams(unitaryParamsToSend);
+            openSettlementScreen();
         });
 
         // Reset "Filter Settlement" screen
         resetBtn = v.findViewById(R.id.filter_settlement_reset_btn);
-        resetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add proper reset process
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SettUnitaryFilterFragment fragment = new SettUnitaryFilterFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Settlement Filter");
-                transaction.commit();
-            }
+        resetBtn.setOnClickListener(v14 -> {
+            unitaryParamsToSend.clear();
+            viewModel.resetUnitaryParams();
+            resetPrefs();
+            openFilterUnitaryScreen();
+            resetUnitaryLastPos();
         });
 
         // Close "Filter Settlement" screen and go back to "Settlement Fragment":
         closeBtn = v.findViewById(R.id.close_btn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
+        closeBtn.setOnClickListener(v13 -> openSettlementScreen());
+
+        statusSelectView = v.findViewById(R.id.layout_unitary_status_select);
+        CheckBox reject = (CheckBox) statusSelectView.findViewById(R.id.checkBoxRejectedBatch);
+        reject.setChecked(prefs.getBoolean("isRejectUnitaryFilter", false));
+        reject.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                checkBoxSetupToTrue("isRejectUnitaryFilter", "status[0]", "rejected");
+            } else {
+                checkBoxSetupToFalse("isRejectUnitaryFilter", "status[0]");
+            }
+        });
+
+        CheckBox pending = (CheckBox) statusSelectView.findViewById(R.id.checkBoxPendingBatch);
+        pending.setChecked(prefs.getBoolean("isPendingUnitaryFilter", false));
+        pending.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                checkBoxSetupToTrue("isPendingUnitaryFilter", "status[1]", "pending");
+            } else {
+                checkBoxSetupToFalse("isPendingUnitaryFilter", "status[1]");
+            }
+        });
+
+        CheckBox validate = (CheckBox) statusSelectView.findViewById(R.id.checkBoxValidatedBatch);
+        validate.setChecked(prefs.getBoolean("isValidatedUnitaryFilter", false));
+        validate.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                checkBoxSetupToTrue("isValidatedUnitaryFilter", "status[2]", "validated");
+            } else {
+                checkBoxSetupToFalse("isValidatedUnitaryFilter", "status[2]");
+            }
+        });
+
+        CheckBox settled = (CheckBox) statusSelectView.findViewById(R.id.checkBoxSettledBatch);
+        settled.setChecked(prefs.getBoolean("isSettledUnitaryFilter", false));
+        settled.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                checkBoxSetupToTrue("isSettledUnitaryFilter", "status[3]", "settled");
+            } else {
+                checkBoxSetupToFalse("isSettledUnitaryFilter", "status[3]");
+            }
+        });
+
+        CheckBox inSett = (CheckBox) statusSelectView.findViewById(R.id.checkBoxInSetBatch);
+        inSett.setChecked(prefs.getBoolean("isInSettUnitaryFilter", false));
+        inSett.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                openSettlementScreen();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    checkBoxSetupToTrue("isInSettUnitaryFilter", "status[4]", "in sett");
+                } else {
+                    checkBoxSetupToFalse("isInSettUnitaryFilter", "status[4]");
+                }
             }
         });
 
         return v;
     }
 
-    private void openCurrenciesList() {
+    private void checkBoxSetupToFalse(String prefKey, String paramKey) {
+        prefEditor.putBoolean(prefKey, false);
+        prefEditor.apply();
+        unitaryParamsToSend.remove(paramKey);
+        viewModel.removeFromUnitaryParams(paramKey);
+    }
+
+    private void checkBoxSetupToTrue(String prefKey, String paramKey, String paramVal) {
+        prefEditor.putBoolean(prefKey, true);
+        prefEditor.apply();
+        unitaryParamsToSend.put(paramKey, paramVal);
+    }
+
+    private void resetUnitaryLastPos() {
+        lastUnitaryCounterpartyPos = -1;
+    }
+
+    private void resetPrefs() {
+        prefEditor.putString("currencyUnitaryFilter", "");
+        prefEditor.putString("counterpartyUnitaryFilter", "");
+        prefEditor.putBoolean("isRejectUnitaryFilter", false);
+        prefEditor.putBoolean("isPendingUnitaryFilter", false);
+        prefEditor.putBoolean("isValidatedUnitaryFilter", false);
+        prefEditor.putBoolean("isSettledUnitaryFilter", false);
+        prefEditor.putBoolean("isInSettUnitaryFilter", false);
+        prefEditor.apply();
+    }
+
+    private void openFilterUnitaryScreen() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FilterCurrenciesFragment fragment = new FilterCurrenciesFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Filter Currencies");
+        SettUnitaryFilterFragment fragment = new SettUnitaryFilterFragment();
+        transaction.replace(R.id.frame_layout, fragment, "Settlement Filter");
         transaction.commit();
     }
 
-    private void openCompaniesList() {
+    private void openUnitarySelectFilter(String type) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        FilterCompaniesFragment fragment = new FilterCompaniesFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Filter Companies");
+        UnitarySelectFilterFragment fragment = new UnitarySelectFilterFragment(type);
+        transaction.replace(R.id.frame_layout, fragment, "Filter Unitary");
         transaction.commit();
     }
 
@@ -151,4 +216,26 @@ public class SettUnitaryFilterFragment extends Fragment {
         transaction.replace(R.id.frame_layout, fragment, "Settlement");
         transaction.commit();
     }
+
+    public static void setUnitaryFilterParams(HashMap<String, String> params) {
+        Iterator it = params.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            System.out.println("setting params in unitary filter fragment: " + pair.getKey() + " = " + pair.getValue());
+            unitaryParamsToSend.put(pair.getKey().toString(), pair.getValue().toString());
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+        System.out.println("UNITARY PARAMS TO SEND: " + unitaryParamsToSend);
+    }
+
+    public static void removeFromUnitaryParams(String key) {
+        Iterator it = unitaryParamsToSend.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            if (entry.getKey().equals(key)) {
+                it.remove();
+            }
+        }
+    }
+
 }

@@ -412,6 +412,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         prefEditor.putBoolean("isValidatedBatchFilter", false);
         prefEditor.putBoolean("isCanceledBatchFilter", false);
         prefEditor.putBoolean("isOpenBatchFilter", false);
+        prefEditor.putString("currencyUnitaryFilter", "");
+        prefEditor.putString("counterpartyUnitaryFilter", "");
+        prefEditor.putBoolean("isRejectUnitaryFilter", false);
+        prefEditor.putBoolean("isPendingUnitaryFilter", false);
+        prefEditor.putBoolean("isValidatedUnitaryFilter", false);
+        prefEditor.putBoolean("isSettledUnitaryFilter", false);
+        prefEditor.putBoolean("isInSettUnitaryFilter", false);
         prefEditor.apply();
     }
 }

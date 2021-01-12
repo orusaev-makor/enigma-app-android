@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.SettlementViewModel;
-import com.example.enigmaapp.model.TradeViewModel;
 import com.example.enigmaapp.model.UserViewModel;
 import com.google.android.material.button.MaterialButton;
 
@@ -73,7 +72,7 @@ public class SettBatchFilterFragment extends Fragment {
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(SettlementViewModel.class);
 
-        paramsFromRepository = viewModel.getParams();
+        paramsFromRepository = viewModel.getBatchParams();
         System.out.println("paramsFromRepository : " + paramsFromRepository);
 
         UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
@@ -83,35 +82,25 @@ public class SettBatchFilterFragment extends Fragment {
 
         viewModel.fetchBatchDataset(token);
 
-        productText = v.findViewById(R.id.filter_settlement_product_edit);
+        productText = v.findViewById(R.id.filter_batch_product);
         productText.setText(prefs.getString("productBatchFilter", ""));
 
 //        String product = getValueFromParams("product_id");
 //        System.out.println("FOUND product - getValueFromParams :  " + product);
 //        String counterparty = getValueFromParams("counterparty_id");
 //        System.out.println("FOUND execution - getValueFromParams :  " + counterparty);
-        productText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBatchSelectFilter("product");
-            }
-        });
+        productText.setOnClickListener(v14 -> openBatchSelectFilter("product"));
 
-        counterpartyText = v.findViewById(R.id.filter_settlement_counterparty_edit);
+        counterpartyText = v.findViewById(R.id.filter_batch_counterparty);
         counterpartyText.setText(prefs.getString("counterpartyBatchFilter", ""));
-        counterpartyText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBatchSelectFilter("counterparty");
-            }
-        });
+        counterpartyText.setOnClickListener(v13 -> openBatchSelectFilter("counterparty"));
 
         // Submit "Filter" and go back to "Settlement" screen
         submitBtn = v.findViewById(R.id.filter_settlement_submit_btn);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.setParams(batchParamsToSend);
+                viewModel.setBatchParams(batchParamsToSend);
                 openSettlementScreen();
             }
         });
@@ -120,7 +109,7 @@ public class SettBatchFilterFragment extends Fragment {
         resetBtn = v.findViewById(R.id.filter_settlement_reset_btn);
         resetBtn.setOnClickListener(v1 -> {
             batchParamsToSend.clear();
-            viewModel.resetParams();
+            viewModel.resetBatchParams();
             resetPrefs();
             openFilterBatchScreen();
             resetBatchLastPos();
@@ -197,7 +186,7 @@ public class SettBatchFilterFragment extends Fragment {
         prefEditor.putBoolean(prefKey, false);
         prefEditor.apply();
         batchParamsToSend.remove(paramKey);
-        viewModel.removeFromParams(paramKey);
+        viewModel.removeFromBatchParams(paramKey);
     }
 
     private void resetPrefs() {
@@ -226,7 +215,7 @@ public class SettBatchFilterFragment extends Fragment {
     private void openBatchSelectFilter(String type) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         BatchSelectFilterFragment fragment = new BatchSelectFilterFragment(type);
-        transaction.replace(R.id.frame_layout, fragment, "Filter Counterparty");
+        transaction.replace(R.id.frame_layout, fragment, "Filter Batch");
         transaction.commit();
     }
 

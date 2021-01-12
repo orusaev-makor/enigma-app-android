@@ -20,9 +20,7 @@ import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.SettlementViewModel;
 import com.example.enigmaapp.model.UserViewModel;
 import com.example.enigmaapp.ui.CounterpartyFilterAdapter;
-import com.example.enigmaapp.ui.ProductFilterAdapter;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.HashMap;
@@ -32,8 +30,10 @@ import java.util.Map;
 
 import static com.example.enigmaapp.activity.fragment.SettBatchFilterFragment.removeFromBatchParams;
 import static com.example.enigmaapp.activity.fragment.SettBatchFilterFragment.setBatchFilterParams;
+import static com.example.enigmaapp.activity.fragment.SettUnitaryFilterFragment.removeFromUnitaryParams;
+import static com.example.enigmaapp.activity.fragment.SettUnitaryFilterFragment.setUnitaryFilterParams;
 
-public class BatchSelectFilterFragment extends Fragment {
+public class UnitarySelectFilterFragment extends Fragment {
 
     private String mFilterType;
     private TextView titleText;
@@ -43,11 +43,12 @@ public class BatchSelectFilterFragment extends Fragment {
     private MaterialButton resetBtn;
     private Button submitBtn;
     private HashMap<String, String> params = new HashMap<>();
-    public static int lastBatchProductPos = -1;
-    public static int lastBatchCounterpartyPos = -1;
+    public static int lastUnitaryCounterpartyPos = -1;
+//    public static int lastUnitaryCurrencyPos = -1;
     private SettlementViewModel viewModel;
 
-    public BatchSelectFilterFragment(String filterType) {
+
+    public UnitarySelectFilterFragment(String filterType) {
         this.mFilterType = filterType;
     }
 
@@ -62,24 +63,22 @@ public class BatchSelectFilterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_batch_select_filter, container, false);
-        titleText = v.findViewById(R.id.batch_select_title);
+        View v = inflater.inflate(R.layout.fragment_unitary_select_filter, container, false);
+        titleText = v.findViewById(R.id.unitary_select_title);
         titleText.setText(mFilterType.substring(0, 1).toUpperCase() + mFilterType.substring(1).toLowerCase());
 
-        subtitleText = v.findViewById(R.id.batch_select_subtitle);
+        subtitleText = v.findViewById(R.id.unitary_select_subtitle);
         subtitleText.setText("Select " + mFilterType + " to filter");
 
-        // Submit chosen filters and go back to "Filter Batch" screen
-        submitBtn = v.findViewById(R.id.batch_select_submit_btn);
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBatchFilterScreen();
-                setBatchFilterParams(params);
-            }
+        // Submit chosen filters and go back to "Filter Unitary" screen
+        submitBtn = v.findViewById(R.id.unitary_select_submit_btn);
+        submitBtn.setOnClickListener(v1 -> {
+            openUnitaryFilterScreen();
+            setUnitaryFilterParams(params);
         });
 
-        RecyclerView recyclerView = v.findViewById(R.id.batch_select_recycler_view);
+
+        RecyclerView recyclerView = v.findViewById(R.id.unitary_select_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         viewModel = new ViewModelProvider(requireActivity(),
@@ -87,39 +86,8 @@ public class BatchSelectFilterFragment extends Fragment {
                 .get(SettlementViewModel.class);
 
         switch (mFilterType) {
-            case "product":
-                final ProductFilterAdapter productAdapter = new ProductFilterAdapter(requireActivity(), false);
-                recyclerView.setAdapter(productAdapter);
-
-                viewModel.getProductsDataset().observe(requireActivity(), productItems -> productAdapter.submitList(productItems));
-                productAdapter.setOnItemClickListener(new ProductFilterAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(TradeDatasetProduct productItem, int position) {
-                        System.out.println(" Clicked : " + productItem.getName());
-                        if (productItem.getIsChecked()) {
-                            productItem.setIsChecked(false);
-                            Iterator it = params.entrySet().iterator();
-                            while (it.hasNext()) {
-                                Map.Entry entry = (Map.Entry) it.next();
-                                if (entry.getKey().equals("product_id") && productItem.getId().equals(entry.getValue())) {
-                                    it.remove();
-                                }
-                            }
-                        } else {
-                            productAdapter.setLastCheckedPos(position);
-                            productItem.setIsChecked(true);
-                            lastBatchProductPos = position;
-                            params.put("product_id", productItem.getId());
-                            prefEditor.putString("productBatchFilter", productItem.getName());
-                            prefEditor.apply();
-                        }
-                        productAdapter.notifyDataSetChanged();
-                    }
-                });
-                break;
-
             case "counterparty":
-                final CounterpartyFilterAdapter counterpartyAdapter = new CounterpartyFilterAdapter(requireActivity(), true);
+                final CounterpartyFilterAdapter counterpartyAdapter = new CounterpartyFilterAdapter(requireActivity(), false);
                 recyclerView.setAdapter(counterpartyAdapter);
 
                 viewModel.getCounterpartyDataset().observe(requireActivity(), new Observer<List<TradeDatasetCounterparty>>() {
@@ -128,12 +96,10 @@ public class BatchSelectFilterFragment extends Fragment {
                         counterpartyAdapter.submitList(counterpartyItems);
                     }
                 });
-
                 counterpartyAdapter.setOnItemClickListener(new CounterpartyFilterAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(TradeDatasetCounterparty counterpartyItem, int position) {
-                        System.out.println("Batch - Clicked : " + counterpartyItem.getName());
-
+                        System.out.println("unitary - Clicked : " + counterpartyItem.getName());
                         if (counterpartyItem.getIsChecked()) {
                             counterpartyItem.setIsChecked(false);
                             Iterator it = params.entrySet().iterator();
@@ -146,9 +112,9 @@ public class BatchSelectFilterFragment extends Fragment {
                         } else {
                             counterpartyAdapter.setLastCheckedPos(position);
                             counterpartyItem.setIsChecked(true);
-                            lastBatchCounterpartyPos = position;
+                            lastUnitaryCounterpartyPos = position;
                             params.put("counterparty_id", counterpartyItem.getId());
-                            prefEditor.putString("counterpartyBatchFilter", counterpartyItem.getName());
+                            prefEditor.putString("counterpartyUnitaryFilter", counterpartyItem.getName());
                             prefEditor.apply();
                         }
                         counterpartyAdapter.notifyDataSetChanged();
@@ -161,20 +127,53 @@ public class BatchSelectFilterFragment extends Fragment {
         }
 
         // Reset "Filter List" screen
-        resetBtn = v.findViewById(R.id.batch_select_reset_btn);
+        resetBtn = v.findViewById(R.id.unitary_select_reset_btn);
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openBatchSelectFilter(mFilterType);
+                openUnitarySelectFilter(mFilterType);
                 resetPrefs();
                 resetParam();
                 resetLastPos();
             }
         });
+
         return v;
     }
 
-    private void openBatchSelectFilter(String type) {
+    private void resetLastPos() {
+        switch (mFilterType) {
+            case "counterparty":
+                lastUnitaryCounterpartyPos = -1;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void resetParam() {
+        switch (mFilterType) {
+            case "counterparty":
+                removeFromUnitaryParams("counterparty_id");
+                viewModel.removeFromUnitaryParams("counterparty_id");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void resetPrefs() {
+        switch (mFilterType) {
+            case "counterparty":
+                prefEditor.putString("counterpartyUnitaryFilter", "");
+                prefEditor.apply();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void openUnitarySelectFilter(String type) {
         SettlementViewModel viewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(SettlementViewModel.class);
@@ -184,62 +183,18 @@ public class BatchSelectFilterFragment extends Fragment {
                 .get(UserViewModel.class);
         String token = userViewModel.getCurrentUser().getToken();
 
-        viewModel.fetchBatchDataset(token);
+        viewModel.fetchUnitaryDataset(token);
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        BatchSelectFilterFragment fragment = new BatchSelectFilterFragment(type);
-        transaction.replace(R.id.frame_layout, fragment, "Batch Select Filter List");
+        UnitarySelectFilterFragment fragment = new UnitarySelectFilterFragment(type);
+        transaction.replace(R.id.frame_layout, fragment, "Unitary Select Filter List");
         transaction.commit();
     }
 
-
-    private void resetParam() {
-        switch (mFilterType) {
-            case "product":
-                removeFromBatchParams("product_id");
-                viewModel.removeFromBatchParams("product_id");
-                break;
-            case "counterparty":
-                removeFromBatchParams("counterparty_id");
-                viewModel.removeFromBatchParams("counterparty_id");
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void resetLastPos() {
-        switch (mFilterType) {
-            case "product":
-                lastBatchProductPos = -1;
-                break;
-            case "counterparty":
-                lastBatchCounterpartyPos = -1;
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void resetPrefs() {
-        switch (mFilterType) {
-            case "product":
-                prefEditor.putString("productBatchFilter", "");
-                prefEditor.apply();
-                break;
-            case "counterparty":
-                prefEditor.putString("counterpartyBatchFilter", "");
-                prefEditor.apply();
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void openBatchFilterScreen() {
+    private void openUnitaryFilterScreen() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        SettBatchFilterFragment fragment = new SettBatchFilterFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Batch Filter");
+        SettUnitaryFilterFragment fragment = new SettUnitaryFilterFragment();
+        transaction.replace(R.id.frame_layout, fragment, "Unitary Filter");
         transaction.commit();
     }
 }

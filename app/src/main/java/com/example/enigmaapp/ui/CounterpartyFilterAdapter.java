@@ -19,16 +19,19 @@ import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchCounterpartyPos;
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchProductPos;
 import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeProductPos;
+import static com.example.enigmaapp.activity.fragment.UnitarySelectFilterFragment.lastUnitaryCounterpartyPos;
 
 public class CounterpartyFilterAdapter extends ListAdapter<TradeDatasetCounterparty, CounterpartyFilterAdapter.CounterpartyOptionHolder> {
 
     private int lastCheckedPos = 0;
     private OnItemClickListener listener;
     private Context context;
+    private Boolean isBatchFilter;
 
-    public CounterpartyFilterAdapter(Context context) {
+    public CounterpartyFilterAdapter(Context context, Boolean isBatchFilter) {
         super(DIFF_CALLBACK);
         this.context = context;
+        this.isBatchFilter = isBatchFilter;
     }
 
     public int getLastCheckedPos() {
@@ -52,7 +55,6 @@ public class CounterpartyFilterAdapter extends ListAdapter<TradeDatasetCounterpa
         }
     };
 
-
     @NonNull
     @Override
     public CounterpartyOptionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -67,9 +69,14 @@ public class CounterpartyFilterAdapter extends ListAdapter<TradeDatasetCounterpa
 
         holder.textViewCounterpartyName.setText(currentProduct.getName());
 
-        if (currentProduct.getIsChecked() && lastCheckedPos == position || lastBatchCounterpartyPos == position) {
+        if (currentProduct.getIsChecked() && lastCheckedPos == position || lastBatchCounterpartyPos == position && isBatchFilter) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textColor));
+
+        }  else if (currentProduct.getIsChecked() && lastCheckedPos == position || lastUnitaryCounterpartyPos == position && !isBatchFilter)  {
+            holder.checkedIcon.setVisibility(View.VISIBLE);
+            holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textColor));
+
         } else{
             holder.checkedIcon.setVisibility(View.INVISIBLE);
             holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));

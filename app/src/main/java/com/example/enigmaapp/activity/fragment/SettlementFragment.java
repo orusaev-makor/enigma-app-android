@@ -118,7 +118,7 @@ public class SettlementFragment extends Fragment {
         if (page == 1 && !isBatch) {
             viewModel.resetUnitaryList();
         }
-        viewModel.setParams(pageParams);
+        viewModel.setBatchParams(pageParams);
 
         batch = v.findViewById(R.id.settlement_batch);
         unitary = v.findViewById(R.id.settlement_unitary);
@@ -142,9 +142,9 @@ public class SettlementFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if (isBatch) {
-            data = viewModel.getBatch();
+            data = viewModel.getBatchSettlements();
         } else {
-            data = viewModel.getUnitary();
+            data = viewModel.getUnitarySettlements();
         }
         settlementAdapter = new SettlementItemAdapter(requireContext(), data);
         recyclerView.setAdapter(settlementAdapter);
@@ -156,7 +156,7 @@ public class SettlementFragment extends Fragment {
                 if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
                     page++;
                     pageParams.put("current_page", String.valueOf(page));
-                    viewModel.setParams(pageParams);
+                    viewModel.setBatchParams(pageParams);
                     progressBarSettlement.setVisibility(View.VISIBLE);
                     if (isBatch) {
                         viewModel.fetchBatch(token);

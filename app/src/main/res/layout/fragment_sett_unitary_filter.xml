@@ -50,7 +50,7 @@
             android:textSize="16dp" />
 
         <EditText
-            android:id="@+id/filter_settlement_date_edit"
+            android:id="@+id/filter_unitary_date"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
@@ -68,7 +68,7 @@
 
 
         <EditText
-            android:id="@+id/filter_settlement_input_id_edit"
+            android:id="@+id/filter_unitary_input_id"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -80,7 +80,7 @@
             android:textSize="16dp" />
 
         <TextView
-            android:id="@+id/filter_settlement_companies_edit"
+            android:id="@+id/filter_unitary_counterparty"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -89,7 +89,7 @@
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/poppins_regular"
             android:gravity="left|center"
-            android:hint="Companies"
+            android:hint="@string/counterparty"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColorHint="@color/textSecondaryColor"
@@ -97,7 +97,7 @@
 
 
         <TextView
-            android:id="@+id/filter_settlement_currencies_edit"
+            android:id="@+id/filter_unitary_currencies"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
@@ -152,87 +152,11 @@
 
         </RadioGroup>
 
-        <TextView
+        <include
+            android:id="@+id/layout_unitary_status_select"
+            layout="@layout/layout_batch_status_select"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="Select Status"
-            android:textColor="@color/textColor"
-            android:textSize="16dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1">
-
-            <CheckBox
-                android:id="@+id/checkBoxRejected"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:buttonTint="@color/statusRejected"
-                android:checked="true"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Rejected"
-                android:textColor="@color/statusRejected"
-                android:textSize="16dp" />
-
-
-            <CheckBox
-                android:id="@+id/checkBoxBooked"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:buttonTint="@color/statusPending"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Booked"
-                android:textColor="@color/statusPending"
-                android:textSize="16dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-8dp"
-            android:textSize="16dp"
-            android:weightSum="1">
-
-            <CheckBox
-                android:id="@+id/checkBoxValidated"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:buttonTint="@color/statusValidated"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Validated"
-                android:textColor="@color/statusValidated"
-                android:textSize="16dp" />
-
-            l
-
-            <CheckBox
-                android:id="@+id/checkBoxInSet"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:buttonTint="@color/statusInSet"
-                android:fontFamily="@font/poppins_regular"
-                android:text="In Set"
-                android:textColor="@color/statusInSet"
-                android:textSize="16dp" />
-        </LinearLayout>
-
-        <CheckBox
-            android:id="@+id/checkBoxOpen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-8dp"
-            android:buttonTint="@color/statusOpen"
-            android:fontFamily="@font/poppins_regular"
-            android:text="Open"
-            android:textColor="@color/statusOpen"
-            android:textSize="16dp" />
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:layout_width="match_parent"

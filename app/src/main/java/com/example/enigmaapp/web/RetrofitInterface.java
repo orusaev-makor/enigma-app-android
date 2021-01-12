@@ -4,6 +4,7 @@ import com.example.enigmaapp.web.accounts.AccountsItemResult;
 import com.example.enigmaapp.web.login.LoginResult;
 import com.example.enigmaapp.web.settlement.SettlementResult;
 import com.example.enigmaapp.web.settlement.dataset.BatchDatasetResult;
+import com.example.enigmaapp.web.settlement.dataset.UnitaryDatasetResult;
 import com.example.enigmaapp.web.trade.TradeResult;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetResult;
 
@@ -42,10 +43,12 @@ public interface RetrofitInterface {
 //    @GET("/balance")
     Call<HashMap<String, String>> executeGetBalance(@Header("Authorization") String token);
 
+
     // Trades:
     @GET("/trade")
     Call<TradeResult> executeGetTrades(@Header("Authorization") String token,
                                        @QueryMap HashMap<String, String> params);
+
 
     // Settlements:
     @GET("/settlement_batch")
@@ -58,14 +61,17 @@ public interface RetrofitInterface {
 
     // Accounts:
     @GET("/account/248")
-//    @GET("/account")
     Call<ArrayList<AccountsItemResult>> executeGetAccounts(@Header("Authorization") String token);
+
 
     // Datasets:
     @GET("/dataset/trade")
     Call<TradeDatasetResult> executeGetTradeDataset(@Header("Authorization") String token);
+
     @GET("/dataset/settlement_batch")
     Call<BatchDatasetResult> executeGetBatchDataset(@Header("Authorization") String token);
+
     @GET("/dataset/settlement")
-    Call<TradeDatasetResult> executeGetUnitaryDataset(@Header("Authorization") String token);
+    Call<UnitaryDatasetResult> executeGetUnitaryDataset(@Header("Authorization") String token);
+
 }

@@ -28,22 +28,27 @@ public class SettlementViewModel extends AndroidViewModel {
     }
     public void fetchUnitary(String token) { repository.fetchUnitary(token); }
 
-    public ArrayList<SettlementRepository.SettlementSummary> getBatch() { return repository.getBatch(); }
-    public ArrayList<SettlementRepository.SettlementSummary> getUnitary() { return repository.getUnitary(); }
+    public ArrayList<SettlementRepository.SettlementSummary> getBatchSettlements() { return repository.getBatchSettlements(); }
+    public ArrayList<SettlementRepository.SettlementSummary> getUnitarySettlements() { return repository.getUnitarySettlements(); }
 
-    public HashMap<String, String> getParams() { return repository.getBatchParams(); }
+    public HashMap<String, String> getBatchParams() { return repository.getBatchParams(); }
+    public HashMap<String, String> getUnitaryParams() { return repository.getUnitaryParams(); }
 
-    public void setParams(HashMap<String, String> params) { repository.setParams(params); }
+    public void setBatchParams(HashMap<String, String> params) { repository.setBatchParams(params); }
+    public void setUnitaryParams(HashMap<String, String> params) { repository.setUnitaryParams(params); }
 
     public void fetchBatchDataset(String token) { repository.fetchBatchDataset(token); }
+    public void fetchUnitaryDataset(String token) { repository.fetchUnitaryDataset(token); }
 
     public MutableLiveData<List<TradeDatasetProduct>> getProductsDataset() { return repository.getProductsDataset(); }
-
     public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() { return repository.getCounterpartyDataset(); }
 
-    public void removeFromParams(String key) { repository.removeFromParams(key); }
+    public void removeFromBatchParams(String key) { repository.removeFromBatchParams(key); }
+    public void removeFromUnitaryParams(String key) { repository.removeFromUnitaryParams(key); }
 
-    public void resetParams() { repository.resetParams(); }
+    public void resetBatchParams() { repository.resetBatchParams(); }
+    public void resetUnitaryParams() { repository.resetUnitaryParams(); }
+
     public void resetBatchList() { repository.resetBatchList(); }
     public void resetUnitaryList() { repository.resetUnitaryList(); }
 }
