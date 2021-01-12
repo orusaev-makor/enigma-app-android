@@ -120,8 +120,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="Cancelled"
-            android:textColor="@color/statusCancelled"
+            android:text="Canceled"
+            android:textColor="@color/statusCanceled"
             android:gravity="end"
             android:textSize="18sp" />
 

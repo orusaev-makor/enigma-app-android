@@ -186,12 +186,12 @@ public class SettlementRepository {
     }
 
     public void removeFromParams(String key) {
-        System.out.println("removeFromParams in repository - key received:  " + key);
+        System.out.println("Batch__ removeFromParams in repository - key received:  " + key);
         Iterator it = params.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             if (entry.getKey().equals(key)) {
-                System.out.println("removeFromParams in repository - found key! -> " + key);
+                System.out.println("Batch__ removeFromParams in repository - found key! -> " + key);
                 it.remove();
             }
         }

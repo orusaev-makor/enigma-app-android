@@ -403,10 +403,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         prefEditor.putBoolean("isRejectTradeFilter", false);
         prefEditor.putBoolean("isBookedTradeFilter", false);
         prefEditor.putBoolean("isValidatedTradeFilter", false);
-        prefEditor.putBoolean("isCancelledTradeFilter", false);
+        prefEditor.putBoolean("isCanceledTradeFilter", false);
         prefEditor.putBoolean("isOpenTradeFilter", false);
         prefEditor.putString("productBatchFilter", "");
         prefEditor.putString("counterpartyBatchFilter", "");
+        prefEditor.putBoolean("isRejectTradeFilter", false);
+        prefEditor.putBoolean("isBookedBatchFilter", false);
+        prefEditor.putBoolean("isValidatedBatchFilter", false);
+        prefEditor.putBoolean("isCanceledBatchFilter", false);
+        prefEditor.putBoolean("isOpenBatchFilter", false);
         prefEditor.apply();
     }
 }

@@ -89,7 +89,8 @@
         android:drawableEnd="@drawable/ic_arrow_drop_down" />
 
     <include
-        layout="@layout/section_status_select"
+        android:id="@+id/layout_batch_status_select"
+        layout="@layout/layout_batch_status_select"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

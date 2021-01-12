@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -153,58 +154,57 @@ public class TradeFilterFragment extends Fragment {
 //            resetLastPos();
         });
 
-        statusSelectView = v.findViewById(R.id.layout_status_select);
-        CheckBox reject = (CheckBox) statusSelectView.findViewById(R.id.checkBoxRejected);
+        statusSelectView = v.findViewById(R.id.layout_trade_status_select);
+        CheckBox reject = (CheckBox) statusSelectView.findViewById(R.id.checkBoxRejectedTrade);
         reject.setChecked(prefs.getBoolean("isRejectTradeFilter", false));
-        reject.setOnClickListener(v16 -> {
-            if (prefs.getBoolean("isRejectTradeFilter", false)) {
-                checkBoxSetupToFalse("isRejectTradeFilter", "status[0]");
-            } else {
+        reject.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
                 checkBoxSetupToTrue("isRejectTradeFilter", "status[0]", "rejected");
+            } else {
+                checkBoxSetupToFalse("isRejectTradeFilter", "status[0]");
             }
         });
 
-        CheckBox book = (CheckBox) statusSelectView.findViewById(R.id.checkBoxBooked);
+        CheckBox book = (CheckBox) statusSelectView.findViewById(R.id.checkBoxBookedTrade);
         book.setChecked(prefs.getBoolean("isBookedTradeFilter", false));
-        book.setOnClickListener(v15 -> {
-            if (prefs.getBoolean("isBookedTradeFilter", false)) {
-                checkBoxSetupToFalse("isBookedTradeFilter", "status[1]");
-            } else {
+        book.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
                 checkBoxSetupToTrue("isBookedTradeFilter", "status[1]", "booked");
+            } else {
+                checkBoxSetupToFalse("isBookedTradeFilter", "status[1]");
             }
         });
 
-        CheckBox validate = (CheckBox) statusSelectView.findViewById(R.id.checkBoxValidated);
+        CheckBox validate = (CheckBox) statusSelectView.findViewById(R.id.checkBoxValidatedTrade);
         validate.setChecked(prefs.getBoolean("isValidatedTradeFilter", false));
-        validate.setOnClickListener(v14 -> {
-            if (prefs.getBoolean("isValidatedTradeFilter", false)) {
-                checkBoxSetupToFalse("isValidatedTradeFilter", "status[2]");
-            } else {
+        validate.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
                 checkBoxSetupToTrue("isValidatedTradeFilter", "status[2]", "validated");
-
-            }
-        });
-
-        CheckBox cancel = (CheckBox) statusSelectView.findViewById(R.id.checkBoxCanceled);
-        cancel.setChecked(prefs.getBoolean("isCancelledTradeFilter", false));
-        cancel.setOnClickListener(v13 -> {
-            if (prefs.getBoolean("isCancelledTradeFilter", false)) {
-                checkBoxSetupToFalse("isCancelledTradeFilter", "status[3]");
-
             } else {
-                checkBoxSetupToTrue("isCancelledTradeFilter", "status[3]", "canceled");
+                checkBoxSetupToFalse("isValidatedTradeFilter", "status[2]");
             }
         });
 
-        CheckBox open = (CheckBox) statusSelectView.findViewById(R.id.checkBoxOpen);
+        CheckBox cancel = (CheckBox) statusSelectView.findViewById(R.id.checkBoxCanceledTrade);
+        cancel.setChecked(prefs.getBoolean("isCanceledTradeFilter", false));
+        cancel.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                checkBoxSetupToTrue("isCanceledTradeFilter", "status[3]", "canceled");
+            } else {
+                checkBoxSetupToFalse("isCanceledTradeFilter", "status[3]");
+            }
+        });
+
+
+        CheckBox open = (CheckBox) statusSelectView.findViewById(R.id.checkBoxOpenTrade);
         open.setChecked(prefs.getBoolean("isOpenTradeFilter", false));
-        open.setOnClickListener(new View.OnClickListener() {
+        open.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                if (prefs.getBoolean("isOpenTradeFilter", false)) {
-                    checkBoxSetupToFalse("isOpenTradeFilter", "status[4]");
-                } else {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     checkBoxSetupToTrue("isOpenTradeFilter", "status[4]", "open");
+                } else {
+                    checkBoxSetupToFalse("isOpenTradeFilter", "status[4]");
                 }
             }
         });
@@ -258,7 +258,7 @@ public class TradeFilterFragment extends Fragment {
         prefEditor.putBoolean("isRejectTradeFilter", false);
         prefEditor.putBoolean("isBookedTradeFilter", false);
         prefEditor.putBoolean("isValidatedTradeFilter", false);
-        prefEditor.putBoolean("isCancelledTradeFilter", false);
+        prefEditor.putBoolean("isCanceledTradeFilter", false);
         prefEditor.putBoolean("isOpenTradeFilter", false);
         prefEditor.apply();
         dateText.setText("");

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/select_status"
+        android:textColor="@color/textColor"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <CheckBox
+            android:id="@+id/checkBoxRejectedBatch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="16sp"
+            android:textColor="@color/statusRejected"
+            android:buttonTint="@color/statusRejected"
+            android:text="@string/rejected" />
+
+
+        <CheckBox
+            android:id="@+id/checkBoxBookedBatch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/statusPending"
+            android:buttonTint="@color/statusPending"
+            android:textSize="16sp"
+            android:text="@string/booked" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
+        android:textSize="16sp"
+        android:weightSum="1">
+
+        <CheckBox
+            android:id="@+id/checkBoxValidatedBatch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/statusValidated"
+            android:buttonTint="@color/statusValidated"
+            android:textSize="16sp"
+            android:text="@string/validated" />
+
+        <CheckBox
+            android:id="@+id/checkBoxCanceledBatch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/statusCanceled"
+            android:buttonTint="@color/statusCanceled"
+            android:textSize="16sp"
+            android:text="@string/canceled" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkBoxOpenBatch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@color/statusOpen"
+        android:buttonTint="@color/statusOpen"
+        android:layout_marginTop="-8dp"
+        android:textSize="16sp"
+        android:text="@string/open" />
+</LinearLayout>

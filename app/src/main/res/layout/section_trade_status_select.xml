@@ -21,7 +21,7 @@
         android:weightSum="1">
 
         <CheckBox
-            android:id="@+id/checkBoxRejected"
+            android:id="@+id/checkBoxRejectedTrade"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -33,7 +33,7 @@
 
 
         <CheckBox
-            android:id="@+id/checkBoxBooked"
+            android:id="@+id/checkBoxBookedTrade"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -52,7 +52,7 @@
         android:weightSum="1">
 
         <CheckBox
-            android:id="@+id/checkBoxValidated"
+            android:id="@+id/checkBoxValidatedTrade"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -63,19 +63,19 @@
             android:text="@string/validated" />
 
         <CheckBox
-            android:id="@+id/checkBoxCanceled"
+            android:id="@+id/checkBoxCanceledTrade"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/statusCancelled"
-            android:buttonTint="@color/statusCancelled"
+            android:textColor="@color/statusCanceled"
+            android:buttonTint="@color/statusCanceled"
             android:textSize="16sp"
             android:text="@string/canceled" />
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/checkBoxOpen"
+        android:id="@+id/checkBoxOpenTrade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_regular"
