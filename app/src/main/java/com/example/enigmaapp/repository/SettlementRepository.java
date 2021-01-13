@@ -57,7 +57,7 @@ public class SettlementRepository {
         batchParams.put("items_per_page", "5");
         batchParams.put("sort", "settlement_batch_id desc");
 
-        System.out.println("params1 fetching batch ______________ " + batchParams);
+//        System.out.println("params1 fetching batch ______________ " + batchParams);
         Call<SettlementResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetBatch(token, batchParams);
         call.enqueue(new Callback<SettlementResult>() {
             @Override
@@ -261,11 +261,24 @@ public class SettlementRepository {
         Iterator it = unitaryParams.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
-            System.out.println("in repository - removeFromUnitaryParams - received key : " + key);
-            System.out.println("in repository - removeFromUnitaryParams - removing entry.getKey : " + entry.getKey());
             if (entry.getKey().equals(key)) {
                 it.remove();
             }
+        }
+    }
+
+    public void removeFromUnitaryParamsContainsKey(String containsKey) {
+        Iterator it = unitaryParams.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            if (entry.getKey().toString().contains(containsKey)) {
+                System.out.println("__________________________________________________________________________________________________ : ");
+                System.out.println("_______ in repository - removeFromUnitaryParamsContainsKey - received key _______ : " + containsKey);
+                System.out.println("_______ in repository - removeFromUnitaryParamsContainsKey - received key _______ : " + entry.getKey());
+                System.out.println("__________________________________________________________________________________________________ : ");
+                it.remove();
+            }
+            System.out.println("____________ params ____________ after ____________ removal ____________ " + unitaryParams);
         }
     }
 

@@ -363,11 +363,11 @@ public class UnitaryFilterFragment extends Fragment {
         Iterator it = params.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-            System.out.println("setting params in unitary filter fragment: " + pair.getKey() + " = " + pair.getValue());
-            unitaryParamsToSend.put(pair.getKey().toString(), pair.getValue().toString());
+            if (!unitaryParamsToSend.containsValue(pair.getValue())) {
+                unitaryParamsToSend.put(pair.getKey().toString(), pair.getValue().toString());
+            }
             it.remove(); // avoids a ConcurrentModificationException
         }
-        System.out.println("UNITARY PARAMS TO SEND: " + unitaryParamsToSend);
     }
 
     public static void removeFromUnitaryParams(String key) {
@@ -375,9 +375,31 @@ public class UnitaryFilterFragment extends Fragment {
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             if (entry.getKey().equals(key)) {
-                System.out.println("in unittary filter - removeFromUnitaryParams - Map.Entry entry.getKey : " + entry.getKey());
+                System.out.println("in unitary filter - removeFromUnitaryParams - Map.Entry entry.getKey : " + entry.getKey());
                 it.remove();
             }
+        }
+    }
+
+    public static void removeFromUnitaryParamsByValue(String value, String containsKey) {
+        Iterator it = unitaryParamsToSend.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            if (entry.getValue().equals(value) && entry.getKey().toString().contains(containsKey)) {
+                System.out.println(" ---------  in unitary filter --------- REMOVED  ---------  Map.Entry entry.getValue : " + entry.getValue());
+                it.remove();
+            }
+        }
+    }
+
+    public static void removeFromUnitaryParamsContainsKey(String containsKey) {
+        Iterator it = unitaryParamsToSend.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            if (entry.getKey().toString().contains(containsKey)) {
+                it.remove();
+            }
+            System.out.println("____________ params ____________ after ____________ removal ____________ " + unitaryParamsToSend);
         }
     }
 

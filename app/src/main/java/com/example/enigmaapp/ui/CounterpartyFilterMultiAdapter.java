@@ -43,7 +43,6 @@ public class CounterpartyFilterMultiAdapter extends RecyclerView.Adapter<Counter
     @Override
     public void onBindViewHolder(@NonNull CounterpartyOptionHolder holder, int position) {
         DatasetCounterparty currentCounterparty = counterparties.get(position);
-        System.out.println("in bind view holder : " + currentCounterparty.getName() + " - is check? " + currentCounterparty.getIsChecked());
         holder.textViewCounterpartyName.setText(currentCounterparty.getName());
         if (currentCounterparty.getIsChecked()) {
             holder.checkedIcon.setVisibility(View.VISIBLE);

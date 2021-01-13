@@ -48,6 +48,10 @@ public class SettlementViewModel extends AndroidViewModel {
     public void removeFromBatchParams(String key) { repository.removeFromBatchParams(key); }
     public void removeFromUnitaryParams(String key) { repository.removeFromUnitaryParams(key); }
 
+    public void removeFromUnitaryParamsContainsKey(String containsKey) {
+        repository.removeFromUnitaryParamsContainsKey(containsKey);
+    }
+
     public void resetBatchParams() { repository.resetBatchParams(); }
     public void resetUnitaryParams() { repository.resetUnitaryParams(); }
 

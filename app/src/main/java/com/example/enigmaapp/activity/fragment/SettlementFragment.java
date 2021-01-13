@@ -160,11 +160,12 @@ public class SettlementFragment extends Fragment {
                 if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
                     page++;
                     pageParams.put("current_page", String.valueOf(page));
-                    viewModel.setBatchParams(pageParams);
                     progressBarSettlement.setVisibility(View.VISIBLE);
                     if (isBatch) {
+                        viewModel.setBatchParams(pageParams);
                         viewModel.fetchBatch(token);
                     } else {
+                        viewModel.setUnitaryParams(pageParams);
                         viewModel.fetchUnitary(token);
                     }
                 }

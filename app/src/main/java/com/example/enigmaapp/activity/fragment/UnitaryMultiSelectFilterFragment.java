@@ -33,6 +33,7 @@ import static com.example.enigmaapp.activity.fragment.UnitaryFilterFragment.clic
 import static com.example.enigmaapp.activity.fragment.UnitaryFilterFragment.clickedCurrencies;
 import static com.example.enigmaapp.activity.fragment.UnitaryFilterFragment.counterpartyStringBuilder;
 import static com.example.enigmaapp.activity.fragment.UnitaryFilterFragment.removeFromUnitaryParams;
+import static com.example.enigmaapp.activity.fragment.UnitaryFilterFragment.removeFromUnitaryParamsContainsKey;
 import static com.example.enigmaapp.activity.fragment.UnitaryFilterFragment.setUnitaryFilterParams;
 import static com.example.enigmaapp.activity.fragment.UnitaryFilterFragment.currencyStringBuilder;
 
@@ -78,18 +79,30 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
         submitBtn.setOnClickListener(v1 -> {
             openUnitaryFilterScreen();
 
+            // reset existing params in repo before submitting:
+            String containKey = mFilterType.equals("currency") ? "currency_list" : "counterparty_id_list";
+            viewModel.removeFromUnitaryParamsContainsKey(containKey);
+            removeFromUnitaryParamsContainsKey(containKey);
+//            viewModel.resetUnitaryParams();
+
             if (mFilterType.equals("currency")) {
+//                viewModel.removeFromUnitaryParams("currency_list");
+//                removeFromUnitaryParamsContainsKey("currency_list");
                 buildCurrencyString();
                 for (int i = 0; i < clickedCurrencies.size(); i++) {
                     params.put("currency_list[" + i + "]", clickedCurrencies.get(i));
                 }
             }
             if (mFilterType.equals("counterparty")) {
+//                viewModel.removeFromUnitaryParams("counterparty_id_list");
+//                removeFromUnitaryParamsContainsKey("counterparty_id_list");
+
                 buildCounterpartyString();
                 for (int i = 0; i < clickedCounterparties.size(); i++) {
                     params.put("counterparty_id_list[" + i + "]", clickedCounterparties.get(i));
                 }
             }
+            System.out.println("paams sent from fragment_unitary_select_filter:   " + params);
             setUnitaryFilterParams(params);
         });
 

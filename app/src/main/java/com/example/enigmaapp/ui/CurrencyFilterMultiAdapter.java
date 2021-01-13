@@ -43,7 +43,6 @@ public class CurrencyFilterMultiAdapter extends RecyclerView.Adapter<CurrencyFil
     @Override
     public void onBindViewHolder(@NonNull CurrencyOptionHolder holder, int position) {
         DatasetCurrency currentCurrency = currencies.get(position);
-        System.out.println("in bind view holder : " + currentCurrency.getName() + " - is check? " + currentCurrency.getIsChecked());
         holder.textViewCurrencyName.setText(currentCurrency.getName());
         if (currentCurrency.getIsChecked()) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
