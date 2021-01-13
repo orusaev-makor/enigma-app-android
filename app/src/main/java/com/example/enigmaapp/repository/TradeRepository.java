@@ -104,7 +104,6 @@ public class TradeRepository {
         for (TradeItemResult item : list) {
             allTrades.add(item);
         }
-        System.out.println("______ in repo - all trade size: " + allTrades.size());
         tradeAdapter.notifyDataSetChanged();
     }
 
@@ -112,7 +111,7 @@ public class TradeRepository {
         Iterator it = paramsReceived.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-            System.out.println("setting paramsReceived in repository: " + pair.getKey() + " = " + pair.getValue());
+//            System.out.println("setting paramsReceived in repository: " + pair.getKey() + " = " + pair.getValue());
             params.put(pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }
@@ -132,12 +131,10 @@ public class TradeRepository {
     }
 
     public void removeFromParams(String key) {
-        System.out.println("removeFromParams in repository - key received:  " + key);
         Iterator it = params.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             if (entry.getKey().equals(key)) {
-                System.out.println("removeFromParams in repository - found key! -> " + key);
                 it.remove();
             }
         }
@@ -179,7 +176,7 @@ public class TradeRepository {
             @Override
             public void onFailure(Call<TradeDatasetResult> call, Throwable t) {
                 System.out.println("t.getMessage(): " + t.getMessage());
-                Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

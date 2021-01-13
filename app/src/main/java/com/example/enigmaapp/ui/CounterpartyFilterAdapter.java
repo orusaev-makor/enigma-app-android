@@ -73,6 +73,9 @@ public class CounterpartyFilterAdapter extends ListAdapter<TradeDatasetCounterpa
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textColor));
 
+
+            // TODO: change it to multi select - for unitary filter ONLY
+//        }  else if (currentProduct.getIsChecked() && !isBatchFilter)  {
         }  else if (currentProduct.getIsChecked() && lastCheckedPos == position || lastUnitaryCounterpartyPos == position && !isBatchFilter)  {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textColor));

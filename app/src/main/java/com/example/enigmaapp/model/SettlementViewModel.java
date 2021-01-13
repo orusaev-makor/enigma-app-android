@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.enigmaapp.repository.SettlementRepository;
+import com.example.enigmaapp.web.trade.dataset.DatasetCurrency;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
 
@@ -51,4 +52,8 @@ public class SettlementViewModel extends AndroidViewModel {
 
     public void resetBatchList() { repository.resetBatchList(); }
     public void resetUnitaryList() { repository.resetUnitaryList(); }
+
+    public ArrayList<DatasetCurrency> getCurrencyDataset() {
+        return repository.getCurrencyDataset();
+    }
 }

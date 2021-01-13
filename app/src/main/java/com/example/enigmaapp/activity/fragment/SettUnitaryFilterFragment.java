@@ -30,6 +30,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -37,6 +38,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
+import static com.example.enigmaapp.activity.fragment.UnitarySelectFilterFragment.clearCurrencyAdapterList;
 import static com.example.enigmaapp.activity.fragment.UnitarySelectFilterFragment.lastUnitaryCounterpartyPos;
 
 
@@ -51,13 +53,15 @@ public class SettUnitaryFilterFragment extends Fragment {
     private RadioButton receive;
 
     private TextView counterpartyText;
-    private TextView currencyText;
+    private static TextView currencyText;
 
     private View statusSelectView;
     private SettlementViewModel viewModel;
 
     private HashMap<String, String> paramsFromRepository = new HashMap<>();
     public static HashMap<String, String> unitaryParamsToSend = new HashMap<>();
+    public static ArrayList<String> clickedCurrencies = new ArrayList<>();
+    public static StringBuilder currencyStringBuilder;
 
     SharedPreferences prefs;
     static SharedPreferences.Editor prefEditor;
@@ -128,11 +132,13 @@ public class SettUnitaryFilterFragment extends Fragment {
         counterpartyText.setOnClickListener(v1 -> openUnitarySelectFilter("counterparty"));
 
         currencyText = v.findViewById(R.id.filter_unitary_currencies);
+        currencyText.setText(currencyStringBuilder);
         currencyText.setOnClickListener(v12 -> openUnitarySelectFilter("currency"));
 
         // Submit "Filter" and go back to "Settlement" screen
         submitBtn = v.findViewById(R.id.filter_settlement_submit_btn);
         submitBtn.setOnClickListener(v15 -> {
+            System.out.println("unitaryParamsToSend: submiting ::::::::::: " + unitaryParamsToSend);
             viewModel.setUnitaryParams(unitaryParamsToSend);
             openSettlementScreen();
         });
@@ -145,6 +151,9 @@ public class SettUnitaryFilterFragment extends Fragment {
             resetPrefs();
             openFilterUnitaryScreen();
             resetUnitaryLastPos();
+            clearCurrenciesText();
+            clearCurrencyAdapterList();
+            clickedCurrencies.clear();
         });
 
         // Close "Filter Settlement" screen and go back to "Settlement Fragment":
@@ -208,12 +217,18 @@ public class SettUnitaryFilterFragment extends Fragment {
         return v;
     }
 
+    public static void clearCurrenciesText() {
+        if (currencyStringBuilder != null) {
+            currencyStringBuilder.replace(0, currencyStringBuilder.length(), "");
+        }
+    }
+
     private void handleSideCheck(String side) {
-            markRadioBtn(side);
-            String str = "to " + side;
-            unitaryParamsToSend.put("side", str);
-            prefEditor.putString("side", str);
-            prefEditor.apply();
+        markRadioBtn(side);
+        String str = "to " + side;
+        unitaryParamsToSend.put("side", str);
+        prefEditor.putString("side", str);
+        prefEditor.apply();
     }
 
     @SuppressLint("NewApi")
@@ -355,6 +370,8 @@ public class SettUnitaryFilterFragment extends Fragment {
         Iterator it = unitaryParamsToSend.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
+            System.out.println("in unittary filter - removeFromUnitaryParams - String key (received) : " + key);
+            System.out.println("in unittary filter - removeFromUnitaryParams - Map.Entry entry.getKey : " + entry.getKey());
             if (entry.getKey().equals(key)) {
                 it.remove();
             }

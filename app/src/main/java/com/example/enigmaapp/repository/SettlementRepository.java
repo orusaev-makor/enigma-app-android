@@ -11,6 +11,7 @@ import com.example.enigmaapp.web.settlement.SettlementItemResult;
 import com.example.enigmaapp.web.settlement.SettlementResult;
 import com.example.enigmaapp.web.settlement.dataset.BatchDatasetResult;
 import com.example.enigmaapp.web.settlement.dataset.UnitaryDatasetResult;
+import com.example.enigmaapp.web.trade.dataset.DatasetCurrency;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
 
@@ -38,13 +39,19 @@ public class SettlementRepository {
     private MutableLiveData<ArrayList<String>> statusDataset = new MutableLiveData<ArrayList<String>>();
     private MutableLiveData<List<TradeDatasetProduct>> productsDataset = new MutableLiveData<List<TradeDatasetProduct>>();
     private MutableLiveData<List<TradeDatasetCounterparty>> counterpartyDataset = new MutableLiveData<List<TradeDatasetCounterparty>>();
+    private ArrayList<DatasetCurrency> currenciesDataset = new ArrayList<>();
 
     public SettlementRepository(Application application) {
         this.application = application;
     }
 
-    public ArrayList<SettlementSummary> getBatchSettlements() { return allBatchSettlements; }
-    public ArrayList<SettlementSummary> getUnitarySettlements() { return allUnitarySettlements;}
+    public ArrayList<SettlementSummary> getBatchSettlements() {
+        return allBatchSettlements;
+    }
+
+    public ArrayList<SettlementSummary> getUnitarySettlements() {
+        return allUnitarySettlements;
+    }
 
     public void fetchBatch(String token) {
         batchParams.put("items_per_page", "5");
@@ -141,7 +148,6 @@ public class SettlementRepository {
         Iterator it = paramsReceived.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-            System.out.println("setting paramsReceived in repository: " + pair.getKey() + " = " + pair.getValue());
             batchParams.put(pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }
@@ -152,15 +158,19 @@ public class SettlementRepository {
         Iterator it = paramsReceived.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-            System.out.println("setting paramsReceived in repository: " + pair.getKey() + " = " + pair.getValue());
             unitaryParams.put(pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }
         return unitaryParams;
     }
 
-    public HashMap<String, String> getBatchParams() { return batchParams; }
-    public HashMap<String, String> getUnitaryParams() { return unitaryParams; }
+    public HashMap<String, String> getBatchParams() {
+        return batchParams;
+    }
+
+    public HashMap<String, String> getUnitaryParams() {
+        return unitaryParams;
+    }
 
     public void fetchBatchDataset(String token) {
         Call<BatchDatasetResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetBatchDataset(token);
@@ -213,8 +223,20 @@ public class SettlementRepository {
     }
 
     private void setUnitaryDatasetLists(UnitaryDatasetResult dataset) {
-//        ArrayList productsArray = (ArrayList) dataset.getProducts();
-//        productsDataset.setValue(productsArray);
+        ArrayList fiatArray = (ArrayList) dataset.getCurrency();
+        ArrayList cryptoArray = (ArrayList) dataset.getCryptoCurrency();
+
+//        ArrayList combined = new ArrayList<DatasetCurrency>();
+
+        for (int i = 0; i < fiatArray.size(); i++) {
+            DatasetCurrency coin = new DatasetCurrency(fiatArray.get(i).toString());
+            currenciesDataset.add(coin);
+        }
+        for (int i = 0; i < cryptoArray.size(); i++) {
+            DatasetCurrency coin = new DatasetCurrency(cryptoArray.get(i).toString());
+            currenciesDataset.add(coin);
+        }
+//        currenciesDataset.setValue(combined);
 
         ArrayList counterpartyArray = (ArrayList) dataset.getCounterparty();
         counterpartyDataset.setValue(counterpartyArray);
@@ -225,36 +247,50 @@ public class SettlementRepository {
     }
 
     public void removeFromBatchParams(String key) {
-        System.out.println("Batch__ removeFromParams in repository - key received:  " + key);
         Iterator it = batchParams.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             if (entry.getKey().equals(key)) {
-                System.out.println("Batch__ removeFromParams in repository - found key! -> " + key);
                 it.remove();
             }
         }
     }
 
     public void removeFromUnitaryParams(String key) {
-        System.out.println("Unitary__ removeFromParams in repository - key received:  " + key);
         Iterator it = unitaryParams.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
+            System.out.println("in repository - removeFromUnitaryParams - received key : " + key);
+            System.out.println("in repository - removeFromUnitaryParams - removing entry.getKey : " + entry.getKey());
             if (entry.getKey().equals(key)) {
-                System.out.println("Unitary__ removeFromParams in repository - found key! -> " + key);
                 it.remove();
             }
         }
     }
 
     public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() {
-        return counterpartyDataset; }
+        return counterpartyDataset;
+    }
 
-    public void resetBatchParams() { this.batchParams.clear(); }
-    public void resetUnitaryParams() { this.unitaryParams.clear(); }
-    public void resetBatchList() { this.allBatchSettlements.clear(); }
-    public void resetUnitaryList() { this.allUnitarySettlements.clear(); }
+    public void resetBatchParams() {
+        this.batchParams.clear();
+    }
+
+    public void resetUnitaryParams() {
+        this.unitaryParams.clear();
+    }
+
+    public void resetBatchList() {
+        this.allBatchSettlements.clear();
+    }
+
+    public void resetUnitaryList() {
+        this.allUnitarySettlements.clear();
+    }
+
+    public ArrayList<DatasetCurrency> getCurrencyDataset() {
+        return this.currenciesDataset;
+    }
 
     public class SettlementSummary {
         private String name;
@@ -287,7 +323,9 @@ public class SettlementRepository {
             return counterparty;
         }
 
-        public void setCounterparty(String counterparty) { this.counterparty = counterparty; }
+        public void setCounterparty(String counterparty) {
+            this.counterparty = counterparty;
+        }
 
         public String getDate() {
             return date;
@@ -305,7 +343,9 @@ public class SettlementRepository {
             this.status = status;
         }
 
-        public int getId() { return id; }
+        public int getId() {
+            return id;
+        }
 
         public void setId(int id) {
             this.id = id;
