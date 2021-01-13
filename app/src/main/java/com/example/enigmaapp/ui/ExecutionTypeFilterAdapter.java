@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetExecutionType;
+import com.example.enigmaapp.web.dataset.DatasetExecutionType;
 
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeExecutionPos;
+import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeExecutionPos;
 
-public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutionType,ExecutionTypeFilterAdapter.ItemHolder> {
+public class ExecutionTypeFilterAdapter extends ListAdapter<DatasetExecutionType,ExecutionTypeFilterAdapter.ItemHolder> {
 
     private int lastCheckedPos = 0;
     private OnItemClickListener listener;
@@ -32,14 +32,14 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
         this.lastCheckedPos = lastCheckedPos;
     }
 
-    private static final DiffUtil.ItemCallback<TradeDatasetExecutionType> DIFF_CALLBACK = new DiffUtil.ItemCallback<TradeDatasetExecutionType>() {
+    private static final DiffUtil.ItemCallback<DatasetExecutionType> DIFF_CALLBACK = new DiffUtil.ItemCallback<DatasetExecutionType>() {
         @Override
-        public boolean areItemsTheSame(@NonNull TradeDatasetExecutionType oldItem, @NonNull TradeDatasetExecutionType newItem) {
+        public boolean areItemsTheSame(@NonNull DatasetExecutionType oldItem, @NonNull DatasetExecutionType newItem) {
             return oldItem.getName() == newItem.getName();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull TradeDatasetExecutionType oldItem, @NonNull TradeDatasetExecutionType newItem) {
+        public boolean areContentsTheSame(@NonNull DatasetExecutionType oldItem, @NonNull DatasetExecutionType newItem) {
             return oldItem.getIsChecked() == newItem.getIsChecked();
         }
     };
@@ -54,7 +54,7 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
 
     @Override
     public void onBindViewHolder(@NonNull ExecutionTypeFilterAdapter.ItemHolder holder, int position) {
-        TradeDatasetExecutionType currentExecutionType = getItem(position);
+        DatasetExecutionType currentExecutionType = getItem(position);
 
         holder.textViewExecutionTypeName.setText(currentExecutionType.getName());
         if (currentExecutionType.getIsChecked() && lastCheckedPos == position || lastTradeExecutionPos == position) {
@@ -85,7 +85,7 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<TradeDatasetExecutio
     }
 
     public interface OnItemClickListener {
-        void onItemClick(TradeDatasetExecutionType item, int position);
+        void onItemClick(DatasetExecutionType item, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

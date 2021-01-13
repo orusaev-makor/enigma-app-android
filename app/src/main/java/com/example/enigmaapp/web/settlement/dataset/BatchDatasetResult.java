@@ -1,15 +1,15 @@
 package com.example.enigmaapp.web.settlement.dataset;
 
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
+import com.example.enigmaapp.web.dataset.DatasetCounterparty;
+import com.example.enigmaapp.web.dataset.DatasetProduct;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BatchDatasetResult {
     ArrayList<String> status;
-    List<TradeDatasetCounterparty> counterparty;
-    List<TradeDatasetProduct> product;
+    List<DatasetCounterparty> counterparty;
+    List<DatasetProduct> product;
 
     public ArrayList<String> getStatus() {
         return status;
@@ -19,19 +19,19 @@ public class BatchDatasetResult {
         this.status = status;
     }
 
-    public List<TradeDatasetCounterparty> getCounterparty() {
+    public List<DatasetCounterparty> getCounterparty() {
         return counterparty;
     }
 
-    public void setCounterparty(List<TradeDatasetCounterparty> counterparty) {
+    public void setCounterparty(List<DatasetCounterparty> counterparty) {
         this.counterparty = counterparty;
     }
 
-    public List<TradeDatasetProduct> getProducts() {
+    public List<DatasetProduct> getProducts() {
         return product;
     }
 
-    public void setProducts(List<TradeDatasetProduct> products) {
+    public void setProducts(List<DatasetProduct> products) {
         this.product = products;
     }
 }

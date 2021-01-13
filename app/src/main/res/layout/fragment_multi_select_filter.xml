@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingTop="10sp"
-        tools:context=".activity.fragment.MultiSelectFilterFragment">
+        tools:context=".activity.fragment.TradeSelectFilterFragment">
 
         <TextView
             android:id="@+id/multi_select_title"

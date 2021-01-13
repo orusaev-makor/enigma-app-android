@@ -1,4 +1,4 @@
-package com.example.enigmaapp.web.trade.dataset;
+package com.example.enigmaapp.web.dataset;
 
 public class DatasetCurrency {
     private String name;

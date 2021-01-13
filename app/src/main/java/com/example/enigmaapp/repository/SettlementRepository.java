@@ -11,9 +11,9 @@ import com.example.enigmaapp.web.settlement.SettlementItemResult;
 import com.example.enigmaapp.web.settlement.SettlementResult;
 import com.example.enigmaapp.web.settlement.dataset.BatchDatasetResult;
 import com.example.enigmaapp.web.settlement.dataset.UnitaryDatasetResult;
-import com.example.enigmaapp.web.trade.dataset.DatasetCurrency;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
+import com.example.enigmaapp.web.dataset.DatasetCurrency;
+import com.example.enigmaapp.web.dataset.DatasetCounterparty;
+import com.example.enigmaapp.web.dataset.DatasetProduct;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,8 +37,8 @@ public class SettlementRepository {
     private ArrayList<SettlementSummary> allUnitarySettlements = new ArrayList<>();
 
     private MutableLiveData<ArrayList<String>> statusDataset = new MutableLiveData<ArrayList<String>>();
-    private MutableLiveData<List<TradeDatasetProduct>> productsDataset = new MutableLiveData<List<TradeDatasetProduct>>();
-    private MutableLiveData<List<TradeDatasetCounterparty>> counterpartyDataset = new MutableLiveData<List<TradeDatasetCounterparty>>();
+    private MutableLiveData<List<DatasetProduct>> productsDataset = new MutableLiveData<List<DatasetProduct>>();
+    private ArrayList<DatasetCounterparty> counterpartyDataset = new ArrayList<>();
     private ArrayList<DatasetCurrency> currenciesDataset = new ArrayList<>();
 
     public SettlementRepository(Application application) {
@@ -218,13 +218,13 @@ public class SettlementRepository {
         ArrayList productsArray = (ArrayList) dataset.getProducts();
         productsDataset.setValue(productsArray);
 
-        ArrayList counterpartyArray = (ArrayList) dataset.getCounterparty();
-        counterpartyDataset.setValue(counterpartyArray);
+        counterpartyDataset = (ArrayList) dataset.getCounterparty();
     }
 
     private void setUnitaryDatasetLists(UnitaryDatasetResult dataset) {
         ArrayList fiatArray = (ArrayList) dataset.getCurrency();
         ArrayList cryptoArray = (ArrayList) dataset.getCryptoCurrency();
+        ArrayList<DatasetCounterparty> counterpartyArray = (ArrayList) dataset.getCounterparty();
 
 //        ArrayList combined = new ArrayList<DatasetCurrency>();
 
@@ -236,13 +236,14 @@ public class SettlementRepository {
             DatasetCurrency coin = new DatasetCurrency(cryptoArray.get(i).toString());
             currenciesDataset.add(coin);
         }
-//        currenciesDataset.setValue(combined);
 
-        ArrayList counterpartyArray = (ArrayList) dataset.getCounterparty();
-        counterpartyDataset.setValue(counterpartyArray);
+        for (int i = 0; i < counterpartyArray.size(); i++) {
+            counterpartyDataset.add(new DatasetCounterparty(counterpartyArray.get(i).getName(), counterpartyArray.get(i).getId()));
+        }
+
     }
 
-    public MutableLiveData<List<TradeDatasetProduct>> getProductsDataset() {
+    public MutableLiveData<List<DatasetProduct>> getProductsDataset() {
         return productsDataset;
     }
 
@@ -268,29 +269,17 @@ public class SettlementRepository {
         }
     }
 
-    public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() {
-        return counterpartyDataset;
-    }
+    public ArrayList<DatasetCounterparty> getCounterpartyDataset() { return this.counterpartyDataset; }
+    public ArrayList<DatasetCurrency> getCurrencyDataset() { return this.currenciesDataset; }
 
-    public void resetBatchParams() {
-        this.batchParams.clear();
-    }
+    public void resetBatchParams() { this.batchParams.clear(); }
 
-    public void resetUnitaryParams() {
-        this.unitaryParams.clear();
-    }
+    public void resetUnitaryParams() { this.unitaryParams.clear(); }
 
-    public void resetBatchList() {
-        this.allBatchSettlements.clear();
-    }
+    public void resetBatchList() { this.allBatchSettlements.clear(); }
 
-    public void resetUnitaryList() {
-        this.allUnitarySettlements.clear();
-    }
+    public void resetUnitaryList() { this.allUnitarySettlements.clear(); }
 
-    public ArrayList<DatasetCurrency> getCurrencyDataset() {
-        return this.currenciesDataset;
-    }
 
     public class SettlementSummary {
         private String name;

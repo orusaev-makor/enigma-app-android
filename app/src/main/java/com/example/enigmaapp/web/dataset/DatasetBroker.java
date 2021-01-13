@@ -1,14 +1,15 @@
-package com.example.enigmaapp.web.settlement.dataset;
+package com.example.enigmaapp.web.dataset;
 
-public class BatchDatasetCounterparty {
+public class DatasetBroker {
 
-    private String id, name;
+    private int id;
+    private String name;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

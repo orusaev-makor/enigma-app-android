@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
+import com.example.enigmaapp.web.dataset.DatasetProduct;
 
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchProductPos;
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeProductPos;
+import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeProductPos;
 
-public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, ProductFilterAdapter.ProductOptionHolder> {
+public class ProductFilterAdapter extends ListAdapter<DatasetProduct, ProductFilterAdapter.ProductOptionHolder> {
 
     private int lastCheckedPos = 0;
     private OnItemClickListener listener;
@@ -39,14 +39,14 @@ public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, Produ
         this.lastCheckedPos = lastCheckedPos;
     }
 
-    private static final DiffUtil.ItemCallback<TradeDatasetProduct> DIFF_CALLBACK = new DiffUtil.ItemCallback<TradeDatasetProduct>() {
+    private static final DiffUtil.ItemCallback<DatasetProduct> DIFF_CALLBACK = new DiffUtil.ItemCallback<DatasetProduct>() {
         @Override
-        public boolean areItemsTheSame(@NonNull TradeDatasetProduct oldItem, @NonNull TradeDatasetProduct newItem) {
+        public boolean areItemsTheSame(@NonNull DatasetProduct oldItem, @NonNull DatasetProduct newItem) {
             return oldItem.getId() == newItem.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull TradeDatasetProduct oldItem, @NonNull TradeDatasetProduct newItem) {
+        public boolean areContentsTheSame(@NonNull DatasetProduct oldItem, @NonNull DatasetProduct newItem) {
             return oldItem.getIsChecked() == newItem.getIsChecked();
         }
     };
@@ -61,7 +61,7 @@ public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, Produ
 
     @Override
     public void onBindViewHolder(@NonNull ProductOptionHolder holder, int position) {
-        TradeDatasetProduct currentProduct = getItem(position);
+        DatasetProduct currentProduct = getItem(position);
 
         holder.textViewProductName.setText(currentProduct.getName());
 //        System.out.println("in ProductFilterAdapter, onBindViewHolder; isTradeFilter: " + isTradeFilter + " // ");
@@ -96,7 +96,7 @@ public class ProductFilterAdapter extends ListAdapter<TradeDatasetProduct, Produ
     }
 
     public interface OnItemClickListener {
-        void onItemClick(TradeDatasetProduct item, int position);
+        void onItemClick(DatasetProduct item, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

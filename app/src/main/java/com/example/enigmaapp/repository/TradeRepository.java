@@ -10,10 +10,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.enigmaapp.web.RetrofitClient;
 import com.example.enigmaapp.web.trade.TradeItemResult;
 import com.example.enigmaapp.web.trade.TradeResult;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetBatched;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetExecutionType;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
+import com.example.enigmaapp.web.dataset.DatasetBatched;
+import com.example.enigmaapp.web.dataset.DatasetCounterparty;
+import com.example.enigmaapp.web.dataset.DatasetExecutionType;
+import com.example.enigmaapp.web.dataset.DatasetProduct;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetResult;
 
 import java.util.ArrayList;
@@ -35,10 +35,10 @@ public class TradeRepository {
     private HashMap<String, String> params = new HashMap<>();
     private ArrayList<TradeItemResult> allTrades = new ArrayList<>();
     private MutableLiveData<TradeDatasetResult> tradeDataset = new MutableLiveData<>();
-    private MutableLiveData<List<TradeDatasetProduct>> productsDataset = new MutableLiveData<List<TradeDatasetProduct>>();
-    private MutableLiveData<List<TradeDatasetCounterparty>> counterpartyDataset = new MutableLiveData<List<TradeDatasetCounterparty>>();
-    private MutableLiveData<List<TradeDatasetExecutionType>> executionTypeDataset = new MutableLiveData<List<TradeDatasetExecutionType>>();
-    private MutableLiveData<List<TradeDatasetBatched>> batcedDataset = new MutableLiveData<List<TradeDatasetBatched>>();
+    private MutableLiveData<List<DatasetProduct>> productsDataset = new MutableLiveData<List<DatasetProduct>>();
+    private MutableLiveData<List<DatasetCounterparty>> counterpartyDataset = new MutableLiveData<List<DatasetCounterparty>>();
+    private MutableLiveData<List<DatasetExecutionType>> executionTypeDataset = new MutableLiveData<List<DatasetExecutionType>>();
+    private MutableLiveData<List<DatasetBatched>> batcedDataset = new MutableLiveData<List<DatasetBatched>>();
 
     public TradeRepository(Application application) {
         this.application = application;
@@ -144,19 +144,19 @@ public class TradeRepository {
         return tradeDataset;
     }
 
-    public MutableLiveData<List<TradeDatasetProduct>> getProductsDataset() {
+    public MutableLiveData<List<DatasetProduct>> getProductsDataset() {
         return productsDataset;
     }
 
-    public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() {
+    public MutableLiveData<List<DatasetCounterparty>> getCounterpartyDataset() {
         return counterpartyDataset;
     }
 
-    public MutableLiveData<List<TradeDatasetExecutionType>> getExecutionTypeDataset() {
+    public MutableLiveData<List<DatasetExecutionType>> getExecutionTypeDataset() {
         return executionTypeDataset;
     }
 
-    public MutableLiveData<List<TradeDatasetBatched>> getBatchedDataset() {
+    public MutableLiveData<List<DatasetBatched>> getBatchedDataset() {
         return batcedDataset;
     }
 
@@ -186,21 +186,21 @@ public class TradeRepository {
         productsDataset.setValue(productsArray);
 
         ArrayList executionTypeArray = (ArrayList) dataset.getExecutionType();
-        List<TradeDatasetExecutionType> executionList = setExecutionList(executionTypeArray);
+        List<DatasetExecutionType> executionList = setExecutionList(executionTypeArray);
         executionTypeDataset.setValue(executionList);
 
         ArrayList batchedArray = new ArrayList();
-        batchedArray.add(new TradeDatasetBatched("All trades", "-1"));
-        batchedArray.add(new TradeDatasetBatched("Not batched only", "0"));
-        batchedArray.add(new TradeDatasetBatched("Batched only", "1"));
+        batchedArray.add(new DatasetBatched("All trades", "-1"));
+        batchedArray.add(new DatasetBatched("Not batched only", "0"));
+        batchedArray.add(new DatasetBatched("Batched only", "1"));
         batcedDataset.setValue(batchedArray);
     }
 
-    private List<TradeDatasetExecutionType> setExecutionList(ArrayList arrayList) {
-        List<TradeDatasetExecutionType> result = new ArrayList<TradeDatasetExecutionType>();
+    private List<DatasetExecutionType> setExecutionList(ArrayList arrayList) {
+        List<DatasetExecutionType> result = new ArrayList<DatasetExecutionType>();
         for (int i = 0; i < arrayList.size(); i++) {
             String name = (String) arrayList.get(i);
-            TradeDatasetExecutionType item = new TradeDatasetExecutionType(name);
+            DatasetExecutionType item = new DatasetExecutionType(name);
             result.add(item);
         }
         return result;

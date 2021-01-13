@@ -38,11 +38,10 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
-import static com.example.enigmaapp.activity.fragment.UnitarySelectFilterFragment.clearCurrencyAdapterList;
-import static com.example.enigmaapp.activity.fragment.UnitarySelectFilterFragment.lastUnitaryCounterpartyPos;
+import static com.example.enigmaapp.activity.fragment.UnitaryMultiSelectFilterFragment.clearCounterpartiesAdapterList;
+import static com.example.enigmaapp.activity.fragment.UnitaryMultiSelectFilterFragment.clearCurrencyAdapterList;
 
-
-public class SettUnitaryFilterFragment extends Fragment {
+public class UnitaryFilterFragment extends Fragment {
     private Button closeBtn;
     private Button submitBtn;
     private MaterialButton resetBtn;
@@ -53,21 +52,26 @@ public class SettUnitaryFilterFragment extends Fragment {
     private RadioButton receive;
 
     private TextView counterpartyText;
-    private static TextView currencyText;
+    private TextView currencyText;
 
     private View statusSelectView;
     private SettlementViewModel viewModel;
 
     private HashMap<String, String> paramsFromRepository = new HashMap<>();
     public static HashMap<String, String> unitaryParamsToSend = new HashMap<>();
+
     public static ArrayList<String> clickedCurrencies = new ArrayList<>();
+    public static ArrayList<String> clickedCounterparties = new ArrayList<>();
+//    public static ArrayList<TradeDatasetCounterparty> clickedCounterparties = new ArrayList<>();
+
     public static StringBuilder currencyStringBuilder;
+    public static StringBuilder counterpartyStringBuilder;
 
     SharedPreferences prefs;
     static SharedPreferences.Editor prefEditor;
     private Activity activity;
 
-    public SettUnitaryFilterFragment() {
+    public UnitaryFilterFragment() {
         // Required empty public constructor
     }
 
@@ -128,7 +132,7 @@ public class SettUnitaryFilterFragment extends Fragment {
         viewModel.fetchUnitaryDataset(token);
 
         counterpartyText = v.findViewById(R.id.filter_unitary_counterparty);
-        counterpartyText.setText(prefs.getString("counterpartyUnitaryFilter", ""));
+        counterpartyText.setText(counterpartyStringBuilder);
         counterpartyText.setOnClickListener(v1 -> openUnitarySelectFilter("counterparty"));
 
         currencyText = v.findViewById(R.id.filter_unitary_currencies);
@@ -138,7 +142,6 @@ public class SettUnitaryFilterFragment extends Fragment {
         // Submit "Filter" and go back to "Settlement" screen
         submitBtn = v.findViewById(R.id.filter_settlement_submit_btn);
         submitBtn.setOnClickListener(v15 -> {
-            System.out.println("unitaryParamsToSend: submiting ::::::::::: " + unitaryParamsToSend);
             viewModel.setUnitaryParams(unitaryParamsToSend);
             openSettlementScreen();
         });
@@ -150,10 +153,11 @@ public class SettUnitaryFilterFragment extends Fragment {
             viewModel.resetUnitaryParams();
             resetPrefs();
             openFilterUnitaryScreen();
-            resetUnitaryLastPos();
             clearCurrenciesText();
             clearCurrencyAdapterList();
             clickedCurrencies.clear();
+            clearCounterpartiesText();
+            clearCounterpartiesAdapterList();
         });
 
         // Close "Filter Settlement" screen and go back to "Settlement Fragment":
@@ -215,6 +219,12 @@ public class SettUnitaryFilterFragment extends Fragment {
         });
 
         return v;
+    }
+
+    public static void clearCounterpartiesText() {
+        if (counterpartyStringBuilder != null) {
+            counterpartyStringBuilder.replace(0, counterpartyStringBuilder.length(), "");
+        }
     }
 
     public static void clearCurrenciesText() {
@@ -316,13 +326,7 @@ public class SettUnitaryFilterFragment extends Fragment {
         unitaryParamsToSend.put(paramKey, paramVal);
     }
 
-    private void resetUnitaryLastPos() {
-        lastUnitaryCounterpartyPos = -1;
-    }
-
     private void resetPrefs() {
-        prefEditor.putString("currencyUnitaryFilter", "");
-        prefEditor.putString("counterpartyUnitaryFilter", "");
         prefEditor.putBoolean("isRejectUnitaryFilter", false);
         prefEditor.putBoolean("isPendingUnitaryFilter", false);
         prefEditor.putBoolean("isValidatedUnitaryFilter", false);
@@ -336,14 +340,14 @@ public class SettUnitaryFilterFragment extends Fragment {
 
     private void openFilterUnitaryScreen() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        SettUnitaryFilterFragment fragment = new SettUnitaryFilterFragment();
+        UnitaryFilterFragment fragment = new UnitaryFilterFragment();
         transaction.replace(R.id.frame_layout, fragment, "Settlement Filter");
         transaction.commit();
     }
 
     private void openUnitarySelectFilter(String type) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        UnitarySelectFilterFragment fragment = new UnitarySelectFilterFragment(type);
+        UnitaryMultiSelectFilterFragment fragment = new UnitaryMultiSelectFilterFragment(type);
         transaction.replace(R.id.frame_layout, fragment, "Filter Unitary");
         transaction.commit();
     }
@@ -370,9 +374,8 @@ public class SettUnitaryFilterFragment extends Fragment {
         Iterator it = unitaryParamsToSend.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
-            System.out.println("in unittary filter - removeFromUnitaryParams - String key (received) : " + key);
-            System.out.println("in unittary filter - removeFromUnitaryParams - Map.Entry entry.getKey : " + entry.getKey());
             if (entry.getKey().equals(key)) {
+                System.out.println("in unittary filter - removeFromUnitaryParams - Map.Entry entry.getKey : " + entry.getKey());
                 it.remove();
             }
         }

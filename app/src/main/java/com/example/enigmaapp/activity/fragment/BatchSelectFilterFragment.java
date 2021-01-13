@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,19 +18,16 @@ import android.widget.TextView;
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.SettlementViewModel;
 import com.example.enigmaapp.model.UserViewModel;
-import com.example.enigmaapp.ui.CounterpartyFilterAdapter;
 import com.example.enigmaapp.ui.ProductFilterAdapter;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
+import com.example.enigmaapp.web.dataset.DatasetProduct;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
-import static com.example.enigmaapp.activity.fragment.SettBatchFilterFragment.removeFromBatchParams;
-import static com.example.enigmaapp.activity.fragment.SettBatchFilterFragment.setBatchFilterParams;
+import static com.example.enigmaapp.activity.fragment.BatchFilterFragment.removeFromBatchParams;
+import static com.example.enigmaapp.activity.fragment.BatchFilterFragment.setBatchFilterParams;
 
 public class BatchSelectFilterFragment extends Fragment {
 
@@ -94,7 +90,7 @@ public class BatchSelectFilterFragment extends Fragment {
                 viewModel.getProductsDataset().observe(requireActivity(), productItems -> productAdapter.submitList(productItems));
                 productAdapter.setOnItemClickListener(new ProductFilterAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(TradeDatasetProduct productItem, int position) {
+                    public void onItemClick(DatasetProduct productItem, int position) {
                         System.out.println(" Clicked : " + productItem.getName());
                         if (productItem.getIsChecked()) {
                             productItem.setIsChecked(false);
@@ -119,41 +115,41 @@ public class BatchSelectFilterFragment extends Fragment {
                 break;
 
             case "counterparty":
-                final CounterpartyFilterAdapter counterpartyAdapter = new CounterpartyFilterAdapter(requireActivity(), true);
-                recyclerView.setAdapter(counterpartyAdapter);
+//                final CounterpartyFilterAdapter counterpartyAdapter = new CounterpartyFilterAdapter(requireActivity(), true);
+//                recyclerView.setAdapter(counterpartyAdapter);
 
-                viewModel.getCounterpartyDataset().observe(requireActivity(), new Observer<List<TradeDatasetCounterparty>>() {
-                    @Override
-                    public void onChanged(List<TradeDatasetCounterparty> counterpartyItems) {
-                        counterpartyAdapter.submitList(counterpartyItems);
-                    }
-                });
+//                viewModel.getCounterpartyDataset().observe(requireActivity(), new Observer<List<TradeDatasetCounterparty>>() {
+//                    @Override
+//                    public void onChanged(List<TradeDatasetCounterparty> counterpartyItems) {
+//                        counterpartyAdapter.submitList(counterpartyItems);
+//                    }
+//                });
 
-                counterpartyAdapter.setOnItemClickListener(new CounterpartyFilterAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(TradeDatasetCounterparty counterpartyItem, int position) {
-                        System.out.println("Batch - Clicked : " + counterpartyItem.getName());
-
-                        if (counterpartyItem.getIsChecked()) {
-                            counterpartyItem.setIsChecked(false);
-                            Iterator it = params.entrySet().iterator();
-                            while (it.hasNext()) {
-                                Map.Entry entry = (Map.Entry) it.next();
-                                if (entry.getKey().equals("counterparty_id") && counterpartyItem.getId().equals(entry.getValue())) {
-                                    it.remove();
-                                }
-                            }
-                        } else {
-                            counterpartyAdapter.setLastCheckedPos(position);
-                            counterpartyItem.setIsChecked(true);
-                            lastBatchCounterpartyPos = position;
-                            params.put("counterparty_id", counterpartyItem.getId());
-                            prefEditor.putString("counterpartyBatchFilter", counterpartyItem.getName());
-                            prefEditor.apply();
-                        }
-                        counterpartyAdapter.notifyDataSetChanged();
-                    }
-                });
+//                counterpartyAdapter.setOnItemClickListener(new CounterpartyFilterAdapter.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(TradeDatasetCounterparty counterpartyItem, int position) {
+//                        System.out.println("Batch - Clicked : " + counterpartyItem.getName());
+//
+//                        if (counterpartyItem.getIsChecked()) {
+//                            counterpartyItem.setIsChecked(false);
+//                            Iterator it = params.entrySet().iterator();
+//                            while (it.hasNext()) {
+//                                Map.Entry entry = (Map.Entry) it.next();
+//                                if (entry.getKey().equals("counterparty_id") && counterpartyItem.getId().equals(entry.getValue())) {
+//                                    it.remove();
+//                                }
+//                            }
+//                        } else {
+//                            counterpartyAdapter.setLastCheckedPos(position);
+//                            counterpartyItem.setIsChecked(true);
+//                            lastBatchCounterpartyPos = position;
+//                            params.put("counterparty_id", counterpartyItem.getId());
+//                            prefEditor.putString("counterpartyBatchFilter", counterpartyItem.getName());
+//                            prefEditor.apply();
+//                        }
+//                        counterpartyAdapter.notifyDataSetChanged();
+//                    }
+//                });
                 break;
 
             default:
@@ -238,7 +234,7 @@ public class BatchSelectFilterFragment extends Fragment {
 
     private void openBatchFilterScreen() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        SettBatchFilterFragment fragment = new SettBatchFilterFragment();
+        BatchFilterFragment fragment = new BatchFilterFragment();
         transaction.replace(R.id.frame_layout, fragment, "Batch Filter");
         transaction.commit();
     }

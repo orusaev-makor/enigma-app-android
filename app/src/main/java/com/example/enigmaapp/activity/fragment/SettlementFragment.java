@@ -1,8 +1,6 @@
 package com.example.enigmaapp.activity.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
@@ -194,10 +191,10 @@ public class SettlementFragment extends Fragment {
     private void openFilterScreen() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         if (isBatch) {
-            SettBatchFilterFragment fragment = new SettBatchFilterFragment();
+            BatchFilterFragment fragment = new BatchFilterFragment();
             transaction.replace(R.id.frame_layout, fragment, "Filter Settlement");
         } else {
-            SettUnitaryFilterFragment fragment = new SettUnitaryFilterFragment();
+            UnitaryFilterFragment fragment = new UnitaryFilterFragment();
             transaction.replace(R.id.frame_layout, fragment, "Filter Settlement");
         }
         transaction.commit();

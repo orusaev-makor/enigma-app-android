@@ -1,5 +1,10 @@
 package com.example.enigmaapp.web.trade.dataset;
 
+import com.example.enigmaapp.web.dataset.DatasetBroker;
+import com.example.enigmaapp.web.dataset.DatasetCompany;
+import com.example.enigmaapp.web.dataset.DatasetCounterparty;
+import com.example.enigmaapp.web.dataset.DatasetProduct;
+import com.example.enigmaapp.web.dataset.DatasetProvider;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -15,11 +20,11 @@ public class TradeDatasetResult {
     ArrayList<String> displayingSide;
     @SerializedName("execution_type")
     ArrayList<String> executionType;
-    List<TradeDatasetBroker> broker;
-    List<TradeDatasetCounterparty> counterparty;
-    List<TradeDatasetCompany> companies;
-    List<TradeDatasetProvider> provider;
-    List<TradeDatasetProduct> product;
+    List<DatasetBroker> broker;
+    List<DatasetCounterparty> counterparty;
+    List<DatasetCompany> companies;
+    List<DatasetProvider> provider;
+    List<DatasetProduct> product;
 
     public ArrayList<String> getSide() {
         return side;
@@ -61,43 +66,43 @@ public class TradeDatasetResult {
         this.executionType = executionType;
     }
 
-    public List<TradeDatasetBroker> getBroker() {
+    public List<DatasetBroker> getBroker() {
         return broker;
     }
 
-    public void setBroker(List<TradeDatasetBroker> broker) {
+    public void setBroker(List<DatasetBroker> broker) {
         this.broker = broker;
     }
 
-    public List<TradeDatasetCounterparty> getCounterparty() {
+    public List<DatasetCounterparty> getCounterparty() {
         return counterparty;
     }
 
-    public void setCounterparty(List<TradeDatasetCounterparty> counterparty) {
+    public void setCounterparty(List<DatasetCounterparty> counterparty) {
         this.counterparty = counterparty;
     }
 
-    public List<TradeDatasetCompany> getCompanies() {
+    public List<DatasetCompany> getCompanies() {
         return companies;
     }
 
-    public void setCompanies(List<TradeDatasetCompany> companies) {
+    public void setCompanies(List<DatasetCompany> companies) {
         this.companies = companies;
     }
 
-    public List<TradeDatasetProvider> getProvider() {
+    public List<DatasetProvider> getProvider() {
         return provider;
     }
 
-    public void setProvider(List<TradeDatasetProvider> provider) {
+    public void setProvider(List<DatasetProvider> provider) {
         this.provider = provider;
     }
 
-    public List<TradeDatasetProduct> getProduct() {
+    public List<DatasetProduct> getProduct() {
         return product;
     }
 
-    public void setProduct(List<TradeDatasetProduct> product) {
+    public void setProduct(List<DatasetProduct> product) {
         this.product = product;
     }
 }

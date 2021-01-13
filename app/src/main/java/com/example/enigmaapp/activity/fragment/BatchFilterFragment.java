@@ -30,7 +30,7 @@ import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchProductPos;
 
 
-public class SettBatchFilterFragment extends Fragment {
+public class BatchFilterFragment extends Fragment {
 
     private Button closeBtn;
     private Button submitBtn;
@@ -49,7 +49,7 @@ public class SettBatchFilterFragment extends Fragment {
     static SharedPreferences.Editor prefEditor;
     private Activity activity;
 
-    public SettBatchFilterFragment() {
+    public BatchFilterFragment() {
         // Required empty public constructor
     }
 
@@ -207,7 +207,7 @@ public class SettBatchFilterFragment extends Fragment {
 
     private void openFilterBatchScreen() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        SettBatchFilterFragment fragment = new SettBatchFilterFragment();
+        BatchFilterFragment fragment = new BatchFilterFragment();
         transaction.replace(R.id.frame_layout, fragment, "Settlement Filter");
         transaction.commit();
     }

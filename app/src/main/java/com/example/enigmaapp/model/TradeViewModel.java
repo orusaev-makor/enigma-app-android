@@ -9,10 +9,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.enigmaapp.repository.TradeRepository;
 import com.example.enigmaapp.web.trade.TradeItemResult;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetBatched;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetExecutionType;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
+import com.example.enigmaapp.web.dataset.DatasetBatched;
+import com.example.enigmaapp.web.dataset.DatasetCounterparty;
+import com.example.enigmaapp.web.dataset.DatasetExecutionType;
+import com.example.enigmaapp.web.dataset.DatasetProduct;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetResult;
 
 import java.util.ArrayList;
@@ -40,13 +40,13 @@ public class TradeViewModel extends AndroidViewModel {
 
     public LiveData<TradeDatasetResult> getTradeDataset() { return repository.getTradeDataset(); }
 
-    public MutableLiveData<List<TradeDatasetProduct>> getProductsDataset() { return repository.getProductsDataset(); }
+    public MutableLiveData<List<DatasetProduct>> getProductsDataset() { return repository.getProductsDataset(); }
 
-    public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() { return repository.getCounterpartyDataset(); }
+    public MutableLiveData<List<DatasetCounterparty>> getCounterpartyDataset() { return repository.getCounterpartyDataset(); }
 
-    public MutableLiveData<List<TradeDatasetExecutionType>> getExecutionTypeDataset() { return repository.getExecutionTypeDataset(); }
+    public MutableLiveData<List<DatasetExecutionType>> getExecutionTypeDataset() { return repository.getExecutionTypeDataset(); }
 
-    public MutableLiveData<List<TradeDatasetBatched>> getBatchedDataset() {
+    public MutableLiveData<List<DatasetBatched>> getBatchedDataset() {
         return repository.getBatchedDataset();
     }
 

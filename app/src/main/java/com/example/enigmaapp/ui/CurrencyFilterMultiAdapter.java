@@ -1,7 +1,6 @@
 package com.example.enigmaapp.ui;
 
 import android.content.Context;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,27 +8,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.trade.dataset.DatasetCurrency;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
+import com.example.enigmaapp.web.dataset.DatasetCurrency;
 
 import java.util.ArrayList;
 
-import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchProductPos;
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeProductPos;
-
-public class CurrencyFilterAdapter extends RecyclerView.Adapter<CurrencyFilterAdapter.CurrencyOptionHolder> {
+public class CurrencyFilterMultiAdapter extends RecyclerView.Adapter<CurrencyFilterMultiAdapter.CurrencyOptionHolder> {
 
     private OnItemClickListener listener;
     private Context context;
     private ArrayList<DatasetCurrency> currencies;
-    private SparseBooleanArray selectedItems;
 
-    public CurrencyFilterAdapter(Context context, ArrayList<DatasetCurrency> currencies) {
+    public CurrencyFilterMultiAdapter(Context context, ArrayList<DatasetCurrency> currencies) {
         this.context = context;
         this.currencies = currencies;
     }
@@ -39,23 +31,6 @@ public class CurrencyFilterAdapter extends RecyclerView.Adapter<CurrencyFilterAd
         this.currencies = currencies;
         notifyDataSetChanged();
     }
-
-    public void clearSelection() {
-        selectedItems.clear();
-        notifyDataSetChanged();
-    }
-
-    private static final DiffUtil.ItemCallback<DatasetCurrency> DIFF_CALLBACK = new DiffUtil.ItemCallback<DatasetCurrency>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull DatasetCurrency oldItem, @NonNull DatasetCurrency newItem) {
-            return oldItem.getName().equals(newItem.getName());
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull DatasetCurrency oldItem, @NonNull DatasetCurrency newItem) {
-            return oldItem.getIsChecked() == newItem.getIsChecked();
-        }
-    };
 
     @NonNull
     @Override
@@ -68,9 +43,8 @@ public class CurrencyFilterAdapter extends RecyclerView.Adapter<CurrencyFilterAd
     @Override
     public void onBindViewHolder(@NonNull CurrencyOptionHolder holder, int position) {
         DatasetCurrency currentCurrency = currencies.get(position);
-
+        System.out.println("in bind view holder : " + currentCurrency.getName() + " - is check? " + currentCurrency.getIsChecked());
         holder.textViewCurrencyName.setText(currentCurrency.getName());
-//        System.out.println("in CurrencyFilterAdapter, onBindViewHolder;  currentCurrency.getName(): " + currentCurrency.getName() + " // ");
         if (currentCurrency.getIsChecked()) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewCurrencyName.setTextColor(context.getResources().getColor(R.color.textColor));

@@ -13,15 +13,11 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
+import com.example.enigmaapp.web.dataset.DatasetCounterparty;
 
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchCounterpartyPos;
-import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchProductPos;
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeProductPos;
-import static com.example.enigmaapp.activity.fragment.UnitarySelectFilterFragment.lastUnitaryCounterpartyPos;
 
-public class CounterpartyFilterAdapter extends ListAdapter<TradeDatasetCounterparty, CounterpartyFilterAdapter.CounterpartyOptionHolder> {
+public class CounterpartyFilterAdapter extends ListAdapter<DatasetCounterparty, CounterpartyFilterAdapter.CounterpartyOptionHolder> {
 
     private int lastCheckedPos = 0;
     private OnItemClickListener listener;
@@ -42,14 +38,14 @@ public class CounterpartyFilterAdapter extends ListAdapter<TradeDatasetCounterpa
         this.lastCheckedPos = lastCheckedPos;
     }
 
-    private static final DiffUtil.ItemCallback<TradeDatasetCounterparty> DIFF_CALLBACK = new DiffUtil.ItemCallback<TradeDatasetCounterparty>() {
+    private static final DiffUtil.ItemCallback<DatasetCounterparty> DIFF_CALLBACK = new DiffUtil.ItemCallback<DatasetCounterparty>() {
         @Override
-        public boolean areItemsTheSame(@NonNull TradeDatasetCounterparty oldItem, @NonNull TradeDatasetCounterparty newItem) {
+        public boolean areItemsTheSame(@NonNull DatasetCounterparty oldItem, @NonNull DatasetCounterparty newItem) {
             return oldItem.getId() == newItem.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull TradeDatasetCounterparty oldItem, @NonNull TradeDatasetCounterparty newItem) {
+        public boolean areContentsTheSame(@NonNull DatasetCounterparty oldItem, @NonNull DatasetCounterparty newItem) {
             return oldItem.getName().equals(newItem.getName())
                     && oldItem.getIsChecked() == newItem.getIsChecked();
         }
@@ -65,22 +61,14 @@ public class CounterpartyFilterAdapter extends ListAdapter<TradeDatasetCounterpa
 
     @Override
     public void onBindViewHolder(@NonNull CounterpartyOptionHolder holder, int position) {
-        TradeDatasetCounterparty currentProduct = getItem(position);
+        DatasetCounterparty currentProduct = getItem(position);
 
         holder.textViewCounterpartyName.setText(currentProduct.getName());
 
         if (currentProduct.getIsChecked() && lastCheckedPos == position || lastBatchCounterpartyPos == position && isBatchFilter) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textColor));
-
-
-            // TODO: change it to multi select - for unitary filter ONLY
-//        }  else if (currentProduct.getIsChecked() && !isBatchFilter)  {
-        }  else if (currentProduct.getIsChecked() && lastCheckedPos == position || lastUnitaryCounterpartyPos == position && !isBatchFilter)  {
-            holder.checkedIcon.setVisibility(View.VISIBLE);
-            holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textColor));
-
-        } else{
+        } else {
             holder.checkedIcon.setVisibility(View.INVISIBLE);
             holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
         }
@@ -109,7 +97,7 @@ public class CounterpartyFilterAdapter extends ListAdapter<TradeDatasetCounterpa
     }
 
     public interface OnItemClickListener {
-        void onItemClick(TradeDatasetCounterparty item, int position);
+        void onItemClick(DatasetCounterparty item, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

@@ -46,7 +46,7 @@ public class UserRepository {
             public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                 if (!response.isSuccessful()) {
                     System.out.println("Code: " + response.code() + "Error: " + response.message());
-                    loginErrorMsg.setText("Wrong Credentials");
+                    loginErrorMsg.setText(response.message());
                     return;
                 }
 
@@ -66,8 +66,6 @@ public class UserRepository {
     }
 
     public void logoutUser() {
-        System.out.println("USER BEFORE LOGOUT ++++++++++++++++++++++++++ " + mCurrentUser);
-
         Call<Void> call = RetrofitClient.getInstance().getRetrofitInterface().executeLogout(mCurrentUser.getToken());
 
         call.enqueue(new Callback<Void>() {
@@ -75,7 +73,6 @@ public class UserRepository {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
                     mCurrentUser = new LoginResult();
-                    System.out.println("USER AFTER LOGOUT ++++++++++++++++++++++++++ " + mCurrentUser);
                 } else if (response.code() == 400) {
                     Toast.makeText(application, "Please try again", Toast.LENGTH_LONG).show();
                 }

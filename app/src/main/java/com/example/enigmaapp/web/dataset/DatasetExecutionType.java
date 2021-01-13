@@ -1,10 +1,10 @@
-package com.example.enigmaapp.web.trade.dataset;
+package com.example.enigmaapp.web.dataset;
 
-public class TradeDatasetExecutionType {
+public class DatasetExecutionType {
     private String name;
     private boolean isChecked = false;
 
-    public TradeDatasetExecutionType(String name) {
+    public DatasetExecutionType(String name) {
         this.name = name;
     }
 

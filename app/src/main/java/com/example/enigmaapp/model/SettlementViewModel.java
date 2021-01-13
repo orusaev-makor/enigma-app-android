@@ -7,9 +7,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.enigmaapp.repository.SettlementRepository;
-import com.example.enigmaapp.web.trade.dataset.DatasetCurrency;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
+import com.example.enigmaapp.web.dataset.DatasetCurrency;
+import com.example.enigmaapp.web.dataset.DatasetCounterparty;
+import com.example.enigmaapp.web.dataset.DatasetProduct;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,8 +41,9 @@ public class SettlementViewModel extends AndroidViewModel {
     public void fetchBatchDataset(String token) { repository.fetchBatchDataset(token); }
     public void fetchUnitaryDataset(String token) { repository.fetchUnitaryDataset(token); }
 
-    public MutableLiveData<List<TradeDatasetProduct>> getProductsDataset() { return repository.getProductsDataset(); }
-    public MutableLiveData<List<TradeDatasetCounterparty>> getCounterpartyDataset() { return repository.getCounterpartyDataset(); }
+    public MutableLiveData<List<DatasetProduct>> getProductsDataset() { return repository.getProductsDataset(); }
+    public ArrayList<DatasetCounterparty> getCounterpartyDataset() { return repository.getCounterpartyDataset(); }
+    public ArrayList<DatasetCurrency> getCurrencyDataset() { return repository.getCurrencyDataset(); }
 
     public void removeFromBatchParams(String key) { repository.removeFromBatchParams(key); }
     public void removeFromUnitaryParams(String key) { repository.removeFromUnitaryParams(key); }
@@ -53,7 +54,4 @@ public class SettlementViewModel extends AndroidViewModel {
     public void resetBatchList() { repository.resetBatchList(); }
     public void resetUnitaryList() { repository.resetUnitaryList(); }
 
-    public ArrayList<DatasetCurrency> getCurrencyDataset() {
-        return repository.getCurrencyDataset();
-    }
 }

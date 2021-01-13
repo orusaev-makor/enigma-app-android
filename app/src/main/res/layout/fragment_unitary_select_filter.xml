@@ -14,7 +14,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="10sp"
-    tools:context=".activity.fragment.UnitarySelectFilterFragment">
+    tools:context=".activity.fragment.UnitaryMultiSelectFilterFragment">
 
     <TextView
         android:id="@+id/unitary_select_title"

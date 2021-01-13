@@ -35,9 +35,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeBatchedPos;
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeExecutionPos;
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeProductPos;
+import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeBatchedPos;
+import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeExecutionPos;
+import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeProductPos;
 
 public class TradeFilterFragment extends Fragment {
 
@@ -273,7 +273,7 @@ public class TradeFilterFragment extends Fragment {
 
     private void openMultiSelectFilter(String type) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        MultiSelectFilterFragment fragment = new MultiSelectFilterFragment(type);
+        TradeSelectFilterFragment fragment = new TradeSelectFilterFragment(type);
         transaction.replace(R.id.frame_layout, fragment, "Multi Select Filter List");
         transaction.commit();
     }

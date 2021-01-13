@@ -1,10 +1,10 @@
-package com.example.enigmaapp.web.trade.dataset;
+package com.example.enigmaapp.web.dataset;
 
-public class TradeDatasetBatched {
+public class DatasetBatched {
     private String name, value;
     private boolean isChecked = false;
 
-    public TradeDatasetBatched(String name, String value) {
+    public DatasetBatched(String name, String value) {
         this.name = name;
         this.value = value;
     }

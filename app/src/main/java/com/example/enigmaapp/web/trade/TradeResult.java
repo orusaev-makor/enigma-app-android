@@ -5,7 +5,6 @@ import java.util.List;
 
 public class TradeResult {
 
-    private TradePagingParams paging;
     ArrayList<TradeItemResult> items;
 
     public List<TradeItemResult> getItems() {
@@ -16,11 +15,4 @@ public class TradeResult {
         this.items = items;
     }
 
-    public TradePagingParams getPaging() {
-        return paging;
-    }
-
-    public void setPaging(TradePagingParams paging) {
-        this.paging = paging;
-    }
 }

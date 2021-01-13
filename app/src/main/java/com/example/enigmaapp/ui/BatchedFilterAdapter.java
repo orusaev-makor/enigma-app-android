@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetBatched;
+import com.example.enigmaapp.web.dataset.DatasetBatched;
 
-import static com.example.enigmaapp.activity.fragment.MultiSelectFilterFragment.lastTradeBatchedPos;
+import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeBatchedPos;
 
-public class BatchedFilterAdapter extends ListAdapter<TradeDatasetBatched, BatchedFilterAdapter.ItemHolder> {
+public class BatchedFilterAdapter extends ListAdapter<DatasetBatched, BatchedFilterAdapter.ItemHolder> {
 
     private int lastCheckedPos = 0;
     private OnItemClickListener listener;
@@ -32,14 +32,14 @@ public class BatchedFilterAdapter extends ListAdapter<TradeDatasetBatched, Batch
         this.lastCheckedPos = lastCheckedPos;
     }
 
-    private static final DiffUtil.ItemCallback<TradeDatasetBatched> DIFF_CALLBACK = new DiffUtil.ItemCallback<TradeDatasetBatched>() {
+    private static final DiffUtil.ItemCallback<DatasetBatched> DIFF_CALLBACK = new DiffUtil.ItemCallback<DatasetBatched>() {
         @Override
-        public boolean areItemsTheSame(@NonNull TradeDatasetBatched oldItem, @NonNull TradeDatasetBatched newItem) {
+        public boolean areItemsTheSame(@NonNull DatasetBatched oldItem, @NonNull DatasetBatched newItem) {
             return oldItem.getName() == newItem.getName();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull TradeDatasetBatched oldItem, @NonNull TradeDatasetBatched newItem) {
+        public boolean areContentsTheSame(@NonNull DatasetBatched oldItem, @NonNull DatasetBatched newItem) {
             return oldItem.getIsChecked() == newItem.getIsChecked()
                     && oldItem.getValue().equals(newItem.getValue());
         }
@@ -55,7 +55,7 @@ public class BatchedFilterAdapter extends ListAdapter<TradeDatasetBatched, Batch
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-        TradeDatasetBatched currentExecutionType = getItem(position);
+        DatasetBatched currentExecutionType = getItem(position);
 
         holder.textViewBatchedName.setText(currentExecutionType.getName());
         if (currentExecutionType.getIsChecked() && lastCheckedPos == position || lastTradeBatchedPos == position) {
@@ -86,7 +86,7 @@ public class BatchedFilterAdapter extends ListAdapter<TradeDatasetBatched, Batch
     }
 
     public interface OnItemClickListener {
-        void onItemClick(TradeDatasetBatched item, int position);
+        void onItemClick(DatasetBatched item, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

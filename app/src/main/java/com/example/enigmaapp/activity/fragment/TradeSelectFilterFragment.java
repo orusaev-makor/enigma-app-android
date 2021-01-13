@@ -22,7 +22,7 @@ import com.example.enigmaapp.model.UserViewModel;
 import com.example.enigmaapp.ui.BatchedFilterAdapter;
 import com.example.enigmaapp.ui.ExecutionTypeFilterAdapter;
 import com.example.enigmaapp.ui.ProductFilterAdapter;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetBatched;
+import com.example.enigmaapp.web.dataset.DatasetBatched;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.HashMap;
@@ -32,7 +32,7 @@ import java.util.List;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.removeFromTradeParams;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.setTradeFilterParams;
 
-public class MultiSelectFilterFragment extends Fragment {
+public class TradeSelectFilterFragment extends Fragment {
     private String mFilterType;
     private TextView titleText;
     private TextView subtitleText;
@@ -46,7 +46,7 @@ public class MultiSelectFilterFragment extends Fragment {
     public static int lastTradeBatchedPos = -1;
     private TradeViewModel viewModel;
 
-    public MultiSelectFilterFragment(String filterType) {
+    public TradeSelectFilterFragment(String filterType) {
         this.mFilterType = filterType;
     }
 
@@ -99,7 +99,6 @@ public class MultiSelectFilterFragment extends Fragment {
 
         RecyclerView recyclerView = v.findViewById(R.id.multi_select_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        recyclerView.setHasFixedSize(true);
 
         viewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
@@ -174,16 +173,16 @@ public class MultiSelectFilterFragment extends Fragment {
                 final BatchedFilterAdapter batchedAdapter = new BatchedFilterAdapter(requireActivity());
                 recyclerView.setAdapter(batchedAdapter);
 
-                viewModel.getBatchedDataset().observe(requireActivity(), new Observer<List<TradeDatasetBatched>>() {
+                viewModel.getBatchedDataset().observe(requireActivity(), new Observer<List<DatasetBatched>>() {
                     @Override
-                    public void onChanged(List<TradeDatasetBatched> batchedItems) {
+                    public void onChanged(List<DatasetBatched> batchedItems) {
                         batchedAdapter.submitList(batchedItems);
                     }
                 });
 
                 batchedAdapter.setOnItemClickListener(new BatchedFilterAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(TradeDatasetBatched batchedItem, int position) {
+                    public void onItemClick(DatasetBatched batchedItem, int position) {
                         System.out.println(" Clicked : " + batchedItem.getName());
 
                         if (batchedItem.getIsChecked()) {
@@ -302,7 +301,7 @@ public class MultiSelectFilterFragment extends Fragment {
         viewModel.fetchTradeDataset(token);
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        MultiSelectFilterFragment fragment = new MultiSelectFilterFragment(type);
+        TradeSelectFilterFragment fragment = new TradeSelectFilterFragment(type);
         transaction.replace(R.id.frame_layout, fragment, "Multi Select Filter List");
         transaction.commit();
     }

@@ -1,6 +1,6 @@
-package com.example.enigmaapp.web.trade.dataset;
+package com.example.enigmaapp.web.dataset;
 
-public class TradeDatasetProduct {
+public class DatasetProduct {
     private String id, name;
     private boolean isChecked = false;
 

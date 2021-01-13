@@ -34,7 +34,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-import static com.example.enigmaapp.activity.fragment.SettBatchFilterFragment.resetBatchLastPos;
+import static com.example.enigmaapp.activity.fragment.BatchFilterFragment.resetBatchLastPos;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.resetTradeLastPos;
 
@@ -413,8 +413,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         prefEditor.putBoolean("isValidatedBatchFilter", false);
         prefEditor.putBoolean("isCanceledBatchFilter", false);
         prefEditor.putBoolean("isOpenBatchFilter", false);
-        prefEditor.putString("currencyUnitaryFilter", "");
-        prefEditor.putString("counterpartyUnitaryFilter", "");
         prefEditor.putString("startDateUnitaryFilter", "-");
         prefEditor.putString("endDateUnitaryFilter", getTodayDate());
         prefEditor.putBoolean("isRejectUnitaryFilter", false);

@@ -1,7 +1,7 @@
 package com.example.enigmaapp.web.settlement.dataset;
 
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetCounterparty;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetProduct;
+import com.example.enigmaapp.web.dataset.DatasetCounterparty;
+import com.example.enigmaapp.web.dataset.DatasetProduct;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ public class UnitaryDatasetResult {
     @SerializedName("crypto_currency")
     ArrayList<String> cryptoCurrency;
 
-    List<TradeDatasetCounterparty> counterparty;
+    List<DatasetCounterparty> counterparty;
 
-    List<TradeDatasetProduct> product;
+    List<DatasetProduct> product;
 
     public ArrayList<String> getSide() {
         return side;
@@ -63,19 +63,19 @@ public class UnitaryDatasetResult {
         this.cryptoCurrency = cryptoCurrency;
     }
 
-    public List<TradeDatasetCounterparty> getCounterparty() {
+    public List<DatasetCounterparty> getCounterparty() {
         return counterparty;
     }
 
-    public void setCounterparty(List<TradeDatasetCounterparty> counterparty) {
+    public void setCounterparty(List<DatasetCounterparty> counterparty) {
         this.counterparty = counterparty;
     }
 
-    public List<TradeDatasetProduct> getProduct() {
+    public List<DatasetProduct> getProduct() {
         return product;
     }
 
-    public void setProduct(List<TradeDatasetProduct> product) {
+    public void setProduct(List<DatasetProduct> product) {
         this.product = product;
     }
 }

@@ -1,6 +1,7 @@
-package com.example.enigmaapp.web.trade.dataset;
+package com.example.enigmaapp.web.dataset;
 
-public class TradeDatasetCompany {
+public class DatasetProvider {
+
     private int id;
     private String name;
 

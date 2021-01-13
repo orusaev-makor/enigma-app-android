@@ -1,17 +1,21 @@
-package com.example.enigmaapp.web.trade.dataset;
+package com.example.enigmaapp.web.dataset;
 
 import java.util.ArrayList;
 
-public class TradeDatasetCounterparty {
+public class DatasetCounterparty {
 
     private String name, company, broker, id;
     private ArrayList<String> mail;
     private boolean isChecked = false;
 
+    public DatasetCounterparty(String name, String id) {
+        this.name = name;
+        this.id = id;
+    }
+
     public boolean getIsChecked() { return isChecked; }
 
     public void setIsChecked(boolean checked) { isChecked = checked; }
-
 
     public String getId() {
         return id;
