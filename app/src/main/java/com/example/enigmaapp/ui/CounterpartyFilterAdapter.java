@@ -61,14 +61,14 @@ public class CounterpartyFilterAdapter extends ListAdapter<DatasetCounterparty, 
 
     @Override
     public void onBindViewHolder(@NonNull CounterpartyOptionHolder holder, int position) {
-        DatasetCounterparty currentProduct = getItem(position);
+        DatasetCounterparty Counterparty = getItem(position);
 
-        holder.textViewCounterpartyName.setText(currentProduct.getName());
+        holder.textViewCounterpartyName.setText(Counterparty.getName());
 
-        if (currentProduct.getIsChecked() && lastCheckedPos == position || lastBatchCounterpartyPos == position && isBatchFilter) {
+        if (Counterparty.getIsChecked() && lastCheckedPos == position || lastBatchCounterpartyPos == position) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textColor));
-        } else {
+        } else{
             holder.checkedIcon.setVisibility(View.INVISIBLE);
             holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
         }

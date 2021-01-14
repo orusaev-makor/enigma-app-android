@@ -42,6 +42,7 @@ public class SettlementViewModel extends AndroidViewModel {
     public void fetchUnitaryDataset(String token) { repository.fetchUnitaryDataset(token); }
 
     public MutableLiveData<List<DatasetProduct>> getProductsDataset() { return repository.getProductsDataset(); }
+    public MutableLiveData<List<DatasetCounterparty>> getCounterpartyDatasetBatch() { return repository.getCounterpartyDatasetBatch(); }
     public ArrayList<DatasetCounterparty> getCounterpartyDataset() { return repository.getCounterpartyDataset(); }
     public ArrayList<DatasetCurrency> getCurrencyDataset() { return repository.getCurrencyDataset(); }
 

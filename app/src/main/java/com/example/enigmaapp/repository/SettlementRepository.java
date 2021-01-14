@@ -38,6 +38,7 @@ public class SettlementRepository {
 
     private MutableLiveData<ArrayList<String>> statusDataset = new MutableLiveData<ArrayList<String>>();
     private MutableLiveData<List<DatasetProduct>> productsDataset = new MutableLiveData<List<DatasetProduct>>();
+    private MutableLiveData<List<DatasetCounterparty>> counterpartyDatasetBatch = new MutableLiveData<List<DatasetCounterparty>>();
     private ArrayList<DatasetCounterparty> counterpartyDataset = new ArrayList<>();
     private ArrayList<DatasetCurrency> currenciesDataset = new ArrayList<>();
 
@@ -81,26 +82,10 @@ public class SettlementRepository {
     }
 
     public void fetchUnitary(String token) {
-//        HashMap<String, String> params = new HashMap<>();
         unitaryParams.put("items_per_page", "5");
         unitaryParams.put("sort", "settlement_id desc");
-//        params.put("start_date", "2020-05-07");
-//        params.put("end_date", "2020-05-08");
-//        params.put("currency", "EUR");
-//        params.put("side", "to send");
-//        params.put("counterparty_id", "64");
-//        params.put("status[0]", "confirmed");
-//        params.put("status[1]", "pending");
-//        params.put("status[2]", "settled");
-//        params.put("status[3]", "rejected");
-//        params.put("counterparty_id_list[0]", "14");
-//        params.put("counterparty_id_list[1]", "99");
-//        params.put("currency_list[0]", "EUR");
-//        params.put("currency_list[1]", "BTC");
-//        params.put("currency_list[3]", "USD");
 
         System.out.println("params1 fetching unitary ______________ " + unitaryParams);
-
 
         Call<SettlementResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetUnitary(token, unitaryParams);
         call.enqueue(new Callback<SettlementResult>() {
@@ -218,7 +203,9 @@ public class SettlementRepository {
         ArrayList productsArray = (ArrayList) dataset.getProducts();
         productsDataset.setValue(productsArray);
 
-        counterpartyDataset = (ArrayList) dataset.getCounterparty();
+        ArrayList counterpartyArray = (ArrayList) dataset.getCounterparty();
+        System.out.println(")))))))))))))) caounterparty for batch :))))))))))))))  " + counterpartyArray.size());
+        counterpartyDatasetBatch.setValue(counterpartyArray);
     }
 
     private void setUnitaryDatasetLists(UnitaryDatasetResult dataset) {
@@ -272,13 +259,8 @@ public class SettlementRepository {
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             if (entry.getKey().toString().contains(containsKey)) {
-                System.out.println("__________________________________________________________________________________________________ : ");
-                System.out.println("_______ in repository - removeFromUnitaryParamsContainsKey - received key _______ : " + containsKey);
-                System.out.println("_______ in repository - removeFromUnitaryParamsContainsKey - received key _______ : " + entry.getKey());
-                System.out.println("__________________________________________________________________________________________________ : ");
                 it.remove();
             }
-            System.out.println("____________ params ____________ after ____________ removal ____________ " + unitaryParams);
         }
     }
 
@@ -292,6 +274,10 @@ public class SettlementRepository {
     public void resetBatchList() { this.allBatchSettlements.clear(); }
 
     public void resetUnitaryList() { this.allUnitarySettlements.clear(); }
+
+    public MutableLiveData<List<DatasetCounterparty>> getCounterpartyDatasetBatch() {
+        return this.counterpartyDatasetBatch;
+    }
 
 
     public class SettlementSummary {
