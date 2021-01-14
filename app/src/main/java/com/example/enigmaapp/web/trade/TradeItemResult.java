@@ -1,19 +1,11 @@
 package com.example.enigmaapp.web.trade;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.google.gson.annotations.SerializedName;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 public class TradeItemResult {
 
     @SerializedName("trade_id")
-    private int tradeItemId;
+    private String tradeId;
     private String date;
     private String side;
     private String counterparty;
@@ -28,15 +20,93 @@ public class TradeItemResult {
     @SerializedName("sales_pl")
     private String salesPl;
     private String nominal;
-    private String broker;
+    @SerializedName("fx_rate")
+    private String fxRate;
     private String status;
+    @SerializedName("settlement_batch_id")
+    private String batchId;
+    @SerializedName("exec_by")
+    private String execBy;
+    @SerializedName("sent_at")
+    private String comment;
+    private String sentAt;
+    @SerializedName("execution_provider")
+    private String executionProvider;
+    @SerializedName("execution_fee")
+    private String executionFee;
+    @SerializedName("settlement_date")
+    private String settlementDate;
 
-    public int getTradeItemId() {
-        return tradeItemId;
+    public String getFxRate() {
+        return fxRate;
     }
 
-    public void setTradeItemId(int tradeItemId) {
-        this.tradeItemId = tradeItemId;
+    public void setFxRate(String fxRate) {
+        this.fxRate = fxRate;
+    }
+
+    public String getBatchId() {
+        return batchId;
+    }
+
+    public void setBatchId(String batchId) {
+        this.batchId = batchId;
+    }
+
+    public String getExecBy() {
+        return execBy;
+    }
+
+    public void setExecBy(String execBy) {
+        this.execBy = execBy;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getSentAt() {
+        return sentAt;
+    }
+
+    public void setSentAt(String sentAt) {
+        this.sentAt = sentAt;
+    }
+
+    public String getExecutionProvider() {
+        return executionProvider;
+    }
+
+    public void setExecutionProvider(String executionProvider) {
+        this.executionProvider = executionProvider;
+    }
+
+    public String getExecutionFee() {
+        return executionFee;
+    }
+
+    public void setExecutionFee(String executionFee) {
+        this.executionFee = executionFee;
+    }
+
+    public String getSettlementDate() {
+        return settlementDate;
+    }
+
+    public void setSettlementDate(String settlementDate) {
+        this.settlementDate = settlementDate;
+    }
+
+    public String getTradeId() {
+        return tradeId;
+    }
+
+    public void setTradeId(String tradeId) {
+        this.tradeId = tradeId;
     }
 
     public String getDate() {
@@ -123,14 +193,6 @@ public class TradeItemResult {
 
     public void setNominal(String nominal) {
         this.nominal = nominal;
-    }
-
-    public String getBroker() {
-        return broker;
-    }
-
-    public void setBroker(String broker) {
-        this.broker = broker;
     }
 
     public String getStatus() {

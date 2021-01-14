@@ -56,7 +56,7 @@ public class SettlementRepository {
     }
 
     public void fetchBatch(String token) {
-        batchParams.put("items_per_page", "5");
+        batchParams.put("items_per_page", "10");
         batchParams.put("sort", "settlement_batch_id desc");
 
 //        System.out.println("params1 fetching batch ______________ " + batchParams);
@@ -83,11 +83,10 @@ public class SettlementRepository {
     }
 
     public void fetchUnitary(String token) {
-        unitaryParams.put("items_per_page", "5");
+        unitaryParams.put("items_per_page", "10");
         unitaryParams.put("sort", "settlement_id desc");
 
-        System.out.println("params1 fetching unitary ______________ " + unitaryParams);
-
+//        System.out.println("params1 fetching unitary ______________ " + unitaryParams);
         Call<BatchResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetUnitary(token, unitaryParams);
         call.enqueue(new Callback<BatchResult>() {
             @Override
@@ -207,7 +206,6 @@ public class SettlementRepository {
         productsDataset.setValue(productsArray);
 
         ArrayList counterpartyArray = (ArrayList) dataset.getCounterparty();
-        System.out.println(")))))))))))))) caounterparty for batch :))))))))))))))  " + counterpartyArray.size());
         counterpartyDatasetBatch.setValue(counterpartyArray);
     }
 
@@ -275,9 +273,7 @@ public class SettlementRepository {
         return this.currenciesDataset;
     }
 
-    public void resetBatchParams() {
-        this.batchParams.clear();
-    }
+    public void resetBatchParams() { this.batchParams.clear(); }
 
     public void resetUnitaryParams() {
         this.unitaryParams.clear();

@@ -71,7 +71,7 @@ public class TradeRepository {
 //        map.put("product_id", productIdsValues);
 //
 //        System.out.println(" MAP : " + map);
-        params.put("items_per_page", "5");
+        params.put("items_per_page", "10");
         params.put("sort", "trade_id desc");
 //        params1.put("trade_id", "431308");
 //        params1.put("start_date", "2020-05-07");

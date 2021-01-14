@@ -87,6 +87,13 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <include
+            android:id="@+id/trade_item_expand_section"
+            android:visibility="gone"
+            layout="@layout/trade_item_expand"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

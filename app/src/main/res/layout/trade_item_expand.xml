@@ -5,16 +5,13 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@color/colorPrimaryDark"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="25sp"
         android:weightSum="1">
 
         <TextView
@@ -51,6 +48,7 @@
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/details_trade_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -59,6 +57,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/details_trade_batch_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -109,6 +108,7 @@
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/details_trade_execution_type"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -117,6 +117,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/details_trade_status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -137,6 +138,7 @@
         android:layout_marginTop="30sp"
         />
     <TextView
+        android:id="@+id/details_trade_nominal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="-1'000'000.00"
@@ -146,9 +148,10 @@
         android:gravity="center"
         />
 
-    <include
-        layout="@layout/section_bottom_actions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+<!--    TODO: add back after read only version -->
+<!--    <include-->
+<!--        layout="@layout/section_bottom_actions"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
 
 </LinearLayout>

@@ -46,6 +46,10 @@ public class TradeFragment extends Fragment {
     private HashMap<String, String> pageParams = new HashMap<>();
     SharedPreferences prefs;
 
+
+    public static int mTradeExpandedPosition = -1;
+    public static int previousTradeExpandedPosition = -1;
+
     public TradeFragment() {
         // Required empty public constructor
     }

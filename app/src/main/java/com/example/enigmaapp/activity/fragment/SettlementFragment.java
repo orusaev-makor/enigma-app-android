@@ -51,8 +51,8 @@ public class SettlementFragment extends Fragment {
     private ArrayList<SettlementRepository.SettlementSummary> data = new ArrayList<>();
     SharedPreferences prefs;
 
-    public static int mExpandedPosition = -1;
-    public static int previousExpandedPosition = -1;
+    public static int mSettlementExpandedPosition = -1;
+    public static int previousSettlementExpandedPosition = -1;
 
     public SettlementFragment(boolean isBatch) {
         // Required empty public constructor
@@ -185,8 +185,8 @@ public class SettlementFragment extends Fragment {
     }
 
     private void resetExpendedItemPos() {
-        mExpandedPosition = -1;
-        previousExpandedPosition = -1;
+        mSettlementExpandedPosition = -1;
+        previousSettlementExpandedPosition = -1;
     }
 
 

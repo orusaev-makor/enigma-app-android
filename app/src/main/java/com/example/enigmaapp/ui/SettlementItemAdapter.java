@@ -1,7 +1,6 @@
 package com.example.enigmaapp.ui;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -10,22 +9,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.repository.SettlementRepository;
-import com.example.enigmaapp.web.trade.TradeItemResult;
 
 import java.util.ArrayList;
 
-import static com.example.enigmaapp.activity.fragment.SettlementFragment.mExpandedPosition;
-import static com.example.enigmaapp.activity.fragment.SettlementFragment.previousExpandedPosition;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.mSettlementExpandedPosition;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.previousSettlementExpandedPosition;
 
 public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAdapter.ItemHolder> {
 
@@ -49,14 +43,14 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
         SettlementRepository.SettlementSummary currentItem = dataArrayList.get(position);
 
-        final boolean isExpanded = position == mExpandedPosition;
+        final boolean isExpanded = position == mSettlementExpandedPosition;
 
         // open details section for unitary settlements only:
         holder.details.setVisibility((isExpanded && !currentItem.isBatch()) ? View.VISIBLE : View.GONE);
         holder.itemView.setActivated(isExpanded);
 
         if (isExpanded && !currentItem.isBatch()) {
-            previousExpandedPosition = position;
+            previousSettlementExpandedPosition = position;
             holder.settlementBatchId.setText(currentItem.getBatchId());
             holder.settlementId.setText(currentItem.getId());
             holder.side.setText(currentItem.getSide());
@@ -71,8 +65,8 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mExpandedPosition = isExpanded ? -1 : position;
-                notifyItemChanged(previousExpandedPosition);
+                mSettlementExpandedPosition = isExpanded ? -1 : position;
+                notifyItemChanged(previousSettlementExpandedPosition);
                 notifyItemChanged(position);
             }
         });
