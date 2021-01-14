@@ -1,6 +1,7 @@
 package com.example.enigmaapp.ui;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -56,6 +57,7 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
             holder.side.setText(currentItem.getSide());
             holder.type.setText(currentItem.getType());
             holder.amount.setText(currentItem.getAmount());
+            // TODO: check what info need to be rendered here
             holder.wallet.setText("???");
             holder.settledAmount.setText(currentItem.getSettledAmount());
             holder.openAmount.setText("???");
@@ -84,33 +86,27 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
 
         // set status and it's colour:
         String status = currentItem.getStatus();
-        holder.textViewStatus.setText(status);
-        int statusColor = 0;
-        switch (status) {
-            case "pending":
-                statusColor = context.getResources().getColor(R.color.statusPending);
-                break;
-            case "validated":
-                statusColor = context.getResources().getColor(R.color.statusValidated);
-                break;
-            case "rejected":
-                statusColor = context.getResources().getColor(R.color.statusRejected);
-                break;
-            case "in sett":
-                statusColor = context.getResources().getColor(R.color.statusInSet);
-                break;
-            case "settled":
-                statusColor = context.getResources().getColor(R.color.statusSettled);
-                break;
-            default:
-                break;
+
+        Resources res = context.getResources();
+        String packageName = context.getPackageName();
+        int desiredColor;
+
+        if (!status.equals("in sett")) {
+            int colorId = res.getIdentifier(status, "color", packageName);
+            desiredColor = res.getColor(colorId);
+        } else {
+            desiredColor = res.getColor(R.color.inSet);
         }
-        holder.textViewStatus.setTextColor(statusColor);
+
+        holder.textViewStatus.setTextColor(desiredColor);
+        holder.textViewStatus.setText(status);
+
+        holder.textViewStatus.setTextColor(desiredColor);
 
         // set bullet point by status colour:
         Drawable unwrappedDrawable = ContextCompat.getDrawable(context, R.drawable.ic_bullet_point).mutate();
         Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-        DrawableCompat.setTint(wrappedDrawable, statusColor);
+        DrawableCompat.setTint(wrappedDrawable, desiredColor);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             holder.bulletPoint.setBackground(wrappedDrawable);

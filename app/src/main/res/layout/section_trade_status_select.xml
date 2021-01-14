@@ -27,8 +27,8 @@
             android:layout_weight="0.5"
             android:fontFamily="@font/poppins_regular"
             android:textSize="16sp"
-            android:textColor="@color/statusRejected"
-            android:buttonTint="@color/statusRejected"
+            android:textColor="@color/rejected"
+            android:buttonTint="@color/rejected"
             android:text="@string/rejected" />
 
 
@@ -38,8 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/statusPending"
-            android:buttonTint="@color/statusPending"
+            android:textColor="@color/pending"
+            android:buttonTint="@color/pending"
             android:textSize="16sp"
             android:text="@string/booked" />
     </LinearLayout>
@@ -57,8 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/statusValidated"
-            android:buttonTint="@color/statusValidated"
+            android:textColor="@color/validated"
+            android:buttonTint="@color/validated"
             android:textSize="16sp"
             android:text="@string/validated" />
 
@@ -68,8 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/statusCanceled"
-            android:buttonTint="@color/statusCanceled"
+            android:textColor="@color/canceled"
+            android:buttonTint="@color/canceled"
             android:textSize="16sp"
             android:text="@string/canceled" />
     </LinearLayout>
@@ -79,8 +79,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_regular"
-        android:textColor="@color/statusOpen"
-        android:buttonTint="@color/statusOpen"
+        android:textColor="@color/open"
+        android:buttonTint="@color/open"
         android:layout_marginTop="-8dp"
         android:textSize="16sp"
         android:text="@string/open" />

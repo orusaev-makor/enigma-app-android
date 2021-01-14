@@ -1,6 +1,7 @@
 package com.example.enigmaapp.ui;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,13 +46,22 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.Item
         holder.details.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.itemView.setActivated(isExpanded);
 
+        DecimalFormat decim = new DecimalFormat("#,###.00");
+
+        Resources res = context.getResources();
+        String packageName = context.getPackageName();
+
+        int colorId = res.getIdentifier(currentTrade.getStatus(), "color", packageName);
+        int desiredColor = res.getColor(colorId);
+
         if (isExpanded) {
             previousTradeExpandedPosition = position;
             holder.tradeId.setText(currentTrade.getTradeId());
             holder.batchId.setText((currentTrade.getBatchId() != null) ? currentTrade.getBatchId() : "-");
             holder.executionType.setText(currentTrade.getExecutionType());
             holder.status.setText(currentTrade.getStatus());
-            holder.nominal.setText(currentTrade.getNominal());
+            holder.status.setTextColor(desiredColor);
+            holder.nominal.setText(decim.format(Double.valueOf(currentTrade.getNominal())));
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +74,6 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.Item
         });
 
         holder.textViewProduct.setText(currentTrade.getProduct());
-
-        DecimalFormat decim = new DecimalFormat("#,###.00");
         holder.textViewPrice.setText(decim.format(Double.valueOf(currentTrade.getPrice())));
 
         String side = currentTrade.getSide();
