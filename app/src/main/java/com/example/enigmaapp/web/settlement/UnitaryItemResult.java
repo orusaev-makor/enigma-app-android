@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class UnitaryItemResult {
 
     @SerializedName("settlement_id")
-    private int unitaryId;
+    private String unitaryId;
     private String type;
     private String amount;
     @SerializedName("settled_amount")
@@ -26,11 +26,11 @@ public class UnitaryItemResult {
     private String status;
     private String side;
 
-    public int getUnitaryId() {
+    public String getUnitaryId() {
         return unitaryId;
     }
 
-    public void setUnitaryId(int unitaryId) {
+    public void setUnitaryId(String unitaryId) {
         this.unitaryId = unitaryId;
     }
 

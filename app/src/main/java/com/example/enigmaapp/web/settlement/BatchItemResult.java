@@ -2,11 +2,11 @@ package com.example.enigmaapp.web.settlement;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SettlementItemResult {
+public class BatchItemResult {
 
     // Unitary:
     @SerializedName("settlement_id")
-    private int settlementId;
+    private String settlementId;
     private String type;
     private String amount;
     @SerializedName("settled_amount")
@@ -23,18 +23,18 @@ public class SettlementItemResult {
 
     // Batch:
     @SerializedName("settlement_batch_id")
-    private int batchId;
+    private String batchId;
     @SerializedName("sent_at")
     private String sentAt;
     private String counterparty;
     private String product;
     private String status;
 
-    public int getSettlementId() {
+    public String getSettlementId() {
         return settlementId;
     }
 
-    public void setSettlementId(int settlementId) {
+    public void setSettlementId(String settlementId) {
         this.settlementId = settlementId;
     }
 
@@ -110,11 +110,11 @@ public class SettlementItemResult {
         this.side = side;
     }
 
-    public int getBatchId() {
+    public String getBatchId() {
         return batchId;
     }
 
-    public void setBatchId(int batchId) {
+    public void setBatchId(String batchId) {
         this.batchId = batchId;
     }
 

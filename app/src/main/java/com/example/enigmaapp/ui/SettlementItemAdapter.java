@@ -50,11 +50,23 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
         SettlementRepository.SettlementSummary currentItem = dataArrayList.get(position);
 
         final boolean isExpanded = position == mExpandedPosition;
-        holder.details.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+
+        // open details section for unitary settlements only:
+        holder.details.setVisibility((isExpanded && !currentItem.isBatch()) ? View.VISIBLE : View.GONE);
         holder.itemView.setActivated(isExpanded);
 
-        if (isExpanded)
+        if (isExpanded && !currentItem.isBatch()) {
             previousExpandedPosition = position;
+            holder.settlementBatchId.setText(currentItem.getBatchId());
+            holder.settlementId.setText(currentItem.getId());
+            holder.side.setText(currentItem.getSide());
+            holder.type.setText(currentItem.getType());
+            holder.amount.setText(currentItem.getAmount());
+            holder.wallet.setText("???");
+            holder.settledAmount.setText(currentItem.getSettledAmount());
+            holder.openAmount.setText("???");
+            holder.counterpartyAccount.setText(currentItem.getCounterpartyAccount());
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +139,17 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
         private View bulletPoint;
         private View details;
 
+        // details fields:
+        private TextView settlementBatchId;
+        private TextView settlementId;
+        private TextView side;
+        private TextView type;
+        private TextView amount;
+        private TextView wallet;
+        private TextView settledAmount;
+        private TextView openAmount;
+        private TextView counterpartyAccount;
+
         public ItemHolder(View itemView) {
             super(itemView);
             textViewBatchId = itemView.findViewById(R.id.settlement_item_id);
@@ -136,6 +159,17 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
             textViewStatus = itemView.findViewById(R.id.settlement_item_status);
             bulletPoint = itemView.findViewById(R.id.settlement_item_bullet_point);
             details = itemView.findViewById(R.id.settlement_item_expand_section);
+
+            // details fields:
+            settlementBatchId = details.findViewById(R.id.details_settlement_batch_id);
+            settlementId = details.findViewById(R.id.details_settlement_id);
+            side = details.findViewById(R.id.details_settlement_side);
+            type = details.findViewById(R.id.details_settlement_type);
+            amount = details.findViewById(R.id.details_settlement_amount);
+            wallet = details.findViewById(R.id.details_settlement_wallet);
+            settledAmount = details.findViewById(R.id.details_settlement_settled_amount);
+            openAmount = details.findViewById(R.id.details_settlement_open_amount);
+            counterpartyAccount = details.findViewById(R.id.details_settlement_counterparty_account);
         }
     }
 }

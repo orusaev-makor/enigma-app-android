@@ -48,6 +48,7 @@
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/details_settlement_batch_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -56,6 +57,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/details_settlement_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.49"
@@ -88,6 +90,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:layout_marginTop="25sp"
             android:gravity="end"
             android:text="@string/type"
             android:fontFamily="@font/poppins_light"
@@ -104,6 +107,7 @@
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/details_settlement_side"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -112,6 +116,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/details_settlement_type"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.49"
@@ -159,6 +164,7 @@
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/details_settlement_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -167,6 +173,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/details_settlement_wallet"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.49"
@@ -212,6 +219,7 @@
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/details_settlement_settled_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -220,6 +228,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/details_settlement_open_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.49"
@@ -241,6 +250,7 @@
         android:layout_marginTop="30sp"
         />
     <TextView
+        android:id="@+id/details_settlement_counterparty_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="BTC Wallet 2 LLC/ Brevy"

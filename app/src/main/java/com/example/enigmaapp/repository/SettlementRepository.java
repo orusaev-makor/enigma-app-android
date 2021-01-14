@@ -2,13 +2,14 @@ package com.example.enigmaapp.repository;
 
 import android.app.Application;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.enigmaapp.web.RetrofitClient;
-import com.example.enigmaapp.web.settlement.SettlementItemResult;
-import com.example.enigmaapp.web.settlement.SettlementResult;
+import com.example.enigmaapp.web.settlement.BatchItemResult;
+import com.example.enigmaapp.web.settlement.BatchResult;
 import com.example.enigmaapp.web.settlement.dataset.BatchDatasetResult;
 import com.example.enigmaapp.web.settlement.dataset.UnitaryDatasetResult;
 import com.example.enigmaapp.web.dataset.DatasetCurrency;
@@ -59,13 +60,13 @@ public class SettlementRepository {
         batchParams.put("sort", "settlement_batch_id desc");
 
 //        System.out.println("params1 fetching batch ______________ " + batchParams);
-        Call<SettlementResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetBatch(token, batchParams);
-        call.enqueue(new Callback<SettlementResult>() {
+        Call<BatchResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetBatch(token, batchParams);
+        call.enqueue(new Callback<BatchResult>() {
             @Override
-            public void onResponse(Call<SettlementResult> call, Response<SettlementResult> response) {
+            public void onResponse(Call<BatchResult> call, Response<BatchResult> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     progressBarSettlement.setVisibility(View.INVISIBLE);
-                    List<SettlementItemResult> results = response.body().getItems();
+                    List<BatchItemResult> results = response.body().getItems();
                     batchToSummaryList(results);
                     settlementAdapter.notifyDataSetChanged();
                     return;
@@ -74,7 +75,7 @@ public class SettlementRepository {
             }
 
             @Override
-            public void onFailure(Call<SettlementResult> call, Throwable t) {
+            public void onFailure(Call<BatchResult> call, Throwable t) {
                 System.out.println("t.getMessage(): " + t.getMessage());
                 Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -87,13 +88,13 @@ public class SettlementRepository {
 
         System.out.println("params1 fetching unitary ______________ " + unitaryParams);
 
-        Call<SettlementResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetUnitary(token, unitaryParams);
-        call.enqueue(new Callback<SettlementResult>() {
+        Call<BatchResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetUnitary(token, unitaryParams);
+        call.enqueue(new Callback<BatchResult>() {
             @Override
-            public void onResponse(Call<SettlementResult> call, Response<SettlementResult> response) {
+            public void onResponse(Call<BatchResult> call, Response<BatchResult> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     progressBarSettlement.setVisibility(View.INVISIBLE);
-                    List<SettlementItemResult> results = response.body().getItems();
+                    List<BatchItemResult> results = response.body().getItems();
                     unitaryToSummaryList(results);
                     settlementAdapter.notifyDataSetChanged();
                     return;
@@ -102,29 +103,31 @@ public class SettlementRepository {
             }
 
             @Override
-            public void onFailure(Call<SettlementResult> call, Throwable t) {
+            public void onFailure(Call<BatchResult> call, Throwable t) {
                 System.out.println("t.getMessage(): " + t.getMessage());
                 Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void batchToSummaryList(List<SettlementItemResult> list) {
+    private void batchToSummaryList(List<BatchItemResult> list) {
         for (int i = 0; i < list.size(); i++) {
-            SettlementItemResult item = list.get(i);
+            BatchItemResult item = list.get(i);
             SettlementSummary summary = new SettlementSummary(item.getProduct(),
                     item.getCounterparty(), item.getSentAt(), item.getStatus(), item.getSettlementId(),
-                    item.getBatchId(), true);
+                    item.getBatchId(), true, item.getSide(), item.getType(), item.getAmount(),
+                    item.getSettledAmount(), item.getCounterpartyAccount());
             allBatchSettlements.add(summary);
         }
     }
 
-    private void unitaryToSummaryList(List<SettlementItemResult> list) {
+    private void unitaryToSummaryList(List<BatchItemResult> list) {
         for (int i = 0; i < list.size(); i++) {
-            SettlementItemResult item = list.get(i);
+            BatchItemResult item = list.get(i);
             SettlementSummary summary = new SettlementSummary(item.getCurrency(),
                     item.getCounterparty(), item.getSentAt(), item.getStatus(), item.getSettlementId(),
-                    item.getBatchId(), false);
+                    item.getBatchId(), false, item.getSide(), item.getType(), item.getAmount(),
+                    item.getSettledAmount(), item.getCounterpartyAccount());
             allUnitarySettlements.add(summary);
         }
     }
@@ -264,16 +267,29 @@ public class SettlementRepository {
         }
     }
 
-    public ArrayList<DatasetCounterparty> getCounterpartyDataset() { return this.counterpartyDataset; }
-    public ArrayList<DatasetCurrency> getCurrencyDataset() { return this.currenciesDataset; }
+    public ArrayList<DatasetCounterparty> getCounterpartyDataset() {
+        return this.counterpartyDataset;
+    }
 
-    public void resetBatchParams() { this.batchParams.clear(); }
+    public ArrayList<DatasetCurrency> getCurrencyDataset() {
+        return this.currenciesDataset;
+    }
 
-    public void resetUnitaryParams() { this.unitaryParams.clear(); }
+    public void resetBatchParams() {
+        this.batchParams.clear();
+    }
 
-    public void resetBatchList() { this.allBatchSettlements.clear(); }
+    public void resetUnitaryParams() {
+        this.unitaryParams.clear();
+    }
 
-    public void resetUnitaryList() { this.allUnitarySettlements.clear(); }
+    public void resetBatchList() {
+        this.allBatchSettlements.clear();
+    }
+
+    public void resetUnitaryList() {
+        this.allUnitarySettlements.clear();
+    }
 
     public MutableLiveData<List<DatasetCounterparty>> getCounterpartyDatasetBatch() {
         return this.counterpartyDatasetBatch;
@@ -285,11 +301,22 @@ public class SettlementRepository {
         private String counterparty;
         private String date;
         private String status;
-        private int id;
-        private int batchId;
+        private String id;
+        private String batchId;
         private boolean isBatch;
 
-        public SettlementSummary(String name, String counterparty, String date, String status, int id, int batchId, boolean isBatch) {
+        private String side;
+        private String type;
+        private String amount;
+        private String settledAmount;
+        private String counterpartyAccount;
+//        private TextView wallet;
+//        private TextView openAmount;
+
+
+        public SettlementSummary(String name, String counterparty, String date, String status,
+                                 String id, String batchId, boolean isBatch, String side, String type,
+                                 String amount, String settledAmount, String counterpartyAccount) {
             this.name = name;
             this.counterparty = counterparty;
             this.date = date;
@@ -297,6 +324,51 @@ public class SettlementRepository {
             this.id = id;
             this.batchId = batchId;
             this.isBatch = isBatch;
+            this.side = side;
+            this.type = type;
+            this.amount = amount;
+            this.settledAmount = settledAmount;
+            this.counterpartyAccount = counterpartyAccount;
+        }
+
+        public String getSide() {
+            return side;
+        }
+
+        public void setSide(String side) {
+            this.side = side;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getAmount() {
+            return amount;
+        }
+
+        public void setAmount(String amount) {
+            this.amount = amount;
+        }
+
+        public String getSettledAmount() {
+            return settledAmount;
+        }
+
+        public void setSettledAmount(String settledAmount) {
+            this.settledAmount = settledAmount;
+        }
+
+        public String getCounterpartyAccount() {
+            return counterpartyAccount;
+        }
+
+        public void setCounterpartyAccount(String counterpartyAccount) {
+            this.counterpartyAccount = counterpartyAccount;
         }
 
         public String getName() {
@@ -331,19 +403,19 @@ public class SettlementRepository {
             this.status = status;
         }
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 
-        public int getBatchId() {
+        public String getBatchId() {
             return batchId;
         }
 
-        public void setBatchId(int batchId) {
+        public void setBatchId(String batchId) {
             this.batchId = batchId;
         }
 

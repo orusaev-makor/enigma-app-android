@@ -2,7 +2,7 @@ package com.example.enigmaapp.web;
 
 import com.example.enigmaapp.web.accounts.AccountsItemResult;
 import com.example.enigmaapp.web.login.LoginResult;
-import com.example.enigmaapp.web.settlement.SettlementResult;
+import com.example.enigmaapp.web.settlement.BatchResult;
 import com.example.enigmaapp.web.settlement.dataset.BatchDatasetResult;
 import com.example.enigmaapp.web.settlement.dataset.UnitaryDatasetResult;
 import com.example.enigmaapp.web.trade.TradeResult;
@@ -52,11 +52,11 @@ public interface RetrofitInterface {
 
     // Settlements:
     @GET("/settlement_batch")
-    Call<SettlementResult> executeGetBatch(@Header("Authorization") String token,
-                                           @QueryMap Map<String, String> params);
+    Call<BatchResult> executeGetBatch(@Header("Authorization") String token,
+                                      @QueryMap Map<String, String> params);
     @GET("/settlement")
-    Call<SettlementResult> executeGetUnitary(@Header("Authorization") String token,
-                                          @QueryMap Map<String, String> params);
+    Call<BatchResult> executeGetUnitary(@Header("Authorization") String token,
+                                        @QueryMap Map<String, String> params);
 
 
     // Accounts:

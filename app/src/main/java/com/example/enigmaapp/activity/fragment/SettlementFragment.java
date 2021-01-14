@@ -140,8 +140,14 @@ public class SettlementFragment extends Fragment {
             viewModel.fetchUnitary(token);
         }
 
-        batch.setOnClickListener(v14 -> openSettlementScreen(true));
-        unitary.setOnClickListener(v1 -> openSettlementScreen(false));
+        batch.setOnClickListener(v14 -> {
+            resetExpendedItemPos();
+            openSettlementScreen(true);
+        });
+        unitary.setOnClickListener(v1 -> {
+            resetExpendedItemPos();
+            openSettlementScreen(false);
+        });
 
         nestedScrollView = v.findViewById(R.id.scroll_settlement);
         progressBarSettlement = v.findViewById(R.id.progress_bar_settlement);
@@ -176,6 +182,11 @@ public class SettlementFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void resetExpendedItemPos() {
+        mExpandedPosition = -1;
+        previousExpandedPosition = -1;
     }
 
 
