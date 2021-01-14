@@ -108,11 +108,15 @@
 
         </LinearLayout>
 
-        <!--            <include-->
-        <!--                layout="@layout/settlement_item_expand"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="match_parent"-->
-        <!--                android:paddingLeft="-10dp"-->
-        <!--                android:paddingRight="-10dp" />-->
+        <include
+            android:id="@+id/settlement_item_expand_section"
+            android:visibility="gone"
+            layout="@layout/settlement_item_expand"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="-10dp"
+            android:paddingRight="-10dp" />
+
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>

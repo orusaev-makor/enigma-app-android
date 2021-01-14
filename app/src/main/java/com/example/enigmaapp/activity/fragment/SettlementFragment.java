@@ -51,6 +51,9 @@ public class SettlementFragment extends Fragment {
     private ArrayList<SettlementRepository.SettlementSummary> data = new ArrayList<>();
     SharedPreferences prefs;
 
+    public static int mExpandedPosition = -1;
+    public static int previousExpandedPosition = -1;
+
     public SettlementFragment(boolean isBatch) {
         // Required empty public constructor
         this.isBatch = isBatch;

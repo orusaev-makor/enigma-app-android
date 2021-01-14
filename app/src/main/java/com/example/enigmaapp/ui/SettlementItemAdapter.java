@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,12 +24,15 @@ import com.example.enigmaapp.web.trade.TradeItemResult;
 
 import java.util.ArrayList;
 
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.mExpandedPosition;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.previousExpandedPosition;
+
 public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAdapter.ItemHolder> {
 
     private ArrayList<SettlementRepository.SettlementSummary> dataArrayList;
     private Context context;
 
-    public SettlementItemAdapter(Context context,  ArrayList<SettlementRepository.SettlementSummary> dataArrayList) {
+    public SettlementItemAdapter(Context context, ArrayList<SettlementRepository.SettlementSummary> dataArrayList) {
         this.context = context;
         this.dataArrayList = dataArrayList;
     }
@@ -45,13 +49,25 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
         SettlementRepository.SettlementSummary currentItem = dataArrayList.get(position);
 
+        final boolean isExpanded = position == mExpandedPosition;
+        holder.details.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.itemView.setActivated(isExpanded);
+
+        if (isExpanded)
+            previousExpandedPosition = position;
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mExpandedPosition = isExpanded ? -1 : position;
+                notifyItemChanged(previousExpandedPosition);
+                notifyItemChanged(position);
+            }
+        });
+
         // check if show Batch ID:
-        if (currentItem.isBatch()) {
-            holder.textViewBatchId.setText("ID " + currentItem.getBatchId());
-            holder.textViewBatchId.setVisibility(View.VISIBLE);
-        } else {
-            holder.textViewBatchId.setVisibility(View.GONE);
-        }
+        holder.textViewBatchId.setText(currentItem.isBatch() ? "ID " + currentItem.getBatchId() : "");
+        holder.textViewBatchId.setVisibility(currentItem.isBatch() ? View.VISIBLE : View.GONE);
 
         holder.textViewProduct.setText(currentItem.getName());
         holder.textViewCounterparty.setText(currentItem.getCounterparty());
@@ -98,7 +114,9 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
     }
 
     @Override
-    public int getItemCount() { return dataArrayList.size(); }
+    public int getItemCount() {
+        return dataArrayList.size();
+    }
 
     class ItemHolder extends RecyclerView.ViewHolder {
         private TextView textViewBatchId;
@@ -107,6 +125,7 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
         private TextView textViewSentAt;
         private TextView textViewStatus;
         private View bulletPoint;
+        private View details;
 
         public ItemHolder(View itemView) {
             super(itemView);
@@ -116,6 +135,7 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
             textViewSentAt = itemView.findViewById(R.id.settlement_item_sent_at);
             textViewStatus = itemView.findViewById(R.id.settlement_item_status);
             bulletPoint = itemView.findViewById(R.id.settlement_item_bullet_point);
+            details = itemView.findViewById(R.id.settlement_item_expand_section);
         }
     }
 }

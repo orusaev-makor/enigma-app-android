@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@color/colorPrimaryDark"
+    android:paddingLeft="30dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -248,13 +249,14 @@
         android:gravity="center"
         />
 
-        <include
-            layout="@layout/section_bottom_actions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30sp"
-            android:layout_marginBottom="30dp"
-            />
+    // TODO: add back after read only version
+<!--        <include-->
+<!--            layout="@layout/section_bottom_actions"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="30sp"-->
+<!--            android:layout_marginBottom="30dp"-->
+<!--            />-->
 
 
 </LinearLayout>
