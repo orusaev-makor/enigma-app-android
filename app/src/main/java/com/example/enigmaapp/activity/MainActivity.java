@@ -53,9 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ActionBarDrawerToggle mDrawerToggle;
     UserViewModel userViewModel;
     SharedPreferences.Editor prefEditor;
-    Switch darkModeSwitch;
     SwitchCompat switcha;
-//    AppCompatActivity AppCompatActivity       ((AppCompatActivity) getActivity()).getSupportActionBar().show();
 
 
     @Override
@@ -63,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit();
+
+        resetAllPrefs();
 
         userViewModel = new ViewModelProvider(this,
                 ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication()))
@@ -427,11 +427,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onDestroy() {
         super.onDestroy();
 
-        attachBaseContext(MainActivity.this);
         // reset all filters:
         resetTradeLastPos();
         resetBatchLastPos();
-        resetAllPrefs();
     }
 
     private void resetAllPrefs() {
