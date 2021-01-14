@@ -46,7 +46,7 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.Item
         holder.details.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.itemView.setActivated(isExpanded);
 
-        DecimalFormat decim = new DecimalFormat("#,###.00");
+        DecimalFormat decim = new DecimalFormat("#,###0.00");
 
         Resources res = context.getResources();
         String packageName = context.getPackageName();

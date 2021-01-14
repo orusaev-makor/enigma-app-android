@@ -16,19 +16,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.model.TradeViewModel;
 import com.example.enigmaapp.model.UserViewModel;
-import com.example.enigmaapp.web.login.LoginResult;
-import com.example.enigmaapp.web.RetrofitClient;
-
-import java.util.HashMap;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
     private static FragmentActivity myContext;

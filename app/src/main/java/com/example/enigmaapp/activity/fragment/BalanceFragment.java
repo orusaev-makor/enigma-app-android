@@ -1,10 +1,11 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -24,7 +25,6 @@ import com.example.enigmaapp.model.BalanceViewModel;
 import com.example.enigmaapp.model.UserViewModel;
 import com.example.enigmaapp.ui.BalanceItemAdapter;
 import com.example.enigmaapp.web.balance.BalanceItemResult;
-import com.example.enigmaapp.web.login.LoginResult;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -35,7 +35,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class BalanceFragment extends Fragment {

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.repository.SettlementRepository;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.mSettlementExpandedPosition;
@@ -50,16 +51,18 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
         holder.details.setVisibility((isExpanded && !currentItem.isBatch()) ? View.VISIBLE : View.GONE);
         holder.itemView.setActivated(isExpanded);
 
+        DecimalFormat decim = new DecimalFormat("#,###0.00");
+
         if (isExpanded && !currentItem.isBatch()) {
             previousSettlementExpandedPosition = position;
             holder.settlementBatchId.setText(currentItem.getBatchId());
             holder.settlementId.setText(currentItem.getId());
             holder.side.setText(currentItem.getSide());
             holder.type.setText(currentItem.getType());
-            holder.amount.setText(currentItem.getAmount());
+            holder.amount.setText(decim.format(Double.valueOf(currentItem.getAmount())));
             // TODO: check what info need to be rendered here
             holder.wallet.setText("???");
-            holder.settledAmount.setText(currentItem.getSettledAmount());
+            holder.settledAmount.setText(decim.format(Double.valueOf(currentItem.getSettledAmount())));
             holder.openAmount.setText("???");
             holder.counterpartyAccount.setText(currentItem.getCounterpartyAccount());
         }

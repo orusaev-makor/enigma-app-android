@@ -36,7 +36,7 @@ public class ForgotPasswordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: add password recovery process
-                openLoginScreen();
+//                openLoginScreen();
             }
         });
 

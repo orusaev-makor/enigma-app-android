@@ -61,7 +61,7 @@
     </group>
 
     <item
-        android:id="@+id/app_bar_dark_mode"
+        android:id="@+id/dark_mode_switch"
         android:title="Dark mode"
         android:icon="@drawable/ic_action_night"
         app:actionLayout="@layout/switch_item" />

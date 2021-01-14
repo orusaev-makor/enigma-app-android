@@ -3,20 +3,29 @@ package com.example.enigmaapp.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 
 
+import com.example.enigmaapp.Constant;
 import com.example.enigmaapp.activity.fragment.AccountsFragment;
 import com.example.enigmaapp.activity.fragment.BalanceFragment;
 import com.example.enigmaapp.activity.fragment.LoginFragment;
@@ -44,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ActionBarDrawerToggle mDrawerToggle;
     UserViewModel userViewModel;
     SharedPreferences.Editor prefEditor;
+    Switch darkModeSwitch;
+    SwitchCompat switcha;
+//    AppCompatActivity AppCompatActivity       ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +80,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        Menu menu = navigationView.getMenu();
+        MenuItem menuItem = menu.findItem(R.id.dark_mode_switch);
+        View actionView = MenuItemCompat.getActionView(menuItem);
+        switcha = (SwitchCompat) actionView.findViewById(R.id.switchForActionBar);
+//        switcha.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                System.out.println("dark mode clicked! (:");
+//                if (isChecked) {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                } else {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                }
+//
+//                ((MainActivity) MainActivity.this).recreate();
+//            }
+//        });
+
         // Initial Fragment:
         LoginFragment fragment = new LoginFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment, "Login");
         fragmentTransaction.commit();
     }
+
 
     // hide soft keyboard on touch outside EditText
     @Override
@@ -88,70 +120,75 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.app_bar_balance) {
-                BalanceFragment fragment = new BalanceFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame_layout, fragment, "Balance");
-                fragmentTransaction.commit();
-        }
-        else if (id == R.id.app_bar_trade) {
+            BalanceFragment fragment = new BalanceFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame_layout, fragment, "Balance");
+            fragmentTransaction.commit();
+        } else if (id == R.id.app_bar_trade) {
             TradeFragment fragment = new TradeFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Trade");
             fragmentTransaction.commit();
-        }
-        else if (id == R.id.app_bar_settlement) {
+        } else if (id == R.id.app_bar_settlement) {
             SettlementFragment fragment = new SettlementFragment(true);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Settlement");
             fragmentTransaction.commit();
-        }
-        else if (id == R.id.app_bar_market) {
+        } else if (id == R.id.app_bar_market) {
             MarketFragment fragment = new MarketFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Market");
             fragmentTransaction.commit();
-        }
-        else if (id == R.id.app_bar_news) {
+        } else if (id == R.id.app_bar_news) {
             NewsFragment fragment = new NewsFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "News");
             fragmentTransaction.commit();
-        }
-        else if (id == R.id.app_bar_statistics) {
+        } else if (id == R.id.app_bar_statistics) {
             StatisticsFragment fragment = new StatisticsFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Statistics");
             fragmentTransaction.commit();
-        }
-        else if (id == R.id.app_bar_accounts) {
+        } else if (id == R.id.app_bar_accounts) {
             AccountsFragment fragment = new AccountsFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Accounts");
             fragmentTransaction.commit();
-        }
-        else if (id == R.id.app_bar_settings) {
+        } else if (id == R.id.app_bar_settings) {
             SettingsFragment fragment = new SettingsFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Settings");
             fragmentTransaction.commit();
         }
-        else if (id == R.id.app_bar_logout) {
-            userViewModel.logoutCurrentUser();
-            LoginFragment fragment = new LoginFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.frame_layout, fragment, "Login");
-            fragmentTransaction.commit();
-        }
+//        else if (id == R.id.app_bar_logout) {
+//            userViewModel.logoutCurrentUser();
+//            LoginFragment fragment = new LoginFragment();
+//            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.frame_layout, fragment, "Login");
+//            fragmentTransaction.commit();
+//        } else if (id == R.id.dark_mode_switch) {
+//            System.out.println("In R.id.dark_mode_switch : " + ((SwitchCompat)item.getActionView()).isChecked());
+//            switcha.setChecked((switcha.isChecked() ? false : true));
+//            SharedPreferences sp = getSharedPreferences(Constant.SP, MODE_PRIVATE);
+//            int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+//            if (mode == Configuration.UI_MODE_NIGHT_YES) {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                sp.edit().putBoolean(Constant.Theme, true).apply();
+//            } else if (mode == Configuration.UI_MODE_NIGHT_NO) {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                sp.edit().putBoolean(Constant.Theme, false).apply();
+//            }
+//            recreate();
+//        }
         mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
+        return false;
     }
 
     @Override
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -201,6 +238,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            return row;
 //        }
 //    }
+
+
 
     private void setNextView(List<User> users, String token) {
 
@@ -388,6 +427,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onDestroy() {
         super.onDestroy();
 
+        attachBaseContext(MainActivity.this);
         // reset all filters:
         resetTradeLastPos();
         resetBatchLastPos();
@@ -408,7 +448,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         prefEditor.putBoolean("isOpenTradeFilter", false);
         prefEditor.putString("productBatchFilter", "");
         prefEditor.putString("counterpartyBatchFilter", "");
-        prefEditor.putBoolean("isRejectTradeFilter", false);
+        prefEditor.putBoolean("isRejectBatchFilter", false);
         prefEditor.putBoolean("isBookedBatchFilter", false);
         prefEditor.putBoolean("isValidatedBatchFilter", false);
         prefEditor.putBoolean("isCanceledBatchFilter", false);

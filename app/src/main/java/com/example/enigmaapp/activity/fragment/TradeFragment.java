@@ -55,6 +55,12 @@ public class TradeFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        resetExpendedItemPos();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -136,6 +142,12 @@ public class TradeFragment extends Fragment {
             }
         });
         return v;
+    }
+
+
+    private void resetExpendedItemPos() {
+        mTradeExpandedPosition = -1;
+        previousTradeExpandedPosition = -1;
     }
 
     private void openFilterTradeFragment() {

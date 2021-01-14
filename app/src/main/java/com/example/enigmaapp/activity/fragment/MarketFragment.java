@@ -93,7 +93,6 @@ public class MarketFragment extends Fragment {
         Legend l = marketChart.getLegend();
         l.setEnabled(false); // disable legends
 
-
         ArrayList<Entry> yValue = new ArrayList<>();
 
         yValue.add(new Entry(0, 60f));

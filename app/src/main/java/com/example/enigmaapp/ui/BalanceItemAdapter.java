@@ -16,6 +16,8 @@ import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.accounts.AccountsItemResult;
 import com.example.enigmaapp.web.balance.BalanceItemResult;
 
+import java.text.DecimalFormat;
+
 public class BalanceItemAdapter extends ListAdapter<BalanceItemResult, BalanceItemAdapter.ItemHolder> {
 
     private Context context;
@@ -50,7 +52,9 @@ public class BalanceItemAdapter extends ListAdapter<BalanceItemResult, BalanceIt
         BalanceItemResult currentBalance = getItem(position);
 
         holder.balanceName.setText(currentBalance.getName());
-        String currentValue = currentBalance.getValue();
+        DecimalFormat decim = new DecimalFormat("#,###0.00");
+
+        String currentValue = decim.format(Double.valueOf(currentBalance.getValue()));
         String LargeVal = currentValue.substring(0, currentValue.indexOf("."));
         String SmallVal = currentValue.substring(currentValue.indexOf("."));
 
