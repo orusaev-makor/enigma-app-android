@@ -7,15 +7,15 @@
 
         <item
             android:id="@+id/app_bar_balance"
-            android:icon="@drawable/ic_action_balance"
+            android:icon="@drawable/ic_menu_balance"
             android:title="Balance" />
         <item
             android:id="@+id/app_bar_trade"
-            android:icon="@drawable/ic_action_trade"
+            android:icon="@drawable/ic_menu_trade"
             android:title="Trade" />
         <item
             android:id="@+id/app_bar_settlement"
-            android:icon="@drawable/ic_action_settlement"
+            android:icon="@drawable/ic_menu_settlement"
             android:title="Settlement" />
 
         <item
@@ -26,11 +26,11 @@
                 <group android:checkableBehavior="single">
                     <item
                         android:id="@+id/app_bar_market"
-                        android:icon="@drawable/ic_action_market"
+                        android:icon="@drawable/ic_menu_market"
                         android:title="Market" />
                     <item
                         android:id="@+id/app_bar_news"
-                        android:icon="@drawable/ic_action_news"
+                        android:icon="@drawable/ic_menu_news"
                         android:title="News" />
                 </group>
             </menu>
@@ -44,15 +44,15 @@
                 <group android:checkableBehavior="single">
                     <item
                         android:id="@+id/app_bar_statistics"
-                        android:icon="@drawable/ic_action_statistics"
+                        android:icon="@drawable/ic_menu_statistics"
                         android:title="Statistics" />
                     <item
                         android:id="@+id/app_bar_accounts"
-                        android:icon="@drawable/ic_action_accounts"
+                        android:icon="@drawable/ic_menu_accounts"
                         android:title="Accounts" />
                     <item
                         android:id="@+id/app_bar_settings"
-                        android:icon="@drawable/ic_action_settings"
+                        android:icon="@drawable/ic_menu_settings"
                         android:title="Settings" />
                 </group>
             </menu>
@@ -63,10 +63,11 @@
     <item
         android:id="@+id/dark_mode_switch"
         android:title="Dark mode"
-        android:icon="@drawable/ic_action_night"
+        android:icon="@drawable/ic_menu_night"
         app:actionLayout="@layout/switch_item" />
     <item
         android:id="@+id/app_bar_logout"
+        android:icon="@drawable/ic_menu_logout"
         android:title="Logout" />
 
 </menu>

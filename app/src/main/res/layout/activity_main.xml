@@ -23,10 +23,12 @@
         android:background="@color/white"
         app:menu="@menu/drawer_menu"
         android:backgroundTint="@color/colorPrimary"
-        app:itemTextColor="@color/textColor"
-        app:itemIconTint="@color/textColor"
         app:headerLayout="@layout/menu_header"
         android:fitsSystemWindows="true"
+        app:itemTextAppearance="@style/NavigationDrawerStyle"
+        app:itemTextColor="@color/textColor"
+        app:itemIconTint="@color/textColor"
+        app:itemIconSize="18sp"
         android:layout_gravity="start"
         >
 
