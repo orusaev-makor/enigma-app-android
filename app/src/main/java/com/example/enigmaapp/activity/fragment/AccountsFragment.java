@@ -24,6 +24,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.enigmaapp.activity.MainActivity.actionBar;
+
 public class AccountsFragment extends Fragment {
 
     private FloatingActionButton createAccountBtn;
@@ -36,8 +38,10 @@ public class AccountsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Show navbar on "Accounts" view:
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+
+        if (actionBar != null) {
+            actionBar.show();
+        }
     }
 
     @Override

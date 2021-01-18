@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import static com.example.enigmaapp.activity.MainActivity.actionBar;
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchCounterpartyPos;
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchProductPos;
 
@@ -56,8 +57,7 @@ public class BatchFilterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Hide navbar on "Settlement filter" view:
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        actionBar.hide();
         activity = getActivity();
         prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
         prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());

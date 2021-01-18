@@ -30,6 +30,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.enigmaapp.activity.MainActivity.actionBar;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 
 public class TradeFragment extends Fragment {
@@ -64,8 +65,9 @@ public class TradeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Show navbar on "Trade" view:
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        if (actionBar != null) {
+            actionBar.show();
+        }
         prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 

@@ -35,6 +35,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import static com.example.enigmaapp.activity.MainActivity.actionBar;
 import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeBatchedPos;
 import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeExecutionPos;
 import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeProductPos;
@@ -69,8 +70,8 @@ public class TradeFilterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Hide navbar on "Trade filter" view:
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
+        actionBar.hide();
         activity = getActivity();
         prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
         prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());

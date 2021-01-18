@@ -37,6 +37,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TimeZone;
 
+import static com.example.enigmaapp.activity.MainActivity.actionBar;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 import static com.example.enigmaapp.activity.fragment.UnitaryMultiSelectFilterFragment.clearCounterpartiesAdapterList;
 import static com.example.enigmaapp.activity.fragment.UnitaryMultiSelectFilterFragment.clearCurrencyAdapterList;
@@ -78,8 +79,8 @@ public class UnitaryFilterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Hide navbar on "Settlement filter" view:
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
+        actionBar.hide();
         activity = getActivity();
         prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
         prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());

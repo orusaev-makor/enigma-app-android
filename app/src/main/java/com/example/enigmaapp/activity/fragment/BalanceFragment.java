@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
@@ -37,6 +38,8 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.enigmaapp.activity.MainActivity.actionBar;
+
 public class BalanceFragment extends Fragment {
     private PieChart balanceChart;
 
@@ -48,8 +51,9 @@ public class BalanceFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Show navbar on "Balance" view:
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        if (actionBar != null) {
+            actionBar.show();
+        }
     }
 
     @Override

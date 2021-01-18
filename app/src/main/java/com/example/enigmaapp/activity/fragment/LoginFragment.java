@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.UserViewModel;
 
+import static com.example.enigmaapp.activity.MainActivity.actionBar;
+
 public class LoginFragment extends Fragment {
     private static FragmentActivity myContext;
 
@@ -37,8 +39,7 @@ public class LoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        Hide navbar on "Login" view:
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        actionBar.hide();
     }
 
     @Override
