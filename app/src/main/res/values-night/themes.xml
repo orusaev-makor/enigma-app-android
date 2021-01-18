@@ -6,7 +6,12 @@
         <item name="colorPrimaryVariant">#0D2757</item>
         <item name="colorOnPrimary">#0D2757</item>
         <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/textHintColor</item>
         <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Date picker bgc -->
+        <item name="colorSurface">@color/colorPrimaryDark</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
