@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 
 public class TradeFragment extends Fragment {
@@ -45,8 +46,6 @@ public class TradeFragment extends Fragment {
     private NestedScrollView nestedScrollView;
     private RecyclerView recyclerView;
     private HashMap<String, String> pageParams = new HashMap<>();
-    SharedPreferences prefs;
-
 
     public static int mTradeExpandedPosition = -1;
     public static int previousTradeExpandedPosition = -1;
@@ -68,7 +67,6 @@ public class TradeFragment extends Fragment {
         if (actionBar != null) {
             actionBar.show();
         }
-        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override

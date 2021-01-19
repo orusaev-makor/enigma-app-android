@@ -42,8 +42,6 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
     private String mFilterType;
     private TextView titleText;
     private TextView subtitleText;
-    private SharedPreferences.Editor prefEditor;
-    private SharedPreferences prefs;
     private MaterialButton resetBtn;
     private Button submitBtn;
     private HashMap<String, String> params = new HashMap<>();
@@ -59,8 +57,6 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override
@@ -83,26 +79,19 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
             String containKey = mFilterType.equals("currency") ? "currency_list" : "counterparty_id_list";
             viewModel.removeFromUnitaryParamsContainsKey(containKey);
             removeFromUnitaryParamsContainsKey(containKey);
-//            viewModel.resetUnitaryParams();
 
             if (mFilterType.equals("currency")) {
-//                viewModel.removeFromUnitaryParams("currency_list");
-//                removeFromUnitaryParamsContainsKey("currency_list");
                 buildCurrencyString();
                 for (int i = 0; i < clickedCurrencies.size(); i++) {
                     params.put("currency_list[" + i + "]", clickedCurrencies.get(i));
                 }
             }
             if (mFilterType.equals("counterparty")) {
-//                viewModel.removeFromUnitaryParams("counterparty_id_list");
-//                removeFromUnitaryParamsContainsKey("counterparty_id_list");
-
                 buildCounterpartyString();
                 for (int i = 0; i < clickedCounterparties.size(); i++) {
                     params.put("counterparty_id_list[" + i + "]", clickedCounterparties.get(i));
                 }
             }
-            System.out.println("paams sent from fragment_unitary_select_filter:   " + params);
             setUnitaryFilterParams(params);
         });
 
@@ -146,7 +135,6 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
                 counterpartyAdapter.setOnItemClickListener(new CounterpartyFilterMultiAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(DatasetCounterparty counterpartyItem, int position) {
-                        System.out.println("unitary clicked : " + counterpartyItem.getName());
                         if (counterpartyItem.getIsChecked()) {
                             counterpartyItem.setIsChecked(false);
                             int idx = clickedCounterparties.indexOf(counterpartyItem.getId());

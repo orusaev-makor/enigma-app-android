@@ -58,8 +58,6 @@ public class SettlementRepository {
     public void fetchBatch(String token) {
         batchParams.put("items_per_page", "10");
         batchParams.put("sort", "settlement_batch_id desc");
-
-//        System.out.println("params1 fetching batch ______________ " + batchParams);
         Call<BatchResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetBatch(token, batchParams);
         call.enqueue(new Callback<BatchResult>() {
             @Override
@@ -77,7 +75,7 @@ public class SettlementRepository {
             @Override
             public void onFailure(Call<BatchResult> call, Throwable t) {
                 System.out.println("t.getMessage(): " + t.getMessage());
-                Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -104,7 +102,7 @@ public class SettlementRepository {
             @Override
             public void onFailure(Call<BatchResult> call, Throwable t) {
                 System.out.println("t.getMessage(): " + t.getMessage());
-                Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -225,8 +223,10 @@ public class SettlementRepository {
             currenciesDataset.add(coin);
         }
 
-        for (int i = 0; i < counterpartyArray.size(); i++) {
-            counterpartyDataset.add(new DatasetCounterparty(counterpartyArray.get(i).getName(), counterpartyArray.get(i).getId()));
+        if (counterpartyArray != null) {
+            for (int i = 0; i < counterpartyArray.size(); i++) {
+                counterpartyDataset.add(new DatasetCounterparty(counterpartyArray.get(i).getName(), counterpartyArray.get(i).getId()));
+            }
         }
 
     }
@@ -273,7 +273,9 @@ public class SettlementRepository {
         return this.currenciesDataset;
     }
 
-    public void resetBatchParams() { this.batchParams.clear(); }
+    public void resetBatchParams() {
+        this.batchParams.clear();
+    }
 
     public void resetUnitaryParams() {
         this.unitaryParams.clear();

@@ -95,7 +95,6 @@ public class NewUnitarySettFragment extends Fragment implements AdapterView.OnIt
         // sets Text Colour after item selection:
         String spinnerName = parent.toString().substring(parent.toString().indexOf("app:id/"), parent.toString().length() - 1);
 
-        System.out.println(" ++++++++++++++++++++++++++++++++++++++++ SPINNER NAMEEEEEEEEEEEEE ++++++++++++++++++++++++++++++++++++++++ " + spinnerName);
         switch (spinnerName) {
             case "app:id/new_unitary_spinner_on_behalf":
                 if (position != onBehalfAdapter.getCount()) {

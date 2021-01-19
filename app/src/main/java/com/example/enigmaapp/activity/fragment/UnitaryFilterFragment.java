@@ -38,6 +38,8 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import static com.example.enigmaapp.activity.MainActivity.prefEditor;
+import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 import static com.example.enigmaapp.activity.fragment.UnitaryMultiSelectFilterFragment.clearCounterpartiesAdapterList;
 import static com.example.enigmaapp.activity.fragment.UnitaryMultiSelectFilterFragment.clearCurrencyAdapterList;
@@ -47,7 +49,6 @@ public class UnitaryFilterFragment extends Fragment {
     private Button submitBtn;
     private MaterialButton resetBtn;
     private static TextView dateText;
-    private EditText tradeIdTextEdit;
 
     private RadioButton send;
     private RadioButton receive;
@@ -63,13 +64,10 @@ public class UnitaryFilterFragment extends Fragment {
 
     public static ArrayList<String> clickedCurrencies = new ArrayList<>();
     public static ArrayList<String> clickedCounterparties = new ArrayList<>();
-//    public static ArrayList<TradeDatasetCounterparty> clickedCounterparties = new ArrayList<>();
 
     public static StringBuilder currencyStringBuilder;
     public static StringBuilder counterpartyStringBuilder;
 
-    SharedPreferences prefs;
-    static SharedPreferences.Editor prefEditor;
     private Activity activity;
 
     public UnitaryFilterFragment() {
@@ -82,9 +80,6 @@ public class UnitaryFilterFragment extends Fragment {
 
         actionBar.hide();
         activity = getActivity();
-        prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
-
     }
 
     @Override
@@ -123,7 +118,6 @@ public class UnitaryFilterFragment extends Fragment {
         });
 
         paramsFromRepository = viewModel.getUnitaryParams();
-        System.out.println("paramsFromRepository : " + paramsFromRepository);
 
         UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
@@ -376,22 +370,20 @@ public class UnitaryFilterFragment extends Fragment {
         while (it.hasNext()) {
             Map.Entry entry = (Map.Entry) it.next();
             if (entry.getKey().equals(key)) {
-                System.out.println("in unitary filter - removeFromUnitaryParams - Map.Entry entry.getKey : " + entry.getKey());
                 it.remove();
             }
         }
     }
-
-    public static void removeFromUnitaryParamsByValue(String value, String containsKey) {
-        Iterator it = unitaryParamsToSend.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            if (entry.getValue().equals(value) && entry.getKey().toString().contains(containsKey)) {
-                System.out.println(" ---------  in unitary filter --------- REMOVED  ---------  Map.Entry entry.getValue : " + entry.getValue());
-                it.remove();
-            }
-        }
-    }
+//
+//    public static void removeFromUnitaryParamsByValue(String value, String containsKey) {
+//        Iterator it = unitaryParamsToSend.entrySet().iterator();
+//        while (it.hasNext()) {
+//            Map.Entry entry = (Map.Entry) it.next();
+//            if (entry.getValue().equals(value) && entry.getKey().toString().contains(containsKey)) {
+//                it.remove();
+//            }
+//        }
+//    }
 
     public static void removeFromUnitaryParamsContainsKey(String containsKey) {
         Iterator it = unitaryParamsToSend.entrySet().iterator();
@@ -400,7 +392,6 @@ public class UnitaryFilterFragment extends Fragment {
             if (entry.getKey().toString().contains(containsKey)) {
                 it.remove();
             }
-            System.out.println("____________ params ____________ after ____________ removal ____________ " + unitaryParamsToSend);
         }
     }
 

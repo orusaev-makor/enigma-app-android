@@ -36,6 +36,8 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import static com.example.enigmaapp.activity.MainActivity.prefEditor;
+import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeBatchedPos;
 import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeExecutionPos;
 import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeProductPos;
@@ -54,14 +56,11 @@ public class TradeFilterFragment extends Fragment {
 
     private View statusSelectView;
     private TradeViewModel viewModel;
+    private Activity activity;
 
-    private HashMap<String, String> paramsFromRepository = new HashMap<>();
-
+//    private HashMap<String, String> paramsFromRepository = new HashMap<>();
     public static HashMap<String, String> tradeParamsToSend = new HashMap<>();
 
-    SharedPreferences prefs;
-    static SharedPreferences.Editor prefEditor;
-    private Activity activity;
 
     public TradeFilterFragment() {
         // Required empty public constructor
@@ -70,16 +69,13 @@ public class TradeFilterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         actionBar.hide();
         activity = getActivity();
-        prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View v = inflater.inflate(R.layout.fragment_trade_filter, container, false);
 
         buildCalender(v);
@@ -88,8 +84,7 @@ public class TradeFilterFragment extends Fragment {
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(TradeViewModel.class);
 
-        paramsFromRepository = viewModel.getParams();
-        System.out.println("paramsFromRepository : " + paramsFromRepository);
+//        paramsFromRepository = viewModel.getParams();
 
         UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
@@ -100,24 +95,10 @@ public class TradeFilterFragment extends Fragment {
 
         tradeIdTextEdit = v.findViewById(R.id.filter_trade_trade_id_edit);
         tradeIdTextEdit.setText(prefs.getString("tradeIdTradeFilter", ""));
-        tradeIdTextEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    tradeParamsToSend.put("trade_id", tradeIdTextEdit.getText().toString());
-                    prefEditor.putString("tradeIdTradeFilter", tradeIdTextEdit.getText().toString());
-                    prefEditor.apply();
-                }
-            }
-        });
 
         productText = v.findViewById(R.id.filter_trade_product_edit);
         productText.setText(prefs.getString("productTradeFilter", ""));
 
-        String product = getValueFromParams("product_id");
-//        System.out.println("FOUND product - getValueFromParams :  " + product);
-        String execution = getValueFromParams("execution_type");
-//        System.out.println("FOUND execution - getValueFromParams :  " + execution);
         productText.setOnClickListener(v1 -> openMultiSelectFilter("product"));
         productText.setOnClickListener(v1 -> openMultiSelectFilter("product"));
 
@@ -132,6 +113,7 @@ public class TradeFilterFragment extends Fragment {
         // Submit "Filter" and go back to "Trade" screen
         submitBtn = v.findViewById(R.id.filter_trade_submit_btn);
         submitBtn.setOnClickListener(v19 -> {
+            setTradeIdParam();
             viewModel.setParams(tradeParamsToSend);
             openTradeScreen();
         });
@@ -150,9 +132,6 @@ public class TradeFilterFragment extends Fragment {
         closeBtn = v.findViewById(R.id.close_btn);
         closeBtn.setOnClickListener(v17 -> {
             openTradeScreen();
-//            tradeParamsToSend.clear();
-//            viewModel.resetParams();
-//            resetLastPos();
         });
 
         statusSelectView = v.findViewById(R.id.layout_trade_status_select);
@@ -196,21 +175,28 @@ public class TradeFilterFragment extends Fragment {
             }
         });
 
-
         CheckBox open = (CheckBox) statusSelectView.findViewById(R.id.checkBoxOpenTrade);
         open.setChecked(prefs.getBoolean("isOpenTradeFilter", false));
-        open.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    checkBoxSetupToTrue("isOpenTradeFilter", "status[4]", "open");
-                } else {
-                    checkBoxSetupToFalse("isOpenTradeFilter", "status[4]");
-                }
+        open.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                checkBoxSetupToTrue("isOpenTradeFilter", "status[4]", "open");
+            } else {
+                checkBoxSetupToFalse("isOpenTradeFilter", "status[4]");
             }
         });
 
         return v;
+    }
+
+    private void setTradeIdParam() {
+        if (tradeIdTextEdit.getText().toString().equals("")) {
+            viewModel.removeFromParams("trade_id");
+            prefEditor.putString("tradeIdTradeFilter", "");
+        } else {
+            tradeParamsToSend.put("trade_id", tradeIdTextEdit.getText().toString());
+            prefEditor.putString("tradeIdTradeFilter", tradeIdTextEdit.getText().toString());
+        }
+        prefEditor.apply();
     }
 
     private void checkBoxSetupToTrue(String prefKey, String paramKey, String paramVal) {
@@ -226,22 +212,19 @@ public class TradeFilterFragment extends Fragment {
         viewModel.removeFromParams(paramKey);
     }
 
-    private String getValueFromParams(String key) {
-        System.out.println("in getValueFromParams looooooooking for key: " + key);
-        Iterator it = paramsFromRepository.entrySet().iterator();
-        String res = "";
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            if (entry.getKey().equals(key)) {
-                res = entry.getValue().toString();
-                System.out.println("in getValueFromParams fooooooooound res: " + res);
-                System.out.println("removeFromParams in repository - found key! -> " + key);
-                break;
-//                it.remove();
-            }
-        }
-        return res;
-    }
+//    private String getValueFromParams(String key) {
+//        Iterator it = paramsFromRepository.entrySet().iterator();
+//        String res = "";
+//        while (it.hasNext()) {
+//            Map.Entry entry = (Map.Entry) it.next();
+//            if (entry.getKey().equals(key)) {
+//                res = entry.getValue().toString();
+//                break;
+////                it.remove();
+//            }
+//        }
+//        return res;
+//    }
 
     public static void resetTradeLastPos() {
         lastTradeProductPos = -1;
@@ -351,11 +334,9 @@ public class TradeFilterFragment extends Fragment {
         Iterator it = params.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-            System.out.println("setting params in trade filter fragment: " + pair.getKey() + " = " + pair.getValue());
             tradeParamsToSend.put(pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }
-        System.out.println("TRADE PARAMS TO SEND: " + tradeParamsToSend);
     }
 
     public static void removeFromTradeParams(String key) {

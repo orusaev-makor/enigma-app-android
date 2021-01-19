@@ -87,7 +87,6 @@ public class NewBatchSettFragment extends Fragment implements AdapterView.OnItem
         // sets Text Colour after item selection:
         String spinnerName = parent.toString().substring(parent.toString().indexOf("app:id/"), parent.toString().length() - 1);
 
-        System.out.println(" ++++++++++++++++++++++++++++++++++++++++ SPINNER NAMEEEEEEEEEEEEE ++++++++++++++++++++++++++++++++++++++++ " + spinnerName);
         switch (spinnerName) {
             case "app:id/new_batch_spinner_product":
                 if (position != productAdapter.getCount()) {

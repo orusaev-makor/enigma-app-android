@@ -41,7 +41,6 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: set "request increase exposure limit" process
-                System.out.println("INCREASING EXPOSURE LIMIT............");
                 openDialog();
             }
         });
@@ -51,7 +50,6 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: set "request increase quantity limit" process
-                System.out.println("INCREASING QUANTITY LIMIT............");
                 openDialog();
             }
         });

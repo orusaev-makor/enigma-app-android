@@ -73,13 +73,8 @@ public class TradeRepository {
 //        System.out.println(" MAP : " + map);
         params.put("items_per_page", "10");
         params.put("sort", "trade_id desc");
-//        params1.put("trade_id", "431308");
-//        params1.put("start_date", "2020-05-07");
-//        params1.put("end_date", "2020-05-08");
-//        params1.put("status[0]", "rejected");
-//        params1.put("status[1]", "booked");
-        System.out.println("params1 fetching trade ______________ " + params);
         Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, params);
+        System.out.println("----------------------------------------------------------- fetch call made with params: " + params);
         call.enqueue(new Callback<TradeResult>() {
             @Override
             public void onResponse(Call<TradeResult> call, Response<TradeResult> response) {
@@ -111,7 +106,7 @@ public class TradeRepository {
         Iterator it = paramsReceived.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-//            System.out.println("setting paramsReceived in repository: " + pair.getKey() + " = " + pair.getValue());
+            System.out.println("----------------------------------------------------------- after trade filter submit: trading params set in repo: " + pair);
             params.put(pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }

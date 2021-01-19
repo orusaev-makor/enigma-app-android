@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 
 public class SettlementFragment extends Fragment {
@@ -50,7 +51,6 @@ public class SettlementFragment extends Fragment {
     private RecyclerView recyclerView;
     private HashMap<String, String> pageParams = new HashMap<>();
     private ArrayList<SettlementRepository.SettlementSummary> data = new ArrayList<>();
-    SharedPreferences prefs;
 
     public static int mSettlementExpandedPosition = -1;
     public static int previousSettlementExpandedPosition = -1;
@@ -67,7 +67,6 @@ public class SettlementFragment extends Fragment {
         if (actionBar != null) {
             actionBar.show();
         }
-        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override
@@ -165,21 +164,18 @@ public class SettlementFragment extends Fragment {
         settlementAdapter = new SettlementItemAdapter(requireContext(), data);
         recyclerView.setAdapter(settlementAdapter);
 
-        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                // check if scrolled till bottom
-                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
-                    page++;
-                    pageParams.put("current_page", String.valueOf(page));
-                    progressBarSettlement.setVisibility(View.VISIBLE);
-                    if (isBatch) {
-                        viewModel.setBatchParams(pageParams);
-                        viewModel.fetchBatch(token);
-                    } else {
-                        viewModel.setUnitaryParams(pageParams);
-                        viewModel.fetchUnitary(token);
-                    }
+        nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v15, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            // check if scrolled till bottom
+            if (scrollY == v15.getChildAt(0).getMeasuredHeight() - v15.getMeasuredHeight()) {
+                page++;
+                pageParams.put("current_page", String.valueOf(page));
+                progressBarSettlement.setVisibility(View.VISIBLE);
+                if (isBatch) {
+                    viewModel.setBatchParams(pageParams);
+                    viewModel.fetchBatch(token);
+                } else {
+                    viewModel.setUnitaryParams(pageParams);
+                    viewModel.fetchUnitary(token);
                 }
             }
         });

@@ -97,7 +97,6 @@ public class NewTradeCreationFragment extends Fragment implements AdapterView.On
         // sets Text Colour after item selection:
         String spinnerName = parent.toString().substring(parent.toString().indexOf("app:id/"), parent.toString().length() - 1);
 
-        System.out.println(" ++++++++++++++++++++++++++++++++++++++++ SPINNER NAMEEEEEEEEEEEEE ++++++++++++++++++++++++++++++++++++++++ " + spinnerName);
         switch (spinnerName) {
             case "app:id/new_trade_spinner_execution":
                 if (position != executionTypeAdapter.getCount()) {

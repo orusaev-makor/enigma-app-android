@@ -5,30 +5,23 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.Switch;
 
 
-import com.example.enigmaapp.Constant;
 import com.example.enigmaapp.activity.fragment.AccountsFragment;
 import com.example.enigmaapp.activity.fragment.BalanceFragment;
 import com.example.enigmaapp.activity.fragment.LoginFragment;
@@ -55,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mDrawerToggle;
     UserViewModel userViewModel;
-    SharedPreferences.Editor prefEditor;
+    public static SharedPreferences.Editor prefEditor;
+    public static SharedPreferences prefs;
     public static ActionBar actionBar;
 
     @Override
@@ -67,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit();
 
         resetAllPrefs();
@@ -203,33 +198,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        });
 //    }
 
-//    class MyAdapter extends ArrayAdapter<String> {
-//        Context context;
-//        String rDate[];
-//        float rAmounts[];
-//
-//        MyAdapter (Context c, String date[], float amount[]) {
-//            super(c, R.layout.pnl_list_row, date);
-//            this.context = c;
-//            this.rDate = date;
-//            this.rAmounts = amount;
-//        }
-//
-//        @NonNull
-//        @Override
-//        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//            LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            View row = layoutInflater.inflate(R.layout.pnl_list_row, parent, false);
-//            TextView myDate = row.findViewById(R.id.pnl_date_text_view);
-//            TextView myAmount = row.findViewById(R.id.pnl_amount_text_view);
-//
-//            myDate.setText(rDate[position]);
-//            myAmount.setText(String.valueOf(rAmounts[position]));
-//            return row;
-//        }
-//    }
-
-
     private void saveState(Boolean state) {
         SharedPreferences sharedPreferences = getSharedPreferences("ABHPositive", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -240,103 +208,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Boolean loadState() {
         SharedPreferences sharedPreferences = getSharedPreferences("ABHPositive", MODE_PRIVATE);
         Boolean state = sharedPreferences.getBoolean("NightMode", false);
-        System.out.println("******************************* in load state , state is bool: " + state);
         return state;
     }
-
-    private void setNextView(List<User> users, String token) {
-
-        int size = users.size();
-        ListView listView;
-        String[] Usernames = new String[size];
-        int[] Ids = new int[size];
-
-        setContentView(R.layout.activity_next);
-//        listView = findViewById(R.id.list_view);
-//
-//        // set arrays for adapter
-//        for (int i = 0; i < size; i++) {
-//            int id = users.get(i).getId();
-//            String username = users.get(i).getUsername();
-//            Usernames[i] = username;
-//            Ids[i] = id;
-//        }
-//
-//        UsersListAdapter adapter = new UsersListAdapter(this, Usernames, Ids);
-//        listView.setAdapter(adapter);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                TextView textView = (TextView) view.findViewById(R.id.user_id_text_view);
-//                String userId = textView.getText().toString();
-//                handleGetHistoricalPnl(token, Integer.valueOf(userId));
-//            }
-//        });
-//
-//        findViewById(R.id.logout_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                handleLogout(token);
-//            }
-//        });
-    }
-
-//    private void handleGetHistoricalPnl(String token, int id) {
-//        String bearerAuth = "bearerAuth: " + token;
-//
-//        ListView listView;
-//        listView = findViewById(R.id.list_view);
-//
-//        Call<ArrayList<HistoricalPnl>> call = retrofitInterface.getHistoricalPnl(bearerAuth, id);
-//
-//        call.enqueue(new Callback<ArrayList<HistoricalPnl>>() {
-//            @Override
-//            public void onResponse(Call<ArrayList<HistoricalPnl>> call, Response<ArrayList<HistoricalPnl>> response) {
-//                if (!response.isSuccessful()) {
-//                    System.out.println( "Code: " + response.code() + "Error: " + response.message());
-//                    return;
-//                }
-//
-//                ArrayList<HistoricalPnl> pnl = response.body();
-//
-//                int size = pnl.size();
-//                String [] Date = new String[size];
-//                float[] Amounts = new float[size];
-//
-//                // set arrays for adapter
-//                for (int i = 0; i < size; i++) {
-//                    int month = pnl.get(i).getMonth();
-//                    int year = pnl.get(i).getYear();
-//                    String date = String.valueOf(month) + "/" + String.valueOf(year);
-//                    float amount = pnl.get(i).getPnl();
-//
-//                    Date[i] = date;
-//                    Amounts[i] = amount;
-//                }
-//
-////                PnlListAdapter adapter = new PnlListAdapter(this, Date, Amounts);
-////                listView.setAdapter(adapter);
-//
-//                // TODO: Send the arrays to pnl adpter and remove the code below once its working....
-//
-//                for (HistoricalPnl historicalPnl : pnl) {
-//                    int month = historicalPnl.getMonth();
-//                    int year = historicalPnl.getYear();
-//                    float salesPnl = historicalPnl.getPnl();
-//
-//                    // TODO: present result after successful request
-//                    System.out.println(month + "/" + year + " // sales pnl - " + salesPnl);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ArrayList<HistoricalPnl>> call, Throwable t) {
-//                System.out.println("t.getMessage():  "  + t.getMessage());
-//                Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
 
 //    private void handleLogout(String token) {
 //        String bearerAuth = "bearerAuth: " + token;
@@ -375,23 +248,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            @Override
 //            public void onClick(View v) {
 //                setSigninScreen();
-//            }
-//        });
-//    }
-
-//    private void setSigninScreen() {
-//        setContentView(R.layout.activity_main);
-//        findViewById(R.id.login_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                handleLogin();
-//            }
-//        });
-//
-//        findViewById(R.id.login_forgot_password).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                handleForgotPassword();
 //            }
 //        });
 //    }

@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.enigmaapp.activity.MainActivity.prefEditor;
 import static com.example.enigmaapp.activity.fragment.BatchFilterFragment.removeFromBatchParams;
 import static com.example.enigmaapp.activity.fragment.BatchFilterFragment.setBatchFilterParams;
 
@@ -38,8 +39,7 @@ public class BatchSelectFilterFragment extends Fragment {
     private String mFilterType;
     private TextView titleText;
     private TextView subtitleText;
-    private SharedPreferences.Editor prefEditor;
-    private SharedPreferences prefs;
+
     private MaterialButton resetBtn;
     private Button submitBtn;
     private HashMap<String, String> params = new HashMap<>();
@@ -54,8 +54,7 @@ public class BatchSelectFilterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
+
     }
 
     @Override
@@ -95,7 +94,6 @@ public class BatchSelectFilterFragment extends Fragment {
                 productAdapter.setOnItemClickListener(new ProductFilterAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(DatasetProduct productItem, int position) {
-                        System.out.println(" Clicked : " + productItem.getName());
                         if (productItem.getIsChecked()) {
                             productItem.setIsChecked(false);
                             Iterator it = params.entrySet().iterator();
@@ -120,7 +118,6 @@ public class BatchSelectFilterFragment extends Fragment {
 
             case "counterparty":
                 final CounterpartyFilterAdapter counterpartyAdapter = new CounterpartyFilterAdapter(requireActivity(), true);
-                System.out.println("================= in counterparty case ================");
                 recyclerView.setAdapter(counterpartyAdapter);
 
                 viewModel.getCounterpartyDatasetBatch().observe(requireActivity(), new Observer<List<DatasetCounterparty>>() {
@@ -133,8 +130,6 @@ public class BatchSelectFilterFragment extends Fragment {
                 counterpartyAdapter.setOnItemClickListener(new CounterpartyFilterAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(DatasetCounterparty counterpartyItem, int position) {
-                        System.out.println("Batch - Clicked : " + counterpartyItem.getName());
-
                         if (counterpartyItem.getIsChecked()) {
                             counterpartyItem.setIsChecked(false);
                             Iterator it = params.entrySet().iterator();

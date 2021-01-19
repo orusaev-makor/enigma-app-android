@@ -58,7 +58,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/edit_text_border"
                 android:hint="@string/username_hint"
-                android:text="qatests"
+                android:text="bitcoinOfAmerica"
                 android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>

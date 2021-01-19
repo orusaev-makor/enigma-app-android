@@ -83,9 +83,6 @@ public class AccountsFragment extends Fragment {
         fiatAdapter.setOnItemClickListener(new AccountsItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(AccountsItemResult accountsItem) {
-                System.out.println("Item Clicked: " + accountsItem.getAccountName()
-                        + " / Currency: " + accountsItem.getCurrency()
-                        + " / CryptoCurrency: " + accountsItem.getCryptoCurrency());
                 openAccountDetailsFragment(accountsItem);
             }
         });

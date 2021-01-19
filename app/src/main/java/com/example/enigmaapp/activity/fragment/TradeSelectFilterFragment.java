@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.example.enigmaapp.activity.MainActivity.prefEditor;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.removeFromTradeParams;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.setTradeFilterParams;
 
@@ -36,8 +37,6 @@ public class TradeSelectFilterFragment extends Fragment {
     private String mFilterType;
     private TextView titleText;
     private TextView subtitleText;
-    private SharedPreferences.Editor prefEditor;
-    private SharedPreferences prefs;
     private MaterialButton resetBtn;
     private Button submitBtn;
     private HashMap<String, String> params = new HashMap<>();
@@ -53,8 +52,6 @@ public class TradeSelectFilterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override
@@ -114,8 +111,6 @@ public class TradeSelectFilterFragment extends Fragment {
                 viewModel.getProductsDataset().observe(requireActivity(), productItems -> productAdapter.submitList(productItems));
 
                 productAdapter.setOnItemClickListener((productItem, position) -> {
-                    System.out.println(" Clicked : " + productItem.getName());
-
                     if (productItem.getIsChecked()) {
                         productItem.setIsChecked(false);
                         Iterator it = params.entrySet().iterator();
@@ -145,8 +140,6 @@ public class TradeSelectFilterFragment extends Fragment {
                 viewModel.getExecutionTypeDataset().observe(requireActivity(), executionTypeItems -> executionTypeAdapter.submitList(executionTypeItems));
 
                 executionTypeAdapter.setOnItemClickListener((executionTypeItem, position) -> {
-                    System.out.println(" Clicked : " + executionTypeItem.getName());
-
                     if (executionTypeItem.getIsChecked()) {
                         executionTypeItem.setIsChecked(false);
                         Iterator it = params.entrySet().iterator();
@@ -183,8 +176,6 @@ public class TradeSelectFilterFragment extends Fragment {
                 batchedAdapter.setOnItemClickListener(new BatchedFilterAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(DatasetBatched batchedItem, int position) {
-                        System.out.println(" Clicked : " + batchedItem.getName());
-
                         if (batchedItem.getIsChecked()) {
                             batchedItem.setIsChecked(false);
                             Iterator it = params.entrySet().iterator();

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -27,6 +26,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import static com.example.enigmaapp.activity.MainActivity.prefEditor;
+import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchCounterpartyPos;
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchProductPos;
 
@@ -42,13 +43,10 @@ public class BatchFilterFragment extends Fragment {
 
     private View statusSelectView;
     private SettlementViewModel viewModel;
-
-    private HashMap<String, String> paramsFromRepository = new HashMap<>();
-    public static HashMap<String, String> batchParamsToSend = new HashMap<>();
-
-    SharedPreferences prefs;
-    static SharedPreferences.Editor prefEditor;
     private Activity activity;
+
+//    private HashMap<String, String> paramsFromRepository = new HashMap<>();
+    public static HashMap<String, String> batchParamsToSend = new HashMap<>();
 
     public BatchFilterFragment() {
         // Required empty public constructor
@@ -59,8 +57,6 @@ public class BatchFilterFragment extends Fragment {
         super.onCreate(savedInstanceState);
         actionBar.hide();
         activity = getActivity();
-        prefEditor = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-        prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     @Override
@@ -72,8 +68,7 @@ public class BatchFilterFragment extends Fragment {
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(SettlementViewModel.class);
 
-        paramsFromRepository = viewModel.getBatchParams();
-        System.out.println("paramsFromRepository : " + paramsFromRepository);
+//        paramsFromRepository = viewModel.getBatchParams();
 
         UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
@@ -162,14 +157,11 @@ public class BatchFilterFragment extends Fragment {
 
         CheckBox inSett = (CheckBox) statusSelectView.findViewById(R.id.checkBoxInSetBatch);
         inSett.setChecked(prefs.getBoolean("isInSettBatchFilter", false));
-        inSett.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    checkBoxSetupToTrue("isInSettBatchFilter", "status[4]", "in sett");
-                } else {
-                    checkBoxSetupToFalse("isInSettBatchFilter", "status[4]");
-                }
+        inSett.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                checkBoxSetupToTrue("isInSettBatchFilter", "status[4]", "in sett");
+            } else {
+                checkBoxSetupToFalse("isInSettBatchFilter", "status[4]");
             }
         });
 
@@ -230,11 +222,9 @@ public class BatchFilterFragment extends Fragment {
         Iterator it = params.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-            System.out.println("setting params in batch filter fragment: " + pair.getKey() + " = " + pair.getValue());
             batchParamsToSend.put(pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }
-        System.out.println("BATCH PARAMS TO SEND: " + batchParamsToSend);
     }
 
     public static void removeFromBatchParams(String key) {
