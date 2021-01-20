@@ -1,4 +1,4 @@
-package com.example.enigmaapp;
+package com.example.enigmaapp.web.user;
 
 public class UserDetails {
 

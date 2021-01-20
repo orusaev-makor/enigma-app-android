@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
-import android.widget.ListView;
 
 
 import com.example.enigmaapp.activity.fragment.AccountsFragment;
@@ -34,10 +33,7 @@ import com.example.enigmaapp.activity.fragment.SettingsFragment;
 import com.example.enigmaapp.activity.fragment.SettlementFragment;
 import com.example.enigmaapp.activity.fragment.StatisticsFragment;
 import com.example.enigmaapp.activity.fragment.TradeFragment;
-import com.example.enigmaapp.User;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.List;
 
 import static com.example.enigmaapp.activity.fragment.BatchFilterFragment.resetBatchLastPos;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
