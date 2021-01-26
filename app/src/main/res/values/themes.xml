@@ -15,11 +15,11 @@
         <item name="android:dialogTheme">@style/MyDialogTheme</item>
         <item name="android:datePickerDialogTheme" tools:targetApi="lollipop">@style/MyDialogTheme</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+
     </style>
 
-    <style name="Theme.EnigmaApp.NoActionBar" parent="Theme.EnigmaApp">
+    <style name="Theme.EnigmaApp.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/textColor</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:textColorPrimary">@color/textColor</item>

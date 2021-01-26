@@ -20,6 +20,7 @@
     </style>
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:statusBarColor">@color/textColor</item>
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:text">@color/textColor</item>
         <!-- If you want you can override only colorAccent -->
