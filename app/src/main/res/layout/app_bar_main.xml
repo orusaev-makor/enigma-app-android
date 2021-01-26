@@ -13,6 +13,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/toolBar"
+            android:fitsSystemWindows="true"
+            app:theme="@style/backArrowTheme"
             android:background="@color/colorPrimary"
             app:titleTextColor="@color/textColor"
             app:popupTheme="@style/Theme.EnigmaApp.AppBarOverlay"/>
