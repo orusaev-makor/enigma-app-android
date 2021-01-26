@@ -15,6 +15,8 @@
         <!-- Customize your theme here. -->
         <item name="android:dialogTheme">@style/MyDialogTheme</item>
         <item name="android:datePickerDialogTheme">@style/MyDialogTheme</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">

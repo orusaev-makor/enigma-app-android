@@ -1,7 +1,6 @@
 package com.example.enigmaapp.activity.fragment;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,12 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.SettlementViewModel;
-import com.example.enigmaapp.model.UserViewModel;
+import com.example.enigmaapp.model.LoginViewModel;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.HashMap;
@@ -70,10 +68,10 @@ public class BatchFilterFragment extends Fragment {
 
 //        paramsFromRepository = viewModel.getBatchParams();
 
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+        LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(UserViewModel.class);
-        String token = userViewModel.getCurrentUser().getToken();
+                .get(LoginViewModel.class);
+        String token = loginViewModel.getCurrentUser().getToken();
 
         viewModel.fetchBatchDataset(token);
 

@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
+import com.example.enigmaapp.web.dataset.Batched;
 import com.example.enigmaapp.web.dataset.DatasetBatched;
 
 import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeBatchedPos;
 
-public class BatchedFilterAdapter extends ListAdapter<DatasetBatched, BatchedFilterAdapter.ItemHolder> {
+public class BatchedFilterAdapter extends ListAdapter<Batched, BatchedFilterAdapter.ItemHolder> {
 
     private int lastCheckedPos = 0;
     private OnItemClickListener listener;
@@ -32,14 +33,14 @@ public class BatchedFilterAdapter extends ListAdapter<DatasetBatched, BatchedFil
         this.lastCheckedPos = lastCheckedPos;
     }
 
-    private static final DiffUtil.ItemCallback<DatasetBatched> DIFF_CALLBACK = new DiffUtil.ItemCallback<DatasetBatched>() {
+    private static final DiffUtil.ItemCallback<Batched> DIFF_CALLBACK = new DiffUtil.ItemCallback<Batched>() {
         @Override
-        public boolean areItemsTheSame(@NonNull DatasetBatched oldItem, @NonNull DatasetBatched newItem) {
+        public boolean areItemsTheSame(@NonNull Batched oldItem, @NonNull Batched newItem) {
             return oldItem.getName() == newItem.getName();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull DatasetBatched oldItem, @NonNull DatasetBatched newItem) {
+        public boolean areContentsTheSame(@NonNull Batched oldItem, @NonNull Batched newItem) {
             return oldItem.getIsChecked() == newItem.getIsChecked()
                     && oldItem.getValue().equals(newItem.getValue());
         }
@@ -55,7 +56,7 @@ public class BatchedFilterAdapter extends ListAdapter<DatasetBatched, BatchedFil
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-        DatasetBatched currentExecutionType = getItem(position);
+        Batched currentExecutionType = getItem(position);
 
         holder.textViewBatchedName.setText(currentExecutionType.getName());
         if (currentExecutionType.getIsChecked() && lastCheckedPos == position || lastTradeBatchedPos == position) {
@@ -86,7 +87,7 @@ public class BatchedFilterAdapter extends ListAdapter<DatasetBatched, BatchedFil
     }
 
     public interface OnItemClickListener {
-        void onItemClick(DatasetBatched item, int position);
+        void onItemClick(Batched item, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

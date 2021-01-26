@@ -1,9 +1,7 @@
 package com.example.enigmaapp.activity.fragment;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -21,7 +19,7 @@ import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.SettlementViewModel;
-import com.example.enigmaapp.model.UserViewModel;
+import com.example.enigmaapp.model.LoginViewModel;
 import com.example.enigmaapp.repository.SettlementRepository;
 import com.example.enigmaapp.ui.SettlementItemAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -111,10 +109,10 @@ public class SettlementFragment extends Fragment {
         }
 
 
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+        LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(UserViewModel.class);
-        token = userViewModel.getCurrentUser().getToken();
+                .get(LoginViewModel.class);
+        token = loginViewModel.getCurrentUser().getToken();
 
         SettlementViewModel viewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))

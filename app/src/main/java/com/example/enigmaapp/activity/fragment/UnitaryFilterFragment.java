@@ -2,11 +2,9 @@ package com.example.enigmaapp.activity.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,13 +16,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.SettlementViewModel;
-import com.example.enigmaapp.model.UserViewModel;
+import com.example.enigmaapp.model.LoginViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -37,7 +34,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TimeZone;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
 import static com.example.enigmaapp.activity.MainActivity.prefEditor;
 import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
@@ -78,7 +74,6 @@ public class UnitaryFilterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        actionBar.hide();
         activity = getActivity();
     }
 
@@ -119,10 +114,10 @@ public class UnitaryFilterFragment extends Fragment {
 
         paramsFromRepository = viewModel.getUnitaryParams();
 
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+        LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(UserViewModel.class);
-        String token = userViewModel.getCurrentUser().getToken();
+                .get(LoginViewModel.class);
+        String token = loginViewModel.getCurrentUser().getToken();
 
         viewModel.fetchUnitaryDataset(token);
 

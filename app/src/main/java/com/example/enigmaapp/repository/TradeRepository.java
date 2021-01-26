@@ -7,7 +7,16 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.enigmaapp.db.BatchedDao;
+import com.example.enigmaapp.db.BatchedDatabase;
+import com.example.enigmaapp.db.ExecutionTypeDao;
+import com.example.enigmaapp.db.ExecutionTypeDatabase;
+import com.example.enigmaapp.db.ProductDao;
+import com.example.enigmaapp.db.ProductDatabase;
 import com.example.enigmaapp.web.RetrofitClient;
+import com.example.enigmaapp.web.dataset.Batched;
+import com.example.enigmaapp.web.dataset.ExecutionType;
+import com.example.enigmaapp.web.dataset.Product;
 import com.example.enigmaapp.web.trade.TradeItemResult;
 import com.example.enigmaapp.web.trade.TradeResult;
 import com.example.enigmaapp.web.dataset.DatasetBatched;
@@ -36,12 +45,32 @@ public class TradeRepository {
     private ArrayList<TradeItemResult> allTrades = new ArrayList<>();
     private MutableLiveData<TradeDatasetResult> tradeDataset = new MutableLiveData<>();
     private MutableLiveData<List<DatasetProduct>> productsDataset = new MutableLiveData<List<DatasetProduct>>();
-    private MutableLiveData<List<DatasetCounterparty>> counterpartyDataset = new MutableLiveData<List<DatasetCounterparty>>();
     private MutableLiveData<List<DatasetExecutionType>> executionTypeDataset = new MutableLiveData<List<DatasetExecutionType>>();
     private MutableLiveData<List<DatasetBatched>> batcedDataset = new MutableLiveData<List<DatasetBatched>>();
 
+    private ProductDao productDao;
+    private LiveData<List<Product>> allProducts = new MutableLiveData<>();
+
+    private ExecutionTypeDao executionTypeDao;
+    private LiveData<List<ExecutionType>> allExecutionTypes = new MutableLiveData<>();
+
+    private BatchedDao batchedDao;
+    private LiveData<List<Batched>> allBatched = new MutableLiveData<>();
+
     public TradeRepository(Application application) {
         this.application = application;
+
+        ProductDatabase productDatabase = ProductDatabase.getInstance(application);
+        productDao = productDatabase.productDao();
+        allProducts = productDao.getAllProducts();
+
+        ExecutionTypeDatabase executionTypeDatabase = ExecutionTypeDatabase.getInstance(application);
+        executionTypeDao = executionTypeDatabase.executionTypeDao();
+        allExecutionTypes = executionTypeDao.getAllExecutionTypes();
+
+        BatchedDatabase batchedDatabase = BatchedDatabase.getInstance(application);
+        batchedDao = batchedDatabase.batchedDao();
+        allBatched = batchedDao.getAllBatched();
     }
 
     public ArrayList<TradeItemResult> getTrades() {
@@ -49,28 +78,7 @@ public class TradeRepository {
     }
 
     public void fetchTrades(String token) {
-//        List<String> itemsPerPageValues = new ArrayList<>();
-//        itemsPerPageValues.add("5");
-//
-//        HashMap<String, Object> mapToSend = new HashMap<>();
-//        mapToSend.put("items_per_page", itemsPerPageValues);
-//
-//        ProxyRetrofitQueryMap map = new ProxyRetrofitQueryMap(mapToSend);
-//
-//        List<String> currentPageValues = new ArrayList<>();
-//        currentPageValues.add("1");
-//        map.put("current_page", currentPageValues);
-//
-//        List<String> sortValues = new ArrayList<>();
-//        sortValues.add("trade_id desc");
-//        map.put("sort", sortValues);
-//
-//        List<String> productIdsValues = new ArrayList<>();
-//        productIdsValues.add("17");
-//        productIdsValues.add("6");
-//        map.put("product_id", productIdsValues);
-//
-//        System.out.println(" MAP : " + map);
+
         params.put("items_per_page", "10");
         params.put("sort", "trade_id desc");
         Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, params);
@@ -112,10 +120,6 @@ public class TradeRepository {
         return params;
     }
 
-    public HashMap<String, String> getParams() {
-        return params;
-    }
-
     public void resetParams() {
         this.params.clear();
     }
@@ -132,22 +136,6 @@ public class TradeRepository {
                 it.remove();
             }
         }
-    }
-
-    public LiveData<TradeDatasetResult> getTradeDataset() {
-        return tradeDataset;
-    }
-
-    public MutableLiveData<List<DatasetProduct>> getProductsDataset() {
-        return productsDataset;
-    }
-
-    public MutableLiveData<List<DatasetCounterparty>> getCounterpartyDataset() {
-        return counterpartyDataset;
-    }
-
-    public MutableLiveData<List<DatasetExecutionType>> getExecutionTypeDataset() {
-        return executionTypeDataset;
     }
 
     public MutableLiveData<List<DatasetBatched>> getBatchedDataset() {
@@ -198,5 +186,20 @@ public class TradeRepository {
             result.add(item);
         }
         return result;
+    }
+
+    // product dataset
+    public LiveData<List<Product>> getAllProducts() {
+        return allProducts;
+    }
+
+    // execution type dataset
+    public LiveData<List<ExecutionType>> getAllExecutionTypes() {
+        return allExecutionTypes;
+    }
+
+    // batched dataset
+    public LiveData<List<Batched>> getAllBatched() {
+        return allBatched;
     }
 }

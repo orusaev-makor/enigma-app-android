@@ -3,7 +3,6 @@ package com.example.enigmaapp.activity.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -18,9 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.model.UserViewModel;
-
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import com.example.enigmaapp.model.LoginViewModel;
 
 public class LoginFragment extends Fragment {
     private static FragmentActivity myContext;
@@ -38,8 +35,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        actionBar.hide();
     }
 
     @Override
@@ -51,15 +46,15 @@ public class LoginFragment extends Fragment {
         EditText passwordEdit = v.findViewById(R.id.login_password_edit);
         TextView loginErrorMsg = v.findViewById(R.id.login_error_message);
 
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+        LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(UserViewModel.class);
+                .get(LoginViewModel.class);
 
         Button loginBtn = v.findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(v1 -> {
             String username = userNameEdit.getText().toString();
             String password = passwordEdit.getText().toString();
-            userViewModel.fetchUser(username, password, loginErrorMsg);
+            loginViewModel.fetchUser(username, password, loginErrorMsg);
         });
 
         TextView forgotPassword = v.findViewById(R.id.login_forgot_password);

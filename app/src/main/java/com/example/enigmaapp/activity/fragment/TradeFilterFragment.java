@@ -1,10 +1,8 @@
 package com.example.enigmaapp.activity.fragment;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,13 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.TradeViewModel;
-import com.example.enigmaapp.model.UserViewModel;
+import com.example.enigmaapp.model.LoginViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -35,7 +32,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
 import static com.example.enigmaapp.activity.MainActivity.prefEditor;
 import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeBatchedPos;
@@ -56,9 +52,7 @@ public class TradeFilterFragment extends Fragment {
 
     private View statusSelectView;
     private TradeViewModel viewModel;
-    private Activity activity;
 
-//    private HashMap<String, String> paramsFromRepository = new HashMap<>();
     public static HashMap<String, String> tradeParamsToSend = new HashMap<>();
 
 
@@ -69,8 +63,6 @@ public class TradeFilterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        actionBar.hide();
-        activity = getActivity();
     }
 
     @Override
@@ -86,12 +78,10 @@ public class TradeFilterFragment extends Fragment {
 
 //        paramsFromRepository = viewModel.getParams();
 
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+        LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(UserViewModel.class);
-        String token = userViewModel.getCurrentUser().getToken();
-
-        viewModel.fetchTradeDataset(token);
+                .get(LoginViewModel.class);
+        String token = loginViewModel.getCurrentUser().getToken();
 
         tradeIdTextEdit = v.findViewById(R.id.filter_trade_trade_id_edit);
         tradeIdTextEdit.setText(prefs.getString("tradeIdTradeFilter", ""));

@@ -5,6 +5,7 @@ import com.example.enigmaapp.web.dataset.DatasetCompany;
 import com.example.enigmaapp.web.dataset.DatasetCounterparty;
 import com.example.enigmaapp.web.dataset.DatasetProduct;
 import com.example.enigmaapp.web.dataset.DatasetProvider;
+import com.example.enigmaapp.web.dataset.Product;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class TradeDatasetResult {
     List<DatasetCounterparty> counterparty;
     List<DatasetCompany> companies;
     List<DatasetProvider> provider;
-    List<DatasetProduct> product;
+    List<Product> product;
 
     public ArrayList<String> getSide() {
         return side;
@@ -58,7 +59,7 @@ public class TradeDatasetResult {
         this.displayingSide = displayingSide;
     }
 
-    public List<String> getExecutionType() {
+    public ArrayList<String> getExecutionType() {
         return executionType;
     }
 
@@ -98,11 +99,11 @@ public class TradeDatasetResult {
         this.provider = provider;
     }
 
-    public List<DatasetProduct> getProduct() {
+    public List<Product> getProduct() {
         return product;
     }
 
-    public void setProduct(List<DatasetProduct> product) {
+    public void setProduct(List<Product> product) {
         this.product = product;
     }
 }

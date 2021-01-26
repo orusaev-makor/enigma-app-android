@@ -1,13 +1,9 @@
 package com.example.enigmaapp.activity.fragment;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -23,7 +19,7 @@ import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.BalanceViewModel;
-import com.example.enigmaapp.model.UserViewModel;
+import com.example.enigmaapp.model.LoginViewModel;
 import com.example.enigmaapp.ui.BalanceItemAdapter;
 import com.example.enigmaapp.web.balance.BalanceItemResult;
 import com.github.mikephil.charting.charts.PieChart;
@@ -64,11 +60,11 @@ public class BalanceFragment extends Fragment {
 
         final Typeface tfRegular = ResourcesCompat.getFont(getContext(), R.font.poppins_regular);
 
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+        LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(UserViewModel.class);
+                .get(LoginViewModel.class);
 
-        String username = userViewModel.getCurrentUser().getUsername();
+        String username = loginViewModel.getCurrentUser().getUsername();
         TextView userGreeting = v.findViewById(R.id.user_greeting_text);
         userGreeting.setText("Hello, " + username);
 
@@ -172,7 +168,7 @@ public class BalanceFragment extends Fragment {
             }
         });
 
-        String token = userViewModel.getCurrentUser().getToken();
+        String token = loginViewModel.getCurrentUser().getToken();
 
         viewModel.fetchBalances(token);
 

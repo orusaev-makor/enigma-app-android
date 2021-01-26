@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.dataset.DatasetExecutionType;
+import com.example.enigmaapp.web.dataset.ExecutionType;
 
 import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeExecutionPos;
 
-public class ExecutionTypeFilterAdapter extends ListAdapter<DatasetExecutionType,ExecutionTypeFilterAdapter.ItemHolder> {
+public class ExecutionTypeFilterAdapter extends ListAdapter<ExecutionType,ExecutionTypeFilterAdapter.ItemHolder> {
 
     private int lastCheckedPos = 0;
     private OnItemClickListener listener;
@@ -32,14 +33,14 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<DatasetExecutionType
         this.lastCheckedPos = lastCheckedPos;
     }
 
-    private static final DiffUtil.ItemCallback<DatasetExecutionType> DIFF_CALLBACK = new DiffUtil.ItemCallback<DatasetExecutionType>() {
+    private static final DiffUtil.ItemCallback<ExecutionType> DIFF_CALLBACK = new DiffUtil.ItemCallback<ExecutionType>() {
         @Override
-        public boolean areItemsTheSame(@NonNull DatasetExecutionType oldItem, @NonNull DatasetExecutionType newItem) {
+        public boolean areItemsTheSame(@NonNull ExecutionType oldItem, @NonNull ExecutionType newItem) {
             return oldItem.getName() == newItem.getName();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull DatasetExecutionType oldItem, @NonNull DatasetExecutionType newItem) {
+        public boolean areContentsTheSame(@NonNull ExecutionType oldItem, @NonNull ExecutionType newItem) {
             return oldItem.getIsChecked() == newItem.getIsChecked();
         }
     };
@@ -54,7 +55,7 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<DatasetExecutionType
 
     @Override
     public void onBindViewHolder(@NonNull ExecutionTypeFilterAdapter.ItemHolder holder, int position) {
-        DatasetExecutionType currentExecutionType = getItem(position);
+        ExecutionType currentExecutionType = getItem(position);
 
         holder.textViewExecutionTypeName.setText(currentExecutionType.getName());
         if (currentExecutionType.getIsChecked() && lastCheckedPos == position || lastTradeExecutionPos == position) {
@@ -85,7 +86,7 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<DatasetExecutionType
     }
 
     public interface OnItemClickListener {
-        void onItemClick(DatasetExecutionType item, int position);
+        void onItemClick(ExecutionType item, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

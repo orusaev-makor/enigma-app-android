@@ -1,11 +1,8 @@
 package com.example.enigmaapp.activity.fragment;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
+import com.example.enigmaapp.activity.FormActivity;
 import com.example.enigmaapp.model.TradeViewModel;
-import com.example.enigmaapp.model.UserViewModel;
 import com.example.enigmaapp.ui.TradeItemAdapter;
 import com.example.enigmaapp.web.trade.TradeItemResult;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,8 +31,10 @@ import java.util.HashMap;
 import static com.example.enigmaapp.activity.MainActivity.actionBar;
 import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
+import static com.example.enigmaapp.repository.LoginRepository.mCurrentUser;
 
 public class TradeFragment extends Fragment {
+    private static final String TAG = "TradeFragment";
     private FloatingActionButton createTradeBtn;
     private ImageView filterBtn;
     private ImageView uploadBtn;
@@ -46,6 +46,7 @@ public class TradeFragment extends Fragment {
     private NestedScrollView nestedScrollView;
     private RecyclerView recyclerView;
     private HashMap<String, String> pageParams = new HashMap<>();
+    String tokenTest;
 
     public static int mTradeExpandedPosition = -1;
     public static int previousTradeExpandedPosition = -1;
@@ -81,7 +82,7 @@ public class TradeFragment extends Fragment {
 
         // Move fo "Filter Trade" screen:
         filterBtn = v.findViewById(R.id.ic_action_filter);
-        filterBtn.setOnClickListener(v1 -> openFilterTradeFragment());
+        filterBtn.setOnClickListener(v1 -> startFormActivity());
 
         // Refresh "Trade" screen:
         refreshBtn = v.findViewById(R.id.ic_action_refresh);
@@ -102,28 +103,34 @@ public class TradeFragment extends Fragment {
         TextView toDate = topSection.findViewById(R.id.trade_to_date);
         toDate.setText(prefs.getString("endDateTradeFilter", getTodayDate()));
 
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
-                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(UserViewModel.class);
-        String token = userViewModel.getCurrentUser().getToken();
+        // getting token only after fetch request was made
+//        LoginViewModel loginViewModel =new ViewModelProvider(this).get(LoginViewModel.class);
+//        loginViewModel.getAllUsers().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+//            @Override
+//            public void onChanged(List<User> users) {
+//                tokenTest = users.get(0).getToken();
+//                System.out.println("TOKENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN _ TEST ___________ " + tokenTest);
+//            }
+//        });
+        String token = mCurrentUser.getToken();
 
-        TradeViewModel viewModel = new ViewModelProvider(requireActivity(),
+        TradeViewModel tradeViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(TradeViewModel.class);
 
         pageParams.put("current_page", String.valueOf(page));
         if (page == 1) {
-            viewModel.resetTradesList();
+            tradeViewModel.resetTradesList();
         }
-        viewModel.setParams(pageParams);
-        viewModel.fetchTrades(token);
+        tradeViewModel.setParams(pageParams);
+        tradeViewModel.fetchTrades(token);
 
         nestedScrollView = v.findViewById(R.id.scroll_trade);
         progressBarTrade = v.findViewById(R.id.progress_bar_trade);
         recyclerView = v.findViewById(R.id.trade_fragment_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ArrayList<TradeItemResult> data = viewModel.getTrades();
+        ArrayList<TradeItemResult> data = tradeViewModel.getTrades();
         tradeAdapter = new TradeItemAdapter(requireContext(), data);
         recyclerView.setAdapter(tradeAdapter);
 
@@ -135,9 +142,9 @@ public class TradeFragment extends Fragment {
                     // when reach last item position
                     page++;
                     pageParams.put("current_page", String.valueOf(page));
-                    viewModel.setParams(pageParams);
+                    tradeViewModel.setParams(pageParams);
                     progressBarTrade.setVisibility(View.VISIBLE);
-                    viewModel.fetchTrades(token);
+                    tradeViewModel.fetchTrades(token);
                 }
             }
         });
@@ -150,11 +157,18 @@ public class TradeFragment extends Fragment {
         previousTradeExpandedPosition = -1;
     }
 
-    private void openFilterTradeFragment() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        TradeFilterFragment fragment = new TradeFilterFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Filter Trade");
-        transaction.commit();
+    private void startFormActivity() {
+        // start form activity
+        Intent intent = new Intent(getContext(), FormActivity.class);
+        intent.putExtra("formTypeExtra", "filterTrade");
+        Log.d(TAG, "openFilterTradeFragment: starting form activity");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getActivity().startActivity(intent);
+
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        TradeFilterFragment fragment = new TradeFilterFragment();
+//        transaction.replace(R.id.frame_layout, fragment, "Filter Trade");
+//        transaction.commit();
     }
 
     private void openTradeFragment() {

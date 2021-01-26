@@ -2,7 +2,6 @@ package com.example.enigmaapp.activity.fragment;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -16,12 +15,11 @@ import android.view.ViewGroup;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.AccountsViewModel;
-import com.example.enigmaapp.model.UserViewModel;
+import com.example.enigmaapp.model.LoginViewModel;
 import com.example.enigmaapp.ui.AccountsItemAdapter;
 import com.example.enigmaapp.web.accounts.AccountsItemResult;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.enigmaapp.activity.MainActivity.actionBar;
@@ -111,10 +109,10 @@ public class AccountsFragment extends Fragment {
             }
         });
 
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity(),
+        LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(UserViewModel.class);
-        String token = userViewModel.getCurrentUser().getToken();
+                .get(LoginViewModel.class);
+        String token = loginViewModel.getCurrentUser().getToken();
 
         viewModel.fetchAccounts(token);
 

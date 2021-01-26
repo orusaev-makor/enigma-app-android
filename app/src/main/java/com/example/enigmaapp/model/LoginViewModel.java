@@ -5,17 +5,23 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
-import com.example.enigmaapp.repository.UserRepository;
+import com.example.enigmaapp.db.User;
+import com.example.enigmaapp.repository.LoginRepository;
 import com.example.enigmaapp.web.login.LoginResult;
 
-public class UserViewModel extends AndroidViewModel {
+import java.util.List;
 
-    private UserRepository repository;
+public class LoginViewModel extends AndroidViewModel {
 
-    public UserViewModel(@NonNull Application application) {
+    private LoginRepository repository;
+    private LiveData<List<User>> allUsers;
+
+    public LoginViewModel(@NonNull Application application) {
         super(application);
-        repository = new UserRepository(application);
+        repository = new LoginRepository(application);
+        allUsers = repository.getAllUsers();
     }
 
     public void fetchUser(String username, String password, TextView loginErrorMsg) {
@@ -29,4 +35,9 @@ public class UserViewModel extends AndroidViewModel {
     public void logoutCurrentUser() {
         repository.logoutUser();
     }
+
+    public void deleteAllUsers() {
+        repository.deleteAllUsers();
+    }
+    public LiveData<List<User>> getAllUsers() { return allUsers; }
 }

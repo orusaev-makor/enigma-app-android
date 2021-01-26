@@ -8,6 +8,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.enigmaapp.repository.TradeRepository;
+import com.example.enigmaapp.web.dataset.Batched;
+import com.example.enigmaapp.web.dataset.ExecutionType;
+import com.example.enigmaapp.web.dataset.Product;
 import com.example.enigmaapp.web.trade.TradeItemResult;
 import com.example.enigmaapp.web.dataset.DatasetBatched;
 import com.example.enigmaapp.web.dataset.DatasetCounterparty;
@@ -22,10 +25,16 @@ import java.util.List;
 public class TradeViewModel extends AndroidViewModel {
 
     private TradeRepository repository;
+    private LiveData<List<Product>> allProducts;
+    private LiveData<List<ExecutionType>> allExecutionTypes;
+    private LiveData<List<Batched>> allBatched;
 
     public TradeViewModel(@NonNull Application application) {
         super(application);
         repository = new TradeRepository(application);
+        allProducts = repository.getAllProducts();
+        allExecutionTypes = repository.getAllExecutionTypes();
+        allBatched = repository.getAllBatched();
     }
 
     public void fetchTrades(String token) { repository.fetchTrades(token); }
@@ -38,19 +47,9 @@ public class TradeViewModel extends AndroidViewModel {
         repository.fetchTradeDataset(token);
     }
 
-    public LiveData<TradeDatasetResult> getTradeDataset() { return repository.getTradeDataset(); }
-
-    public MutableLiveData<List<DatasetProduct>> getProductsDataset() { return repository.getProductsDataset(); }
-
-    public MutableLiveData<List<DatasetCounterparty>> getCounterpartyDataset() { return repository.getCounterpartyDataset(); }
-
-    public MutableLiveData<List<DatasetExecutionType>> getExecutionTypeDataset() { return repository.getExecutionTypeDataset(); }
-
     public MutableLiveData<List<DatasetBatched>> getBatchedDataset() {
         return repository.getBatchedDataset();
     }
-
-    public HashMap<String, String> getParams() { return repository.getParams(); }
 
     public void setParams(HashMap<String, String> params) { repository.setParams(params); }
 
@@ -61,4 +60,13 @@ public class TradeViewModel extends AndroidViewModel {
     }
 
     public void resetTradesList() { repository.resetTradesList(); }
+
+    // product dataset
+    public LiveData<List<Product>> getAllProducts() { return allProducts; }
+
+    // execution type dataset
+    public LiveData<List<ExecutionType>> getAllExecutionTypes() { return allExecutionTypes; }
+
+    // batched dataset
+    public LiveData<List<Batched>> getAllBatched() { return allBatched; }
 }
