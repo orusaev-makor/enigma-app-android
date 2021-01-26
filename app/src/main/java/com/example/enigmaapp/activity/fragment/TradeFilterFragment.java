@@ -98,8 +98,6 @@ public class TradeFilterFragment extends Fragment {
 
         productText = v.findViewById(R.id.filter_trade_product_edit);
         productText.setText(prefs.getString("productTradeFilter", ""));
-
-        productText.setOnClickListener(v1 -> openMultiSelectFilter("product"));
         productText.setOnClickListener(v1 -> openMultiSelectFilter("product"));
 
         executionText = v.findViewById(R.id.filter_trade_execution_edit);

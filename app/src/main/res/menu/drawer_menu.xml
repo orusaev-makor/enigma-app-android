@@ -20,7 +20,6 @@
 
         <item
             android:id="@+id/app_bar_feeds"
-            android:icon="@drawable/ic_action_feeds"
             android:title="Feeds">
             <menu>
                 <group android:checkableBehavior="single">
@@ -38,7 +37,6 @@
 
         <item
             android:id="@+id/app_bar_profile"
-            android:icon="@drawable/ic_action_profile"
             android:title="Profile">
             <menu>
                 <group android:checkableBehavior="single">

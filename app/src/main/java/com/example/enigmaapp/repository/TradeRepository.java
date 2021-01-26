@@ -106,7 +106,6 @@ public class TradeRepository {
         Iterator it = paramsReceived.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-            System.out.println("----------------------------------------------------------- after trade filter submit: trading params set in repo: " + pair);
             params.put(pair.getKey().toString(), pair.getValue().toString());
             it.remove(); // avoids a ConcurrentModificationException
         }

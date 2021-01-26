@@ -26,6 +26,8 @@
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
+
+<!--        burger menu icon color-->
         <item name="color">@color/textColor</item>
     </style>
 

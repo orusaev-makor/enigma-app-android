@@ -39,8 +39,8 @@ public interface RetrofitInterface {
     Call<Void> executeLogout(@Header("Authorization") String token);
 
     // Balance:
-    @GET("/balance/248")
-//    @GET("/balance")
+//    @GET("/balance/248")
+    @GET("/balance")
     Call<HashMap<String, String>> executeGetBalance(@Header("Authorization") String token);
 
 
@@ -60,7 +60,8 @@ public interface RetrofitInterface {
 
 
     // Accounts:
-    @GET("/account/248")
+//    @GET("/account/248")
+    @GET("/account")
     Call<ArrayList<AccountsItemResult>> executeGetAccounts(@Header("Authorization") String token);
 
 

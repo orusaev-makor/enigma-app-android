@@ -27,6 +27,8 @@ public class AccountDetailsFragment extends Fragment {
         this.accountsItem = accountsItem;
     }
 
+    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

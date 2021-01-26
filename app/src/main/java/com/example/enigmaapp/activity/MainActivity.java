@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         // MUST do this before super call or setContentView(...)
         // pick which theme DAY or NIGHT from settings
+
         AppCompatDelegate.setDefaultNightMode((loadState()) ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
 
         super.onCreate(savedInstanceState);
