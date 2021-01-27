@@ -57,7 +57,6 @@ public class SettlementViewModel extends AndroidViewModel {
     public LiveData<List<Product>> getAllProducts() { return allProducts; }
 
     // currency dataset
-//    public ArrayList<Currency> getAllCurrencies() {
     public LiveData<List<Currency>> getAllCurrencies() {
         return allCurrencies;
     }

@@ -28,6 +28,5 @@ public interface CurrencyDao {
     void deleteAllCurrencies();
 
     @Query("SELECT * FROM currency_table")
-//    List<Currency> getAllCurrencies();
     LiveData<List<Currency>> getAllCurrencies();
 }

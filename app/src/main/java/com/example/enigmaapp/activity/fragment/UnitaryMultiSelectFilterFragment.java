@@ -24,7 +24,6 @@ import com.example.enigmaapp.ui.CurrencyFilterMultiAdapter;
 import com.example.enigmaapp.web.dataset.Currency;
 import com.google.android.material.button.MaterialButton;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,8 +47,6 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
     private HashMap<String, String> params = new HashMap<>();
 
     private SettlementViewModel settlementViewModel;
-    private static CurrencyFilterMultiAdapter currencyAdapter;
-    //    private static TESTCurrencyFilterMultiAdapter currencyAdapter;
     public static CounterpartyFilterMultiAdapter counterpartyAdapter;
 
     public UnitaryMultiSelectFilterFragment(String filterType) {
@@ -105,58 +102,29 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
                 .get(SettlementViewModel.class);
 
         switch (mFilterType) {
+
             case "currency":
-//                LiveData<List<Currency>> currencyData = settlementViewModel.getAllCurrencies();
-//                currencyAdapter = new TESTCurrencyFilterMultiAdapter(requireActivity(), currencyData);
-////                currencyAdapter.setCurrencies(currencyData);
-//
-//                recyclerView.setAdapter(currencyAdapter);
-//
-//                currencyAdapter.setOnItemClickListener(new TESTCurrencyFilterMultiAdapter.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(Currency currencyItem, int position) {
-////                        System.out.println("unitary - Clicked : " + currencyItem.getName());
-//                        if (currencyItem.getIsChecked()) {
-//                            currencyItem.setIsChecked(false);
-//                            int idx = clickedCurrencies.indexOf(currencyItem.getName());
-//                            clickedCurrencies.remove(idx);
-//                        } else {
-//                            currencyItem.setIsChecked(true);
-//                            clickedCurrencies.add(currencyItem.getName());
-//                        }
-//                        currencyAdapter.notifyDataSetChanged();
-//                    }
-//                });
-//                break;
-                LiveData<List<Currency>> currencyLiveData = settlementViewModel.getAllCurrencies();
-                currencyLiveData.observe(getViewLifecycleOwner(), new Observer<List<Currency>>() {
+                final CurrencyFilterMultiAdapter currencyAdapter = new CurrencyFilterMultiAdapter(requireActivity());
+                recyclerView.setAdapter(currencyAdapter);
+                LiveData<List<Currency>> currencyData = settlementViewModel.getAllCurrencies();
+                currencyData.observe(getViewLifecycleOwner(), new Observer<List<Currency>>() {
                     @Override
                     public void onChanged(List<Currency> currencies) {
-                        System.out.println("999999999999999999999999999999999999999999999999999_______________________________ currencyData LIVEEEE .size(): " + currencyLiveData.getValue().size());
-                        ArrayList<Currency> currencyData = new ArrayList<>();
-                        for (int i = 0; i < currencyLiveData.getValue().size(); i++) {
-                            currencyData.add(currencyLiveData.getValue().get(i));
+                        currencyAdapter.submitList(currencies);
+                    }
+                });
+                currencyAdapter.setOnItemClickListener(new CurrencyFilterMultiAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Currency currencyItem, int position) {
+                        if (currencyItem.getIsChecked()) {
+                            currencyItem.setIsChecked(false);
+                            int idx = clickedCurrencies.indexOf(currencyItem.getName());
+                            clickedCurrencies.remove(idx);
+                        } else {
+                            currencyItem.setIsChecked(true);
+                            clickedCurrencies.add(currencyItem.getName());
                         }
-                        System.out.println("999999999999999999999999999999999999999999999999999_______________________________ currencyData.size(): " + currencyData.size());
-                        currencyAdapter = new CurrencyFilterMultiAdapter(requireActivity(), currencyData);
-                        currencyAdapter.setCurrencies(currencyData);
-                        recyclerView.setAdapter(currencyAdapter);
-
-                        currencyAdapter.setOnItemClickListener(new CurrencyFilterMultiAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(Currency currencyItem, int position) {
-                                System.out.println("unitary - Clicked : " + currencyItem.getName());
-                                if (currencyItem.getIsChecked()) {
-                                    currencyItem.setIsChecked(false);
-                                    int idx = clickedCurrencies.indexOf(currencyItem.getName());
-                                    clickedCurrencies.remove(idx);
-                                } else {
-                                    currencyItem.setIsChecked(true);
-                                    clickedCurrencies.add(currencyItem.getName());
-                                }
-                                currencyAdapter.notifyDataSetChanged();
-                            }
-                        });
+                        currencyAdapter.notifyDataSetChanged();
                     }
                 });
 
@@ -208,7 +176,7 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
         switch (mFilterType) {
             case "currency":
                 clearCurrenciesText();
-                clearCurrencyAdapterList();
+//                clearCurrencyAdapterList();
                 for (int i = 0; i < clickedCurrencies.size(); i++) {
                     removeFromUnitaryParams("currency_list[" + i + "]");
                     settlementViewModel.removeFromUnitaryParams("currency_list[" + i + "]");
@@ -228,12 +196,6 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
         }
     }
 
-    public static void clearCurrencyAdapterList() {
-        if (currencyAdapter != null) {
-            currencyAdapter.clearSelected();
-        }
-    }
-
     public static void clearCounterpartiesAdapterList() {
         if (counterpartyAdapter != null) {
             counterpartyAdapter.clearSelected();
@@ -242,10 +204,10 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
 
     private void buildCurrencyString() {
         currencyStringBuilder = new StringBuilder();
-        if (currencyAdapter.getSelected().size() > 0) {
-            for (int i = 0; i < currencyAdapter.getSelected().size(); i++) {
-                currencyStringBuilder.append(currencyAdapter.getSelected().get(i).getName());
-                if (i == currencyAdapter.getSelected().size() - 1) break;
+        if (clickedCurrencies.size() > 0) {
+            for (int i = 0; i < clickedCurrencies.size(); i++) {
+                currencyStringBuilder.append(clickedCurrencies.get(i));
+                if (i == clickedCurrencies.size() - 1) break;
                 currencyStringBuilder.append("\n");
             }
         } else {

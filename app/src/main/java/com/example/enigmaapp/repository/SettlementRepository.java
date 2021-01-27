@@ -48,7 +48,6 @@ public class SettlementRepository {
 
     private CurrencyDao currencyDao;
     private LiveData<List<Currency>> allCurrencies = new MutableLiveData<>();
-//    private ArrayList<Currency> allCurrencies =  new ArrayList<>();
 
     public SettlementRepository(Application application) {
         this.application = application;
@@ -60,14 +59,6 @@ public class SettlementRepository {
         CurrencyDatabase currencyDatabase = CurrencyDatabase.getInstance(application);
         currencyDao = currencyDatabase.currencyDao();
         allCurrencies = currencyDao.getAllCurrencies();
-//        new Thread {
-//            //Do your database´s operations here
-//        }.start();
-
-//        AsyncTask.execute(() -> {
-//            allCurrencies = ( ArrayList<Currency>) currencyDao.getAllCurrencies();
-//            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + allCurrencies.size());
-//        });
     }
 
     public ArrayList<SettlementSummary> getBatchSettlements() {
@@ -357,13 +348,7 @@ public class SettlementRepository {
     }
 
     // currency dataset
-//    public ArrayList<Currency> getAllCurrencies() {
     public LiveData<List<Currency>> getAllCurrencies() {
-//        AsyncTask.execute(() -> {
-//            allCurrencies = ( ArrayList<Currency>) currencyDao.getAllCurrencies();
-//            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + allCurrencies.size());
-//        });
-//        System.out.println("(((((((((((((((((((((( getAllCurrencies ))))))))))))))))) "+ allCurrencies.size());
         return allCurrencies;
     }
 }

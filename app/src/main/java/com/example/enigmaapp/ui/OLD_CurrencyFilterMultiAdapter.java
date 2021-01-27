@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
@@ -18,30 +16,22 @@ import com.example.enigmaapp.web.dataset.Currency;
 
 import java.util.ArrayList;
 
-import static com.example.enigmaapp.activity.fragment.UnitaryFilterFragment.clickedCurrencies;
-
-public class CurrencyFilterMultiAdapter extends ListAdapter<Currency, CurrencyFilterMultiAdapter.CurrencyOptionHolder> {
+public class OLD_CurrencyFilterMultiAdapter extends RecyclerView.Adapter<OLD_CurrencyFilterMultiAdapter.CurrencyOptionHolder> {
     private static final String TAG = "Currency_Filter_Adapter";
     private OnItemClickListener listener;
     private Context context;
-    ArrayList<Currency> selected = new ArrayList<>();
+    private ArrayList<Currency> currencies;
 
-    public CurrencyFilterMultiAdapter(Context context) {
-        super(DIFF_CALLBACK);
+    public OLD_CurrencyFilterMultiAdapter(Context context, ArrayList<Currency> currencies) {
         this.context = context;
+        this.currencies = currencies;
     }
 
-    private static final DiffUtil.ItemCallback<Currency> DIFF_CALLBACK = new DiffUtil.ItemCallback<Currency>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull Currency oldItem, @NonNull Currency newItem) {
-            return oldItem.getName() == newItem.getName();
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull Currency oldItem, @NonNull Currency newItem) {
-            return oldItem.getIsChecked() == newItem.getIsChecked();
-        }
-    };
+    public void setCurrencies(ArrayList<Currency> currencies) {
+        this.currencies = new ArrayList<>();
+        this.currencies = currencies;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -53,15 +43,21 @@ public class CurrencyFilterMultiAdapter extends ListAdapter<Currency, CurrencyFi
 
     @Override
     public void onBindViewHolder(@NonNull CurrencyOptionHolder holder, int position) {
-        Currency currentCurrency = getItem(position);
+        Currency currentCurrency = currencies.get(position);
+        Log.d(TAG, "onBindViewHolder - current coin name: " + currentCurrency.getName() + " // is checked? " + currentCurrency.getIsChecked());
         holder.textViewCurrencyName.setText(currentCurrency.getName());
-        if (currentCurrency.getIsChecked() || clickedCurrencies.indexOf(currentCurrency.getName()) != -1) {
+        if (currentCurrency.getIsChecked()) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewCurrencyName.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {
             holder.checkedIcon.setVisibility(View.INVISIBLE);
             holder.textViewCurrencyName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
         }
+    }
+
+    @Override
+    public int getItemCount() {
+        return currencies.size();
     }
 
     public class CurrencyOptionHolder extends RecyclerView.ViewHolder {
@@ -76,7 +72,7 @@ public class CurrencyFilterMultiAdapter extends ListAdapter<Currency, CurrencyFi
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (listener != null && position != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(getItem(position), position);
+                    listener.onItemClick(currencies.get(position), position);
                 }
             });
         }
@@ -90,19 +86,27 @@ public class CurrencyFilterMultiAdapter extends ListAdapter<Currency, CurrencyFi
         this.listener = listener;
     }
 
-
     // Getting all items
+    public ArrayList<Currency> getAll() {
+        return currencies;
+    }
 
     public ArrayList<Currency> getSelected() {
+        ArrayList<Currency> selected = new ArrayList<>();
+        for (int i = 0; i < currencies.size(); i++) {
+            if (currencies.get(i).getIsChecked()) {
+                selected.add(currencies.get(i));
+            }
+        }
         return selected;
     }
 
     public void clearSelected() {
-            selected.clear();
+        for (int i = 0; i < currencies.size(); i++) {
+            if (currencies.get(i).getIsChecked()) {
+                currencies.get(i).setIsChecked(false);
+            }
             notifyDataSetChanged();
-    }
-
-    public void addToSelected(Currency currency) {
-        selected.add(currency);
+        }
     }
 }

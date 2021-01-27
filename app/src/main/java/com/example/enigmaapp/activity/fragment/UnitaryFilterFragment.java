@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.SettlementViewModel;
-import com.example.enigmaapp.model.LoginViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -37,7 +36,6 @@ import static com.example.enigmaapp.activity.MainActivity.prefEditor;
 import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 import static com.example.enigmaapp.activity.fragment.UnitaryMultiSelectFilterFragment.clearCounterpartiesAdapterList;
-import static com.example.enigmaapp.activity.fragment.UnitaryMultiSelectFilterFragment.clearCurrencyAdapterList;
 
 public class UnitaryFilterFragment extends Fragment {
     private Button closeBtn;
@@ -128,7 +126,6 @@ public class UnitaryFilterFragment extends Fragment {
             resetPrefs();
             openFilterUnitaryScreen();
             clearCurrenciesText();
-            clearCurrencyAdapterList();
             clickedCurrencies.clear();
             clearCounterpartiesText();
             clearCounterpartiesAdapterList();
