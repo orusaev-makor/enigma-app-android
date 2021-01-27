@@ -1,5 +1,6 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
+import com.example.enigmaapp.activity.FormActivity;
 import com.example.enigmaapp.model.SettlementViewModel;
 import com.example.enigmaapp.model.LoginViewModel;
 import com.example.enigmaapp.repository.SettlementRepository;
@@ -32,6 +35,7 @@ import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 
 public class SettlementFragment extends Fragment {
+    private static final String TAG = "SettlementFragment";
     private String token;
     private TextView batch;
     private TextView unitary;
@@ -80,7 +84,7 @@ public class SettlementFragment extends Fragment {
 
         // Move fo "Filter Settlement" screen:
         filterBtn = v.findViewById(R.id.ic_action_filter);
-        filterBtn.setOnClickListener(v12 -> openFilterScreen());
+        filterBtn.setOnClickListener(v12 -> startFormActivity());
 
         // Refresh "Settlement" screen:
         refreshBtn = v.findViewById(R.id.ic_action_refresh);
@@ -200,16 +204,17 @@ public class SettlementFragment extends Fragment {
         transaction.commit();
     }
 
-    private void openFilterScreen() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+    private void startFormActivity() {
+        // start form activity
+        Intent intent = new Intent(getContext(), FormActivity.class);
         if (isBatch) {
-            BatchFilterFragment fragment = new BatchFilterFragment();
-            transaction.replace(R.id.frame_layout, fragment, "Filter Settlement");
+            intent.putExtra("formTypeExtra", "filterBatch");
         } else {
-            UnitaryFilterFragment fragment = new UnitaryFilterFragment();
-            transaction.replace(R.id.frame_layout, fragment, "Filter Settlement");
+            intent.putExtra("formTypeExtra", "filterUnitary");
         }
-        transaction.commit();
+        Log.d(TAG, "openFilterTradeFragment: starting form activity");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getActivity().startActivity(intent);
     }
 
     private void setUnselectedTextView(TextView textView) {

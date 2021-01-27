@@ -1,6 +1,7 @@
 package com.example.enigmaapp.ui;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.dataset.DatasetCurrency;
+import com.example.enigmaapp.web.dataset.Currency;
 
 import java.util.ArrayList;
 
 public class CurrencyFilterMultiAdapter extends RecyclerView.Adapter<CurrencyFilterMultiAdapter.CurrencyOptionHolder> {
-
+    private static final String TAG = "Currency_Filter_Adapter";
     private OnItemClickListener listener;
     private Context context;
-    private ArrayList<DatasetCurrency> currencies;
+    private ArrayList<Currency> currencies;
 
-    public CurrencyFilterMultiAdapter(Context context, ArrayList<DatasetCurrency> currencies) {
+    public CurrencyFilterMultiAdapter(Context context, ArrayList<Currency> currencies) {
         this.context = context;
         this.currencies = currencies;
     }
 
-    public void setCurrencies(ArrayList<DatasetCurrency> currencies) {
+    public void setCurrencies(ArrayList<Currency> currencies) {
         this.currencies = new ArrayList<>();
         this.currencies = currencies;
         notifyDataSetChanged();
@@ -42,7 +43,8 @@ public class CurrencyFilterMultiAdapter extends RecyclerView.Adapter<CurrencyFil
 
     @Override
     public void onBindViewHolder(@NonNull CurrencyOptionHolder holder, int position) {
-        DatasetCurrency currentCurrency = currencies.get(position);
+        Currency currentCurrency = currencies.get(position);
+        Log.d(TAG, "onBindViewHolder - current coin name: " + currentCurrency.getName() + " // is checked? " + currentCurrency.getIsChecked());
         holder.textViewCurrencyName.setText(currentCurrency.getName());
         if (currentCurrency.getIsChecked()) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
@@ -77,7 +79,7 @@ public class CurrencyFilterMultiAdapter extends RecyclerView.Adapter<CurrencyFil
     }
 
     public interface OnItemClickListener {
-        void onItemClick(DatasetCurrency item, int position);
+        void onItemClick(Currency item, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -85,12 +87,12 @@ public class CurrencyFilterMultiAdapter extends RecyclerView.Adapter<CurrencyFil
     }
 
     // Getting all items
-    public ArrayList<DatasetCurrency> getAll() {
+    public ArrayList<Currency> getAll() {
         return currencies;
     }
 
-    public ArrayList<DatasetCurrency> getSelected() {
-        ArrayList<DatasetCurrency> selected = new ArrayList<>();
+    public ArrayList<Currency> getSelected() {
+        ArrayList<Currency> selected = new ArrayList<>();
         for (int i = 0; i < currencies.size(); i++) {
             if (currencies.get(i).getIsChecked()) {
                 selected.add(currencies.get(i));

@@ -1,6 +1,5 @@
 package com.example.enigmaapp.activity.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,14 +15,12 @@ import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.SettlementViewModel;
-import com.example.enigmaapp.model.LoginViewModel;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
 import static com.example.enigmaapp.activity.MainActivity.prefEditor;
 import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchCounterpartyPos;
@@ -40,8 +37,7 @@ public class BatchFilterFragment extends Fragment {
     private TextView counterpartyText;
 
     private View statusSelectView;
-    private SettlementViewModel viewModel;
-    private Activity activity;
+    private SettlementViewModel settlementViewModel;
 
 //    private HashMap<String, String> paramsFromRepository = new HashMap<>();
     public static HashMap<String, String> batchParamsToSend = new HashMap<>();
@@ -53,8 +49,6 @@ public class BatchFilterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        actionBar.hide();
-        activity = getActivity();
     }
 
     @Override
@@ -62,26 +56,12 @@ public class BatchFilterFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_sett_batch_filter, container, false);
 
-        viewModel = new ViewModelProvider(requireActivity(),
+        settlementViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(SettlementViewModel.class);
 
-//        paramsFromRepository = viewModel.getBatchParams();
-
-        LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
-                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(LoginViewModel.class);
-        String token = loginViewModel.getCurrentUser().getToken();
-
-        viewModel.fetchBatchDataset(token);
-
         productText = v.findViewById(R.id.filter_batch_product);
         productText.setText(prefs.getString("productBatchFilter", ""));
-
-//        String product = getValueFromParams("product_id");
-//        System.out.println("FOUND product - getValueFromParams :  " + product);
-//        String counterparty = getValueFromParams("counterparty_id");
-//        System.out.println("FOUND execution - getValueFromParams :  " + counterparty);
         productText.setOnClickListener(v14 -> openBatchSelectFilter("product"));
 
         counterpartyText = v.findViewById(R.id.filter_batch_counterparty);
@@ -93,7 +73,7 @@ public class BatchFilterFragment extends Fragment {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.setBatchParams(batchParamsToSend);
+                settlementViewModel.setBatchParams(batchParamsToSend);
                 openSettlementScreen();
             }
         });
@@ -102,7 +82,7 @@ public class BatchFilterFragment extends Fragment {
         resetBtn = v.findViewById(R.id.filter_settlement_reset_btn);
         resetBtn.setOnClickListener(v1 -> {
             batchParamsToSend.clear();
-            viewModel.resetBatchParams();
+            settlementViewModel.resetBatchParams();
             resetPrefs();
             openFilterBatchScreen();
             resetBatchLastPos();
@@ -176,7 +156,7 @@ public class BatchFilterFragment extends Fragment {
         prefEditor.putBoolean(prefKey, false);
         prefEditor.apply();
         batchParamsToSend.remove(paramKey);
-        viewModel.removeFromBatchParams(paramKey);
+        settlementViewModel.removeFromBatchParams(paramKey);
     }
 
     private void resetPrefs() {

@@ -1,5 +1,6 @@
 package com.example.enigmaapp.web.settlement.dataset;
 
+import com.example.enigmaapp.web.dataset.Counterparty;
 import com.example.enigmaapp.web.dataset.DatasetCounterparty;
 import com.example.enigmaapp.web.dataset.DatasetProduct;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UnitaryDatasetResult {
+public class SettlementDatasetResult {
     ArrayList<String> side;
 
     ArrayList<String> type;
@@ -19,7 +20,7 @@ public class UnitaryDatasetResult {
     @SerializedName("crypto_currency")
     ArrayList<String> cryptoCurrency;
 
-    List<DatasetCounterparty> counterparty;
+    List<Counterparty> counterparty;
 
     List<DatasetProduct> product;
 
@@ -63,11 +64,11 @@ public class UnitaryDatasetResult {
         this.cryptoCurrency = cryptoCurrency;
     }
 
-    public List<DatasetCounterparty> getCounterparty() {
+    public List<Counterparty> getCounterparty() {
         return counterparty;
     }
 
-    public void setCounterparty(List<DatasetCounterparty> counterparty) {
+    public void setCounterparty(List<Counterparty> counterparty) {
         this.counterparty = counterparty;
     }
 

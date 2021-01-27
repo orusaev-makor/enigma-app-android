@@ -1,9 +1,8 @@
 package com.example.enigmaapp.web.trade.dataset;
 
+import com.example.enigmaapp.web.dataset.Counterparty;
 import com.example.enigmaapp.web.dataset.DatasetBroker;
 import com.example.enigmaapp.web.dataset.DatasetCompany;
-import com.example.enigmaapp.web.dataset.DatasetCounterparty;
-import com.example.enigmaapp.web.dataset.DatasetProduct;
 import com.example.enigmaapp.web.dataset.DatasetProvider;
 import com.example.enigmaapp.web.dataset.Product;
 import com.google.gson.annotations.SerializedName;
@@ -22,7 +21,7 @@ public class TradeDatasetResult {
     @SerializedName("execution_type")
     ArrayList<String> executionType;
     List<DatasetBroker> broker;
-    List<DatasetCounterparty> counterparty;
+    List<Counterparty> counterparty;
     List<DatasetCompany> companies;
     List<DatasetProvider> provider;
     List<Product> product;
@@ -75,11 +74,11 @@ public class TradeDatasetResult {
         this.broker = broker;
     }
 
-    public List<DatasetCounterparty> getCounterparty() {
+    public List<Counterparty> getCounterparty() {
         return counterparty;
     }
 
-    public void setCounterparty(List<DatasetCounterparty> counterparty) {
+    public void setCounterparty(List<Counterparty> counterparty) {
         this.counterparty = counterparty;
     }
 

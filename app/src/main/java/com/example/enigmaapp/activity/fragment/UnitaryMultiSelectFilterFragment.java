@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,12 +21,12 @@ import com.example.enigmaapp.model.SettlementViewModel;
 import com.example.enigmaapp.model.LoginViewModel;
 import com.example.enigmaapp.ui.CounterpartyFilterMultiAdapter;
 import com.example.enigmaapp.ui.CurrencyFilterMultiAdapter;
-import com.example.enigmaapp.web.dataset.DatasetCounterparty;
-import com.example.enigmaapp.web.dataset.DatasetCurrency;
+import com.example.enigmaapp.web.dataset.Currency;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.example.enigmaapp.activity.fragment.UnitaryFilterFragment.clearCounterpartiesText;
 import static com.example.enigmaapp.activity.fragment.UnitaryFilterFragment.clearCurrenciesText;
@@ -45,8 +47,9 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
     private Button submitBtn;
     private HashMap<String, String> params = new HashMap<>();
 
-    private SettlementViewModel viewModel;
+    private SettlementViewModel settlementViewModel;
     private static CurrencyFilterMultiAdapter currencyAdapter;
+    //    private static TESTCurrencyFilterMultiAdapter currencyAdapter;
     public static CounterpartyFilterMultiAdapter counterpartyAdapter;
 
     public UnitaryMultiSelectFilterFragment(String filterType) {
@@ -76,7 +79,7 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
 
             // reset existing params in repo before submitting:
             String containKey = mFilterType.equals("currency") ? "currency_list" : "counterparty_id_list";
-            viewModel.removeFromUnitaryParamsContainsKey(containKey);
+            settlementViewModel.removeFromUnitaryParamsContainsKey(containKey);
             removeFromUnitaryParamsContainsKey(containKey);
 
             if (mFilterType.equals("currency")) {
@@ -97,54 +100,88 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
         RecyclerView recyclerView = v.findViewById(R.id.unitary_select_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        viewModel = new ViewModelProvider(requireActivity(),
+        settlementViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(SettlementViewModel.class);
 
         switch (mFilterType) {
             case "currency":
-                ArrayList<DatasetCurrency> currencyData = viewModel.getCurrencyDataset();
-                currencyAdapter = new CurrencyFilterMultiAdapter(requireActivity(), currencyData);
-                currencyAdapter.setCurrencies(currencyData);
-                recyclerView.setAdapter(currencyAdapter);
-
-                currencyAdapter.setOnItemClickListener(new CurrencyFilterMultiAdapter.OnItemClickListener() {
+//                LiveData<List<Currency>> currencyData = settlementViewModel.getAllCurrencies();
+//                currencyAdapter = new TESTCurrencyFilterMultiAdapter(requireActivity(), currencyData);
+////                currencyAdapter.setCurrencies(currencyData);
+//
+//                recyclerView.setAdapter(currencyAdapter);
+//
+//                currencyAdapter.setOnItemClickListener(new TESTCurrencyFilterMultiAdapter.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(Currency currencyItem, int position) {
+////                        System.out.println("unitary - Clicked : " + currencyItem.getName());
+//                        if (currencyItem.getIsChecked()) {
+//                            currencyItem.setIsChecked(false);
+//                            int idx = clickedCurrencies.indexOf(currencyItem.getName());
+//                            clickedCurrencies.remove(idx);
+//                        } else {
+//                            currencyItem.setIsChecked(true);
+//                            clickedCurrencies.add(currencyItem.getName());
+//                        }
+//                        currencyAdapter.notifyDataSetChanged();
+//                    }
+//                });
+//                break;
+                LiveData<List<Currency>> currencyLiveData = settlementViewModel.getAllCurrencies();
+                currencyLiveData.observe(getViewLifecycleOwner(), new Observer<List<Currency>>() {
                     @Override
-                    public void onItemClick(DatasetCurrency currencyItem, int position) {
-//                        System.out.println("unitary - Clicked : " + currencyItem.getName());
-                        if (currencyItem.getIsChecked()) {
-                            currencyItem.setIsChecked(false);
-                            int idx = clickedCurrencies.indexOf(currencyItem.getName());
-                            clickedCurrencies.remove(idx);
-                        } else {
-                            currencyItem.setIsChecked(true);
-                            clickedCurrencies.add(currencyItem.getName());
+                    public void onChanged(List<Currency> currencies) {
+                        System.out.println("999999999999999999999999999999999999999999999999999_______________________________ currencyData LIVEEEE .size(): " + currencyLiveData.getValue().size());
+                        ArrayList<Currency> currencyData = new ArrayList<>();
+                        for (int i = 0; i < currencyLiveData.getValue().size(); i++) {
+                            currencyData.add(currencyLiveData.getValue().get(i));
                         }
-                        currencyAdapter.notifyDataSetChanged();
+                        System.out.println("999999999999999999999999999999999999999999999999999_______________________________ currencyData.size(): " + currencyData.size());
+                        currencyAdapter = new CurrencyFilterMultiAdapter(requireActivity(), currencyData);
+                        currencyAdapter.setCurrencies(currencyData);
+                        recyclerView.setAdapter(currencyAdapter);
+
+                        currencyAdapter.setOnItemClickListener(new CurrencyFilterMultiAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(Currency currencyItem, int position) {
+                                System.out.println("unitary - Clicked : " + currencyItem.getName());
+                                if (currencyItem.getIsChecked()) {
+                                    currencyItem.setIsChecked(false);
+                                    int idx = clickedCurrencies.indexOf(currencyItem.getName());
+                                    clickedCurrencies.remove(idx);
+                                } else {
+                                    currencyItem.setIsChecked(true);
+                                    clickedCurrencies.add(currencyItem.getName());
+                                }
+                                currencyAdapter.notifyDataSetChanged();
+                            }
+                        });
                     }
                 });
+
                 break;
 
             case "counterparty":
-                ArrayList<DatasetCounterparty> counterpartyData = viewModel.getCounterpartyDataset();
-                counterpartyAdapter = new CounterpartyFilterMultiAdapter(requireActivity(), counterpartyData);
-                counterpartyAdapter.setCounterparties(counterpartyData);
-                recyclerView.setAdapter(counterpartyAdapter);
-
-                counterpartyAdapter.setOnItemClickListener(new CounterpartyFilterMultiAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(DatasetCounterparty counterpartyItem, int position) {
-                        if (counterpartyItem.getIsChecked()) {
-                            counterpartyItem.setIsChecked(false);
-                            int idx = clickedCounterparties.indexOf(counterpartyItem.getId());
-                            clickedCounterparties.remove(idx);
-                        } else {
-                            counterpartyItem.setIsChecked(true);
-                            clickedCounterparties.add(counterpartyItem.getId());
-                        }
-                        counterpartyAdapter.notifyDataSetChanged();
-                    }
-                });
+//                ArrayList<DatasetCounterparty> counterpartyData = viewModel.getCounterpartyDataset();
+//                counterpartyAdapter = new CounterpartyFilterMultiAdapter(requireActivity(), counterpartyData);
+//                counterpartyAdapter.setCounterparties(counterpartyData);
+//                recyclerView.setAdapter(counterpartyAdapter);
+//
+//                counterpartyAdapter.setOnItemClickListener(new CounterpartyFilterMultiAdapter.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(DatasetCounterparty counterpartyItem, int position) {
+//                        if (counterpartyItem.getIsChecked()) {
+//                            counterpartyItem.setIsChecked(false);
+//                            int idx = clickedCounterparties.indexOf(counterpartyItem.getId());
+//                            clickedCounterparties.remove(idx);
+//                        } else {
+//                            counterpartyItem.setIsChecked(true);
+//                            clickedCounterparties.add(counterpartyItem.getId());
+//                        }
+//                        counterpartyAdapter.notifyDataSetChanged();
+//                    }
+//                });
 
                 break;
 
@@ -174,7 +211,7 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
                 clearCurrencyAdapterList();
                 for (int i = 0; i < clickedCurrencies.size(); i++) {
                     removeFromUnitaryParams("currency_list[" + i + "]");
-                    viewModel.removeFromUnitaryParams("currency_list[" + i + "]");
+                    settlementViewModel.removeFromUnitaryParams("currency_list[" + i + "]");
                 }
                 clickedCurrencies.clear();
                 break;
@@ -183,7 +220,7 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
                 clearCounterpartiesAdapterList();
                 for (int i = 0; i < clickedCounterparties.size(); i++) {
                     removeFromUnitaryParams("counterparty_id_list[" + i + "]");
-                    viewModel.removeFromUnitaryParams("counterparty_id_list[" + i + "]");
+                    settlementViewModel.removeFromUnitaryParams("counterparty_id_list[" + i + "]");
                 }
                 clickedCounterparties.clear();
             default:
@@ -234,13 +271,13 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
             case "counterparty":
                 for (int i = 0; i < params.size(); i++) {
                     removeFromUnitaryParams("counterparty_id_list[" + i + "]");
-                    viewModel.removeFromUnitaryParams("counterparty_id_list[" + i + "]");
+                    settlementViewModel.removeFromUnitaryParams("counterparty_id_list[" + i + "]");
                 }
                 break;
             case "currency":
                 for (int i = 0; i < params.size(); i++) {
                     removeFromUnitaryParams("currency_list[" + i + "]");
-                    viewModel.removeFromUnitaryParams("currency_list[" + i + "]");
+                    settlementViewModel.removeFromUnitaryParams("currency_list[" + i + "]");
                 }
                 break;
             default:
@@ -258,7 +295,7 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
                 .get(LoginViewModel.class);
         String token = loginViewModel.getCurrentUser().getToken();
 
-        viewModel.fetchUnitaryDataset(token);
+//        viewModel.fetchUnitaryDataset(token);
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         UnitaryMultiSelectFilterFragment fragment = new UnitaryMultiSelectFilterFragment(type);

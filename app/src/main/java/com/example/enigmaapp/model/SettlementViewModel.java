@@ -4,12 +4,12 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.enigmaapp.repository.SettlementRepository;
-import com.example.enigmaapp.web.dataset.DatasetCurrency;
-import com.example.enigmaapp.web.dataset.DatasetCounterparty;
-import com.example.enigmaapp.web.dataset.DatasetProduct;
+import com.example.enigmaapp.web.dataset.Currency;
+import com.example.enigmaapp.web.dataset.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,10 +18,15 @@ import java.util.List;
 public class SettlementViewModel extends AndroidViewModel {
 
     private SettlementRepository repository;
+    private LiveData<List<Product>> allProducts;
+//    private ArrayList<Currency> allCurrencies;
+    private LiveData<List<Currency>> allCurrencies;
 
     public SettlementViewModel(@NonNull Application application) {
         super(application);
         repository = new SettlementRepository(application);
+        allProducts = repository.getAllProducts();
+        allCurrencies = repository.getAllCurrencies();
     }
 
     public void fetchBatch(String token) {
@@ -32,19 +37,8 @@ public class SettlementViewModel extends AndroidViewModel {
     public ArrayList<SettlementRepository.SettlementSummary> getBatchSettlements() { return repository.getBatchSettlements(); }
     public ArrayList<SettlementRepository.SettlementSummary> getUnitarySettlements() { return repository.getUnitarySettlements(); }
 
-    public HashMap<String, String> getBatchParams() { return repository.getBatchParams(); }
-    public HashMap<String, String> getUnitaryParams() { return repository.getUnitaryParams(); }
-
     public void setBatchParams(HashMap<String, String> params) { repository.setBatchParams(params); }
     public void setUnitaryParams(HashMap<String, String> params) { repository.setUnitaryParams(params); }
-
-    public void fetchBatchDataset(String token) { repository.fetchBatchDataset(token); }
-    public void fetchUnitaryDataset(String token) { repository.fetchUnitaryDataset(token); }
-
-    public MutableLiveData<List<DatasetProduct>> getProductsDataset() { return repository.getProductsDataset(); }
-    public MutableLiveData<List<DatasetCounterparty>> getCounterpartyDatasetBatch() { return repository.getCounterpartyDatasetBatch(); }
-    public ArrayList<DatasetCounterparty> getCounterpartyDataset() { return repository.getCounterpartyDataset(); }
-    public ArrayList<DatasetCurrency> getCurrencyDataset() { return repository.getCurrencyDataset(); }
 
     public void removeFromBatchParams(String key) { repository.removeFromBatchParams(key); }
     public void removeFromUnitaryParams(String key) { repository.removeFromUnitaryParams(key); }
@@ -59,4 +53,12 @@ public class SettlementViewModel extends AndroidViewModel {
     public void resetBatchList() { repository.resetBatchList(); }
     public void resetUnitaryList() { repository.resetUnitaryList(); }
 
+    // product dataset
+    public LiveData<List<Product>> getAllProducts() { return allProducts; }
+
+    // currency dataset
+//    public ArrayList<Currency> getAllCurrencies() {
+    public LiveData<List<Currency>> getAllCurrencies() {
+        return allCurrencies;
+    }
 }

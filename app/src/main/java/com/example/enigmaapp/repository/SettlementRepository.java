@@ -1,17 +1,21 @@
 package com.example.enigmaapp.repository;
 
 import android.app.Application;
+import android.os.AsyncTask;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.enigmaapp.db.CurrencyDao;
+import com.example.enigmaapp.db.CurrencyDatabase;
+import com.example.enigmaapp.db.ProductDao;
+import com.example.enigmaapp.db.ProductDatabase;
 import com.example.enigmaapp.web.RetrofitClient;
+import com.example.enigmaapp.web.dataset.Currency;
+import com.example.enigmaapp.web.dataset.Product;
 import com.example.enigmaapp.web.settlement.BatchItemResult;
 import com.example.enigmaapp.web.settlement.BatchResult;
-import com.example.enigmaapp.web.settlement.dataset.BatchDatasetResult;
-import com.example.enigmaapp.web.settlement.dataset.UnitaryDatasetResult;
 import com.example.enigmaapp.web.dataset.DatasetCurrency;
 import com.example.enigmaapp.web.dataset.DatasetCounterparty;
 import com.example.enigmaapp.web.dataset.DatasetProduct;
@@ -37,14 +41,33 @@ public class SettlementRepository {
     private ArrayList<SettlementSummary> allBatchSettlements = new ArrayList<>();
     private ArrayList<SettlementSummary> allUnitarySettlements = new ArrayList<>();
 
-    private MutableLiveData<ArrayList<String>> statusDataset = new MutableLiveData<ArrayList<String>>();
-    private MutableLiveData<List<DatasetProduct>> productsDataset = new MutableLiveData<List<DatasetProduct>>();
-    private MutableLiveData<List<DatasetCounterparty>> counterpartyDatasetBatch = new MutableLiveData<List<DatasetCounterparty>>();
-    private ArrayList<DatasetCounterparty> counterpartyDataset = new ArrayList<>();
     private ArrayList<DatasetCurrency> currenciesDataset = new ArrayList<>();
+
+    private ProductDao productDao;
+    private LiveData<List<Product>> allProducts = new MutableLiveData<>();
+
+    private CurrencyDao currencyDao;
+    private LiveData<List<Currency>> allCurrencies = new MutableLiveData<>();
+//    private ArrayList<Currency> allCurrencies =  new ArrayList<>();
 
     public SettlementRepository(Application application) {
         this.application = application;
+
+        ProductDatabase productDatabase = ProductDatabase.getInstance(application);
+        productDao = productDatabase.productDao();
+        allProducts = productDao.getAllProducts();
+
+        CurrencyDatabase currencyDatabase = CurrencyDatabase.getInstance(application);
+        currencyDao = currencyDatabase.currencyDao();
+        allCurrencies = currencyDao.getAllCurrencies();
+//        new Thread {
+//            //Do your database´s operations here
+//        }.start();
+
+//        AsyncTask.execute(() -> {
+//            allCurrencies = ( ArrayList<Currency>) currencyDao.getAllCurrencies();
+//            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + allCurrencies.size());
+//        });
     }
 
     public ArrayList<SettlementSummary> getBatchSettlements() {
@@ -149,92 +172,6 @@ public class SettlementRepository {
         return unitaryParams;
     }
 
-    public HashMap<String, String> getBatchParams() {
-        return batchParams;
-    }
-
-    public HashMap<String, String> getUnitaryParams() {
-        return unitaryParams;
-    }
-
-    public void fetchBatchDataset(String token) {
-        Call<BatchDatasetResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetBatchDataset(token);
-
-        call.enqueue(new Callback<BatchDatasetResult>() {
-            @Override
-            public void onResponse(Call<BatchDatasetResult> call, Response<BatchDatasetResult> response) {
-                if (!response.isSuccessful()) {
-                    System.out.println("Code: " + response.code() + "Error: " + response.message());
-                    return;
-                }
-                setBatchDatasetLists(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<BatchDatasetResult> call, Throwable t) {
-                System.out.println("t.getMessage(): " + t.getMessage());
-                Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    public void fetchUnitaryDataset(String token) {
-        Call<UnitaryDatasetResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetUnitaryDataset(token);
-
-        call.enqueue(new Callback<UnitaryDatasetResult>() {
-            @Override
-            public void onResponse(Call<UnitaryDatasetResult> call, Response<UnitaryDatasetResult> response) {
-                if (!response.isSuccessful()) {
-                    System.out.println("Code: " + response.code() + "Error: " + response.message());
-                    return;
-                }
-                setUnitaryDatasetLists(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<UnitaryDatasetResult> call, Throwable t) {
-                System.out.println("t.getMessage(): " + t.getMessage());
-                Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void setBatchDatasetLists(BatchDatasetResult dataset) {
-        ArrayList productsArray = (ArrayList) dataset.getProducts();
-        productsDataset.setValue(productsArray);
-
-        ArrayList counterpartyArray = (ArrayList) dataset.getCounterparty();
-        counterpartyDatasetBatch.setValue(counterpartyArray);
-    }
-
-    private void setUnitaryDatasetLists(UnitaryDatasetResult dataset) {
-        ArrayList fiatArray = (ArrayList) dataset.getCurrency();
-        ArrayList cryptoArray = (ArrayList) dataset.getCryptoCurrency();
-        ArrayList<DatasetCounterparty> counterpartyArray = (ArrayList) dataset.getCounterparty();
-
-//        ArrayList combined = new ArrayList<DatasetCurrency>();
-
-        for (int i = 0; i < fiatArray.size(); i++) {
-            DatasetCurrency coin = new DatasetCurrency(fiatArray.get(i).toString());
-            currenciesDataset.add(coin);
-        }
-        for (int i = 0; i < cryptoArray.size(); i++) {
-            DatasetCurrency coin = new DatasetCurrency(cryptoArray.get(i).toString());
-            currenciesDataset.add(coin);
-        }
-
-        if (counterpartyArray != null) {
-            for (int i = 0; i < counterpartyArray.size(); i++) {
-                counterpartyDataset.add(new DatasetCounterparty(counterpartyArray.get(i).getName(), counterpartyArray.get(i).getId()));
-            }
-        }
-
-    }
-
-    public MutableLiveData<List<DatasetProduct>> getProductsDataset() {
-        return productsDataset;
-    }
-
     public void removeFromBatchParams(String key) {
         Iterator it = batchParams.entrySet().iterator();
         while (it.hasNext()) {
@@ -265,14 +202,6 @@ public class SettlementRepository {
         }
     }
 
-    public ArrayList<DatasetCounterparty> getCounterpartyDataset() {
-        return this.counterpartyDataset;
-    }
-
-    public ArrayList<DatasetCurrency> getCurrencyDataset() {
-        return this.currenciesDataset;
-    }
-
     public void resetBatchParams() {
         this.batchParams.clear();
     }
@@ -288,11 +217,6 @@ public class SettlementRepository {
     public void resetUnitaryList() {
         this.allUnitarySettlements.clear();
     }
-
-    public MutableLiveData<List<DatasetCounterparty>> getCounterpartyDatasetBatch() {
-        return this.counterpartyDatasetBatch;
-    }
-
 
     public class SettlementSummary {
         private String name;
@@ -424,5 +348,22 @@ public class SettlementRepository {
         public void setBatch(boolean batch) {
             isBatch = batch;
         }
+    }
+
+
+    // product dataset
+    public LiveData<List<Product>> getAllProducts() {
+        return allProducts;
+    }
+
+    // currency dataset
+//    public ArrayList<Currency> getAllCurrencies() {
+    public LiveData<List<Currency>> getAllCurrencies() {
+//        AsyncTask.execute(() -> {
+//            allCurrencies = ( ArrayList<Currency>) currencyDao.getAllCurrencies();
+//            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + allCurrencies.size());
+//        });
+//        System.out.println("(((((((((((((((((((((( getAllCurrencies ))))))))))))))))) "+ allCurrencies.size());
+        return allCurrencies;
     }
 }

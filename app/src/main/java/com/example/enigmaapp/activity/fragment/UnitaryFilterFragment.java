@@ -1,7 +1,6 @@
 package com.example.enigmaapp.activity.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 
@@ -53,9 +52,8 @@ public class UnitaryFilterFragment extends Fragment {
     private TextView currencyText;
 
     private View statusSelectView;
-    private SettlementViewModel viewModel;
+    private SettlementViewModel settlementViewModel;
 
-    private HashMap<String, String> paramsFromRepository = new HashMap<>();
     public static HashMap<String, String> unitaryParamsToSend = new HashMap<>();
 
     public static ArrayList<String> clickedCurrencies = new ArrayList<>();
@@ -64,8 +62,6 @@ public class UnitaryFilterFragment extends Fragment {
     public static StringBuilder currencyStringBuilder;
     public static StringBuilder counterpartyStringBuilder;
 
-    private Activity activity;
-
     public UnitaryFilterFragment() {
         // Required empty public constructor
     }
@@ -73,8 +69,6 @@ public class UnitaryFilterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        activity = getActivity();
     }
 
     @Override
@@ -85,10 +79,9 @@ public class UnitaryFilterFragment extends Fragment {
 
         buildCalender(v);
 
-        viewModel = new ViewModelProvider(requireActivity(),
+        settlementViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(SettlementViewModel.class);
-
 
         send = v.findViewById(R.id.radioButtonUnitarySendSide);
         receive = v.findViewById(R.id.radioButtonUnitaryReceiveSide);
@@ -112,15 +105,6 @@ public class UnitaryFilterFragment extends Fragment {
             }
         });
 
-        paramsFromRepository = viewModel.getUnitaryParams();
-
-        LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
-                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(LoginViewModel.class);
-        String token = loginViewModel.getCurrentUser().getToken();
-
-        viewModel.fetchUnitaryDataset(token);
-
         counterpartyText = v.findViewById(R.id.filter_unitary_counterparty);
         counterpartyText.setText(counterpartyStringBuilder);
         counterpartyText.setOnClickListener(v1 -> openUnitarySelectFilter("counterparty"));
@@ -132,7 +116,7 @@ public class UnitaryFilterFragment extends Fragment {
         // Submit "Filter" and go back to "Settlement" screen
         submitBtn = v.findViewById(R.id.filter_settlement_submit_btn);
         submitBtn.setOnClickListener(v15 -> {
-            viewModel.setUnitaryParams(unitaryParamsToSend);
+            settlementViewModel.setUnitaryParams(unitaryParamsToSend);
             openSettlementScreen();
         });
 
@@ -140,7 +124,7 @@ public class UnitaryFilterFragment extends Fragment {
         resetBtn = v.findViewById(R.id.filter_settlement_reset_btn);
         resetBtn.setOnClickListener(v14 -> {
             unitaryParamsToSend.clear();
-            viewModel.resetUnitaryParams();
+            settlementViewModel.resetUnitaryParams();
             resetPrefs();
             openFilterUnitaryScreen();
             clearCurrenciesText();
@@ -307,7 +291,7 @@ public class UnitaryFilterFragment extends Fragment {
         prefEditor.putBoolean(prefKey, false);
         prefEditor.apply();
         unitaryParamsToSend.remove(paramKey);
-        viewModel.removeFromUnitaryParams(paramKey);
+        settlementViewModel.removeFromUnitaryParams(paramKey);
     }
 
     private void checkBoxSetupToTrue(String prefKey, String paramKey, String paramVal) {

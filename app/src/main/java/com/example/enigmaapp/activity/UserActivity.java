@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.activity.fragment.AccountsFragment;
@@ -37,15 +36,14 @@ import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.resetT
 
 public class UserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     public static final String TAG = "UserActivity";
-    private TextView greetingText;
     private String passedUsername;
     private String passedToken;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    public static SharedPreferences.Editor prefEditor;
-    public static SharedPreferences prefs;
+//    public static SharedPreferences.Editor prefEditor;
+//    public static SharedPreferences prefs;
     public static ActionBar actionBar;
 
     @Override

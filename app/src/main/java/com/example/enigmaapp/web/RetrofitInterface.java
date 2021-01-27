@@ -3,8 +3,7 @@ package com.example.enigmaapp.web;
 import com.example.enigmaapp.web.accounts.AccountsItemResult;
 import com.example.enigmaapp.web.login.LoginResult;
 import com.example.enigmaapp.web.settlement.BatchResult;
-import com.example.enigmaapp.web.settlement.dataset.BatchDatasetResult;
-import com.example.enigmaapp.web.settlement.dataset.UnitaryDatasetResult;
+import com.example.enigmaapp.web.settlement.dataset.SettlementDatasetResult;
 import com.example.enigmaapp.web.trade.TradeResult;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetResult;
 
@@ -69,10 +68,10 @@ public interface RetrofitInterface {
     @GET("/dataset/trade")
     Call<TradeDatasetResult> executeGetTradeDataset(@Header("Authorization") String token);
 
-    @GET("/dataset/settlement_batch")
-    Call<BatchDatasetResult> executeGetBatchDataset(@Header("Authorization") String token);
+//    @GET("/dataset/settlement_batch")
+//    Call<SettlementDatasetResult> executeGetBatchDataset(@Header("Authorization") String token);
 
     @GET("/dataset/settlement")
-    Call<UnitaryDatasetResult> executeGetUnitaryDataset(@Header("Authorization") String token);
+    Call<SettlementDatasetResult> executeGetUnitaryDataset(@Header("Authorization") String token);
 
 }

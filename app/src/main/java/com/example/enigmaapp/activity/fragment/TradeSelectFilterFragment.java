@@ -95,7 +95,7 @@ public class TradeSelectFilterFragment extends Fragment {
                 tradeViewModel.getAllProducts().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
-                        System.out.println("TradeSelectFilterFragment >>> got products size  in filter fragment _ " + products.size());
+                        System.out.println("TradeSelectFilterFragment >>> got products size  in __trade__ filter fragment _ " + products.size());
                         productAdapter.submitList(products);
                     }
                 });

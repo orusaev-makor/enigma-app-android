@@ -10,6 +10,7 @@ public class ExecutionType {
     @PrimaryKey
     @NonNull
     private String name;
+
     private boolean isChecked = false;
 
     public ExecutionType(String name) {
