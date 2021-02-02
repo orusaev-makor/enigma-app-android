@@ -1,9 +1,14 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -210,10 +215,33 @@ public class TradeFragment extends Fragment {
         previousTradeExpandedPosition = -1;
     }
 
+    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Fragment frg = null;
+                        frg = getParentFragmentManager().findFragmentByTag("Trade");
+                        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            ft.detach(frg).commitNow();
+                            ft.attach(frg).commitNow();
+                        } else {
+                            ft.detach(frg).attach(frg).commit();
+                        }
+
+                    }
+                }
+            });
+
     private void startFormActivity() {
-        Intent intent = new Intent(getContext(), FormActivity.class);
-        intent.putExtra("formTypeExtra", "filterTrade");
-        getActivity().startActivityForResult(intent, TRADE_FILTER_REQUEST_CODE);
+        // The launcher with the Intent you want to start
+        mStartForResult.launch(new Intent(getContext(), FormActivity.class).putExtra("formTypeExtra", "filterTrade"));
+
+//        Intent intent = new Intent(getContext(), FormActivity.class);
+//        intent.putExtra("formTypeExtra", "filterTrade");
+//        getActivity().startActivityForResult(intent, TRADE_FILTER_REQUEST_CODE);
     }
 
     private void openTradeFragment() {

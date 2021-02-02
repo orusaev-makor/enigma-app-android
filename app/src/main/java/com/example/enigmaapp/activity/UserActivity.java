@@ -89,49 +89,48 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         ft.replace(R.id.frame_layout, fragment, "Balance");
         ft.commit();
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            Fragment frg = null;
-
-            // Reload current fragment to refresh filtered results:
-            switch (requestCode) {
-                case TRADE_FILTER_REQUEST_CODE:
-                    //            if (data.hasExtra("products")) {
-////                Bundle wrapper = getIntent().getBundleExtra("stkList");
-//                Bundle wrapper = data.getBundleExtra("products");
-//                if (wrapper != null) {
-//                    HashMap<String, String> myClass3 = (HashMap<String, String>) wrapper.getSerializable("productList");
-//                    System.out.println("...serialized data4.." + myClass3);
-//                }
+//
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == RESULT_OK) {
+//            Fragment frg = null;
+//
+//            // Reload current fragment to refresh filtered results:
+//            switch (requestCode) {
+//                case TRADE_FILTER_REQUEST_CODE:
+//                    //            if (data.hasExtra("products")) {
+//////                Bundle wrapper = getIntent().getBundleExtra("stkList");
+////                Bundle wrapper = data.getBundleExtra("products");
+////                if (wrapper != null) {
+////                    HashMap<String, String> myClass3 = (HashMap<String, String>) wrapper.getSerializable("productList");
+////                    System.out.println("...serialized data4.." + myClass3);
+////                }
+////            }
+//                    frg = getSupportFragmentManager().findFragmentByTag("Trade");
+//                    break;
+//
+//                case BATCH_FILTER_REQUEST_CODE:
+//                    frg = getSupportFragmentManager().findFragmentByTag("Batch");
+//                    break;
+//
+//                case UNITARY_FILTER_REQUEST_CODE:
+//                    frg = getSupportFragmentManager().findFragmentByTag("Unitary");
+//                    break;
+//                default:
+//                    break;
 //            }
-                    frg = getSupportFragmentManager().findFragmentByTag("Trade");
-                    break;
-
-                case BATCH_FILTER_REQUEST_CODE:
-                    frg = getSupportFragmentManager().findFragmentByTag("Batch");
-                    break;
-
-                case UNITARY_FILTER_REQUEST_CODE:
-                    frg = getSupportFragmentManager().findFragmentByTag("Unitary");
-                    break;
-                default:
-                    break;
-            }
-
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                ft.detach(frg).commitNow();
-                ft.attach(frg).commitNow();
-            } else {
-                ft.detach(frg).attach(frg).commit();
-            }
-        }
-    }
-
+//
+//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                ft.detach(frg).commitNow();
+//                ft.attach(frg).commitNow();
+//            } else {
+//                ft.detach(frg).attach(frg).commit();
+//            }
+//        }
+//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

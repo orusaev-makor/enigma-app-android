@@ -1,8 +1,14 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -285,19 +291,40 @@ public class SettlementFragment extends Fragment {
         ft.commit();
     }
 
+    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    String tag = (isBatch) ? "Batch" : "Unitary";
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Fragment frg = null;
+                        frg = getParentFragmentManager().findFragmentByTag(tag);
+                        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            ft.detach(frg).commitNow();
+                            ft.attach(frg).commitNow();
+                        } else {
+                            ft.detach(frg).attach(frg).commit();
+                        }
+
+                    }
+                }
+            });
+
     private void startFormActivity() {
         // start form activity
-        Intent intent = new Intent(getContext(), FormActivity.class);
+//        Intent intent = new Intent(getContext(), FormActivity.class);
         if (isBatch) {
-            intent.putExtra("formTypeExtra", "filterBatch");
-            getActivity().startActivityForResult(intent, BATCH_FILTER_REQUEST_CODE);
+//            intent.putExtra("formTypeExtra", "filterBatch");
+//            getActivity().startActivityForResult(intent, BATCH_FILTER_REQUEST_CODE);
+            mStartForResult.launch(new Intent(getContext(), FormActivity.class).putExtra("formTypeExtra", "filterBatch"));
         } else {
-            intent.putExtra("formTypeExtra", "filterUnitary");
-            getActivity().startActivityForResult(intent, UNITARY_FILTER_REQUEST_CODE);
+//            intent.putExtra("formTypeExtra", "filterUnitary");
+//            getActivity().startActivityForResult(intent, UNITARY_FILTER_REQUEST_CODE);
+            mStartForResult.launch(new Intent(getContext(), FormActivity.class).putExtra("formTypeExtra", "filterUnitary"));
         }
-//        Log.d(TAG, "openFilterTradeFragment: starting form activity");
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        getActivity().startActivity(intent);
     }
 
     private void setUnselectedTextView(TextView textView) {
