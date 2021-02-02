@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,20 +20,13 @@ import com.example.enigmaapp.model.LoginViewModel;
 import com.example.enigmaapp.ui.BatchedFilterAdapter;
 import com.example.enigmaapp.ui.ExecutionTypeFilterAdapter;
 import com.example.enigmaapp.ui.ProductFilterAdapter;
-import com.example.enigmaapp.web.dataset.Batched;
-import com.example.enigmaapp.web.dataset.DatasetBatched;
-import com.example.enigmaapp.web.dataset.DatasetExecutionType;
-import com.example.enigmaapp.web.dataset.ExecutionType;
-import com.example.enigmaapp.web.dataset.Product;
 import com.google.android.material.button.MaterialButton;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 import static com.example.enigmaapp.activity.MainActivity.prefEditor;
-import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.removeFromTradeParams;
-import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.setTradeFilterParams;
+import static com.example.enigmaapp.activity.fragment.TradeFragment.selectedBatched;
+import static com.example.enigmaapp.activity.fragment.TradeFragment.selectedExecutionType;
+import static com.example.enigmaapp.activity.fragment.TradeFragment.selectedProductId;
 
 public class TradeSelectFilterFragment extends Fragment {
     private String mFilterType;
@@ -42,11 +34,15 @@ public class TradeSelectFilterFragment extends Fragment {
     private TextView subtitleText;
     private MaterialButton resetBtn;
     private Button submitBtn;
-    private HashMap<String, String> params = new HashMap<>();
+    private TradeViewModel tradeViewModel;
+
     public static int lastTradeProductPos = -1;
     public static int lastTradeExecutionPos = -1;
     public static int lastTradeBatchedPos = -1;
-    private TradeViewModel tradeViewModel;
+
+    private String productId;
+    private String executionType;
+    private String batched;
 
     public TradeSelectFilterFragment(String filterType) {
         this.mFilterType = filterType;
@@ -74,7 +70,19 @@ public class TradeSelectFilterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openTradeFilterScreen();
-                setTradeFilterParams(params);
+                switch (mFilterType) {
+                    case "product":
+                        selectedProductId = productId;
+                        break;
+                    case "execution type":
+                        selectedExecutionType = executionType;
+                        break;
+                    case "batched":
+                        selectedBatched = batched;
+                        break;
+                    default:
+                        break;
+                }
             }
         });
 
@@ -92,29 +100,17 @@ public class TradeSelectFilterFragment extends Fragment {
                 final ProductFilterAdapter productAdapter = new ProductFilterAdapter(requireActivity(), true);
                 recyclerView.setAdapter(productAdapter);
 
-                tradeViewModel.getAllProducts().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
-                    @Override
-                    public void onChanged(List<Product> products) {
-                        System.out.println("TradeSelectFilterFragment >>> got products size  in __trade__ filter fragment _ " + products.size());
-                        productAdapter.submitList(products);
-                    }
-                });
+                tradeViewModel.getAllProducts().observe(getViewLifecycleOwner(), products -> productAdapter.submitList(products));
 
                 productAdapter.setOnItemClickListener((productItem, position) -> {
                     if (productItem.getIsChecked()) {
                         productItem.setIsChecked(false);
-                        Iterator it = params.entrySet().iterator();
-                        while (it.hasNext()) {
-                            HashMap.Entry entry = (HashMap.Entry) it.next();
-                            if (entry.getKey().equals("product_id") && productItem.getId().equals(entry.getValue())) {
-                                it.remove();
-                            }
-                        }
+                        productId = null;
                     } else {
                         productAdapter.setLastCheckedPos(position);
                         productItem.setIsChecked(true);
+                        productId = productItem.getId();
                         lastTradeProductPos = position;
-                        params.put("product_id", productItem.getId());
                         prefEditor.putString("productTradeFilter", productItem.getName());
                         prefEditor.apply();
                     }
@@ -127,30 +123,18 @@ public class TradeSelectFilterFragment extends Fragment {
                 final ExecutionTypeFilterAdapter executionTypeAdapter = new ExecutionTypeFilterAdapter(requireActivity());
                 recyclerView.setAdapter(executionTypeAdapter);
 
-                tradeViewModel.getAllExecutionTypes().observe(getViewLifecycleOwner(), new Observer<List<ExecutionType>>() {
-                    @Override
-                    public void onChanged(List<ExecutionType> executionTypes) {
-                        System.out.println("TradeSelectFilterFragment >>> got executionTypes size  in filter fragment _ " + executionTypes.size());
-                        executionTypeAdapter.submitList(executionTypes);
-                    }
-                });
+                tradeViewModel.getAllExecutionTypes().observe(getViewLifecycleOwner(), executionTypes -> executionTypeAdapter.submitList(executionTypes));
 
                 executionTypeAdapter.setOnItemClickListener((executionTypeItem, position) -> {
                     if (executionTypeItem.getIsChecked()) {
                         executionTypeItem.setIsChecked(false);
-                        Iterator it = params.entrySet().iterator();
-                        while (it.hasNext()) {
-                            HashMap.Entry entry = (HashMap.Entry) it.next();
-                            if (entry.getKey().equals("execution_type") && executionTypeItem.getName().equals(entry.getValue())) {
-                                it.remove();
-                            }
-                        }
+                        executionType = null;
                     } else {
                         executionTypeAdapter.setLastCheckedPos(position);
                         executionTypeItem.setIsChecked(true);
                         lastTradeExecutionPos = position;
-                        params.put("execution_type", executionTypeItem.getName());
-                        prefEditor.putString("executionTradeFilter", executionTypeItem.getName());
+                        executionType = executionTypeItem.getName();
+                        prefEditor.putString("executionTradeFilter", executionType);
                         prefEditor.apply();
                     }
 
@@ -162,29 +146,17 @@ public class TradeSelectFilterFragment extends Fragment {
                 final BatchedFilterAdapter batchedAdapter = new BatchedFilterAdapter(requireActivity());
                 recyclerView.setAdapter(batchedAdapter);
 
-                tradeViewModel.getAllBatched().observe(getViewLifecycleOwner(), new Observer<List<Batched>>() {
-                    @Override
-                    public void onChanged(List<Batched> batched) {
-                        System.out.println("TradeSelectFilterFragment >>> got batched size  in filter fragment _ " + batched.size());
-                        batchedAdapter.submitList(batched);
-                    }
-                });
+                tradeViewModel.getAllBatched().observe(getViewLifecycleOwner(), batched -> batchedAdapter.submitList(batched));
 
                 batchedAdapter.setOnItemClickListener((batchItem, position) -> {
                     if (batchItem.getIsChecked()) {
                         batchItem.setIsChecked(false);
-                        Iterator it = params.entrySet().iterator();
-                        while (it.hasNext()) {
-                            HashMap.Entry entry = (HashMap.Entry) it.next();
-                            if (entry.getKey().equals("already_batched") && batchItem.getName().equals(entry.getValue())) {
-                                it.remove();
-                            }
-                        }
+                        batched = null;
                     } else {
                         batchedAdapter.setLastCheckedPos(position);
                         batchItem.setIsChecked(true);
                         lastTradeBatchedPos = position;
-                        params.put("already_batched", batchItem.getValue());
+                        batched = batchItem.getValue();
                         prefEditor.putString("batchedTradeFilter", batchItem.getName());
                         prefEditor.apply();
                     }
@@ -198,31 +170,42 @@ public class TradeSelectFilterFragment extends Fragment {
 
         // Reset "Filter List" screen
         resetBtn = v.findViewById(R.id.multi_select_reset_btn);
-        resetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMultiSelectFilter(mFilterType);
-                resetPrefs();
-                resetParam();
-                resetLastPos();
-            }
+        resetBtn.setOnClickListener(v1 -> {
+            openMultiSelectFilter(mFilterType);
+            resetPrefs();
+            resetParam();
+            resetLastPos();
+            resetLocalString();
         });
 
         return v;
     }
 
+    private void resetLocalString() {
+        switch (mFilterType) {
+            case "product":
+                productId = null;
+                break;
+            case "execution type":
+                executionType = null;
+                break;
+            case "batched":
+                batched = null;
+                break;
+            default:
+                break;
+        }
+    }
+
     private void resetParam() {
         switch (mFilterType) {
             case "product":
-                removeFromTradeParams("product_id");
                 tradeViewModel.removeFromParams("product_id");
                 break;
             case "execution type":
-                removeFromTradeParams("execution_type");
                 tradeViewModel.removeFromParams("execution_type");
                 break;
             case "batched":
-                removeFromTradeParams("already_batched");
                 tradeViewModel.removeFromParams("already_batched");
                 break;
             default:
@@ -266,10 +249,10 @@ public class TradeSelectFilterFragment extends Fragment {
     }
 
     private void openTradeFilterScreen() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         TradeFilterFragment fragment = new TradeFilterFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Trade Filter");
-        transaction.commit();
+        ft.replace(R.id.frame_layout, fragment, "Trade Filter");
+        ft.commit();
     }
 
     private void openMultiSelectFilter(String type) {
@@ -284,9 +267,9 @@ public class TradeSelectFilterFragment extends Fragment {
 
         viewModel.fetchTradeDataset(token);
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         TradeSelectFilterFragment fragment = new TradeSelectFilterFragment(type);
-        transaction.replace(R.id.frame_layout, fragment, "Multi Select Filter List");
-        transaction.commit();
+        ft.replace(R.id.frame_layout, fragment, "Multi Select Filter List");
+        ft.commit();
     }
 }

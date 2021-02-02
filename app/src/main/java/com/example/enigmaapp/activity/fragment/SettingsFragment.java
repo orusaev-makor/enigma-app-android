@@ -13,7 +13,8 @@ import android.widget.LinearLayout;
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.ui.SettingsConfirmationDialog;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import static com.example.enigmaapp.activity.UserActivity.actionBar;
+
 
 public class SettingsFragment extends Fragment {
 

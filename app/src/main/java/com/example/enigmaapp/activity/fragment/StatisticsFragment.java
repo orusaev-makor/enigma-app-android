@@ -24,7 +24,8 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter;
 
 import java.util.ArrayList;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import static com.example.enigmaapp.activity.UserActivity.actionBar;
+
 
 public class StatisticsFragment extends Fragment {
     BarChart statisticsChart;

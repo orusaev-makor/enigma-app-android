@@ -14,7 +14,6 @@ import android.widget.Button;
 import com.example.enigmaapp.R;
 import com.google.android.material.button.MaterialButton;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
 
 public class NewTradeReviewAndSubmitFragment extends Fragment {
     private Button closeBtn;
@@ -29,7 +28,7 @@ public class NewTradeReviewAndSubmitFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        actionBar.hide();
+//        actionBar.hide();
     }
 
     @Override
@@ -52,10 +51,10 @@ public class NewTradeReviewAndSubmitFragment extends Fragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
                 NewTradeCreationFragment fragment = new NewTradeCreationFragment();
-                transaction.replace(R.id.frame_layout, fragment, "New Trade");
-                transaction.commit();
+                ft.replace(R.id.frame_layout, fragment, "New Trade");
+                ft.commit();
             }
         });
 
@@ -72,9 +71,9 @@ public class NewTradeReviewAndSubmitFragment extends Fragment {
     }
 
     private void openTradeScreen() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         TradeFragment fragment = new TradeFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Trade");
-        transaction.commit();
+        ft.replace(R.id.frame_layout, fragment, "Trade");
+        ft.commit();
     }
 }

@@ -52,9 +52,9 @@ public class ForgotPasswordFragment extends Fragment {
     }
 
     private void openLoginScreen() {
-        LoginFragment fragment = new LoginFragment();
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment, "Login");
-        fragmentTransaction.commit();
+        LoginFragment frg = new LoginFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.frame_layout, frg, "Login");
+        ft.commit();
     }
 }

@@ -310,24 +310,24 @@ public class UnitaryFilterFragment extends Fragment {
     }
 
     private void openFilterUnitaryScreen() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        UnitaryFilterFragment fragment = new UnitaryFilterFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Settlement Filter");
-        transaction.commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        UnitaryFilterFragment frg = new UnitaryFilterFragment();
+        ft.replace(R.id.frame_layout, frg, "Settlement Filter");
+        ft.commit();
     }
 
     private void openUnitarySelectFilter(String type) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        UnitaryMultiSelectFilterFragment fragment = new UnitaryMultiSelectFilterFragment(type);
-        transaction.replace(R.id.frame_layout, fragment, "Filter Unitary");
-        transaction.commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        UnitaryMultiSelectFilterFragment frg = new UnitaryMultiSelectFilterFragment(type);
+        ft.replace(R.id.frame_layout, frg, "Filter Unitary");
+        ft.commit();
     }
 
     private void openSettlementScreen() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        SettlementFragment fragment = new SettlementFragment(false);
-        transaction.replace(R.id.frame_layout, fragment, "Settlement");
-        transaction.commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        SettlementFragment frg = new SettlementFragment(false);
+        ft.replace(R.id.frame_layout, frg, "Settlement");
+        ft.commit();
     }
 
     public static void setUnitaryFilterParams(HashMap<String, String> params) {

@@ -1,7 +1,6 @@
 package com.example.enigmaapp.ui;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import static com.example.enigmaapp.activity.fragment.UnitaryFilterFragment.clickedCurrencies;
 
 public class CurrencyFilterMultiAdapter extends ListAdapter<Currency, CurrencyFilterMultiAdapter.CurrencyOptionHolder> {
-    private static final String TAG = "Currency_Filter_Adapter";
     private OnItemClickListener listener;
     private Context context;
     ArrayList<Currency> selected = new ArrayList<>();
@@ -88,21 +86,5 @@ public class CurrencyFilterMultiAdapter extends ListAdapter<Currency, CurrencyFi
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
-    }
-
-
-    // Getting all items
-
-    public ArrayList<Currency> getSelected() {
-        return selected;
-    }
-
-    public void clearSelected() {
-            selected.clear();
-            notifyDataSetChanged();
-    }
-
-    public void addToSelected(Currency currency) {
-        selected.add(currency);
     }
 }

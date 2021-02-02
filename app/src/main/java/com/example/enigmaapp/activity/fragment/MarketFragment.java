@@ -23,7 +23,8 @@ import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import static com.example.enigmaapp.activity.UserActivity.actionBar;
+
 
 public class MarketFragment extends Fragment {
 

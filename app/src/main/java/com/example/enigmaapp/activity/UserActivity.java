@@ -1,6 +1,7 @@
 package com.example.enigmaapp.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,10 +10,12 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,11 +33,16 @@ import com.example.enigmaapp.activity.fragment.StatisticsFragment;
 import com.example.enigmaapp.activity.fragment.TradeFragment;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.HashMap;
+
 import static com.example.enigmaapp.activity.fragment.BatchFilterFragment.resetBatchLastPos;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.BATCH_FILTER_REQUEST_CODE;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.UNITARY_FILTER_REQUEST_CODE;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.resetTradeLastPos;
+import static com.example.enigmaapp.activity.fragment.TradeFragment.TRADE_FILTER_REQUEST_CODE;
 
-public class UserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class UserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static final String TAG = "UserActivity";
     private String passedUsername;
     private String passedToken;
@@ -42,7 +50,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
-//    public static SharedPreferences.Editor prefEditor;
+    //    public static SharedPreferences.Editor prefEditor;
 //    public static SharedPreferences prefs;
     public static ActionBar actionBar;
 
@@ -91,58 +99,101 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
         // Initial Fragment:
         BalanceFragment fragment = new BalanceFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment, "Balance");
-        fragmentTransaction.commit();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frame_layout, fragment, "Balance");
+        ft.commit();
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == TRADE_FILTER_REQUEST_CODE) {
+            Fragment frg = null;
+
+            // Reload current fragment to refresh filtered results:
+            switch (requestCode) {
+                case TRADE_FILTER_REQUEST_CODE:
+                    //            if (data.hasExtra("products")) {
+////                Bundle wrapper = getIntent().getBundleExtra("stkList");
+//                Bundle wrapper = data.getBundleExtra("products");
+//                if (wrapper != null) {
+//                    HashMap<String, String> myClass3 = (HashMap<String, String>) wrapper.getSerializable("productList");
+//                    System.out.println("...serialized data4.." + myClass3);
+//                }
+//            }
+                    frg = getSupportFragmentManager().findFragmentByTag("Trade");
+                    break;
+
+                case BATCH_FILTER_REQUEST_CODE:
+                    frg = getSupportFragmentManager().findFragmentByTag("Batch");
+                    break;
+
+                case UNITARY_FILTER_REQUEST_CODE:
+                    frg = getSupportFragmentManager().findFragmentByTag("Unitary");
+                    break;
+                default:
+                    break;
+            }
+
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                ft.detach(frg).commitNow();
+                ft.attach(frg).commitNow();
+            } else {
+                ft.detach(frg).attach(frg).commit();
+            }
+        }
+    }
+
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         switch (item.getItemId()) {
             case R.id.app_bar_balance:
                 BalanceFragment balanceFragment = new BalanceFragment();
-                fragmentTransaction.replace(R.id.frame_layout, balanceFragment, "Balance");
+                ft.replace(R.id.frame_layout, balanceFragment, "Balance");
                 break;
             case R.id.app_bar_trade:
                 TradeFragment tradeFragment = new TradeFragment();
-                fragmentTransaction.replace(R.id.frame_layout, tradeFragment, "Trade");
+                ft.replace(R.id.frame_layout, tradeFragment, "Trade");
                 break;
             case R.id.app_bar_settlement:
                 SettlementFragment settlementFragment = new SettlementFragment(true);
-                fragmentTransaction.replace(R.id.frame_layout, settlementFragment, "Settlement");
+                ft.replace(R.id.frame_layout, settlementFragment, "Batch");
                 break;
             case R.id.app_bar_market:
                 MarketFragment marketFragment = new MarketFragment();
-                fragmentTransaction.replace(R.id.frame_layout, marketFragment, "Market");
+                ft.replace(R.id.frame_layout, marketFragment, "Market");
                 break;
             case R.id.app_bar_news:
                 NewsFragment newsFragment = new NewsFragment();
-                fragmentTransaction.replace(R.id.frame_layout, newsFragment, "News");
+                ft.replace(R.id.frame_layout, newsFragment, "News");
                 break;
             case R.id.app_bar_statistics:
                 StatisticsFragment statisticsFragment = new StatisticsFragment();
-                fragmentTransaction.replace(R.id.frame_layout, statisticsFragment, "Statistics");
+                ft.replace(R.id.frame_layout, statisticsFragment, "Statistics");
                 break;
             case R.id.app_bar_accounts:
                 AccountsFragment accountsFragment = new AccountsFragment();
-                fragmentTransaction.replace(R.id.frame_layout, accountsFragment, "Accounts");
+                ft.replace(R.id.frame_layout, accountsFragment, "Accounts");
                 break;
             case R.id.app_bar_settings:
                 SettingsFragment settingsFragment = new SettingsFragment();
-                fragmentTransaction.replace(R.id.frame_layout, settingsFragment, "Settings");
+                ft.replace(R.id.frame_layout, settingsFragment, "Settings");
                 break;
             case R.id.app_bar_logout:
                 // TODO: add logout process
                 LoginFragment loginFragment = new LoginFragment();
-                fragmentTransaction.replace(R.id.frame_layout, loginFragment, "Login");
+                ft.replace(R.id.frame_layout, loginFragment, "Login");
 
             default:
                 break;
         }
 
-        fragmentTransaction.commit();
+        ft.commit();
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return false;
     }

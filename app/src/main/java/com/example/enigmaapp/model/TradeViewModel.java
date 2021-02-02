@@ -13,10 +13,6 @@ import com.example.enigmaapp.web.dataset.ExecutionType;
 import com.example.enigmaapp.web.dataset.Product;
 import com.example.enigmaapp.web.trade.TradeItemResult;
 import com.example.enigmaapp.web.dataset.DatasetBatched;
-import com.example.enigmaapp.web.dataset.DatasetCounterparty;
-import com.example.enigmaapp.web.dataset.DatasetExecutionType;
-import com.example.enigmaapp.web.dataset.DatasetProduct;
-import com.example.enigmaapp.web.trade.dataset.TradeDatasetResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,11 +43,8 @@ public class TradeViewModel extends AndroidViewModel {
         repository.fetchTradeDataset(token);
     }
 
-    public MutableLiveData<List<DatasetBatched>> getBatchedDataset() {
-        return repository.getBatchedDataset();
-    }
-
-    public void setParams(HashMap<String, String> params) { repository.setParams(params); }
+    public void setParams(HashMap<String, String> params) {
+        repository.setParams(params); }
 
     public void resetParams() { repository.resetParams(); }
 

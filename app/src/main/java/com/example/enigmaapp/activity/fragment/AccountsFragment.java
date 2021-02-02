@@ -22,7 +22,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import static com.example.enigmaapp.activity.UserActivity.actionBar;
+
 
 public class AccountsFragment extends Fragment {
 
@@ -54,10 +55,10 @@ public class AccountsFragment extends Fragment {
 //        createAccountBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                NewAccountFragment fragment = new NewAccountFragment();
-//                transaction.replace(R.id.frame_layout, fragment, "New Account");
-//                transaction.commit();
+//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                NewAccountFragment frg = new NewAccountFragment();
+//                ft.replace(R.id.frame_layout, frg, "New Account");
+//                ft.commit();
 //            }
 //        });
 
@@ -120,9 +121,9 @@ public class AccountsFragment extends Fragment {
     }
 
     private void openAccountDetailsFragment(AccountsItemResult accountsItem) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        AccountDetailsFragment fragment = new AccountDetailsFragment(accountsItem);
-        transaction.replace(R.id.frame_layout, fragment, "Account Details");
-        transaction.commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        AccountDetailsFragment frg = new AccountDetailsFragment(accountsItem);
+        ft.replace(R.id.frame_layout, frg, "Account Details");
+        ft.commit();
     }
 }

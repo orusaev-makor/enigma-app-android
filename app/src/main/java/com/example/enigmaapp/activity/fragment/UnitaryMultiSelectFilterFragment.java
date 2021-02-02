@@ -216,16 +216,17 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
     }
 
     private void buildCounterpartyString() {
-        counterpartyStringBuilder = new StringBuilder();
-        if (counterpartyAdapter.getSelected().size() > 0) {
-            for (int i = 0; i < counterpartyAdapter.getSelected().size(); i++) {
-                counterpartyStringBuilder.append(counterpartyAdapter.getSelected().get(i).getName());
-                if (i == counterpartyAdapter.getSelected().size() - 1) break;
-                counterpartyStringBuilder.append("\n");
-            }
-        } else {
-            counterpartyStringBuilder.replace(0, counterpartyStringBuilder.length(), "");
-        }
+         // TODO: add back after counterparty is updated in the datasets again....
+//        counterpartyStringBuilder = new StringBuilder();
+//        if (counterpartyAdapter.getSelected().size() > 0) {
+//            for (int i = 0; i < counterpartyAdapter.getSelected().size(); i++) {
+//                counterpartyStringBuilder.append(counterpartyAdapter.getSelected().get(i).getName());
+//                if (i == counterpartyAdapter.getSelected().size() - 1) break;
+//                counterpartyStringBuilder.append("\n");
+//            }
+//        } else {
+//            counterpartyStringBuilder.replace(0, counterpartyStringBuilder.length(), "");
+//        }
     }
 
     private void resetParam() {
@@ -259,16 +260,16 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
 
 //        viewModel.fetchUnitaryDataset(token);
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        UnitaryMultiSelectFilterFragment fragment = new UnitaryMultiSelectFilterFragment(type);
-        transaction.replace(R.id.frame_layout, fragment, "Unitary Select Filter List");
-        transaction.commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        UnitaryMultiSelectFilterFragment frg = new UnitaryMultiSelectFilterFragment(type);
+        ft.replace(R.id.frame_layout, frg, "Unitary Select Filter List");
+        ft.commit();
     }
 
     private void openUnitaryFilterScreen() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        UnitaryFilterFragment fragment = new UnitaryFilterFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Unitary Filter");
-        transaction.commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        UnitaryFilterFragment frg = new UnitaryFilterFragment();
+        ft.replace(R.id.frame_layout, frg, "Unitary Filter");
+        ft.commit();
     }
 }

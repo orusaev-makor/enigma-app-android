@@ -44,9 +44,9 @@ public class TradeRepository {
     private HashMap<String, String> params = new HashMap<>();
     private ArrayList<TradeItemResult> allTrades = new ArrayList<>();
     private MutableLiveData<TradeDatasetResult> tradeDataset = new MutableLiveData<>();
-    private MutableLiveData<List<DatasetProduct>> productsDataset = new MutableLiveData<List<DatasetProduct>>();
-    private MutableLiveData<List<DatasetExecutionType>> executionTypeDataset = new MutableLiveData<List<DatasetExecutionType>>();
-    private MutableLiveData<List<DatasetBatched>> batcedDataset = new MutableLiveData<List<DatasetBatched>>();
+    private MutableLiveData<List<DatasetProduct>> productsDataset = new MutableLiveData<>();
+    private MutableLiveData<List<DatasetExecutionType>> executionTypeDataset = new MutableLiveData<>();
+    private MutableLiveData<List<DatasetBatched>> batcedDataset = new MutableLiveData<>();
 
     private ProductDao productDao;
     private LiveData<List<Product>> allProducts = new MutableLiveData<>();
@@ -78,7 +78,6 @@ public class TradeRepository {
     }
 
     public void fetchTrades(String token) {
-
         params.put("items_per_page", "10");
         params.put("sort", "trade_id desc");
         Call<TradeResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTrades(token, params);
@@ -122,6 +121,7 @@ public class TradeRepository {
 
     public void resetParams() {
         this.params.clear();
+        System.out.println("in Trade REpo after reset params. PARAMS NOW ARE : " + params);
     }
 
     public void resetTradesList() {
@@ -136,10 +136,6 @@ public class TradeRepository {
                 it.remove();
             }
         }
-    }
-
-    public MutableLiveData<List<DatasetBatched>> getBatchedDataset() {
-        return batcedDataset;
     }
 
     public void fetchTradeDataset(String token) {

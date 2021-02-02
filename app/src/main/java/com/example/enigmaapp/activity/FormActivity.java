@@ -24,34 +24,53 @@ public class FormActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             formType = intent.getStringExtra("formTypeExtra");
-            Log.d(TAG, "onCreate: formType - " + formType);
         }
 
         setCurrentForm(formType);
     }
 
     private void setCurrentForm(String formType) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-        if (formType.equals("filterTrade")) {
-            Log.d(TAG, "onCreate: trade case");
-            TradeFilterFragment fragment = new TradeFilterFragment();
-            transaction.replace(R.id.frame_layout, fragment, "Filter Trade");
+        switch (formType) {
 
+            case "filterTrade":
+                Log.d(TAG, "onCreate: trade case");
+                TradeFilterFragment tradeFilterFragment = new TradeFilterFragment();
+                ft.replace(R.id.frame_layout, tradeFilterFragment, "Filter Trade");
+                break;
+
+            case "filterBatch":
+                Log.d(TAG, "onCreate: batch case");
+                BatchFilterFragment batchFilterFragment = new BatchFilterFragment();
+                ft.replace(R.id.frame_layout, batchFilterFragment, "Filter Batch");
+                break;
+
+            case "filterUnitary":
+                Log.d(TAG, "onCreate: unitary case");
+                UnitaryFilterFragment unitaryFilterFragment = new UnitaryFilterFragment();
+                ft.replace(R.id.frame_layout, unitaryFilterFragment, "Filter Unitary");
+                break;
+
+            default:
+                break;
         }
-        else if (formType.equals("filterBatch")) {
-            Log.d(TAG, "onCreate: batch case");
-            BatchFilterFragment fragment = new BatchFilterFragment();
-            transaction.replace(R.id.frame_layout, fragment, "Filter Batch");
-        }
-
-        else if (formType.equals("filterUnitary")) {
-            Log.d(TAG, "onCreate: unitary case");
-            UnitaryFilterFragment fragment = new UnitaryFilterFragment();
-            transaction.replace(R.id.frame_layout, fragment, "Filter Unitary");
-        }
-
-        transaction.commit();
-
+//        if (formType.equals("filterTrade")) {
+//            Log.d(TAG, "onCreate: trade case");
+//            TradeFilterFragment frg = new TradeFilterFragment();
+//            ft.replace(R.id.frame_layout, frg, "Filter Trade");
+//
+//        }
+//        else if (formType.equals("filterBatch")) {
+//            Log.d(TAG, "onCreate: batch case");
+//            BatchFilterFragment frg = new BatchFilterFragment();
+//            ft.replace(R.id.frame_layout, frg, "Filter Batch");
+//        }
+//        else if (formType.equals("filterUnitary")) {
+//            Log.d(TAG, "onCreate: unitary case");
+//            UnitaryFilterFragment frg = new UnitaryFilterFragment();
+//            ft.replace(R.id.frame_layout, frg, "Filter Unitary");
+//        }
+        ft.commit();
     }
 }

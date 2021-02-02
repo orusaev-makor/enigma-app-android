@@ -15,7 +15,8 @@ import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import static com.example.enigmaapp.activity.UserActivity.actionBar;
+
 
 public class NewAccountFragment extends Fragment {
 
@@ -50,10 +51,10 @@ public class NewAccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: add the creation process
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                AccountsFragment fragment = new AccountsFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Accounts");
-                transaction.commit();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                AccountsFragment frg = new AccountsFragment();
+                ft.replace(R.id.frame_layout, frg, "Accounts");
+                ft.commit();
             }
         });
 

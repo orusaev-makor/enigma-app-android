@@ -41,8 +41,6 @@ public class SettlementRepository {
     private ArrayList<SettlementSummary> allBatchSettlements = new ArrayList<>();
     private ArrayList<SettlementSummary> allUnitarySettlements = new ArrayList<>();
 
-    private ArrayList<DatasetCurrency> currenciesDataset = new ArrayList<>();
-
     private ProductDao productDao;
     private LiveData<List<Product>> allProducts = new MutableLiveData<>();
 

@@ -69,10 +69,10 @@ public class AccountDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: add the edit process
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                AccountsFragment fragment = new AccountsFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Accounts");
-                transaction.commit();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                AccountsFragment frg = new AccountsFragment();
+                ft.replace(R.id.frame_layout, frg, "Accounts");
+                ft.commit();
             }
         });
 

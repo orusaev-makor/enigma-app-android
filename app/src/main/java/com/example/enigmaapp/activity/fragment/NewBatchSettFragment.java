@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
 
 public class NewBatchSettFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private Button createBtn;
@@ -33,7 +32,7 @@ public class NewBatchSettFragment extends Fragment implements AdapterView.OnItem
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        actionBar.hide();
+//        actionBar.hide();
     }
 
     @Override
@@ -58,10 +57,10 @@ public class NewBatchSettFragment extends Fragment implements AdapterView.OnItem
             @Override
             public void onClick(View v) {
                 // TODO: add the creation process
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SelectTradeFragment fragment = new SelectTradeFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Select Trade");
-                transaction.commit();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                SelectTradeFragment frg = new SelectTradeFragment();
+                ft.replace(R.id.frame_layout, frg, "Select Trade");
+                ft.commit();
             }
         });
 
@@ -71,10 +70,10 @@ public class NewBatchSettFragment extends Fragment implements AdapterView.OnItem
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                SettlementFragment fragment = new SettlementFragment(true);
-                transaction.replace(R.id.frame_layout, fragment, "Settlement");
-                transaction.commit();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                SettlementFragment frg = new SettlementFragment(true);
+                ft.replace(R.id.frame_layout, frg, "Settlement");
+                ft.commit();
             }
         });
 

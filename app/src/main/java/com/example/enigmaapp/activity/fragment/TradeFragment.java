@@ -1,6 +1,7 @@
 package com.example.enigmaapp.activity.fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.core.widget.NestedScrollView;
@@ -10,10 +11,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,13 +29,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
 import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 import static com.example.enigmaapp.repository.LoginRepository.mCurrentUser;
 
 public class TradeFragment extends Fragment {
-    private static final String TAG = "TradeFragment";
+    public static final int TRADE_FILTER_REQUEST_CODE = 1;
     private FloatingActionButton createTradeBtn;
     private ImageView filterBtn;
     private ImageView uploadBtn;
@@ -46,10 +46,19 @@ public class TradeFragment extends Fragment {
     private NestedScrollView nestedScrollView;
     private RecyclerView recyclerView;
     private HashMap<String, String> pageParams = new HashMap<>();
-    String tokenTest;
+
+    private static TradeViewModel tradeViewModel;
 
     public static int mTradeExpandedPosition = -1;
     public static int previousTradeExpandedPosition = -1;
+
+    public static String enteredTradeId;
+    public static String selectedProductId;
+    public static String selectedExecutionType;
+    public static String selectedBatched;
+    public static String selectedStartDate;
+    public static String selectedEndDate;
+    public static ArrayList<String> selectedStatuses = new ArrayList<>();
 
     public TradeFragment() {
         // Required empty public constructor
@@ -64,10 +73,6 @@ public class TradeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (actionBar != null) {
-            actionBar.show();
-        }
     }
 
     @Override
@@ -90,11 +95,8 @@ public class TradeFragment extends Fragment {
 
         // Upload "Trade" screen:
         uploadBtn = v.findViewById(R.id.ic_action_upload);
-        uploadBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add upload process
-            }
+        uploadBtn.setOnClickListener(v14 -> {
+            // TODO: add upload process
         });
 
         topSection = v.findViewById(R.id.layout_trade_top_section);
@@ -114,7 +116,7 @@ public class TradeFragment extends Fragment {
 //        });
         String token = mCurrentUser.getToken();
 
-        TradeViewModel tradeViewModel = new ViewModelProvider(requireActivity(),
+        tradeViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(TradeViewModel.class);
 
@@ -122,6 +124,8 @@ public class TradeFragment extends Fragment {
         if (page == 1) {
             tradeViewModel.resetTradesList();
         }
+
+//        setTradeParams();
         tradeViewModel.setParams(pageParams);
         tradeViewModel.fetchTrades(token);
 
@@ -134,23 +138,72 @@ public class TradeFragment extends Fragment {
         tradeAdapter = new TradeItemAdapter(requireContext(), data);
         recyclerView.setAdapter(tradeAdapter);
 
-        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                // check if scrolled till bottom
-                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
-                    // when reach last item position
-                    page++;
-                    pageParams.put("current_page", String.valueOf(page));
-                    tradeViewModel.setParams(pageParams);
-                    progressBarTrade.setVisibility(View.VISIBLE);
-                    tradeViewModel.fetchTrades(token);
-                }
-            }
-        });
+        nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
+                (v12, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+                    // check if scrolled till bottom
+                    if (scrollY == v12.getChildAt(0).getMeasuredHeight() - v12.getMeasuredHeight()) {
+                        // when reach last item position
+                        page++;
+                        pageParams.put("current_page", String.valueOf(page));
+                        tradeViewModel.setParams(pageParams);
+                        progressBarTrade.setVisibility(View.VISIBLE);
+                        tradeViewModel.fetchTradeDataset(token);
+                    }
+                });
         return v;
     }
 
+    public static void setTradeParams() {
+        HashMap<String, String> map = new HashMap<>();
+
+        // build params map
+        if (enteredTradeId != null) {
+            map.put("trade_id", enteredTradeId);
+        } else {
+            tradeViewModel.removeFromParams("trade_id");
+        }
+
+        if (selectedProductId != null) {
+            map.put("product_id", selectedProductId);
+        } else {
+            tradeViewModel.removeFromParams("product_id");
+        }
+
+        if (selectedExecutionType != null) {
+            map.put("execution_type", selectedExecutionType);
+        } else {
+            tradeViewModel.removeFromParams("execution_type");
+        }
+
+        if (selectedBatched != null) {
+            map.put("already_batched", selectedBatched);
+        } else {
+            tradeViewModel.removeFromParams("already_batched");
+        }
+
+        if (selectedStartDate != null) {
+            map.put("start_date", selectedStartDate);
+            map.put("end_date", selectedEndDate);
+        } else {
+            tradeViewModel.removeFromParams("start_date");
+            tradeViewModel.removeFromParams("end_date");
+        }
+
+        // clear any old selected statuses:
+        for (int i = 0; i < 5; i++) {
+            tradeViewModel.removeFromParams("status[" + i + "]");
+        }
+        // set new selected statuses:
+        if (selectedStatuses.size() > 0) {
+            for (int i = 0; i < selectedStatuses.size(); i++) {
+                map.put("status[" + i + "]", selectedStatuses.get(i));
+            }
+        }
+
+//        map.put("current_page", String.valueOf(page));
+
+        tradeViewModel.setParams(map);
+    }
 
     private void resetExpendedItemPos() {
         mTradeExpandedPosition = -1;
@@ -158,31 +211,31 @@ public class TradeFragment extends Fragment {
     }
 
     private void startFormActivity() {
-        // start form activity
         Intent intent = new Intent(getContext(), FormActivity.class);
         intent.putExtra("formTypeExtra", "filterTrade");
-        Log.d(TAG, "openFilterTradeFragment: starting form activity");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        getActivity().startActivity(intent);
-
-//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//        TradeFilterFragment fragment = new TradeFilterFragment();
-//        transaction.replace(R.id.frame_layout, fragment, "Filter Trade");
-//        transaction.commit();
+        getActivity().startActivityForResult(intent, TRADE_FILTER_REQUEST_CODE);
     }
 
     private void openTradeFragment() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         TradeFragment fragment = new TradeFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Trade");
-        transaction.commit();
+        ft.replace(R.id.frame_layout, fragment, "Trade");
+        ft.commit();
     }
 
     // TODO: add back after read only version
     private void openNewTradeFragment() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         NewTradeCreationFragment fragment = new NewTradeCreationFragment();
-        transaction.replace(R.id.frame_layout, fragment, "New Trade");
-        transaction.commit();
+        ft.replace(R.id.frame_layout, fragment, "New Trade");
+        ft.commit();
+    }
+
+    public void refresh() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false);
+        }
+        ft.detach(this).attach(this).commit();
     }
 }

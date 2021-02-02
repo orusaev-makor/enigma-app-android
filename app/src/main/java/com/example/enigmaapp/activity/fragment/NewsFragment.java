@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.enigmaapp.R;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import static com.example.enigmaapp.activity.UserActivity.actionBar;
 
 
 public class NewsFragment extends Fragment {

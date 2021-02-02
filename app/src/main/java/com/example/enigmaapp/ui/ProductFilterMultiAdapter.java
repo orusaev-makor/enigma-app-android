@@ -68,13 +68,10 @@ public class ProductFilterMultiAdapter extends RecyclerView.Adapter<ProductFilte
             textViewProductName = itemView.findViewById(R.id.filter_option_name);
             checkedIcon = itemView.findViewById(R.id.filter_option_checked_icon);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(products.get(position), position);
-                    }
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(products.get(position), position);
                 }
             });
         }

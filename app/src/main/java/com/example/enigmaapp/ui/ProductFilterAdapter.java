@@ -32,10 +32,6 @@ public class ProductFilterAdapter extends ListAdapter<Product, ProductFilterAdap
         this.isTradeFilter = isTradeFilter;
     }
 
-    public int getLastCheckedPos() {
-        return lastCheckedPos;
-    }
-
     public void setLastCheckedPos(int lastCheckedPos) {
         this.lastCheckedPos = lastCheckedPos;
     }
@@ -65,7 +61,6 @@ public class ProductFilterAdapter extends ListAdapter<Product, ProductFilterAdap
         Product currentProduct = getItem(position);
 
         holder.textViewProductName.setText(currentProduct.getName());
-//        System.out.println("in ProductFilterAdapter, onBindViewHolder; isTradeFilter: " + isTradeFilter + " // ");
         if (currentProduct.getIsChecked() && lastCheckedPos == position || lastTradeProductPos == position && isTradeFilter) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textColor));

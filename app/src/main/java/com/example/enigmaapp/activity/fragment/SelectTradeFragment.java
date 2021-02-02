@@ -46,12 +46,12 @@ public class SelectTradeFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static SelectTradeFragment newInstance(String param1, String param2) {
-        SelectTradeFragment fragment = new SelectTradeFragment();
+        SelectTradeFragment frg = new SelectTradeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        frg.setArguments(args);
+        return frg;
     }
 
     @Override
@@ -85,10 +85,10 @@ public class SelectTradeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: add the reset process
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
                 SelectTradeFragment fragment = new SelectTradeFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Select Trade");
-                transaction.commit();
+                ft.replace(R.id.frame_layout, fragment, "Select Trade");
+                ft.commit();
             }
         });
 
@@ -105,9 +105,9 @@ public class SelectTradeFragment extends Fragment {
     }
 
     private void openSettlementScreen() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         SettlementFragment fragment = new SettlementFragment(true);
-        transaction.replace(R.id.frame_layout, fragment, "Settlement");
-        transaction.commit();
+        ft.replace(R.id.frame_layout, fragment, "Settlement");
+        ft.commit();
     }
 }

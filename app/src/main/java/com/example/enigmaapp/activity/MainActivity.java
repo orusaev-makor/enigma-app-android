@@ -21,7 +21,6 @@ import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.resetT
 public class MainActivity extends AppCompatActivity {
     public static SharedPreferences.Editor prefEditor;
     public static SharedPreferences prefs;
-    public static ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
 //                .get(LoginViewModel.class);
 
         // Initial Fragment:
-        LoginFragment fragment = new LoginFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment, "Login");
-        fragmentTransaction.commit();
+        LoginFragment frg = new LoginFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frame_layout, frg, "Login");
+        ft.commit();
     }
 
     // hide soft keyboard on touch outside EditText

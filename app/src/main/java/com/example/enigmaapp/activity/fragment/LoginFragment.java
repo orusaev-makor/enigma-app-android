@@ -61,20 +61,12 @@ public class LoginFragment extends Fragment {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ForgotPasswordFragment fragment = new ForgotPasswordFragment();
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame_layout, fragment, "Forgot Password");
-                fragmentTransaction.commit();
+                ForgotPasswordFragment frg = new ForgotPasswordFragment();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.frame_layout, frg, "Forgot Password");
+                ft.commit();
             }
         });
         return v;
-    }
-
-    public static void setUserBalanceView() {
-        BalanceFragment fragment = new BalanceFragment();
-        FragmentManager manager = myContext.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment, "Balance");
-        fragmentTransaction.commit();
     }
 }

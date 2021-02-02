@@ -30,11 +30,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
 import static com.example.enigmaapp.activity.MainActivity.prefs;
+import static com.example.enigmaapp.activity.UserActivity.actionBar;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 
 public class SettlementFragment extends Fragment {
+    public static final int BATCH_FILTER_REQUEST_CODE = 2;
+    public static final int UNITARY_FILTER_REQUEST_CODE = 3;
     private static final String TAG = "SettlementFragment";
     private String token;
     private TextView batch;
@@ -43,7 +45,6 @@ public class SettlementFragment extends Fragment {
     private ImageView filterBtn;
     private ImageView uploadBtn;
     private ImageView refreshBtn;
-
     private View topSection;
     private int page = 1;
     private boolean isBatch;
@@ -54,8 +55,14 @@ public class SettlementFragment extends Fragment {
     private HashMap<String, String> pageParams = new HashMap<>();
     private ArrayList<SettlementRepository.SettlementSummary> data = new ArrayList<>();
 
+    private static SettlementViewModel settlementViewModel;
     public static int mSettlementExpandedPosition = -1;
     public static int previousSettlementExpandedPosition = -1;
+
+
+    public static String selectedBatchProductId;
+    public static String selectedBatchCounterpartyId;
+    public static ArrayList<String> selectedBatchStatuses = new ArrayList<>();
 
     public SettlementFragment(boolean isBatch) {
         // Required empty public constructor
@@ -65,10 +72,7 @@ public class SettlementFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (actionBar != null) {
-            actionBar.show();
-        }
+        Log.d(TAG, "onCreate: got tag ____________________ " + getTag());
     }
 
     @Override
@@ -118,18 +122,18 @@ public class SettlementFragment extends Fragment {
                 .get(LoginViewModel.class);
         token = loginViewModel.getCurrentUser().getToken();
 
-        SettlementViewModel viewModel = new ViewModelProvider(requireActivity(),
+        settlementViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(SettlementViewModel.class);
 
         pageParams.put("current_page", String.valueOf(page));
         if (page == 1 && isBatch) {
-            viewModel.resetBatchList();
+            settlementViewModel.resetBatchList();
         }
         if (page == 1 && !isBatch) {
-            viewModel.resetUnitaryList();
+            settlementViewModel.resetUnitaryList();
         }
-        viewModel.setBatchParams(pageParams);
+        settlementViewModel.setBatchParams(pageParams);
 
         batch = v.findViewById(R.id.settlement_batch);
         unitary = v.findViewById(R.id.settlement_unitary);
@@ -137,11 +141,11 @@ public class SettlementFragment extends Fragment {
         if (isBatch) {
             setSelectedTextView(batch);
             setUnselectedTextView(unitary);
-            viewModel.fetchBatch(token);
+            settlementViewModel.fetchBatch(token);
         } else {
             setSelectedTextView(unitary);
             setUnselectedTextView(batch);
-            viewModel.fetchUnitary(token);
+            settlementViewModel.fetchUnitary(token);
         }
 
         batch.setOnClickListener(v14 -> {
@@ -159,9 +163,9 @@ public class SettlementFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if (isBatch) {
-            data = viewModel.getBatchSettlements();
+            data = settlementViewModel.getBatchSettlements();
         } else {
-            data = viewModel.getUnitarySettlements();
+            data = settlementViewModel.getUnitarySettlements();
         }
         settlementAdapter = new SettlementItemAdapter(requireContext(), data);
         recyclerView.setAdapter(settlementAdapter);
@@ -173,16 +177,54 @@ public class SettlementFragment extends Fragment {
                 pageParams.put("current_page", String.valueOf(page));
                 progressBarSettlement.setVisibility(View.VISIBLE);
                 if (isBatch) {
-                    viewModel.setBatchParams(pageParams);
-                    viewModel.fetchBatch(token);
+                    settlementViewModel.setBatchParams(pageParams);
+                    settlementViewModel.fetchBatch(token);
                 } else {
-                    viewModel.setUnitaryParams(pageParams);
-                    viewModel.fetchUnitary(token);
+                    settlementViewModel.setUnitaryParams(pageParams);
+                    settlementViewModel.fetchUnitary(token);
                 }
             }
         });
 
         return v;
+    }
+
+    public static void setBatchParams() {
+        HashMap<String, String> map = new HashMap<>();
+
+        // build params map
+        if (selectedBatchProductId != null) {
+            map.put("product_id", selectedBatchProductId);
+        } else {
+            settlementViewModel.removeFromBatchParams("product_id");
+        }
+
+        if (selectedBatchCounterpartyId != null) {
+            map.put("counterparty_id", selectedBatchCounterpartyId);
+        } else {
+            settlementViewModel.removeFromBatchParams("counterparty_id");
+        }
+
+        // clear any old selected statuses:
+        for (int i = 0; i < 5; i++) {
+            settlementViewModel.removeFromBatchParams("status[" + i + "]");
+        }
+        // set new selected statuses:
+        if (selectedBatchStatuses.size() > 0) {
+            for (int i = 0; i < selectedBatchStatuses.size(); i++) {
+                map.put("status[" + i + "]", selectedBatchStatuses.get(i));
+            }
+        }
+
+        settlementViewModel.setBatchParams(map);
+    }
+
+    public static void setUnitaryParams() {
+        HashMap<String, String> map = new HashMap<>();
+
+        // build params map
+
+        settlementViewModel.setUnitaryParams(map);
     }
 
     private void resetExpendedItemPos() {
@@ -193,15 +235,15 @@ public class SettlementFragment extends Fragment {
 
     // TODO: add back create action button after read only version
     private void openAddScreen(boolean isBatch) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         if (isBatch) {
             NewBatchSettFragment fragment = new NewBatchSettFragment();
-            transaction.replace(R.id.frame_layout, fragment, "New Batch Settlement");
+            ft.replace(R.id.frame_layout, fragment, "New Batch Settlement");
         } else {
             NewUnitarySettFragment fragment = new NewUnitarySettFragment();
-            transaction.replace(R.id.frame_layout, fragment, "New Unitary Settlement");
+            ft.replace(R.id.frame_layout, fragment, "New Unitary Settlement");
         }
-        transaction.commit();
+        ft.commit();
     }
 
     private void startFormActivity() {
@@ -209,12 +251,14 @@ public class SettlementFragment extends Fragment {
         Intent intent = new Intent(getContext(), FormActivity.class);
         if (isBatch) {
             intent.putExtra("formTypeExtra", "filterBatch");
+            getActivity().startActivityForResult(intent, BATCH_FILTER_REQUEST_CODE);
         } else {
             intent.putExtra("formTypeExtra", "filterUnitary");
+            getActivity().startActivityForResult(intent, UNITARY_FILTER_REQUEST_CODE);
         }
-        Log.d(TAG, "openFilterTradeFragment: starting form activity");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        getActivity().startActivity(intent);
+//        Log.d(TAG, "openFilterTradeFragment: starting form activity");
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        getActivity().startActivity(intent);
     }
 
     private void setUnselectedTextView(TextView textView) {
@@ -230,9 +274,10 @@ public class SettlementFragment extends Fragment {
     }
 
     private void openSettlementScreen(Boolean isBatch) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        String tag = (isBatch) ? "Batch" : "Unitary";
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         SettlementFragment fragment = new SettlementFragment(isBatch);
-        transaction.replace(R.id.frame_layout, fragment, "Settlement");
-        transaction.commit();
+        ft.replace(R.id.frame_layout, fragment, tag);
+        ft.commit();
     }
 }

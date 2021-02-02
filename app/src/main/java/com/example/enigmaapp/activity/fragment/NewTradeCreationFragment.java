@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
 
 public class NewTradeCreationFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private Button submitBtn;
@@ -36,7 +35,7 @@ public class NewTradeCreationFragment extends Fragment implements AdapterView.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        actionBar.hide();
+//        actionBar.hide();
     }
 
     @Override
@@ -70,10 +69,10 @@ public class NewTradeCreationFragment extends Fragment implements AdapterView.On
             @Override
             public void onClick(View v) {
                 // TODO: add the creation process
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                NewTradeReviewAndSubmitFragment fragment = new NewTradeReviewAndSubmitFragment();
-                transaction.replace(R.id.frame_layout, fragment, "New Trade Review and Submit");
-                transaction.commit();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                NewTradeReviewAndSubmitFragment frg = new NewTradeReviewAndSubmitFragment();
+                ft.replace(R.id.frame_layout, frg, "New Trade Review and Submit");
+                ft.commit();
             }
         });
 
@@ -82,10 +81,10 @@ public class NewTradeCreationFragment extends Fragment implements AdapterView.On
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                TradeFragment fragment = new TradeFragment();
-                transaction.replace(R.id.frame_layout, fragment, "Trade");
-                transaction.commit();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                TradeFragment frg = new TradeFragment();
+                ft.replace(R.id.frame_layout, frg, "Trade");
+                ft.commit();
             }
         });
 

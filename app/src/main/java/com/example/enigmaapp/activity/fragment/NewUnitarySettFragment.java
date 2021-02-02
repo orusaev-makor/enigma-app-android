@@ -17,7 +17,8 @@ import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 
-import static com.example.enigmaapp.activity.MainActivity.actionBar;
+import static com.example.enigmaapp.activity.UserActivity.actionBar;
+
 
 public class NewUnitarySettFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private Button createBtn;
@@ -83,10 +84,10 @@ public class NewUnitarySettFragment extends Fragment implements AdapterView.OnIt
     }
 
     private void openSettlementScreen() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        SettlementFragment fragment = new SettlementFragment(false);
-        transaction.replace(R.id.frame_layout, fragment, "Settlement");
-        transaction.commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        SettlementFragment frg = new SettlementFragment(false);
+        ft.replace(R.id.frame_layout, frg, "Settlement");
+        ft.commit();
     }
 
 

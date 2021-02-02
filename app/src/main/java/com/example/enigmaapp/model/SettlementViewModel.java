@@ -19,7 +19,6 @@ public class SettlementViewModel extends AndroidViewModel {
 
     private SettlementRepository repository;
     private LiveData<List<Product>> allProducts;
-//    private ArrayList<Currency> allCurrencies;
     private LiveData<List<Currency>> allCurrencies;
 
     public SettlementViewModel(@NonNull Application application) {

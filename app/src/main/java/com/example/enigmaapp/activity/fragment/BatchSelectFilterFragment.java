@@ -69,12 +69,9 @@ public class BatchSelectFilterFragment extends Fragment {
 
         // Submit chosen filters and go back to "Filter Batch" screen
         submitBtn = v.findViewById(R.id.batch_select_submit_btn);
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBatchFilterScreen();
-                setBatchFilterParams(params);
-            }
+        submitBtn.setOnClickListener(v1 -> {
+            openBatchFilterScreen();
+            setBatchFilterParams(params);
         });
 
         RecyclerView recyclerView = v.findViewById(R.id.batch_select_recycler_view);
@@ -92,32 +89,28 @@ public class BatchSelectFilterFragment extends Fragment {
                 settlementViewModel.getAllProducts().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
-                        System.out.println("TradeSelectFilterFragment >>> got products size  in __batch__ filter fragment _ " + products.size());
                         productAdapter.submitList(products);
                     }
                 });
-                productAdapter.setOnItemClickListener(new ProductFilterAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(Product productItem, int position) {
-                        if (productItem.getIsChecked()) {
-                            productItem.setIsChecked(false);
-                            Iterator it = params.entrySet().iterator();
-                            while (it.hasNext()) {
-                                Map.Entry entry = (Map.Entry) it.next();
-                                if (entry.getKey().equals("product_id") && productItem.getId().equals(entry.getValue())) {
-                                    it.remove();
-                                }
+                productAdapter.setOnItemClickListener((productItem, position) -> {
+                    if (productItem.getIsChecked()) {
+                        productItem.setIsChecked(false);
+                        Iterator it = params.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry entry = (Map.Entry) it.next();
+                            if (entry.getKey().equals("product_id") && productItem.getId().equals(entry.getValue())) {
+                                it.remove();
                             }
-                        } else {
-                            productAdapter.setLastCheckedPos(position);
-                            productItem.setIsChecked(true);
-                            lastBatchProductPos = position;
-                            params.put("product_id", productItem.getId());
-                            prefEditor.putString("productBatchFilter", productItem.getName());
-                            prefEditor.apply();
                         }
-                        productAdapter.notifyDataSetChanged();
+                    } else {
+                        productAdapter.setLastCheckedPos(position);
+                        productItem.setIsChecked(true);
+                        lastBatchProductPos = position;
+                        params.put("product_id", productItem.getId());
+                        prefEditor.putString("productBatchFilter", productItem.getName());
+                        prefEditor.apply();
                     }
+                    productAdapter.notifyDataSetChanged();
                 });
                 break;
 
@@ -163,36 +156,21 @@ public class BatchSelectFilterFragment extends Fragment {
 
         // Reset "Filter List" screen
         resetBtn = v.findViewById(R.id.batch_select_reset_btn);
-        resetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBatchSelectFilter(mFilterType);
-                resetPrefs();
-                resetParam();
-                resetLastPos();
-            }
+        resetBtn.setOnClickListener(v12 -> {
+            openBatchSelectFilter(mFilterType);
+            resetPrefs();
+            resetParam();
+            resetLastPos();
         });
         return v;
     }
 
     private void openBatchSelectFilter(String type) {
-        SettlementViewModel viewModel = new ViewModelProvider(requireActivity(),
-                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(SettlementViewModel.class);
-
-        LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
-                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(LoginViewModel.class);
-        String token = loginViewModel.getCurrentUser().getToken();
-
-//        viewModel.fetchBatchDataset(token);
-
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        BatchSelectFilterFragment fragment = new BatchSelectFilterFragment(type);
-        transaction.replace(R.id.frame_layout, fragment, "Batch Select Filter List");
-        transaction.commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        BatchSelectFilterFragment frg = new BatchSelectFilterFragment(type);
+        ft.replace(R.id.frame_layout, frg, "Batch Select Filter List");
+        ft.commit();
     }
-
 
     private void resetParam() {
         switch (mFilterType) {
@@ -238,9 +216,9 @@ public class BatchSelectFilterFragment extends Fragment {
     }
 
     private void openBatchFilterScreen() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        BatchFilterFragment fragment = new BatchFilterFragment();
-        transaction.replace(R.id.frame_layout, fragment, "Batch Filter");
-        transaction.commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        BatchFilterFragment frg = new BatchFilterFragment();
+        ft.replace(R.id.frame_layout, frg, "Batch Filter");
+        ft.commit();
     }
 }
