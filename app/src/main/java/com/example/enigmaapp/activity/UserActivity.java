@@ -107,7 +107,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == TRADE_FILTER_REQUEST_CODE) {
+        if (resultCode == RESULT_OK) {
             Fragment frg = null;
 
             // Reload current fragment to refresh filtered results:

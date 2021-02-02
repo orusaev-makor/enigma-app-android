@@ -14,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.dataset.Currency;
+import com.example.enigmaapp.web.dataset.DatasetCounterparty;
 
 import java.util.ArrayList;
 
-import static com.example.enigmaapp.activity.fragment.UnitaryFilterFragment.clickedCurrencies;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.clickedCurrencies;
 
 public class CurrencyFilterMultiAdapter extends ListAdapter<Currency, CurrencyFilterMultiAdapter.CurrencyOptionHolder> {
     private OnItemClickListener listener;
     private Context context;
-    ArrayList<Currency> selected = new ArrayList<>();
 
     public CurrencyFilterMultiAdapter(Context context) {
         super(DIFF_CALLBACK);
@@ -54,6 +54,9 @@ public class CurrencyFilterMultiAdapter extends ListAdapter<Currency, CurrencyFi
         Currency currentCurrency = getItem(position);
         holder.textViewCurrencyName.setText(currentCurrency.getName());
         if (currentCurrency.getIsChecked() || clickedCurrencies.indexOf(currentCurrency.getName()) != -1) {
+            // need to update true if currency is in the clicked list due to last search:
+            currentCurrency.setIsChecked(true);
+
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewCurrencyName.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {

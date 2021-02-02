@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,34 +16,25 @@ import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.SettlementViewModel;
-import com.example.enigmaapp.model.LoginViewModel;
 import com.example.enigmaapp.ui.CounterpartyFilterAdapter;
 import com.example.enigmaapp.ui.ProductFilterAdapter;
-import com.example.enigmaapp.web.dataset.DatasetCounterparty;
-import com.example.enigmaapp.web.dataset.Product;
 import com.google.android.material.button.MaterialButton;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import static com.example.enigmaapp.activity.MainActivity.prefEditor;
-import static com.example.enigmaapp.activity.fragment.BatchFilterFragment.removeFromBatchParams;
-import static com.example.enigmaapp.activity.fragment.BatchFilterFragment.setBatchFilterParams;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedBatchProductId;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedBatchCounterpartyId;
 
 public class BatchSelectFilterFragment extends Fragment {
 
     private String mFilterType;
     private TextView titleText;
     private TextView subtitleText;
-
     private MaterialButton resetBtn;
     private Button submitBtn;
-    private HashMap<String, String> params = new HashMap<>();
+    private SettlementViewModel settlementViewModel;
+
     public static int lastBatchProductPos = -1;
     public static int lastBatchCounterpartyPos = -1;
-    private SettlementViewModel settlementViewModel;
 
     public BatchSelectFilterFragment(String filterType) {
         this.mFilterType = filterType;
@@ -71,7 +61,6 @@ public class BatchSelectFilterFragment extends Fragment {
         submitBtn = v.findViewById(R.id.batch_select_submit_btn);
         submitBtn.setOnClickListener(v1 -> {
             openBatchFilterScreen();
-            setBatchFilterParams(params);
         });
 
         RecyclerView recyclerView = v.findViewById(R.id.batch_select_recycler_view);
@@ -86,27 +75,17 @@ public class BatchSelectFilterFragment extends Fragment {
                 final ProductFilterAdapter productAdapter = new ProductFilterAdapter(requireActivity(), false);
                 recyclerView.setAdapter(productAdapter);
 
-                settlementViewModel.getAllProducts().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
-                    @Override
-                    public void onChanged(List<Product> products) {
-                        productAdapter.submitList(products);
-                    }
-                });
+                settlementViewModel.getAllProducts().observe(getViewLifecycleOwner(), products -> productAdapter.submitList(products));
+
                 productAdapter.setOnItemClickListener((productItem, position) -> {
                     if (productItem.getIsChecked()) {
                         productItem.setIsChecked(false);
-                        Iterator it = params.entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry entry = (Map.Entry) it.next();
-                            if (entry.getKey().equals("product_id") && productItem.getId().equals(entry.getValue())) {
-                                it.remove();
-                            }
-                        }
+                        selectedBatchProductId = null;
                     } else {
                         productAdapter.setLastCheckedPos(position);
                         productItem.setIsChecked(true);
+                        selectedBatchProductId = productItem.getId();
                         lastBatchProductPos = position;
-                        params.put("product_id", productItem.getId());
                         prefEditor.putString("productBatchFilter", productItem.getName());
                         prefEditor.apply();
                     }
@@ -114,6 +93,7 @@ public class BatchSelectFilterFragment extends Fragment {
                 });
                 break;
 
+            // TODO: setting this up after counterparty is back in dataset
             case "counterparty":
                 final CounterpartyFilterAdapter counterpartyAdapter = new CounterpartyFilterAdapter(requireActivity(), true);
                 recyclerView.setAdapter(counterpartyAdapter);
@@ -125,28 +105,19 @@ public class BatchSelectFilterFragment extends Fragment {
 //                    }
 //                });
 
-                counterpartyAdapter.setOnItemClickListener(new CounterpartyFilterAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(DatasetCounterparty counterpartyItem, int position) {
-                        if (counterpartyItem.getIsChecked()) {
-                            counterpartyItem.setIsChecked(false);
-                            Iterator it = params.entrySet().iterator();
-                            while (it.hasNext()) {
-                                Map.Entry entry = (Map.Entry) it.next();
-                                if (entry.getKey().equals("counterparty_id") && counterpartyItem.getId().equals(entry.getValue())) {
-                                    it.remove();
-                                }
-                            }
-                        } else {
-                            counterpartyAdapter.setLastCheckedPos(position);
-                            counterpartyItem.setIsChecked(true);
-                            lastBatchCounterpartyPos = position;
-                            params.put("counterparty_id", counterpartyItem.getId());
-                            prefEditor.putString("counterpartyBatchFilter", counterpartyItem.getName());
-                            prefEditor.apply();
-                        }
-                        counterpartyAdapter.notifyDataSetChanged();
+                counterpartyAdapter.setOnItemClickListener((counterpartyItem, position) -> {
+                    if (counterpartyItem.getIsChecked()) {
+                        counterpartyItem.setIsChecked(false);
+                        selectedBatchCounterpartyId = null;
+                    } else {
+                        counterpartyAdapter.setLastCheckedPos(position);
+                        counterpartyItem.setIsChecked(true);
+                        lastBatchCounterpartyPos = position;
+                        selectedBatchCounterpartyId = counterpartyItem.getId();
+                        prefEditor.putString("counterpartyBatchFilter", counterpartyItem.getName());
+                        prefEditor.apply();
                     }
+                    counterpartyAdapter.notifyDataSetChanged();
                 });
                 break;
 
@@ -161,8 +132,22 @@ public class BatchSelectFilterFragment extends Fragment {
             resetPrefs();
             resetParam();
             resetLastPos();
+            resetSelectedFilterString();
         });
         return v;
+    }
+
+    private void resetSelectedFilterString() {
+        switch (mFilterType) {
+            case "product":
+                selectedBatchProductId = null;
+                break;
+            case "counterparty":
+                selectedBatchCounterpartyId = null;
+                break;
+            default:
+                break;
+        }
     }
 
     private void openBatchSelectFilter(String type) {
@@ -175,11 +160,9 @@ public class BatchSelectFilterFragment extends Fragment {
     private void resetParam() {
         switch (mFilterType) {
             case "product":
-                removeFromBatchParams("product_id");
                 settlementViewModel.removeFromBatchParams("product_id");
                 break;
             case "counterparty":
-                removeFromBatchParams("counterparty_id");
                 settlementViewModel.removeFromBatchParams("counterparty_id");
                 break;
             default:

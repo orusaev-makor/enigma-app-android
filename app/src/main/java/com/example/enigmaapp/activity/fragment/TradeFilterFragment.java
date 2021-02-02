@@ -113,9 +113,7 @@ public class TradeFilterFragment extends Fragment implements CompoundButton.OnCh
 
         // Close "Filter Trade" screen and go back to "Trade Fragment":
         closeBtn = v.findViewById(R.id.close_btn);
-        closeBtn.setOnClickListener(v17 -> {
-            sendDataToPrevPg();
-        });
+        closeBtn.setOnClickListener(v17 -> sendDataToPrevPg());
 
         statusSelectView = v.findViewById(R.id.layout_trade_status_select);
         CheckBox reject = statusSelectView.findViewById(R.id.checkBoxRejectedTrade);
@@ -233,18 +231,6 @@ public class TradeFilterFragment extends Fragment implements CompoundButton.OnCh
         }
         prefEditor.apply();
     }
-
-//    private void checkBoxSetupToTrue(String prefKey, String status) {
-//        prefEditor.putBoolean(prefKey, true);
-//        prefEditor.apply();
-//        selectedStatuses.add(status);
-//    }
-//
-//    private void checkBoxSetupToFalse(String prefKey, String status) {
-//        prefEditor.putBoolean(prefKey, false);
-//        prefEditor.apply();
-//        selectedStatuses.remove(selectedStatuses.indexOf(status));
-//    }
 
     public static void resetTradeLastPos() {
         lastTradeProductPos = -1;

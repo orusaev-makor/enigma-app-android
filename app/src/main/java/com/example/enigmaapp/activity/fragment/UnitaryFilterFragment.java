@@ -1,6 +1,7 @@
 package com.example.enigmaapp.activity.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 
@@ -32,12 +33,21 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TimeZone;
 
+import static android.app.Activity.RESULT_OK;
 import static com.example.enigmaapp.activity.MainActivity.prefEditor;
 import static com.example.enigmaapp.activity.MainActivity.prefs;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.clickedCounterparties;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.clickedCurrencies;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.counterpartyStringBuilder;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.currencyStringBuilder;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedUnitaryEndDate;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedUnitarySide;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedUnitaryStartDate;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedUnitaryStatuses;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.setUnitaryParams;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
-import static com.example.enigmaapp.activity.fragment.UnitaryMultiSelectFilterFragment.clearCounterpartiesAdapterList;
 
-public class UnitaryFilterFragment extends Fragment {
+public class UnitaryFilterFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
     private Button closeBtn;
     private Button submitBtn;
     private MaterialButton resetBtn;
@@ -51,14 +61,6 @@ public class UnitaryFilterFragment extends Fragment {
 
     private View statusSelectView;
     private SettlementViewModel settlementViewModel;
-
-    public static HashMap<String, String> unitaryParamsToSend = new HashMap<>();
-
-    public static ArrayList<String> clickedCurrencies = new ArrayList<>();
-    public static ArrayList<String> clickedCounterparties = new ArrayList<>();
-
-    public static StringBuilder currencyStringBuilder;
-    public static StringBuilder counterpartyStringBuilder;
 
     public UnitaryFilterFragment() {
         // Required empty public constructor
@@ -92,14 +94,11 @@ public class UnitaryFilterFragment extends Fragment {
             handleSideCheck("receive");
         }
 
-        send.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    handleSideCheck("send");
-                } else {
-                    handleSideCheck("receive");
-                }
+        send.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                handleSideCheck("send");
+            } else {
+                handleSideCheck("receive");
             }
         });
 
@@ -114,82 +113,97 @@ public class UnitaryFilterFragment extends Fragment {
         // Submit "Filter" and go back to "Settlement" screen
         submitBtn = v.findViewById(R.id.filter_settlement_submit_btn);
         submitBtn.setOnClickListener(v15 -> {
-            settlementViewModel.setUnitaryParams(unitaryParamsToSend);
-            openSettlementScreen();
+            sendDataToPrevPg();
+            setUnitaryParams();
         });
 
         // Reset "Filter Settlement" screen
         resetBtn = v.findViewById(R.id.filter_settlement_reset_btn);
         resetBtn.setOnClickListener(v14 -> {
-            unitaryParamsToSend.clear();
-            settlementViewModel.resetUnitaryParams();
+            resetUnitaryParams();
             resetPrefs();
             openFilterUnitaryScreen();
             clearCurrenciesText();
             clickedCurrencies.clear();
+            clickedCounterparties.clear();
             clearCounterpartiesText();
-            clearCounterpartiesAdapterList();
         });
 
         // Close "Filter Settlement" screen and go back to "Settlement Fragment":
         closeBtn = v.findViewById(R.id.close_btn);
-        closeBtn.setOnClickListener(v13 -> openSettlementScreen());
+        closeBtn.setOnClickListener(v13 -> sendDataToPrevPg());
 
         statusSelectView = v.findViewById(R.id.layout_unitary_status_select);
-        CheckBox reject = (CheckBox) statusSelectView.findViewById(R.id.checkBoxRejectedBatch);
+        CheckBox reject = statusSelectView.findViewById(R.id.checkBoxRejectedBatch);
         reject.setChecked(prefs.getBoolean("isRejectUnitaryFilter", false));
-        reject.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                checkBoxSetupToTrue("isRejectUnitaryFilter", "status[0]", "rejected");
-            } else {
-                checkBoxSetupToFalse("isRejectUnitaryFilter", "status[0]");
-            }
-        });
+        reject.setOnCheckedChangeListener(this);
 
-        CheckBox pending = (CheckBox) statusSelectView.findViewById(R.id.checkBoxPendingBatch);
+        CheckBox pending = statusSelectView.findViewById(R.id.checkBoxPendingBatch);
         pending.setChecked(prefs.getBoolean("isPendingUnitaryFilter", false));
-        pending.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                checkBoxSetupToTrue("isPendingUnitaryFilter", "status[1]", "pending");
-            } else {
-                checkBoxSetupToFalse("isPendingUnitaryFilter", "status[1]");
-            }
-        });
+        pending.setOnCheckedChangeListener(this);
 
-        CheckBox validate = (CheckBox) statusSelectView.findViewById(R.id.checkBoxValidatedBatch);
+        CheckBox validate = statusSelectView.findViewById(R.id.checkBoxValidatedBatch);
         validate.setChecked(prefs.getBoolean("isValidatedUnitaryFilter", false));
-        validate.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                checkBoxSetupToTrue("isValidatedUnitaryFilter", "status[2]", "validated");
-            } else {
-                checkBoxSetupToFalse("isValidatedUnitaryFilter", "status[2]");
-            }
-        });
+        validate.setOnCheckedChangeListener(this);
 
-        CheckBox settled = (CheckBox) statusSelectView.findViewById(R.id.checkBoxSettledBatch);
+        CheckBox settled = statusSelectView.findViewById(R.id.checkBoxSettledBatch);
         settled.setChecked(prefs.getBoolean("isSettledUnitaryFilter", false));
-        settled.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                checkBoxSetupToTrue("isSettledUnitaryFilter", "status[3]", "settled");
-            } else {
-                checkBoxSetupToFalse("isSettledUnitaryFilter", "status[3]");
-            }
-        });
+        settled.setOnCheckedChangeListener(this);
 
-        CheckBox inSett = (CheckBox) statusSelectView.findViewById(R.id.checkBoxInSetBatch);
+        CheckBox inSett = statusSelectView.findViewById(R.id.checkBoxInSetBatch);
         inSett.setChecked(prefs.getBoolean("isInSettUnitaryFilter", false));
-        inSett.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    checkBoxSetupToTrue("isInSettUnitaryFilter", "status[4]", "in sett");
-                } else {
-                    checkBoxSetupToFalse("isInSettUnitaryFilter", "status[4]");
-                }
-            }
-        });
-
+        inSett.setOnCheckedChangeListener(this);
         return v;
+    }
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.checkBoxInSetBatch:
+                checkboxSetup(isChecked, "isInSettUnitaryFilter", "in sett");
+                break;
+            case R.id.checkBoxSettledBatch:
+                checkboxSetup(isChecked, "isSettledUnitaryFilter", "settled");
+                break;
+            case R.id.checkBoxValidatedBatch:
+                checkboxSetup(isChecked, "isValidatedUnitaryFilter", "validated");
+                break;
+            case R.id.checkBoxPendingBatch:
+                checkboxSetup(isChecked, "isPendingUnitaryFilter", "pending");
+                break;
+            case R.id.checkBoxRejectedBatch:
+                checkboxSetup(isChecked, "isRejectUnitaryFilter", "rejected");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void checkboxSetup(boolean isChecked, String prefKey, String status) {
+        if (isChecked) {
+            prefEditor.putBoolean(prefKey, true);
+            selectedUnitaryStatuses.add(status);
+        } else {
+            prefEditor.putBoolean(prefKey, false);
+            selectedUnitaryStatuses.remove(selectedUnitaryStatuses.indexOf(status));
+        }
+        prefEditor.apply();
+    }
+
+    private void resetUnitaryParams() {
+        selectedUnitaryStartDate = null;
+        selectedUnitaryEndDate = null;
+        selectedUnitarySide = null;
+
+        settlementViewModel.resetUnitaryParams();
+    }
+
+    private void sendDataToPrevPg() {
+        Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getActivity().setResult(RESULT_OK, intent);
+        getActivity().finish();
     }
 
     public static void clearCounterpartiesText() {
@@ -206,9 +220,8 @@ public class UnitaryFilterFragment extends Fragment {
 
     private void handleSideCheck(String side) {
         markRadioBtn(side);
-        String str = "to " + side;
-        unitaryParamsToSend.put("side", str);
-        prefEditor.putString("side", str);
+        selectedUnitarySide = "to " + side;
+        prefEditor.putString("side", selectedUnitarySide);
         prefEditor.apply();
     }
 
@@ -280,21 +293,8 @@ public class UnitaryFilterFragment extends Fragment {
     }
 
     private void setDateParams(String startDate, String endDate) {
-        unitaryParamsToSend.put("start_date", startDate);
-        unitaryParamsToSend.put("end_date", endDate);
-    }
-
-    private void checkBoxSetupToFalse(String prefKey, String paramKey) {
-        prefEditor.putBoolean(prefKey, false);
-        prefEditor.apply();
-        unitaryParamsToSend.remove(paramKey);
-        settlementViewModel.removeFromUnitaryParams(paramKey);
-    }
-
-    private void checkBoxSetupToTrue(String prefKey, String paramKey, String paramVal) {
-        prefEditor.putBoolean(prefKey, true);
-        prefEditor.apply();
-        unitaryParamsToSend.put(paramKey, paramVal);
+        selectedUnitaryStartDate = startDate;
+        selectedUnitaryEndDate = endDate;
     }
 
     private void resetPrefs() {
@@ -323,52 +323,14 @@ public class UnitaryFilterFragment extends Fragment {
         ft.commit();
     }
 
-    private void openSettlementScreen() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        SettlementFragment frg = new SettlementFragment(false);
-        ft.replace(R.id.frame_layout, frg, "Settlement");
-        ft.commit();
-    }
-
-    public static void setUnitaryFilterParams(HashMap<String, String> params) {
-        Iterator it = params.entrySet().iterator();
-        while (it.hasNext()) {
-            HashMap.Entry pair = (HashMap.Entry) it.next();
-            if (!unitaryParamsToSend.containsValue(pair.getValue())) {
-                unitaryParamsToSend.put(pair.getKey().toString(), pair.getValue().toString());
-            }
-            it.remove(); // avoids a ConcurrentModificationException
-        }
-    }
-
-    public static void removeFromUnitaryParams(String key) {
-        Iterator it = unitaryParamsToSend.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            if (entry.getKey().equals(key)) {
-                it.remove();
-            }
-        }
-    }
-//
-//    public static void removeFromUnitaryParamsByValue(String value, String containsKey) {
-//        Iterator it = unitaryParamsToSend.entrySet().iterator();
+//    public static void setUnitaryFilterParams(HashMap<String, String> params) {
+//        Iterator it = params.entrySet().iterator();
 //        while (it.hasNext()) {
-//            Map.Entry entry = (Map.Entry) it.next();
-//            if (entry.getValue().equals(value) && entry.getKey().toString().contains(containsKey)) {
-//                it.remove();
+//            HashMap.Entry pair = (HashMap.Entry) it.next();
+//            if (!unitaryParamsToSend.containsValue(pair.getValue())) {
+//                unitaryParamsToSend.put(pair.getKey().toString(), pair.getValue().toString());
 //            }
+//            it.remove(); // avoids a ConcurrentModificationException
 //        }
 //    }
-
-    public static void removeFromUnitaryParamsContainsKey(String containsKey) {
-        Iterator it = unitaryParamsToSend.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            if (entry.getKey().toString().contains(containsKey)) {
-                it.remove();
-            }
-        }
-    }
-
 }

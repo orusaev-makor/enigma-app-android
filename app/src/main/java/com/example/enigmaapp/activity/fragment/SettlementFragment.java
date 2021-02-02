@@ -59,10 +59,20 @@ public class SettlementFragment extends Fragment {
     public static int mSettlementExpandedPosition = -1;
     public static int previousSettlementExpandedPosition = -1;
 
-
+    // batch:
     public static String selectedBatchProductId;
     public static String selectedBatchCounterpartyId;
     public static ArrayList<String> selectedBatchStatuses = new ArrayList<>();
+
+    // unitary:
+    public static String selectedUnitaryStartDate;
+    public static String selectedUnitaryEndDate;
+    public static String selectedUnitarySide;
+    public static ArrayList<String> selectedUnitaryStatuses = new ArrayList<>();
+    public static ArrayList<String> clickedCurrencies = new ArrayList<>();
+    public static ArrayList<String> clickedCounterparties = new ArrayList<>();
+    public static StringBuilder currencyStringBuilder;
+    public static StringBuilder counterpartyStringBuilder;
 
     public SettlementFragment(boolean isBatch) {
         // Required empty public constructor
@@ -189,6 +199,48 @@ public class SettlementFragment extends Fragment {
         return v;
     }
 
+    public static void setUnitaryParams() {
+        HashMap<String, String> map = new HashMap<>();
+
+        // build params map
+        if (selectedUnitaryStartDate != null) {
+            map.put("start_date", selectedUnitaryStartDate);
+            map.put("end_date", selectedUnitaryEndDate);
+        } else {
+            settlementViewModel.removeFromUnitaryParams("start_date");
+            settlementViewModel.removeFromUnitaryParams("end_date");
+        }
+
+        if (selectedUnitarySide != null) {
+            map.put("side", selectedUnitarySide);
+        } else {
+            settlementViewModel.removeFromUnitaryParams("side");
+        }
+
+        //  clear any old selected currencies, then add new selection:
+        settlementViewModel.removeFromUnitaryParamsContainsKey("currency_list");
+        for (int i = 0; i < clickedCurrencies.size(); i++) {
+            map.put("currency_list[" + i + "]", clickedCurrencies.get(i));
+        }
+
+        //  clear any old selected counterparties, then add new selection:
+        settlementViewModel.removeFromUnitaryParamsContainsKey("counterparty_id_list");
+        for (int i = 0; i < clickedCounterparties.size(); i++) {
+            map.put("counterparty_id_list[" + i + "]", clickedCounterparties.get(i));
+        }
+
+        // clear any old selected statuses, then add new selection:
+        settlementViewModel.removeFromUnitaryParamsContainsKey("status");
+        if (selectedUnitaryStatuses.size() > 0) {
+            for (int i = 0; i < selectedUnitaryStatuses.size(); i++) {
+                map.put("status[" + i + "]", selectedUnitaryStatuses.get(i));
+            }
+        }
+
+        System.out.println("___________ setUnitaryParams - map ___________ : " + map);
+        settlementViewModel.setUnitaryParams(map);
+    }
+
     public static void setBatchParams() {
         HashMap<String, String> map = new HashMap<>();
 
@@ -217,14 +269,6 @@ public class SettlementFragment extends Fragment {
         }
 
         settlementViewModel.setBatchParams(map);
-    }
-
-    public static void setUnitaryParams() {
-        HashMap<String, String> map = new HashMap<>();
-
-        // build params map
-
-        settlementViewModel.setUnitaryParams(map);
     }
 
     private void resetExpendedItemPos() {

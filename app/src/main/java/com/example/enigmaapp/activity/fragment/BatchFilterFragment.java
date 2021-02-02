@@ -28,10 +28,13 @@ import static com.example.enigmaapp.activity.MainActivity.prefEditor;
 import static com.example.enigmaapp.activity.MainActivity.prefs;
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchCounterpartyPos;
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchProductPos;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedBatchCounterpartyId;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedBatchProductId;
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedBatchStatuses;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.setBatchParams;
 
 
-public class BatchFilterFragment extends Fragment  implements CompoundButton.OnCheckedChangeListener {
+public class BatchFilterFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
 
     private Button closeBtn;
     private Button submitBtn;
@@ -42,9 +45,6 @@ public class BatchFilterFragment extends Fragment  implements CompoundButton.OnC
 
     private View statusSelectView;
     private SettlementViewModel settlementViewModel;
-
-//    private HashMap<String, String> paramsFromRepository = new HashMap<>();
-    public static HashMap<String, String> batchParamsToSend = new HashMap<>();
 
     public BatchFilterFragment() {
         // Required empty public constructor
@@ -78,6 +78,7 @@ public class BatchFilterFragment extends Fragment  implements CompoundButton.OnC
             @Override
             public void onClick(View v) {
                 sendDataToPrevPg();
+                setBatchParams();
 //                settlementViewModel.setBatchParams(batchParamsToSend);
 //                openSettlementScreen();
             }
@@ -86,16 +87,15 @@ public class BatchFilterFragment extends Fragment  implements CompoundButton.OnC
         // Reset "Filter Settlement" screen
         resetBtn = v.findViewById(R.id.filter_settlement_reset_btn);
         resetBtn.setOnClickListener(v1 -> {
-            batchParamsToSend.clear();
-            settlementViewModel.resetBatchParams();
+            resetBatchParams();
             resetPrefs();
-            openFilterBatchScreen();
             resetBatchLastPos();
+            openFilterBatchScreen();
         });
 
         // Close "Filter Settlement" screen and go back to "Settlement Fragment":
         closeBtn = v.findViewById(R.id.close_btn);
-        closeBtn.setOnClickListener(v12 -> openSettlementScreen());
+        closeBtn.setOnClickListener(v12 -> sendDataToPrevPg());
 
         statusSelectView = v.findViewById(R.id.layout_batch_status_select);
         CheckBox reject = statusSelectView.findViewById(R.id.checkBoxRejectedBatch);
@@ -107,7 +107,7 @@ public class BatchFilterFragment extends Fragment  implements CompoundButton.OnC
         pending.setChecked(prefs.getBoolean("isPendingBatchFilter", false));
         pending.setOnCheckedChangeListener(this);
 
-        CheckBox validate =statusSelectView.findViewById(R.id.checkBoxValidatedBatch);
+        CheckBox validate = statusSelectView.findViewById(R.id.checkBoxValidatedBatch);
         validate.setChecked(prefs.getBoolean("isValidatedBatchFilter", false));
         validate.setOnCheckedChangeListener(this);
 
@@ -122,6 +122,14 @@ public class BatchFilterFragment extends Fragment  implements CompoundButton.OnC
         return v;
     }
 
+    private void resetBatchParams() {
+        selectedBatchProductId = null;
+        selectedBatchCounterpartyId = null;
+        selectedBatchStatuses.clear();
+
+        settlementViewModel.resetBatchParams();
+    }
+
     private void sendDataToPrevPg() {
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -133,19 +141,19 @@ public class BatchFilterFragment extends Fragment  implements CompoundButton.OnC
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.checkBoxInSetBatch:
-                checkboxSetup(isChecked,"isInSettBatchFilter", "in sett" );
+                checkboxSetup(isChecked, "isInSettBatchFilter", "in sett");
                 break;
             case R.id.checkBoxSettledBatch:
-                checkboxSetup(isChecked,"isSettledBatchFilter", "settled" );
+                checkboxSetup(isChecked, "isSettledBatchFilter", "settled");
                 break;
             case R.id.checkBoxValidatedBatch:
-                checkboxSetup(isChecked,"isValidatedBatchFilter", "validated" );
+                checkboxSetup(isChecked, "isValidatedBatchFilter", "validated");
                 break;
             case R.id.checkBoxPendingBatch:
-                checkboxSetup(isChecked,"isPendingBatchFilter", "pending" );
+                checkboxSetup(isChecked, "isPendingBatchFilter", "pending");
                 break;
             case R.id.checkBoxRejectedBatch:
-                checkboxSetup(isChecked,"isRejectBatchFilter", "rejected" );
+                checkboxSetup(isChecked, "isRejectBatchFilter", "rejected");
                 break;
             default:
                 break;
@@ -193,31 +201,4 @@ public class BatchFilterFragment extends Fragment  implements CompoundButton.OnC
         ft.replace(R.id.frame_layout, frg, "Filter Batch");
         ft.commit();
     }
-
-    private void openSettlementScreen() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        SettlementFragment frg = new SettlementFragment(true);
-        ft.replace(R.id.frame_layout, frg, "Settlement");
-        ft.commit();
-    }
-
-    public static void setBatchFilterParams(HashMap<String, String> params) {
-        Iterator it = params.entrySet().iterator();
-        while (it.hasNext()) {
-            HashMap.Entry pair = (HashMap.Entry) it.next();
-            batchParamsToSend.put(pair.getKey().toString(), pair.getValue().toString());
-            it.remove(); // avoids a ConcurrentModificationException
-        }
-    }
-
-    public static void removeFromBatchParams(String key) {
-        Iterator it = batchParamsToSend.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            if (entry.getKey().equals(key)) {
-                it.remove();
-            }
-        }
-    }
-
 }

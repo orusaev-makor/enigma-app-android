@@ -55,22 +55,6 @@ public class FormActivity extends AppCompatActivity {
             default:
                 break;
         }
-//        if (formType.equals("filterTrade")) {
-//            Log.d(TAG, "onCreate: trade case");
-//            TradeFilterFragment frg = new TradeFilterFragment();
-//            ft.replace(R.id.frame_layout, frg, "Filter Trade");
-//
-//        }
-//        else if (formType.equals("filterBatch")) {
-//            Log.d(TAG, "onCreate: batch case");
-//            BatchFilterFragment frg = new BatchFilterFragment();
-//            ft.replace(R.id.frame_layout, frg, "Filter Batch");
-//        }
-//        else if (formType.equals("filterUnitary")) {
-//            Log.d(TAG, "onCreate: unitary case");
-//            UnitaryFilterFragment frg = new UnitaryFilterFragment();
-//            ft.replace(R.id.frame_layout, frg, "Filter Unitary");
-//        }
         ft.commit();
     }
 }

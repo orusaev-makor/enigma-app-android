@@ -40,10 +40,6 @@ public class TradeSelectFilterFragment extends Fragment {
     public static int lastTradeExecutionPos = -1;
     public static int lastTradeBatchedPos = -1;
 
-    private String productId;
-    private String executionType;
-    private String batched;
-
     public TradeSelectFilterFragment(String filterType) {
         this.mFilterType = filterType;
     }
@@ -70,19 +66,6 @@ public class TradeSelectFilterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openTradeFilterScreen();
-                switch (mFilterType) {
-                    case "product":
-                        selectedProductId = productId;
-                        break;
-                    case "execution type":
-                        selectedExecutionType = executionType;
-                        break;
-                    case "batched":
-                        selectedBatched = batched;
-                        break;
-                    default:
-                        break;
-                }
             }
         });
 
@@ -105,11 +88,11 @@ public class TradeSelectFilterFragment extends Fragment {
                 productAdapter.setOnItemClickListener((productItem, position) -> {
                     if (productItem.getIsChecked()) {
                         productItem.setIsChecked(false);
-                        productId = null;
+                        selectedProductId = null;
                     } else {
                         productAdapter.setLastCheckedPos(position);
                         productItem.setIsChecked(true);
-                        productId = productItem.getId();
+                        selectedProductId = productItem.getId();
                         lastTradeProductPos = position;
                         prefEditor.putString("productTradeFilter", productItem.getName());
                         prefEditor.apply();
@@ -128,13 +111,13 @@ public class TradeSelectFilterFragment extends Fragment {
                 executionTypeAdapter.setOnItemClickListener((executionTypeItem, position) -> {
                     if (executionTypeItem.getIsChecked()) {
                         executionTypeItem.setIsChecked(false);
-                        executionType = null;
+                        selectedExecutionType = null;
                     } else {
                         executionTypeAdapter.setLastCheckedPos(position);
                         executionTypeItem.setIsChecked(true);
                         lastTradeExecutionPos = position;
-                        executionType = executionTypeItem.getName();
-                        prefEditor.putString("executionTradeFilter", executionType);
+                        selectedExecutionType = executionTypeItem.getName();
+                        prefEditor.putString("executionTradeFilter", selectedExecutionType);
                         prefEditor.apply();
                     }
 
@@ -151,12 +134,12 @@ public class TradeSelectFilterFragment extends Fragment {
                 batchedAdapter.setOnItemClickListener((batchItem, position) -> {
                     if (batchItem.getIsChecked()) {
                         batchItem.setIsChecked(false);
-                        batched = null;
+                        selectedBatched = null;
                     } else {
                         batchedAdapter.setLastCheckedPos(position);
                         batchItem.setIsChecked(true);
                         lastTradeBatchedPos = position;
-                        batched = batchItem.getValue();
+                        selectedBatched = batchItem.getValue();
                         prefEditor.putString("batchedTradeFilter", batchItem.getName());
                         prefEditor.apply();
                     }
@@ -175,22 +158,22 @@ public class TradeSelectFilterFragment extends Fragment {
             resetPrefs();
             resetParam();
             resetLastPos();
-            resetLocalString();
+            resetSelectedFilterString();
         });
 
         return v;
     }
 
-    private void resetLocalString() {
+    private void resetSelectedFilterString() {
         switch (mFilterType) {
             case "product":
-                productId = null;
+                selectedProductId = null;
                 break;
             case "execution type":
-                executionType = null;
+                selectedExecutionType = null;
                 break;
             case "batched":
-                batched = null;
+                selectedBatched = null;
                 break;
             default:
                 break;

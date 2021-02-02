@@ -15,6 +15,8 @@ import com.example.enigmaapp.web.dataset.DatasetCounterparty;
 
 import java.util.ArrayList;
 
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.clickedCounterparties;
+
 public class CounterpartyFilterMultiAdapter extends RecyclerView.Adapter<CounterpartyFilterMultiAdapter.CounterpartyOptionHolder> {
 
     private OnItemClickListener listener;
@@ -44,7 +46,10 @@ public class CounterpartyFilterMultiAdapter extends RecyclerView.Adapter<Counter
     public void onBindViewHolder(@NonNull CounterpartyOptionHolder holder, int position) {
         DatasetCounterparty currentCounterparty = counterparties.get(position);
         holder.textViewCounterpartyName.setText(currentCounterparty.getName());
-        if (currentCounterparty.getIsChecked()) {
+        if (currentCounterparty.getIsChecked() || clickedCounterparties.indexOf(currentCounterparty.getName()) != -1) {
+            // need to update true if counterparty is in the clicked list due to last search:
+            currentCounterparty.setIsChecked(true);
+
             holder.checkedIcon.setVisibility(View.VISIBLE);
             holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {
