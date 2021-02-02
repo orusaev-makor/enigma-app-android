@@ -33,10 +33,6 @@ public class NewAccountFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (actionBar != null) {
-            actionBar.show();
-        }
     }
 
     @Override
@@ -47,15 +43,12 @@ public class NewAccountFragment extends Fragment {
 
         // Creating account and go back to "Accounts" screen
         submitBtn = v.findViewById(R.id.new_account_submit_btn);
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add the creation process
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                AccountsFragment frg = new AccountsFragment();
-                ft.replace(R.id.frame_layout, frg, "Accounts");
-                ft.commit();
-            }
+        submitBtn.setOnClickListener(v1 -> {
+            // TODO: add the creation process
+            FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+            AccountsFragment frg = new AccountsFragment();
+            ft.replace(R.id.frame_layout, frg, "Accounts");
+            ft.commit();
         });
 
         return v;

@@ -45,46 +45,38 @@ public class NewUnitarySettFragment extends Fragment implements AdapterView.OnIt
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_new_unitary_sett, container, false);
 
-        Spinner spinnerOnBehalf = (Spinner) v.findViewById(R.id.new_unitary_spinner_on_behalf);
+        Spinner spinnerOnBehalf = v.findViewById(R.id.new_unitary_spinner_on_behalf);
         String[] onBehalfOptions = {"Option 1", "Option 2", "On Behalf"}; // Last option is the hint!
         setOnBehalfAdapter(spinnerOnBehalf, onBehalfOptions);
 
-        Spinner spinnerType = (Spinner) v.findViewById(R.id.new_unitary_spinner_type);
+        Spinner spinnerType = v.findViewById(R.id.new_unitary_spinner_type);
         String[] typeOptions = {"Type 1", "Type 2", "Type 3", "Type 4", "Type"}; // Last option is the hint!
         setTypeAdapter(spinnerType, typeOptions);
 
-        Spinner spinnerCurrency = (Spinner) v.findViewById(R.id.new_unitary_spinner_currency);
+        Spinner spinnerCurrency = v.findViewById(R.id.new_unitary_spinner_currency);
         String[] currencyOptions = {"BTC", "ETH", "USD", "LTC", "Currency"}; // Last option is the hint!
         setCurrencyAdapter(spinnerCurrency, currencyOptions);
 
-        Spinner spinnerAccount = (Spinner) v.findViewById(R.id.new_unitary_spinner_account);
+        Spinner spinnerAccount = v.findViewById(R.id.new_unitary_spinner_account);
         String[] accountOptions = {"Account 1", "Account 2", "Account"}; // Last option is the hint!
         setAccountAdapter(spinnerAccount, accountOptions);
 
         // Creating unitary settlement and return to "Settlement Fragment"screen
         createBtn = v.findViewById(R.id.new_unitary_create_btn);
-        createBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add the creation process
-                openSettlementScreen();
-            }
+        createBtn.setOnClickListener(v12 -> {
+            // TODO: add the creation process
+            openSettlementScreen();
         });
 
         // Close "Settlement creation" screen and go back to "Settlement Fragment":
         closeBtn = v.findViewById(R.id.new_settlement_close_btn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSettlementScreen();
-            }
-        });
+        closeBtn.setOnClickListener(v1 -> openSettlementScreen());
 
         return v;
     }
 
     private void openSettlementScreen() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         SettlementFragment frg = new SettlementFragment(false);
         ft.replace(R.id.frame_layout, frg, "Settlement");
         ft.commit();
@@ -107,12 +99,12 @@ public class NewUnitarySettFragment extends Fragment implements AdapterView.OnIt
                     ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.textColor));
                 }
                 break;
-                case "app:id/new_unitary_spinner_currency":
+            case "app:id/new_unitary_spinner_currency":
                 if (position != currencyAdapter.getCount()) {
                     ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.textColor));
                 }
                 break;
-                case "app:id/new_unitary_spinner_account":
+            case "app:id/new_unitary_spinner_account":
                 if (position != accountAdapter.getCount()) {
                     ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.textColor));
                 }
@@ -134,7 +126,7 @@ public class NewUnitarySettFragment extends Fragment implements AdapterView.OnIt
 
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
-                    TextView textView = (TextView) v.findViewById(R.id.spinner_account);
+                    TextView textView = v.findViewById(R.id.spinner_account);
                     textView.setText("");
                     textView.setHint(getItem(getCount())); //"Hint to be displayed"
                     textView.setHintTextColor(getResources().getColor(R.color.textSecondaryColor));
@@ -165,7 +157,7 @@ public class NewUnitarySettFragment extends Fragment implements AdapterView.OnIt
 
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
-                    TextView textView = (TextView) v.findViewById(R.id.spinner_currency);
+                    TextView textView = v.findViewById(R.id.spinner_currency);
                     textView.setText("");
                     textView.setHint(getItem(getCount())); //"Hint to be displayed"
                     textView.setHintTextColor(getResources().getColor(R.color.textSecondaryColor));
@@ -196,7 +188,7 @@ public class NewUnitarySettFragment extends Fragment implements AdapterView.OnIt
 
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
-                    TextView textView = (TextView) v.findViewById(R.id.spinner_type);
+                    TextView textView = v.findViewById(R.id.spinner_type);
                     textView.setText("");
                     textView.setHint(getItem(getCount())); //"Hint to be displayed"
                     textView.setHintTextColor(getResources().getColor(R.color.textSecondaryColor));
@@ -227,7 +219,7 @@ public class NewUnitarySettFragment extends Fragment implements AdapterView.OnIt
 
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
-                    TextView textView = (TextView) v.findViewById(R.id.spinner_on_behalf);
+                    TextView textView = v.findViewById(R.id.spinner_on_behalf);
                     textView.setText("");
                     textView.setHint(getItem(getCount())); //"Hint to be displayed"
                     textView.setHintTextColor(getResources().getColor(R.color.textSecondaryColor));

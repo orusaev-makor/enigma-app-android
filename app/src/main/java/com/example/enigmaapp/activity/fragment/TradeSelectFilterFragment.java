@@ -3,6 +3,7 @@ package com.example.enigmaapp.activity.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -232,7 +233,8 @@ public class TradeSelectFilterFragment extends Fragment {
     }
 
     private void openTradeFilterScreen() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+//        System.out.println(" ________________________         isAdded(); ________________ " + isAdded());
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         TradeFilterFragment fragment = new TradeFilterFragment();
         ft.replace(R.id.frame_layout, fragment, "Trade Filter");
         ft.commit();
@@ -250,7 +252,7 @@ public class TradeSelectFilterFragment extends Fragment {
 
         viewModel.fetchTradeDataset(token);
 
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         TradeSelectFilterFragment fragment = new TradeSelectFilterFragment(type);
         ft.replace(R.id.frame_layout, fragment, "Multi Select Filter List");
         ft.commit();

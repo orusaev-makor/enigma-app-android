@@ -19,7 +19,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.activity.fragment.AccountsFragment;
@@ -32,26 +31,16 @@ import com.example.enigmaapp.activity.fragment.SettlementFragment;
 import com.example.enigmaapp.activity.fragment.StatisticsFragment;
 import com.example.enigmaapp.activity.fragment.TradeFragment;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.HashMap;
-
-import static com.example.enigmaapp.activity.fragment.BatchFilterFragment.resetBatchLastPos;
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.BATCH_FILTER_REQUEST_CODE;
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.UNITARY_FILTER_REQUEST_CODE;
-import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
-import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.resetTradeLastPos;
 import static com.example.enigmaapp.activity.fragment.TradeFragment.TRADE_FILTER_REQUEST_CODE;
 
 public class UserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    public static final String TAG = "UserActivity";
     private String passedUsername;
     private String passedToken;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-
-    //    public static SharedPreferences.Editor prefEditor;
-//    public static SharedPreferences prefs;
     public static ActionBar actionBar;
 
     @Override
@@ -83,18 +72,15 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         SwitchCompat switchCompat = actionMenuView.findViewById(R.id.switchForActionBar);
         switchCompat.setChecked(loadState());
 
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    saveState(true);
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    saveState(false);
-                }
-                recreate();
+        switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                saveState(true);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                saveState(false);
             }
+            recreate();
         });
 
         // Initial Fragment:

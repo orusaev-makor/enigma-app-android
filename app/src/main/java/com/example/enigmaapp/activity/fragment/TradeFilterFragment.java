@@ -255,14 +255,14 @@ public class TradeFilterFragment extends Fragment implements CompoundButton.OnCh
     }
 
     private void openFilterTradeScreen() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         TradeFilterFragment frg = new TradeFilterFragment();
         ft.replace(R.id.frame_layout, frg, "Trade Filter");
         ft.commit();
     }
 
     private void openMultiSelectFilter(String type) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         TradeSelectFilterFragment frg = new TradeSelectFilterFragment(type);
         ft.replace(R.id.frame_layout, frg, "Multi Select Filter List");
         ft.commit();
@@ -289,28 +289,25 @@ public class TradeFilterFragment extends Fragment implements CompoundButton.OnCh
             dateText.setText(dateTextFromPrefs);
         }
 
-        dateText.setOnClickListener(v1 -> materialDatePicker.show(getFragmentManager(), "Data Picker"));
+        dateText.setOnClickListener(v1 -> materialDatePicker.show(getParentFragmentManager(), "Data Picker"));
 
-        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
-            @Override
-            public void onPositiveButtonClick(Object selection) {
-                Pair<Long, Long> dates = (Pair<Long, Long>) materialDatePicker.getSelection();
-                Long startDate = dates.first;
-                Long endDate = dates.second;
+        materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+            Pair<Long, Long> dates = (Pair<Long, Long>) materialDatePicker.getSelection();
+            Long startDate = dates.first;
+            Long endDate = dates.second;
 
-                // format and send to backend:
-                SimpleDateFormat serverFormat = new SimpleDateFormat("YYYY-MM-dd");
-                String startDateForServer = serverFormat.format(startDate);
-                String endDateForServer = serverFormat.format(endDate);
-                setDateParams(startDateForServer, endDateForServer);
+            // format and send to backend:
+            SimpleDateFormat serverFormat = new SimpleDateFormat("YYYY-MM-dd");
+            String startDateForServer = serverFormat.format(startDate);
+            String endDateForServer = serverFormat.format(endDate);
+            setDateParams(startDateForServer, endDateForServer);
 
-                // format for display:
-                SimpleDateFormat clientFormat = new SimpleDateFormat("MMM dd YYYY");
-                String startDateForClient = clientFormat.format(startDate);
-                String endDateForClient = clientFormat.format(endDate);
-                dateText.setText(startDateForClient + " - " + endDateForClient);
-                setDatePrefs(startDateForClient, endDateForClient);
-            }
+            // format for display:
+            SimpleDateFormat clientFormat = new SimpleDateFormat("MMM dd YYYY");
+            String startDateForClient = clientFormat.format(startDate);
+            String endDateForClient = clientFormat.format(endDate);
+            dateText.setText(startDateForClient + " - " + endDateForClient);
+            setDatePrefs(startDateForClient, endDateForClient);
         });
     }
 

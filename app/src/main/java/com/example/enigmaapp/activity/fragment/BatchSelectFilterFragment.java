@@ -151,7 +151,7 @@ public class BatchSelectFilterFragment extends Fragment {
     }
 
     private void openBatchSelectFilter(String type) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         BatchSelectFilterFragment frg = new BatchSelectFilterFragment(type);
         ft.replace(R.id.frame_layout, frg, "Batch Select Filter List");
         ft.commit();
@@ -199,7 +199,7 @@ public class BatchSelectFilterFragment extends Fragment {
     }
 
     private void openBatchFilterScreen() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         BatchFilterFragment frg = new BatchFilterFragment();
         ft.replace(R.id.frame_layout, frg, "Batch Filter");
         ft.commit();

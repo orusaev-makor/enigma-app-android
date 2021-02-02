@@ -51,7 +51,7 @@ public class NewTradeReviewAndSubmitFragment extends Fragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                FragmentTransaction ft = getParentFragmentManager().beginTransaction();
                 NewTradeCreationFragment fragment = new NewTradeCreationFragment();
                 ft.replace(R.id.frame_layout, fragment, "New Trade");
                 ft.commit();
@@ -71,7 +71,7 @@ public class NewTradeReviewAndSubmitFragment extends Fragment {
     }
 
     private void openTradeScreen() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         TradeFragment fragment = new TradeFragment();
         ft.replace(R.id.frame_layout, fragment, "Trade");
         ft.commit();

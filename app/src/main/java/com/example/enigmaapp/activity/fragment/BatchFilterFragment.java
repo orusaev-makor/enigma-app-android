@@ -79,8 +79,6 @@ public class BatchFilterFragment extends Fragment implements CompoundButton.OnCh
             public void onClick(View v) {
                 sendDataToPrevPg();
                 setBatchParams();
-//                settlementViewModel.setBatchParams(batchParamsToSend);
-//                openSettlementScreen();
             }
         });
 
@@ -189,14 +187,14 @@ public class BatchFilterFragment extends Fragment implements CompoundButton.OnCh
     }
 
     private void openFilterBatchScreen() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         BatchFilterFragment frg = new BatchFilterFragment();
         ft.replace(R.id.frame_layout, frg, "Settlement Filter");
         ft.commit();
     }
 
     private void openBatchSelectFilter(String type) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         BatchSelectFilterFragment frg = new BatchSelectFilterFragment(type);
         ft.replace(R.id.frame_layout, frg, "Filter Batch");
         ft.commit();

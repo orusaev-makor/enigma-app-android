@@ -42,44 +42,37 @@ public class NewBatchSettFragment extends Fragment implements AdapterView.OnItem
         View v = inflater.inflate(R.layout.fragment_new_batch_sett, container, false);
 
 
-        Spinner spinnerProduct = (Spinner) v.findViewById(R.id.new_batch_spinner_product);
+        Spinner spinnerProduct = v.findViewById(R.id.new_batch_spinner_product);
         String[] productOptions = {"Product 1", "Product 2", "Product"}; // Last option is the hint!
         setProductAdapter(spinnerProduct, productOptions);
 
-        Spinner spinnerCounterparty = (Spinner) v.findViewById(R.id.new_batch_spinner_counterparty);
+        Spinner spinnerCounterparty = v.findViewById(R.id.new_batch_spinner_counterparty);
         String[] counterpartyOptions = {"Counterparty 1", "Counterparty 2", "Counterparty"}; // Last option is the hint!
         setCounterpartyAdapter(spinnerCounterparty, counterpartyOptions);
 
 
         // Creating settlement and moving to "Select Trade" screen
         createBtn = v.findViewById(R.id.new_batch_create_btn);
-        createBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add the creation process
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                SelectTradeFragment frg = new SelectTradeFragment();
-                ft.replace(R.id.frame_layout, frg, "Select Trade");
-                ft.commit();
-            }
+        createBtn.setOnClickListener(v12 -> {
+            // TODO: add the creation process
+            FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+            SelectTradeFragment frg = new SelectTradeFragment();
+            ft.replace(R.id.frame_layout, frg, "Select Trade");
+            ft.commit();
         });
 
 
         // Close "Settlement creation" screen and go back to "Settlement Fragment":
         closeBtn = v.findViewById(R.id.new_settlement_close_btn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                SettlementFragment frg = new SettlementFragment(true);
-                ft.replace(R.id.frame_layout, frg, "Settlement");
-                ft.commit();
-            }
+        closeBtn.setOnClickListener(v1 -> {
+            FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+            SettlementFragment frg = new SettlementFragment(true);
+            ft.replace(R.id.frame_layout, frg, "Settlement");
+            ft.commit();
         });
 
         return v;
     }
-
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -107,7 +100,6 @@ public class NewBatchSettFragment extends Fragment implements AdapterView.OnItem
 
     }
 
-
     private void setCounterpartyAdapter(Spinner spinnerCounterparty, String[] counterpartyOptions) {
         counterpartyAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_counterparty) {
             @Override
@@ -115,7 +107,7 @@ public class NewBatchSettFragment extends Fragment implements AdapterView.OnItem
 
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
-                    TextView textView = (TextView) v.findViewById(R.id.spinner_counterparty);
+                    TextView textView = v.findViewById(R.id.spinner_counterparty);
                     textView.setText("");
                     textView.setHint(getItem(getCount())); //"Hint to be displayed"
                     textView.setHintTextColor(getResources().getColor(R.color.textSecondaryColor));
@@ -147,7 +139,7 @@ public class NewBatchSettFragment extends Fragment implements AdapterView.OnItem
 
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
-                    TextView textView = (TextView) v.findViewById(R.id.spinner_product);
+                    TextView textView = v.findViewById(R.id.spinner_product);
                     textView.setText("");
                     textView.setHint(getItem(getCount())); //"Hint to be displayed"
                     textView.setHintTextColor(getResources().getColor(R.color.textSecondaryColor));
@@ -170,5 +162,4 @@ public class NewBatchSettFragment extends Fragment implements AdapterView.OnItem
         spinnerProduct.setSelection(productAdapter.getCount()); //set the hint the default selection so it appears on launch.
         spinnerProduct.setOnItemSelectedListener(this);
     }
-
 }

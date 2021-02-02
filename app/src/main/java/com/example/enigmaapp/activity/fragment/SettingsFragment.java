@@ -37,22 +37,16 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        LinearLayout increaseExposureLimit = (LinearLayout) v.findViewById(R.id.request_increase_exposure_limit);
-        increaseExposureLimit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: set "request increase exposure limit" process
-                openDialog();
-            }
+        LinearLayout increaseExposureLimit = v.findViewById(R.id.request_increase_exposure_limit);
+        increaseExposureLimit.setOnClickListener(v12 -> {
+            // TODO: set "request increase exposure limit" process
+            openDialog();
         });
 
-        LinearLayout increaseQuantityLimit = (LinearLayout) v.findViewById(R.id.request_increase_quantity_limit);
-        increaseQuantityLimit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: set "request increase quantity limit" process
-                openDialog();
-            }
+        LinearLayout increaseQuantityLimit = v.findViewById(R.id.request_increase_quantity_limit);
+        increaseQuantityLimit.setOnClickListener(v1 -> {
+            // TODO: set "request increase quantity limit" process
+            openDialog();
         });
 
         return v;
@@ -60,6 +54,6 @@ public class SettingsFragment extends Fragment {
 
     private void openDialog() {
         SettingsConfirmationDialog settingsDialog = new SettingsConfirmationDialog();
-        settingsDialog.show(getFragmentManager(), "Settings Dialog");
+        settingsDialog.show(getParentFragmentManager(), "Settings Dialog");
     }
 }

@@ -102,17 +102,12 @@ public class SettlementFragment extends Fragment {
 
         // Refresh "Settlement" screen:
         refreshBtn = v.findViewById(R.id.ic_action_refresh);
-        refreshBtn.setOnClickListener(v13 -> {
-            openSettlementScreen(isBatch);
-        });
+        refreshBtn.setOnClickListener(v13 -> openSettlementScreen(isBatch));
 
         // Upload "Settlement" screen:
         uploadBtn = v.findViewById(R.id.ic_action_upload);
-        uploadBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add upload process
-            }
+        uploadBtn.setOnClickListener(v16 -> {
+            // TODO: add upload process
         });
 
         topSection = v.findViewById(R.id.layout_settlement_top_section);
@@ -279,7 +274,7 @@ public class SettlementFragment extends Fragment {
 
     // TODO: add back create action button after read only version
     private void openAddScreen(boolean isBatch) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         if (isBatch) {
             NewBatchSettFragment fragment = new NewBatchSettFragment();
             ft.replace(R.id.frame_layout, fragment, "New Batch Settlement");
@@ -319,7 +314,7 @@ public class SettlementFragment extends Fragment {
 
     private void openSettlementScreen(Boolean isBatch) {
         String tag = (isBatch) ? "Batch" : "Unitary";
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         SettlementFragment fragment = new SettlementFragment(isBatch);
         ft.replace(R.id.frame_layout, fragment, tag);
         ft.commit();

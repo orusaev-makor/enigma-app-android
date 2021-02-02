@@ -71,41 +71,30 @@ public class SelectTradeFragment extends Fragment {
 
         // Creating batch settlement and return to "Settlement Fragment"screen
         createBtn = v.findViewById(R.id.select_trade_create_btn);
-        createBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add the creation process
-                openSettlementScreen();
-            }
+        createBtn.setOnClickListener(v13 -> {
+            // TODO: add the creation process
+            openSettlementScreen();
         });
 
         // Reset selected trades
         resetBtn = v.findViewById(R.id.select_trade_reset_btn);
-        resetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add the reset process
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                SelectTradeFragment fragment = new SelectTradeFragment();
-                ft.replace(R.id.frame_layout, fragment, "Select Trade");
-                ft.commit();
-            }
+        resetBtn.setOnClickListener(v1 -> {
+            // TODO: add the reset process
+            FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+            SelectTradeFragment fragment = new SelectTradeFragment();
+            ft.replace(R.id.frame_layout, fragment, "Select Trade");
+            ft.commit();
         });
 
         // Close "Settlement creation" screen and go back to "Settlement Fragment":
         closeBtn = v.findViewById(R.id.new_settlement_close_btn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSettlementScreen();
-            }
-        });
+        closeBtn.setOnClickListener(v12 -> openSettlementScreen());
 
         return v;
     }
 
     private void openSettlementScreen() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         SettlementFragment fragment = new SettlementFragment(true);
         ft.replace(R.id.frame_layout, fragment, "Settlement");
         ft.commit();

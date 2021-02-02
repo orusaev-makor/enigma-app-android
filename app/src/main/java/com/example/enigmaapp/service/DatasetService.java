@@ -113,7 +113,6 @@ public class DatasetService extends JobIntentService {
         @Override
         public void run() {
             ArrayList<Product> productArray = (ArrayList) dataset.getValue().getProduct();
-            Log.d(TAG, "startThread: ______________________ inserting products ______________________");
 
             // reset old products info
             if (productDao.getAllProducts() != null) {
@@ -191,9 +190,7 @@ public class DatasetService extends JobIntentService {
     }
 
     // Trade dataset:
-
     public void fetchTradeDataset(String token) {
-        Log.d(TAG, "______________________ fetching trade dataset ______________________");
         Call<TradeDatasetResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetTradeDataset(token);
         call.enqueue(new Callback<TradeDatasetResult>() {
             @Override
@@ -227,7 +224,6 @@ public class DatasetService extends JobIntentService {
     }
 
     // Settlement datasets:
-
     public void fetchSettlementDataset(String token) {
         Call<SettlementDatasetResult> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetUnitaryDataset(token);
 

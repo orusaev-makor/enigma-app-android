@@ -55,7 +55,7 @@ public class AccountsFragment extends Fragment {
 //        createAccountBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                FragmentTransaction ft = getParentFragmentManager().beginTransaction();
 //                NewAccountFragment frg = new NewAccountFragment();
 //                ft.replace(R.id.frame_layout, frg, "New Account");
 //                ft.commit();
@@ -72,19 +72,9 @@ public class AccountsFragment extends Fragment {
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(AccountsViewModel.class);
 
-        viewModel.getFiatAccounts().observe(requireActivity(), new Observer<List<AccountsItemResult>>() {
-            @Override
-            public void onChanged(List<AccountsItemResult> accountsItems) {
-                fiatAdapter.submitList(accountsItems);
-            }
-        });
+        viewModel.getFiatAccounts().observe(requireActivity(), accountsItems -> fiatAdapter.submitList(accountsItems));
 
-        fiatAdapter.setOnItemClickListener(new AccountsItemAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(AccountsItemResult accountsItem) {
-                openAccountDetailsFragment(accountsItem);
-            }
-        });
+        fiatAdapter.setOnItemClickListener(accountsItem -> openAccountDetailsFragment(accountsItem));
 
         RecyclerView recyclerViewCrypto = v.findViewById(R.id.bank_accounts_crypto_recycler_view);
         recyclerViewCrypto.setLayoutManager((new LinearLayoutManager(getContext())));
@@ -92,22 +82,14 @@ public class AccountsFragment extends Fragment {
         final AccountsItemAdapter cryptoAdapter = new AccountsItemAdapter(requireContext(), false);
         recyclerViewCrypto.setAdapter(cryptoAdapter);
 
-        viewModel.getCryptoAccounts().observe(requireActivity(), new Observer<List<AccountsItemResult>>() {
-            @Override
-            public void onChanged(List<AccountsItemResult> accountsItems) {
-                cryptoAdapter.submitList(accountsItems);
-            }
-        });
+        viewModel.getCryptoAccounts().observe(requireActivity(), accountsItems -> cryptoAdapter.submitList(accountsItems));
 
 
-        cryptoAdapter.setOnItemClickListener(new AccountsItemAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(AccountsItemResult accountsItem) {
-                System.out.println("Item Clicked: " + accountsItem.getAccountName()
-                        + " / Currency: " + accountsItem.getCurrency()
-                        + " / CryptoCurrency: " + accountsItem.getCryptoCurrency());
-                openAccountDetailsFragment(accountsItem);
-            }
+        cryptoAdapter.setOnItemClickListener(accountsItem -> {
+            System.out.println("Item Clicked: " + accountsItem.getAccountName()
+                    + " / Currency: " + accountsItem.getCurrency()
+                    + " / CryptoCurrency: " + accountsItem.getCryptoCurrency());
+            openAccountDetailsFragment(accountsItem);
         });
 
         LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
@@ -121,7 +103,7 @@ public class AccountsFragment extends Fragment {
     }
 
     private void openAccountDetailsFragment(AccountsItemResult accountsItem) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         AccountDetailsFragment frg = new AccountDetailsFragment(accountsItem);
         ft.replace(R.id.frame_layout, frg, "Account Details");
         ft.commit();

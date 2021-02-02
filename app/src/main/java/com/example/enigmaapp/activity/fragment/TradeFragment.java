@@ -217,7 +217,7 @@ public class TradeFragment extends Fragment {
     }
 
     private void openTradeFragment() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         TradeFragment fragment = new TradeFragment();
         ft.replace(R.id.frame_layout, fragment, "Trade");
         ft.commit();
@@ -225,14 +225,14 @@ public class TradeFragment extends Fragment {
 
     // TODO: add back after read only version
     private void openNewTradeFragment() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         NewTradeCreationFragment fragment = new NewTradeCreationFragment();
         ft.replace(R.id.frame_layout, fragment, "New Trade");
         ft.commit();
     }
 
     public void refresh() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         if (Build.VERSION.SDK_INT >= 26) {
             ft.setReorderingAllowed(false);
         }

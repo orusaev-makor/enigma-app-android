@@ -86,26 +86,18 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
                 final CurrencyFilterMultiAdapter currencyAdapter = new CurrencyFilterMultiAdapter(requireActivity());
                 recyclerView.setAdapter(currencyAdapter);
                 LiveData<List<Currency>> currencyData = settlementViewModel.getAllCurrencies();
-                currencyData.observe(getViewLifecycleOwner(), new Observer<List<Currency>>() {
-                    @Override
-                    public void onChanged(List<Currency> currencies) {
-                        currencyAdapter.submitList(currencies);
+                currencyData.observe(getViewLifecycleOwner(), currencies -> currencyAdapter.submitList(currencies));
+                currencyAdapter.setOnItemClickListener((currencyItem, position) -> {
+                    if (currencyItem.getIsChecked()) {
+                        currencyItem.setIsChecked(false);
+                        int idx = clickedCurrencies.indexOf(currencyItem.getName());
+                        clickedCurrencies.remove(idx);
+                    } else {
+                        currencyItem.setIsChecked(true);
+                        clickedCurrencies.add(currencyItem.getName());
+                        System.out.println("_______________ clickedCurrencies _______________ : " + clickedCurrencies);
                     }
-                });
-                currencyAdapter.setOnItemClickListener(new CurrencyFilterMultiAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(Currency currencyItem, int position) {
-                        if (currencyItem.getIsChecked()) {
-                            currencyItem.setIsChecked(false);
-                            int idx = clickedCurrencies.indexOf(currencyItem.getName());
-                            clickedCurrencies.remove(idx);
-                        } else {
-                            currencyItem.setIsChecked(true);
-                            clickedCurrencies.add(currencyItem.getName());
-                            System.out.println("_______________ clickedCurrencies _______________ : " + clickedCurrencies);
-                        }
-                        currencyAdapter.notifyDataSetChanged();
-                    }
+                    currencyAdapter.notifyDataSetChanged();
                 });
 
                 break;
@@ -222,14 +214,14 @@ public class UnitaryMultiSelectFilterFragment extends Fragment {
     }
 
     private void openUnitarySelectFilter(String type) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         UnitaryMultiSelectFilterFragment frg = new UnitaryMultiSelectFilterFragment(type);
         ft.replace(R.id.frame_layout, frg, "Unitary Select Filter List");
         ft.commit();
     }
 
     private void openUnitaryFilterScreen() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         UnitaryFilterFragment frg = new UnitaryFilterFragment();
         ft.replace(R.id.frame_layout, frg, "Unitary Filter");
         ft.commit();

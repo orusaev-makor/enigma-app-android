@@ -42,50 +42,44 @@ public class NewTradeCreationFragment extends Fragment implements AdapterView.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_new_trade_creation, container, false);
-        Spinner spinnerExecutionType = (Spinner) v.findViewById(R.id.new_trade_spinner_execution);
+        Spinner spinnerExecutionType = v.findViewById(R.id.new_trade_spinner_execution);
         String[] executionTypeOptions = {"Type 1", "Type 2", "Execution Type"}; // Last option is the hint!
         setExecutionTypeAdapter(spinnerExecutionType, executionTypeOptions);
 
-        Spinner spinnerProduct = (Spinner) v.findViewById(R.id.new_trade_spinner_product);
+        Spinner spinnerProduct = v.findViewById(R.id.new_trade_spinner_product);
         String[] productOptions = {"Product 1", "Product 2", "Product"}; // Last option is the hint!
         setProductAdapter(spinnerProduct, productOptions);
 
-        Spinner spinnerCompany = (Spinner) v.findViewById(R.id.new_trade_spinner_company);
+        Spinner spinnerCompany = v.findViewById(R.id.new_trade_spinner_company);
         String[] companyOptions = {"Makor", "Enigma", "Company"}; // Last option is the hint!
         setCompanyAdapter(spinnerCompany, companyOptions);
 
-        Spinner spinnerClient = (Spinner) v.findViewById(R.id.new_trade_spinner_client);
+        Spinner spinnerClient = v.findViewById(R.id.new_trade_spinner_client);
         String[] clientOptions = {"Client 1", "Client 2", "Client 3", "Client"}; // Last option is the hint!
         setClientAdapter(spinnerClient, clientOptions);
 
-        Spinner spinnerBroker = (Spinner) v.findViewById(R.id.new_trade_spinner_broker);
-        String[] brokerOptions = {"Broker 1", "Broker 2", "Broker 3", "Broker 4","Broker 5", "Broker"}; // Last option is the hint!
+        Spinner spinnerBroker = v.findViewById(R.id.new_trade_spinner_broker);
+        String[] brokerOptions = {"Broker 1", "Broker 2", "Broker 3", "Broker 4", "Broker 5", "Broker"}; // Last option is the hint!
         setBrokerAdapter(spinnerBroker, brokerOptions);
 
 
         // Creating trade and moving to "Review & Submit Trade" screen
         submitBtn = v.findViewById(R.id.new_trade_submit_btn);
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add the creation process
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                NewTradeReviewAndSubmitFragment frg = new NewTradeReviewAndSubmitFragment();
-                ft.replace(R.id.frame_layout, frg, "New Trade Review and Submit");
-                ft.commit();
-            }
+        submitBtn.setOnClickListener(v1 -> {
+            // TODO: add the creation process
+            FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+            NewTradeReviewAndSubmitFragment frg = new NewTradeReviewAndSubmitFragment();
+            ft.replace(R.id.frame_layout, frg, "New Trade Review and Submit");
+            ft.commit();
         });
 
         // Close "Trade creation" screen and go back to "Trade Fragment":
         closeBtn = v.findViewById(R.id.new_trade_close_btn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                TradeFragment frg = new TradeFragment();
-                ft.replace(R.id.frame_layout, frg, "Trade");
-                ft.commit();
-            }
+        closeBtn.setOnClickListener(v12 -> {
+            FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+            TradeFragment frg = new TradeFragment();
+            ft.replace(R.id.frame_layout, frg, "Trade");
+            ft.commit();
         });
 
         return v;
@@ -140,7 +134,7 @@ public class NewTradeCreationFragment extends Fragment implements AdapterView.On
 
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
-                    TextView textView = (TextView) v.findViewById(R.id.spinner_broker);
+                    TextView textView = v.findViewById(R.id.spinner_broker);
                     textView.setText("");
                     textView.setHint(getItem(getCount())); //"Hint to be displayed"
                     textView.setHintTextColor(getResources().getColor(R.color.textSecondaryColor));
@@ -171,7 +165,7 @@ public class NewTradeCreationFragment extends Fragment implements AdapterView.On
 
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
-                    TextView textView = (TextView) v.findViewById(R.id.spinner_client);
+                    TextView textView = v.findViewById(R.id.spinner_client);
                     textView.setText("");
                     textView.setHint(getItem(getCount())); //"Hint to be displayed"
                     textView.setHintTextColor(getResources().getColor(R.color.textSecondaryColor));
@@ -202,7 +196,7 @@ public class NewTradeCreationFragment extends Fragment implements AdapterView.On
 
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
-                    TextView textView = (TextView) v.findViewById(R.id.spinner_company);
+                    TextView textView = v.findViewById(R.id.spinner_company);
                     textView.setText("");
                     textView.setHint(getItem(getCount())); //"Hint to be displayed"
                     textView.setHintTextColor(getResources().getColor(R.color.textSecondaryColor));
@@ -233,7 +227,7 @@ public class NewTradeCreationFragment extends Fragment implements AdapterView.On
 
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
-                    TextView textView = (TextView) v.findViewById(R.id.spinner_product);
+                    TextView textView = v.findViewById(R.id.spinner_product);
                     textView.setText("");
                     textView.setHint(getItem(getCount())); //"Hint to be displayed"
                     textView.setHintTextColor(getResources().getColor(R.color.textSecondaryColor));
@@ -264,7 +258,7 @@ public class NewTradeCreationFragment extends Fragment implements AdapterView.On
 
                 View v = super.getView(position, convertView, parent);
                 if (position == getCount()) {
-                    TextView textView = (TextView) v.findViewById(R.id.spinner_execution);
+                    TextView textView = v.findViewById(R.id.spinner_execution);
                     textView.setText("");
                     textView.setHint(getItem(getCount())); //"Hint to be displayed"
                     textView.setHintTextColor(getResources().getColor(R.color.textSecondaryColor));

@@ -21,13 +21,11 @@ public class AccountDetailsFragment extends Fragment {
     private TextView accountType;
     private TextView accountDetails;
     private TextView accountCurrency;
-    Button submitBtn;
+    private Button submitBtn;
 
     public AccountDetailsFragment(AccountsItemResult accountsItem) {
         this.accountsItem = accountsItem;
     }
-
-    
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,15 +63,12 @@ public class AccountDetailsFragment extends Fragment {
 
         // Editing account and go back to "Accounts" screen
         submitBtn = v.findViewById(R.id.account_details_submit_btn);
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add the edit process
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                AccountsFragment frg = new AccountsFragment();
-                ft.replace(R.id.frame_layout, frg, "Accounts");
-                ft.commit();
-            }
+        submitBtn.setOnClickListener(v1 -> {
+            // TODO: add the edit process
+            FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+            AccountsFragment frg = new AccountsFragment();
+            ft.replace(R.id.frame_layout, frg, "Accounts");
+            ft.commit();
         });
 
         return v;

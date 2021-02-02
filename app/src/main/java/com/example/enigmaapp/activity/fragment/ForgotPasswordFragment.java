@@ -32,28 +32,20 @@ public class ForgotPasswordFragment extends Fragment {
 
         // Send "Forgot Password" email and show "Login" screen:
         Button sendBtn = v.findViewById(R.id.forgot_password_send_btn);
-        sendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: add password recovery process
+        sendBtn.setOnClickListener(v12 -> {
+            // TODO: add password recovery process
 //                openLoginScreen();
-            }
         });
 
         // Back to "Login" screen
         TextView back = v.findViewById(R.id.forgot_password_back_btn);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openLoginScreen();
-            }
-        });
+        back.setOnClickListener(v1 -> openLoginScreen());
         return v;
     }
 
     private void openLoginScreen() {
         LoginFragment frg = new LoginFragment();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         ft.replace(R.id.frame_layout, frg, "Login");
         ft.commit();
     }
