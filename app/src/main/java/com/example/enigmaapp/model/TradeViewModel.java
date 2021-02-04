@@ -25,9 +25,9 @@ public class TradeViewModel extends AndroidViewModel {
     private LiveData<List<ExecutionType>> allExecutionTypes;
     private LiveData<List<Batched>> allBatched;
 
-    public TradeViewModel(@NonNull Application application) {
-        super(application);
-        repository = new TradeRepository(application);
+    public TradeViewModel(@NonNull Application app) {
+        super(app);
+        repository = new TradeRepository(app);
         allProducts = repository.getAllProducts();
         allExecutionTypes = repository.getAllExecutionTypes();
         allBatched = repository.getAllBatched();

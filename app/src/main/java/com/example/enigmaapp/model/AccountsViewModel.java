@@ -16,9 +16,9 @@ public class AccountsViewModel extends AndroidViewModel {
 
     private AccountsRepository repository;
 
-    public AccountsViewModel(@NonNull Application application) {
-        super(application);
-        repository = new AccountsRepository(application);
+    public AccountsViewModel(@NonNull Application app) {
+        super(app);
+        repository = new AccountsRepository(app);
     }
 
     public void fetchAccounts(String token) {

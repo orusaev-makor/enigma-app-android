@@ -20,7 +20,6 @@ import com.example.enigmaapp.web.dataset.Product;
 import com.example.enigmaapp.web.trade.TradeItemResult;
 import com.example.enigmaapp.web.trade.TradeResult;
 import com.example.enigmaapp.web.dataset.DatasetBatched;
-import com.example.enigmaapp.web.dataset.DatasetCounterparty;
 import com.example.enigmaapp.web.dataset.DatasetExecutionType;
 import com.example.enigmaapp.web.dataset.DatasetProduct;
 import com.example.enigmaapp.web.trade.dataset.TradeDatasetResult;

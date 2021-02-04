@@ -127,7 +127,6 @@ public class SettlementFragment extends Fragment {
             toDate.setText(prefs.getString("endDateUnitaryFilter", getTodayDate()));
         }
 
-
         LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(LoginViewModel.class);

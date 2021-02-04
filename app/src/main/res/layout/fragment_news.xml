@@ -67,16 +67,16 @@
         </com.google.android.material.chip.ChipGroup>
 
 
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/news_fragment_recycler_view"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                tools:listitem="@layout/news_item" />-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/news_fragment_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/news_item" />
 
-        <include
-            layout="@layout/news_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" />
+<!--        <include-->
+<!--            layout="@layout/news_item"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp" />-->
 
 </LinearLayout>

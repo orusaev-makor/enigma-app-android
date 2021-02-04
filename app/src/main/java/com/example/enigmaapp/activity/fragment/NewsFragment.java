@@ -4,12 +4,21 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.enigmaapp.R;
+import com.example.enigmaapp.model.NewsViewModel;
+import com.example.enigmaapp.ui.NewsItemAdapter;
+import com.example.enigmaapp.web.news.NewsItemResult;
+
+import java.util.List;
 
 import static com.example.enigmaapp.activity.UserActivity.actionBar;
 
@@ -31,10 +40,6 @@ public class NewsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (actionBar != null) {
-            actionBar.show();
-        }
     }
 
     @Override
@@ -43,32 +48,26 @@ public class NewsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_news, container, false);
 
+        RecyclerView recyclerView = v.findViewById(R.id.news_fragment_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        final NewsItemAdapter newsAdapter = new NewsItemAdapter(requireContext());
+        recyclerView.setAdapter(newsAdapter);
+
+        NewsViewModel viewModel = new ViewModelProvider(requireActivity(),
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(NewsViewModel.class);
+
+        viewModel.getNews().observe(requireActivity(), new Observer<List<NewsItemResult>>() {
+            @Override
+            public void onChanged(List<NewsItemResult> newsItems) {
+                newsAdapter.submitList(newsItems);
+            }
+        });
+
+        String token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsZXZlbCI6MX0sImlhdCI6MTYxMjQyNDIzOCwiZXhwIjoxNjEyNTEwNjM4fQ.CmJ-Mj2emQJ05K-zD3GUjKj66-RI5_vQwfcvWz1gQZg";
+        viewModel.fetchNews(token);
+
         return v;
     }
 }
-//
-//    class NewsAdapter extends ArrayAdapter<String> {
-//        Context context;
-//        String rDate[];
-//        String rText[];
-//
-//        NewsAdapter (Context c, String date[], String text[]) {
-//            super(c, R.layout.news_item, date);
-//            this.context = c;
-//            this.rDate = date;
-//            this.rText = text;
-//        }
-//
-//        @NonNull
-//        @Override
-//        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//            LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            View row = layoutInflater.inflate(R.layout.news_item, parent, false);
-//            TextView myDate = row.findViewById(R.id.news_fragment_card_date);
-//            TextView myText = row.findViewById(R.id.news_fragment_card_text);
-//
-//            myDate.setText(rDate[position]);
-//            myText.setText(rText[position]);
-//            return row;
-//        }
-//    }

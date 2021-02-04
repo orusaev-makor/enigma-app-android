@@ -12,8 +12,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.enigmaapp.db.BatchedDao;
 import com.example.enigmaapp.db.BatchedDatabase;
-import com.example.enigmaapp.db.CounterpartyDao;
-import com.example.enigmaapp.db.CounterpartyDatabase;
 import com.example.enigmaapp.db.CurrencyDao;
 import com.example.enigmaapp.db.CurrencyDatabase;
 import com.example.enigmaapp.db.ExecutionTypeDao;
@@ -22,9 +20,7 @@ import com.example.enigmaapp.db.ProductDao;
 import com.example.enigmaapp.db.ProductDatabase;
 import com.example.enigmaapp.web.RetrofitClient;
 import com.example.enigmaapp.web.dataset.Batched;
-import com.example.enigmaapp.web.dataset.Counterparty;
 import com.example.enigmaapp.web.dataset.Currency;
-import com.example.enigmaapp.web.dataset.DatasetCounterparty;
 import com.example.enigmaapp.web.dataset.DatasetCurrency;
 import com.example.enigmaapp.web.dataset.ExecutionType;
 import com.example.enigmaapp.web.dataset.Product;

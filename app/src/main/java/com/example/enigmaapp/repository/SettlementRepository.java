@@ -1,7 +1,6 @@
 package com.example.enigmaapp.repository;
 
 import android.app.Application;
-import android.os.AsyncTask;
 import android.view.View;
 
 import androidx.lifecycle.LiveData;
@@ -16,9 +15,6 @@ import com.example.enigmaapp.web.dataset.Currency;
 import com.example.enigmaapp.web.dataset.Product;
 import com.example.enigmaapp.web.settlement.BatchItemResult;
 import com.example.enigmaapp.web.settlement.BatchResult;
-import com.example.enigmaapp.web.dataset.DatasetCurrency;
-import com.example.enigmaapp.web.dataset.DatasetCounterparty;
-import com.example.enigmaapp.web.dataset.DatasetProduct;
 
 import java.util.ArrayList;
 import java.util.HashMap;

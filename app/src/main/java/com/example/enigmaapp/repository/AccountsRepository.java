@@ -21,9 +21,9 @@ import retrofit2.Response;
 
 public class AccountsRepository {
 
-    private MutableLiveData<List<AccountsItemResult>> allAccounts = new MutableLiveData<List<AccountsItemResult>>();
-    private MutableLiveData<List<AccountsItemResult>> allFiatAccounts = new MutableLiveData<List<AccountsItemResult>>();
-    private MutableLiveData<List<AccountsItemResult>> allCryptoAccounts = new MutableLiveData<List<AccountsItemResult>>();
+    private MutableLiveData<List<AccountsItemResult>> allAccounts = new MutableLiveData<>();
+    private MutableLiveData<List<AccountsItemResult>> allFiatAccounts = new MutableLiveData<>();
+    private MutableLiveData<List<AccountsItemResult>> allCryptoAccounts = new MutableLiveData<>();
     private Application application;
 
     public AccountsRepository(Application application) {

@@ -16,9 +16,9 @@ public class BalanceViewModel extends AndroidViewModel {
 
     private BalanceRepository repository;
 
-    public BalanceViewModel(@NonNull Application application) {
-        super(application);
-        repository = new BalanceRepository(application);
+    public BalanceViewModel(@NonNull Application app) {
+        super(app);
+        repository = new BalanceRepository(app);
     }
 
     public void fetchBalances(String token) {
