@@ -2,13 +2,13 @@
 
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="10dp"
+    app:cardElevation="0dp"
     app:strokeColor="@color/cardBorderNoDarkTheme"
-    app:strokeWidth="1dp"
-    app:cardElevation="0dp">
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,68 +16,100 @@
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:orientation="vertical"
-        android:scrollHorizontally="false"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:scrollHorizontally="false">
 
-<!--        <WebView-->
-<!--            android:id="@+id/myweb"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content" />-->
+        <!--        <WebView-->
+        <!--            android:id="@+id/myweb"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content" />-->
 
         <TextView
             android:id="@+id/news_fragment_card_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Now"
             android:fontFamily="@font/poppins_medium"
-            android:textSize="15sp"
-            android:textColor="@color/red" />
+            android:text="Now"
+            android:textColor="@color/red"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/news_fragment_card_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="15sp"
             android:layout_marginBottom="10dp"
+            android:fontFamily="@font/poppins_regular"
             android:text="In this week's issue, we look at volume and open interest trends on retail spot and futures market, examine the recent regulatory actions against derivatives venues, and assess the implications for BTC in the medium-term."
-            android:textColor="@color/textColor" />
+            android:textColor="@color/textColor"
+            android:background="@drawable/news_top_border"
+            android:textSize="15sp" />
 
-        <LinearLayout
-            android:id="@+id/news_keywords_layout"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/news_keywords_chip_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/news_top_border"
-            android:gravity="start"
-            android:orientation="horizontal"
             android:paddingTop="15dp"
             android:paddingBottom="5dp">
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/key0"-->
+            <!-- Chips can be declared here, or added dynamically. -->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/keyword_chip1"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Action"-->
             <!--                android:layout_width="wrap_content"-->
             <!--                android:layout_height="wrap_content"-->
-            <!--                android:background="@drawable/underline_text"-->
-            <!--                android:fontFamily="@font/poppins_regular"-->
-            <!--                android:layout_marginRight="10dp"-->
-            <!--                android:layout_marginEnd="10dp"-->
             <!--                android:text="BTC"-->
-            <!--                android:textSize="13sp"-->
-            <!--                android:textColor="@color/textColor" />-->
+            <!--                app:chipCornerRadius="3dp"-->
+            <!--                android:textColor="@color/textColor"-->
+            <!--                app:chipBackgroundColor="@color/colorPrimaryDark"-->
+            <!--                app:chipStrokeColor="@color/navy"-->
+            <!--                app:chipStrokeWidth="1dp" />-->
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/key1"-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/keyword_chip2"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Action"-->
             <!--                android:layout_width="wrap_content"-->
             <!--                android:layout_height="wrap_content"-->
-            <!--                android:background="@drawable/underline_text"-->
-            <!--                android:fontFamily="@font/poppins_regular"-->
-            <!--                android:layout_marginRight="10dp"-->
-            <!--                android:layout_marginEnd="10dp"-->
             <!--                android:text="TradeBlock"-->
-            <!--                android:textSize="13sp"-->
-            <!--                android:textColor="@color/textColor" />-->
+            <!--                app:chipCornerRadius="3dp"-->
+            <!--                android:textColor="@color/textColor"-->
+            <!--                app:chipBackgroundColor="@color/colorPrimaryDark"-->
+            <!--                android:background="@drawable/underline_text"-->
+            <!--                app:chipStrokeWidth="1dp" />-->
 
-        </LinearLayout>
+        </com.google.android.material.chip.ChipGroup>
+
+<!--        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@drawable/news_top_border"-->
+<!--            android:paddingTop="15dp"-->
+<!--            android:paddingBottom="5dp">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/key0"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:background="@drawable/underline_text"-->
+<!--                android:fontFamily="@font/poppins_regular"-->
+<!--                android:text="BTC"-->
+<!--                android:textColor="@color/textColor"-->
+<!--                android:textSize="13sp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/key1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:background="@drawable/underline_text"-->
+<!--                android:fontFamily="@font/poppins_regular"-->
+<!--                android:text="TradeBlock"-->
+<!--                android:textColor="@color/textColor"-->
+<!--                android:textSize="13sp" />-->
+
+<!--        </LinearLayout>-->
 
     </LinearLayout>
 

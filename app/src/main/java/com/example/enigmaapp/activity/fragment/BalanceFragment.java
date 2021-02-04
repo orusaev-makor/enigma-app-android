@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
@@ -22,6 +25,7 @@ import com.example.enigmaapp.model.BalanceViewModel;
 import com.example.enigmaapp.model.LoginViewModel;
 import com.example.enigmaapp.ui.BalanceItemAdapter;
 import com.example.enigmaapp.web.balance.BalanceItemResult;
+import com.example.enigmaapp.web.news.KeywordsAdapter;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;

@@ -64,4 +64,10 @@
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
+    <style name="ChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="chipBackgroundColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

@@ -58,12 +58,7 @@ public class NewsFragment extends Fragment {
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(NewsViewModel.class);
 
-        viewModel.getNews().observe(requireActivity(), new Observer<List<NewsItemResult>>() {
-            @Override
-            public void onChanged(List<NewsItemResult> newsItems) {
-                newsAdapter.submitList(newsItems);
-            }
-        });
+        viewModel.getNews().observe(requireActivity(), newsItems -> newsAdapter.submitList(newsItems));
 
         String token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsZXZlbCI6MX0sImlhdCI6MTYxMjQyNDIzOCwiZXhwIjoxNjEyNTEwNjM4fQ.CmJ-Mj2emQJ05K-zD3GUjKj66-RI5_vQwfcvWz1gQZg";
         viewModel.fetchNews(token);
