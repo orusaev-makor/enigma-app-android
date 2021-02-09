@@ -41,15 +41,19 @@
             android:fontFamily="@font/poppins_regular"
             android:text="In this week's issue, we look at volume and open interest trends on retail spot and futures market, examine the recent regulatory actions against derivatives venues, and assess the implications for BTC in the medium-term."
             android:textColor="@color/textColor"
-            android:background="@drawable/news_top_border"
             android:textSize="15sp" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/news_keywords_chip_group"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingBottom="5dp">
+            android:layout_height="2dp"
+            android:background="@drawable/news_top_border"/>
+
+<!--        <com.google.android.material.chip.ChipGroup-->
+<!--            android:id="@+id/news_keywords_chip_group"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingTop="15dp"-->
+<!--            android:paddingBottom="5dp">-->
 
             <!-- Chips can be declared here, or added dynamically. -->
             <!--            <com.google.android.material.chip.Chip-->
@@ -76,40 +80,18 @@
             <!--                android:background="@drawable/underline_text"-->
             <!--                app:chipStrokeWidth="1dp" />-->
 
-        </com.google.android.material.chip.ChipGroup>
-
-<!--        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        </com.google.android.material.chip.ChipGroup>-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/news_child_recycler_view"-->
+<!--            android:layout_gravity="center_horizontal"-->
 <!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@drawable/news_top_border"-->
-<!--            android:paddingTop="15dp"-->
-<!--            android:paddingBottom="5dp">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/key0"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginEnd="10dp"-->
-<!--                android:layout_marginRight="10dp"-->
-<!--                android:background="@drawable/underline_text"-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:text="BTC"-->
-<!--                android:textColor="@color/textColor"-->
-<!--                android:textSize="13sp" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/key1"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginEnd="10dp"-->
-<!--                android:layout_marginRight="10dp"-->
-<!--                android:background="@drawable/underline_text"-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:text="TradeBlock"-->
-<!--                android:textColor="@color/textColor"-->
-<!--                android:textSize="13sp" />-->
-
-<!--        </LinearLayout>-->
+<!--            android:layout_height="wrap_content"/>        -->
+        <GridView
+            android:id="@+id/news_child_grid_view"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:numColumns="auto_fit"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

@@ -38,6 +38,7 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip5"
                 style="@style/Widget.MaterialComponents.Chip.Entry"
+                android:checkable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_border"
@@ -53,6 +54,7 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip6"
                 style="@style/Widget.MaterialComponents.Chip.Entry"
+                android:checkable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TradeBlock"
@@ -66,9 +68,8 @@
 
         </com.google.android.material.chip.ChipGroup>
 
-
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/news_fragment_recycler_view"
+                android:id="@+id/news_parent_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/news_item" />

@@ -3,42 +3,38 @@ package com.example.enigmaapp.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Space;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.news.KeywordsAdapter;
 import com.example.enigmaapp.web.news.NewsItemResult;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter.ItemHolder> {
 
     private OnItemClickListener listener;
     private Context context;
-    int repeat = 0;
+
+    RecyclerView.LayoutManager manager;
+
     private ArrayList<String> keywords = new ArrayList<>();
 
     public NewsItemAdapter(Context context) {
         super(DIFF_CALLBACK);
         this.context = context;
+        manager = new GridLayoutManager(context, 7, GridLayoutManager.VERTICAL, false);
+
     }
 
     private static final DiffUtil.ItemCallback<NewsItemResult> DIFF_CALLBACK = new DiffUtil.ItemCallback<NewsItemResult>() {
@@ -65,22 +61,21 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
+                keywords.clear();
+
         NewsItemResult currentNewsItem = getItem(position);
 
         String date = currentNewsItem.getDate();
         String text = currentNewsItem.getTitle();
-        String[] keys = currentNewsItem.getKeywords().split(",");
-        for (String k: keys) {
-            if (k.trim().equals("")) break;
-            keywords.add(k.trim());
-        }
 
-        System.out.println("______________________ Keywords.length: __________________________ " + keywords.size());
-        System.out.println("______________________ Keywords: __________________________ " + keywords);
         holder.date.setText(date);
         holder.text.setText(text);
 
-
+        String[] keys = currentNewsItem.getKeywords().split(",");
+        for (String k : keys) {
+            if (k.trim().equals("")) break;
+            keywords.add(k.trim());
+        }
 //        holder.keywordsLayout.setLayoutParams(new LinearLayout.LayoutParams(
 //                LinearLayout.LayoutParams.MATCH_PARENT,
 //                LinearLayout.LayoutParams.WRAP_CONTENT
@@ -111,38 +106,55 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 //            }
 //        }
 
+            System.out.println("______________________ Keywords.length: __________________________ " + keywords.size());
+            System.out.println("______________________ Keywords: __________________________ " + keywords);
+
+            KeywordsAdapter gridAdapter = new KeywordsAdapter(context, keywords);
+            holder.gridView.setAdapter(gridAdapter);
+
+
+//            holder.gridView.setLayoutParams(new GridView.LayoutParams(
+//                    GridLayoutManager.LayoutParams.MATCH_PARENT,
+//                    GridLayoutManager.LayoutParams.MATCH_PARENT
+//            ));
+
+
+
 //        if (keywords.size() > 0) {
-////            GridView keywordsGridView = v.findViewById(R.id.myGrid);
-//            ArrayList<String> keywords2 = new ArrayList<>();
-//            for (int i = 0; i < 7; i++) {
-//                keywords.add("acbced " + Math.random() + " gqf i : " + i );
+//            for (int i = 0; i < keywords.size(); i++) {
+//                LinearLayout linearLayout = new LinearLayout(context);
+//                linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+//                Chip chip = new Chip(context);
+//                chip.setText(keywords.get(i));
+//                chip.setChipBackgroundColorResource(R.color.colorAccent);
+//                chip.setHeight(15);
+//                chip.setCloseIconVisible(false);
+//                chip.setTextColor(context.getResources().getColor(R.color.white));
+//                chip.setTextAppearance(R.style.ChipTextAppearance);
+
+//                TextView underlineText = new TextView(context);
+//                underlineText.setText("");
+//                underlineText.setLayoutParams(new LinearLayout.LayoutParams(
+//                        LinearLayout.LayoutParams.MATCH_PARENT,
+//                        8
+//                ));
+//                underlineText.setHeight(5);
+//                underlineText.setBackground(context.getResources().getDrawable(R.drawable.underline_text));
+
+//                linearLayout.addView(chip);
+//                linearLayout.addView(underlineText);
+//                holder.keywordsChipGroup.addView(chip);
+//                holder.keywordsChipGroup.addView(linearLayout);
 //            }
-//
-//            KeywordsAdapter adapter = new KeywordsAdapter(context, keywords2);
-//            holder.keywordsGridView.setAdapter(adapter);
-//
-//            holder.keywordsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    System.out.println(" ______________ you clicked: ______________ : " + keywords2.get(position));
-//                }
-//            });
 //        }
 
-        if (keywords.size() > 0) {
-            for (int i = 0; i < keywords.size(); i++) {
+//        if (keywords.size() > 0) {
+//            LinearLayout row = (LinearLayout) holder.keywordsLayout.inflate(context, R.layout.keyword_row, null);
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//            row.setLayoutParams(params);
 
-            Chip chip = new Chip(context);
-            chip.setText(keywords.get(i));
-            chip.setChipBackgroundColorResource(R.color.colorAccent);
-            chip.setCloseIconVisible(false);
-            chip.setTextColor(context.getResources().getColor(R.color.white));
-            chip.setTextAppearance(R.style.ChipTextAppearance);
-
-            holder.keywordsChipGroup.addView(chip);
-            }
-        }
-        keywords.clear();
+//        }
 
         holder.text.setOnClickListener(v -> {
             String webUrl = currentNewsItem.getLink();
@@ -181,17 +193,16 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
     public class ItemHolder extends RecyclerView.ViewHolder {
         private TextView date;
         private TextView text;
-        private RelativeLayout keywordsLayout;
-        private GridView keywordsGridView;
-        private ChipGroup keywordsChipGroup;
+        private GridView gridView;
+//        private RecyclerView childRecyclerView;
+//        private ChipGroup keywordsChipGroup;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.news_fragment_card_date);
             text = itemView.findViewById(R.id.news_fragment_card_text);
-//            keywordsLayout = itemView.findViewById(R.id.news_keywords_layout);
-//            keywordsGridView = itemView.findViewById(R.id.news_keywords_gridview);
-            keywordsChipGroup = itemView.findViewById(R.id.news_keywords_chip_group);
+            gridView = itemView.findViewById(R.id.news_child_grid_view);
+//            keywordsChipGroup = itemView.findViewById(R.id.news_keywords_chip_group);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();

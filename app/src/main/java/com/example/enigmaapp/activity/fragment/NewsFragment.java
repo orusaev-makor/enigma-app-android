@@ -48,7 +48,7 @@ public class NewsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_news, container, false);
 
-        RecyclerView recyclerView = v.findViewById(R.id.news_fragment_recycler_view);
+        RecyclerView recyclerView = v.findViewById(R.id.news_parent_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         final NewsItemAdapter newsAdapter = new NewsItemAdapter(requireContext());
@@ -60,7 +60,7 @@ public class NewsFragment extends Fragment {
 
         viewModel.getNews().observe(requireActivity(), newsItems -> newsAdapter.submitList(newsItems));
 
-        String token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsZXZlbCI6MX0sImlhdCI6MTYxMjQyNDIzOCwiZXhwIjoxNjEyNTEwNjM4fQ.CmJ-Mj2emQJ05K-zD3GUjKj66-RI5_vQwfcvWz1gQZg";
+        String token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsZXZlbCI6MX0sImlhdCI6MTYxMjg1NzE0NCwiZXhwIjoxNjEyOTQzNTQ0fQ.bv3RTNLOsf1uv3H78iGO74jPbAPby7DY-LfHP8RCfe4";
         viewModel.fetchNews(token);
 
         return v;

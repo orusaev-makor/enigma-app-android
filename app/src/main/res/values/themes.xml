@@ -67,7 +67,17 @@
     <style name="ChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textColor">@color/textColor</item>
         <item name="chipBackgroundColor">@color/colorPrimaryDark</item>
-        <item name="android:textSize">12sp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:checkable">false</item>
+    </style>
+
+
+    <style name="newsItemKeyword" parent="Theme.EnigmaApp">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="background">@drawable/underline_text</item>
+
     </style>
 
 </resources>
