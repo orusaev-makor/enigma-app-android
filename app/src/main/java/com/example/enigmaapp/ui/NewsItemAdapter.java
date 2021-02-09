@@ -37,7 +37,7 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 
     RecyclerView.LayoutManager manager;
 
-    private ArrayList<String> keywords = new ArrayList<>();
+//    private ArrayList<String> keywords = new ArrayList<>();
 
     public NewsItemAdapter(Context context) {
         super(DIFF_CALLBACK);
@@ -70,7 +70,9 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-        keywords.clear();
+//        keywords.clear();
+        ArrayList<String> keywords = new ArrayList<>();
+        holder.keywordsChipGroup.removeAllViews();
 
         NewsItemResult currentNewsItem = getItem(position);
 
@@ -115,7 +117,10 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 //            }
 //        }
 
+        System.out.println("__________________________________________________________________________");
+        System.out.println("______________________ Title: __________________________ " + text);
         System.out.println("______________________ Keywords: __________________________ " + keywords);
+        System.out.println("____________________________________________________________________________________________________");
 
 //            KeywordsAdapter gridAdapter = new KeywordsAdapter(context, keywords);
 //            holder.gridView.setAdapter(gridAdapter);
