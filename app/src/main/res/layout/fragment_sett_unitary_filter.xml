@@ -78,6 +78,7 @@
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/textColor"
             android:hint="Input ID"
+            android:focusable="false"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
             android:textSize="16dp" />

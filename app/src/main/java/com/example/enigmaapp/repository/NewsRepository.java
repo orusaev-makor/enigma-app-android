@@ -1,6 +1,7 @@
 package com.example.enigmaapp.repository;
 
 import android.app.Application;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
@@ -9,12 +10,13 @@ import com.example.enigmaapp.web.news.NewsItemResult;
 import com.example.enigmaapp.web.RetrofitNewsClient;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.enigmaapp.activity.fragment.NewsFragment.progressBarNews;
 
 public class NewsRepository {
     private MutableLiveData<List<NewsItemResult>> allNews = new MutableLiveData<>();
@@ -42,6 +44,7 @@ public class NewsRepository {
                     System.out.println("fetchAccounts - Code: " + response.code() + "Error: " + response.message());
                     return;
                 }
+                progressBarNews.setVisibility(View.GONE);
                 allNews.setValue(response.body());
             }
 

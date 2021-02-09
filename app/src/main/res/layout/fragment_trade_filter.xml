@@ -69,6 +69,7 @@
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/trade_id"
+            android:focusable="false"
             android:gravity="left|center"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"

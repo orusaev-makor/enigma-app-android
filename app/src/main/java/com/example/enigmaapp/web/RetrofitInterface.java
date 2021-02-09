@@ -3,6 +3,8 @@ package com.example.enigmaapp.web;
 import com.example.enigmaapp.web.accounts.AccountsItemResult;
 import com.example.enigmaapp.web.login.LoginResult;
 import com.example.enigmaapp.web.news.NewsItemResult;
+import com.example.enigmaapp.web.settings.ExposureLimitItemResult;
+import com.example.enigmaapp.web.settings.MaxQtyPerTradeItemResult;
 import com.example.enigmaapp.web.settlement.BatchResult;
 import com.example.enigmaapp.web.settlement.dataset.SettlementDatasetResult;
 import com.example.enigmaapp.web.trade.TradeResult;
@@ -39,6 +41,7 @@ public interface RetrofitInterface {
     @DELETE("/auth")
     Call<Void> executeLogout(@Header("Authorization") String token);
 
+
     // Balance:
 //    @GET("/balance/248")
     @GET("/balance")
@@ -60,24 +63,34 @@ public interface RetrofitInterface {
                                         @QueryMap Map<String, String> params);
 
 
+    // News:
+    @GET("/article")
+    Call<ArrayList<NewsItemResult>> executeGetNews(@Header("Authorization") String token,
+                                                   @Query("keyword") String keyword);
+
+
     // Accounts:
 //    @GET("/account/248")
     @GET("/account")
     Call<ArrayList<AccountsItemResult>> executeGetAccounts(@Header("Authorization") String token);
 
 
+    // Settings:
+    @GET("/exposure_limit")
+    Call<ArrayList<ExposureLimitItemResult>> executeGetExposureLimit(@Header("Authorization") String token);
+
+    @GET("/max_qty_per_trade")
+    Call<ArrayList<MaxQtyPerTradeItemResult>> executeGetMaxQtyPerTrade(@Header("Authorization") String token);
+
+
     // Datasets:
     @GET("/dataset/trade")
     Call<TradeDatasetResult> executeGetTradeDataset(@Header("Authorization") String token);
 
-//    @GET("/dataset/settlement_batch")
-//    Call<SettlementDatasetResult> executeGetBatchDataset(@Header("Authorization") String token);
-
     @GET("/dataset/settlement")
     Call<SettlementDatasetResult> executeGetUnitaryDataset(@Header("Authorization") String token);
 
-    // News:
-    @GET("/article")
-    Call<ArrayList<NewsItemResult>> executeGetNews(@Header("Authorization") String token,
-                                                   @Query("keyword") String keyword);
+//    @GET("/dataset/settlement_batch")
+//    Call<SettlementDatasetResult> executeGetBatchDataset(@Header("Authorization") String token);
+
 }

@@ -30,10 +30,6 @@ public class BalanceRepository {
         return allBalances;
     }
 
-    public void setAllBalances(MutableLiveData<List<BalanceItemResult>> allBalances) {
-        this.allBalances = allBalances;
-    }
-
     public void fetchBalances(String token) {
         Call<HashMap<String, String>> call = RetrofitClient.getInstance().getRetrofitInterface().executeGetBalance(token);
         call.enqueue(new Callback<HashMap<String, String>>() {

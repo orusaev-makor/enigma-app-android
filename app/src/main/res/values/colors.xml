@@ -33,7 +33,7 @@
     <color name="statisticsUnitBar">#AF59D4</color>
 
     <!--    Borders : -->
-    <color name="tradeCardBorder">#CECECE</color>
+    <color name="cardBorder">#CECECE</color>
     <color name="cardBorderNoDarkTheme">#CECECE</color>
     <color name="dropDownItemBorder">#CECECE</color>
 

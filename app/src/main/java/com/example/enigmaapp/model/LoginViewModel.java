@@ -18,9 +18,9 @@ public class LoginViewModel extends AndroidViewModel {
     private LoginRepository repository;
     private LiveData<List<User>> allUsers;
 
-    public LoginViewModel(@NonNull Application app) {
-        super(app);
-        repository = new LoginRepository(app);
+    public LoginViewModel(@NonNull Application application) {
+        super(application);
+        repository = new LoginRepository(application);
         allUsers = repository.getAllUsers();
     }
 

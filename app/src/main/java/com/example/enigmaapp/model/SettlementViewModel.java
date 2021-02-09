@@ -21,9 +21,9 @@ public class SettlementViewModel extends AndroidViewModel {
     private LiveData<List<Product>> allProducts;
     private LiveData<List<Currency>> allCurrencies;
 
-    public SettlementViewModel(@NonNull Application app) {
-        super(app);
-        repository = new SettlementRepository(app);
+    public SettlementViewModel(@NonNull Application application) {
+        super(application);
+        repository = new SettlementRepository(application);
         allProducts = repository.getAllProducts();
         allCurrencies = repository.getAllCurrencies();
     }

@@ -25,16 +25,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/filters"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="6dp"
             android:textColor="@color/textColor"
             android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/news_no_filter_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No filters added"
+        android:fontFamily="@font/poppins_light"
+        android:textSize="13sp"
+        android:textColor="@color/textColor"
+        />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/news_fragment_chip_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Chips can be declared here, or added dynamically. -->
             <com.google.android.material.chip.Chip
                 android:id="@+id/news_filter_chip"
                 style="@style/Widget.MaterialComponents.Chip.Entry"
@@ -53,10 +62,17 @@
 
         </com.google.android.material.chip.ChipGroup>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/news_parent_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/news_item" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/news_parent_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/news_item" />
+
 
 </LinearLayout>

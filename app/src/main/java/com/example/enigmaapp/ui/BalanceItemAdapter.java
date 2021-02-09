@@ -52,7 +52,7 @@ public class BalanceItemAdapter extends ListAdapter<BalanceItemResult, BalanceIt
         BalanceItemResult currentBalance = getItem(position);
 
         holder.balanceName.setText(currentBalance.getName());
-        DecimalFormat decim = new DecimalFormat("#,###0.00");
+        DecimalFormat decim = new DecimalFormat("#,##0.00");
 
         String currentValue = decim.format(Double.valueOf(currentBalance.getValue()));
         String LargeVal = currentValue.substring(0, currentValue.indexOf("."));

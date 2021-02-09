@@ -16,9 +16,9 @@ public class NewsViewModel extends AndroidViewModel {
 
     private NewsRepository repository;
 
-    public NewsViewModel(@NonNull Application app) {
-        super(app);
-        repository = new NewsRepository(app);
+    public NewsViewModel(@NonNull Application application) {
+        super(application);
+        repository = new NewsRepository(application);
     }
 
     public void fetchNews(String token, String keyword) {

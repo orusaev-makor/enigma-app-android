@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.enigmaapp.R;
@@ -25,10 +26,11 @@ public class NewsFragment extends Fragment {
     static NewsViewModel viewModel;
     static String token;
 
+    public static ProgressBar progressBarNews;
     private static HashMap<String, String> newsParams = new HashMap<>();
     private static String filterByKeyword;
     private static Chip filterChip;
-    private static TextView topBorder;
+    private static TextView noFilterText;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -48,6 +50,9 @@ public class NewsFragment extends Fragment {
 
         token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsZXZlbCI6MX0sImlhdCI6MTYxMjg1NzE0NCwiZXhwIjoxNjEyOTQzNTQ0fQ.bv3RTNLOsf1uv3H78iGO74jPbAPby7DY-LfHP8RCfe4";
 
+        progressBarNews = v.findViewById(R.id.progress_bar_news);
+        progressBarNews.setVisibility(View.VISIBLE);
+
         RecyclerView recyclerView = v.findViewById(R.id.news_parent_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -60,6 +65,7 @@ public class NewsFragment extends Fragment {
 
         viewModel.getNews().observe(requireActivity(), newsItems -> newsAdapter.submitList(newsItems));
 
+        noFilterText = v.findViewById(R.id.news_no_filter_text);
         filterChip = v.findViewById(R.id.news_filter_chip);
         filterChip.setOnCloseIconClickListener(v1 -> {
             updateFilterKeyword("");
@@ -76,8 +82,10 @@ public class NewsFragment extends Fragment {
 
     public static void toggleFilterChip() {
         if (filterByKeyword == null) {
-            filterChip.setVisibility(View.INVISIBLE);
+            noFilterText.setVisibility(View.VISIBLE);
+            filterChip.setVisibility(View.GONE);
         } else {
+            noFilterText.setVisibility(View.GONE);
             filterChip.setText(filterByKeyword);
             filterChip.setVisibility(View.VISIBLE);
         }
@@ -92,6 +100,7 @@ public class NewsFragment extends Fragment {
     }
 
     public static void fetchNews() {
+        progressBarNews.setVisibility(View.VISIBLE);
         viewModel.fetchNews(token, filterByKeyword);
     }
 }

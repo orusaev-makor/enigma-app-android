@@ -144,7 +144,7 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
                 ShapeAppearanceModel shape = new ShapeAppearanceModel().withCornerSize(3);
                 chip.setShapeAppearanceModel(shape);
                 chip.setChipBackgroundColor(ColorStateList.valueOf(context.getResources().getColor(R.color.colorPrimaryDark)));
-                chip.setChipStrokeColor(ColorStateList.valueOf(context.getResources().getColor(R.color.navy)));
+                chip.setChipStrokeColor(ColorStateList.valueOf(context.getResources().getColor(R.color.cardBorder)));
                 chip.setChipStrokeWidth(1);
                 chip.setTextAppearance(R.style.ChipTextAppearance);
 

@@ -19,7 +19,7 @@
     <color name="statisticsToggleBGC">#50FFFFFF</color>
 
     <!--    Borders : -->
-    <color name="tradeCardBorder">#B3DEDFE3</color>
+    <color name="cardBorder">#B3DEDFE3</color>
     <color name="cardBorderNoDarkTheme">@color/colorPrimaryDark</color>
     <color name="dropDownItemBorder">#0D2757</color>
 
