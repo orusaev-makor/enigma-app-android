@@ -26,6 +26,10 @@ import com.google.android.material.shape.ShapeAppearanceModel;
 
 import java.util.ArrayList;
 
+import static com.example.enigmaapp.activity.fragment.NewsFragment.fetchNews;
+import static com.example.enigmaapp.activity.fragment.NewsFragment.toggleFilterChip;
+import static com.example.enigmaapp.activity.fragment.NewsFragment.updateFilterKeyword;
+
 public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter.ItemHolder> {
 
     private OnItemClickListener listener;
@@ -66,7 +70,7 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-                keywords.clear();
+        keywords.clear();
 
         NewsItemResult currentNewsItem = getItem(position);
 
@@ -111,8 +115,7 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 //            }
 //        }
 
-            System.out.println("______________________ Keywords.length: __________________________ " + keywords.size());
-            System.out.println("______________________ Keywords: __________________________ " + keywords);
+        System.out.println("______________________ Keywords: __________________________ " + keywords);
 
 //            KeywordsAdapter gridAdapter = new KeywordsAdapter(context, keywords);
 //            holder.gridView.setAdapter(gridAdapter);
@@ -122,7 +125,6 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 //                    GridLayoutManager.LayoutParams.MATCH_PARENT,
 //                    GridLayoutManager.LayoutParams.MATCH_PARENT
 //            ));
-
 
 
         if (keywords.size() > 0) {
@@ -140,6 +142,16 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
                 chip.setChipStrokeWidth(1);
                 chip.setTextAppearance(R.style.ChipTextAppearance);
 
+                chip.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("Chip clicked !!!!!!!!!!!!!!!!!!! " + chip.getText().toString());
+                        updateFilterKeyword(chip.getText().toString());
+                        toggleFilterChip();
+                        fetchNews();
+                    }
+                });
+
                 holder.keywordsChipGroup.addView(chip);
             }
         }
@@ -148,7 +160,6 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 //            LinearLayout row = (LinearLayout) holder.keywordsLayout.inflate(context, R.layout.keyword_row, null);
 //            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 //            row.setLayoutParams(params);
-
 //        }
 
         holder.text.setOnClickListener(v -> {
@@ -188,7 +199,7 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
     public class ItemHolder extends RecyclerView.ViewHolder {
         private TextView date;
         private TextView text;
-//        private GridView gridView;
+        //        private GridView gridView;
 //        private RecyclerView childRecyclerView;
         private ChipGroup keywordsChipGroup;
 

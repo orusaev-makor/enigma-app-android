@@ -20,6 +20,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface RetrofitInterface {
@@ -77,5 +78,6 @@ public interface RetrofitInterface {
 
     // News:
     @GET("/article")
-    Call<ArrayList<NewsItemResult>> executeGetNews(@Header("Authorization") String token);
+    Call<ArrayList<NewsItemResult>> executeGetNews(@Header("Authorization") String token,
+                                                   @Query("keyword") String keyword);
 }

@@ -9,6 +9,7 @@ import com.example.enigmaapp.web.news.NewsItemResult;
 import com.example.enigmaapp.web.RetrofitNewsClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -31,9 +32,9 @@ public class NewsRepository {
         this.allNews = allNews;
     }
 
-    public void fetchNews(String token) {
+    public void fetchNews(String token, String keyword) {
         Call<ArrayList<NewsItemResult>> call = RetrofitNewsClient.getInstance().getRetrofitInterface()
-                .executeGetNews(token);
+                .executeGetNews(token, keyword);
         call.enqueue(new Callback<ArrayList<NewsItemResult>>() {
             @Override
             public void onResponse(Call<ArrayList<NewsItemResult>> call, Response<ArrayList<NewsItemResult>> response) {

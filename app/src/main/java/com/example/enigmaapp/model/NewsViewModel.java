@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.enigmaapp.repository.NewsRepository;
 import com.example.enigmaapp.web.news.NewsItemResult;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class NewsViewModel extends AndroidViewModel {
@@ -20,8 +21,8 @@ public class NewsViewModel extends AndroidViewModel {
         repository = new NewsRepository(app);
     }
 
-    public void fetchNews(String token) {
-        repository.fetchNews(token);
+    public void fetchNews(String token, String keyword) {
+        repository.fetchNews(token, keyword);
     }
 
     public MutableLiveData<List<NewsItemResult>> getNews() {
