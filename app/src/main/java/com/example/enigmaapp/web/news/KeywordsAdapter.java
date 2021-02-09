@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class KeywordsAdapter extends BaseAdapter {
     Context context;
-    ArrayList<String> keywords = new ArrayList<>();
+    ArrayList<String> keywords;
     LayoutInflater inflater;
 
     public KeywordsAdapter(Context context, ArrayList<String> keywords) {

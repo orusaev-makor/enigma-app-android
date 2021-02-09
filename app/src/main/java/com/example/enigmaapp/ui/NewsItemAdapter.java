@@ -2,11 +2,13 @@ package com.example.enigmaapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.news.KeywordsAdapter;
 import com.example.enigmaapp.web.news.NewsItemResult;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.shape.ShapeAppearanceModel;
 
 import java.util.ArrayList;
 
@@ -109,8 +114,8 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
             System.out.println("______________________ Keywords.length: __________________________ " + keywords.size());
             System.out.println("______________________ Keywords: __________________________ " + keywords);
 
-            KeywordsAdapter gridAdapter = new KeywordsAdapter(context, keywords);
-            holder.gridView.setAdapter(gridAdapter);
+//            KeywordsAdapter gridAdapter = new KeywordsAdapter(context, keywords);
+//            holder.gridView.setAdapter(gridAdapter);
 
 
 //            holder.gridView.setLayoutParams(new GridView.LayoutParams(
@@ -120,34 +125,24 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 
 
 
-//        if (keywords.size() > 0) {
-//            for (int i = 0; i < keywords.size(); i++) {
-//                LinearLayout linearLayout = new LinearLayout(context);
-//                linearLayout.setOrientation(LinearLayout.VERTICAL);
+        if (keywords.size() > 0) {
+            for (int i = 0; i < keywords.size(); i++) {
 
-//                Chip chip = new Chip(context);
-//                chip.setText(keywords.get(i));
+                Chip chip = new Chip(context);
+                chip.setText(keywords.get(i));
 //                chip.setChipBackgroundColorResource(R.color.colorAccent);
 //                chip.setHeight(15);
-//                chip.setCloseIconVisible(false);
-//                chip.setTextColor(context.getResources().getColor(R.color.white));
-//                chip.setTextAppearance(R.style.ChipTextAppearance);
+                chip.setCloseIconVisible(false);
+                ShapeAppearanceModel shape = new ShapeAppearanceModel().withCornerSize(3);
+                chip.setShapeAppearanceModel(shape);
+                chip.setChipBackgroundColor(ColorStateList.valueOf(context.getResources().getColor(R.color.colorPrimaryDark)));
+                chip.setChipStrokeColor(ColorStateList.valueOf(context.getResources().getColor(R.color.navy)));
+                chip.setChipStrokeWidth(1);
+                chip.setTextAppearance(R.style.ChipTextAppearance);
 
-//                TextView underlineText = new TextView(context);
-//                underlineText.setText("");
-//                underlineText.setLayoutParams(new LinearLayout.LayoutParams(
-//                        LinearLayout.LayoutParams.MATCH_PARENT,
-//                        8
-//                ));
-//                underlineText.setHeight(5);
-//                underlineText.setBackground(context.getResources().getDrawable(R.drawable.underline_text));
-
-//                linearLayout.addView(chip);
-//                linearLayout.addView(underlineText);
-//                holder.keywordsChipGroup.addView(chip);
-//                holder.keywordsChipGroup.addView(linearLayout);
-//            }
-//        }
+                holder.keywordsChipGroup.addView(chip);
+            }
+        }
 
 //        if (keywords.size() > 0) {
 //            LinearLayout row = (LinearLayout) holder.keywordsLayout.inflate(context, R.layout.keyword_row, null);
@@ -193,16 +188,16 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
     public class ItemHolder extends RecyclerView.ViewHolder {
         private TextView date;
         private TextView text;
-        private GridView gridView;
+//        private GridView gridView;
 //        private RecyclerView childRecyclerView;
-//        private ChipGroup keywordsChipGroup;
+        private ChipGroup keywordsChipGroup;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.news_fragment_card_date);
             text = itemView.findViewById(R.id.news_fragment_card_text);
-            gridView = itemView.findViewById(R.id.news_child_grid_view);
-//            keywordsChipGroup = itemView.findViewById(R.id.news_keywords_chip_group);
+//            gridView = itemView.findViewById(R.id.news_child_grid_view);
+            keywordsChipGroup = itemView.findViewById(R.id.news_keywords_chip_group);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();

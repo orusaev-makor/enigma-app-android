@@ -48,50 +48,23 @@
             android:layout_height="2dp"
             android:background="@drawable/news_top_border"/>
 
-<!--        <com.google.android.material.chip.ChipGroup-->
-<!--            android:id="@+id/news_keywords_chip_group"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingTop="15dp"-->
-<!--            android:paddingBottom="5dp">-->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/news_keywords_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-            <!-- Chips can be declared here, or added dynamically. -->
-            <!--            <com.google.android.material.chip.Chip-->
-            <!--                android:id="@+id/keyword_chip1"-->
-            <!--                style="@style/Widget.MaterialComponents.Chip.Action"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="BTC"-->
-            <!--                app:chipCornerRadius="3dp"-->
-            <!--                android:textColor="@color/textColor"-->
-            <!--                app:chipBackgroundColor="@color/colorPrimaryDark"-->
-            <!--                app:chipStrokeColor="@color/navy"-->
-            <!--                app:chipStrokeWidth="1dp" />-->
-
-            <!--            <com.google.android.material.chip.Chip-->
-            <!--                android:id="@+id/keyword_chip2"-->
-            <!--                style="@style/Widget.MaterialComponents.Chip.Action"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="TradeBlock"-->
-            <!--                app:chipCornerRadius="3dp"-->
-            <!--                android:textColor="@color/textColor"-->
-            <!--                app:chipBackgroundColor="@color/colorPrimaryDark"-->
-            <!--                android:background="@drawable/underline_text"-->
-            <!--                app:chipStrokeWidth="1dp" />-->
-
-<!--        </com.google.android.material.chip.ChipGroup>-->
 <!--        <androidx.recyclerview.widget.RecyclerView-->
 <!--            android:id="@+id/news_child_recycler_view"-->
 <!--            android:layout_gravity="center_horizontal"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"/>        -->
-        <GridView
-            android:id="@+id/news_child_grid_view"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:numColumns="auto_fit"
-            android:layout_height="wrap_content"/>
+
+<!--        <GridView-->
+<!--            android:id="@+id/news_child_grid_view"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:numColumns="3"-->
+<!--            android:layout_height="wrap_content"/>-->
 
     </LinearLayout>
 
