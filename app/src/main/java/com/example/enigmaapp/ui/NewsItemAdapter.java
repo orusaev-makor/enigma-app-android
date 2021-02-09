@@ -133,8 +133,9 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 
 
         if (keywords.size() > 0) {
-            for (int i = 0; i < keywords.size(); i++) {
+            holder.keywordsTopBorder.setVisibility(View.VISIBLE);
 
+            for (int i = 0; i < keywords.size(); i++) {
                 Chip chip = new Chip(context);
                 chip.setText(keywords.get(i));
 //                chip.setChipBackgroundColorResource(R.color.colorAccent);
@@ -147,14 +148,11 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
                 chip.setChipStrokeWidth(1);
                 chip.setTextAppearance(R.style.ChipTextAppearance);
 
-                chip.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        System.out.println("Chip clicked !!!!!!!!!!!!!!!!!!! " + chip.getText().toString());
-                        updateFilterKeyword(chip.getText().toString());
-                        toggleFilterChip();
-                        fetchNews();
-                    }
+                chip.setOnClickListener(v -> {
+                    System.out.println("Chip clicked !!!!!!!!!!!!!!!!!!! " + chip.getText().toString());
+                    updateFilterKeyword(chip.getText().toString());
+                    toggleFilterChip();
+                    fetchNews();
                 });
 
                 holder.keywordsChipGroup.addView(chip);
@@ -204,6 +202,7 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
     public class ItemHolder extends RecyclerView.ViewHolder {
         private TextView date;
         private TextView text;
+        private TextView keywordsTopBorder;
         //        private GridView gridView;
 //        private RecyclerView childRecyclerView;
         private ChipGroup keywordsChipGroup;
@@ -212,6 +211,7 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
             super(itemView);
             date = itemView.findViewById(R.id.news_fragment_card_date);
             text = itemView.findViewById(R.id.news_fragment_card_text);
+            keywordsTopBorder = itemView.findViewById(R.id.news_keywords_top_border);
 //            gridView = itemView.findViewById(R.id.news_child_grid_view);
             keywordsChipGroup = itemView.findViewById(R.id.news_keywords_chip_group);
 

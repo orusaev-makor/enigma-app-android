@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.NewsViewModel;
@@ -27,6 +28,7 @@ public class NewsFragment extends Fragment {
     private static HashMap<String, String> newsParams = new HashMap<>();
     private static String filterByKeyword;
     private static Chip filterChip;
+    private static TextView topBorder;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -59,13 +61,10 @@ public class NewsFragment extends Fragment {
         viewModel.getNews().observe(requireActivity(), newsItems -> newsAdapter.submitList(newsItems));
 
         filterChip = v.findViewById(R.id.news_filter_chip);
-        filterChip.setOnCloseIconClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateFilterKeyword("");
-                toggleFilterChip();
-                fetchNews();
-            }
+        filterChip.setOnCloseIconClickListener(v1 -> {
+            updateFilterKeyword("");
+            toggleFilterChip();
+            fetchNews();
         });
 
         toggleFilterChip();
