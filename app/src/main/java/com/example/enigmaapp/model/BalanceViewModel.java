@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.enigmaapp.repository.BalanceRepository;
 import com.example.enigmaapp.web.balance.BalanceItemResult;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class BalanceViewModel extends AndroidViewModel {

@@ -29,19 +29,19 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.enigmaapp.activity.UserActivity.actionBar;
 
 
 public class BalanceFragment extends Fragment {
     private PieChart balanceChart;
-    private ArrayList<PieEntry> yValues = new ArrayList<>();
+    private final ArrayList<PieEntry> yValues = new ArrayList<>();
     private TextView coinNameText;
     private ImageView coinIcon;
+    private float total_values = 0;
+    private DecimalFormat decim = new DecimalFormat("#,##0.00");
 
     public BalanceFragment() {
         // Required empty public constructor
@@ -50,10 +50,6 @@ public class BalanceFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (actionBar != null) {
-            actionBar.show();
-        }
     }
 
     @Override
@@ -87,13 +83,6 @@ public class BalanceFragment extends Fragment {
         balanceChart.setDrawCenterText(true);
         balanceChart.setDrawEntryLabels(false);
 
-//        ArrayList<PieEntry> yValues = new ArrayList<>();
-
-//        yValues.add(new PieEntry(22f, "LTC", 0));
-//        yValues.add(new PieEntry(11f, "ETH", 1));
-//        yValues.add(new PieEntry(56f, "BTC", 2));
-//        yValues.add(new PieEntry(11f, "XMR", 3));
-
         RecyclerView recyclerView = v.findViewById(R.id.balance_recycled_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -107,14 +96,6 @@ public class BalanceFragment extends Fragment {
 
         viewModel.getBalanceMap().observe(requireActivity(), balanceItemResults -> {
             balanceAdapter.submitList(balanceItemResults);
-//            yValues.add(new PieEntry(12f, "Te", 12));
-//            yValues.add(new PieEntry(6f, "Re", 13));
-//            yValues.add(new PieEntry(13f, "Qw", 14));
-//            yValues.add(new PieEntry(16f, "ET", 15));
-//            yValues.add(new PieEntry(10f, "ET", 16));
-//            yValues.add(new PieEntry(8f, "EyT", 17));
-//            yValues.add(new PieEntry(7f, "ETr", 18));
-//            yValues.add(new PieEntry(6f, "ETw", 19));
             addDataToChart(balanceItemResults);
             setChart();
 
@@ -125,78 +106,14 @@ public class BalanceFragment extends Fragment {
 
         viewModel.fetchBalances(token);
 
-
-        // animate pie on creation:
-//        pieChart.animateY(1000);
-
-//        PieDataSet dataSet = new PieDataSet(yValues, "");
-//        dataSet.setSliceSpace(3f);
-//        dataSet.setSelectionShift(5f);
-//        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-//        dataSet.setColors(new int[]{
-//                Color.rgb(230, 32, 26),
-//                Color.rgb(49, 93, 158),
-//                Color.rgb(251, 167, 70),
-//                Color.rgb(139, 147, 180),
-//                Color.rgb(70, 117, 69),
-//                Color.rgb(187, 160, 37)
-//        });
-
-//        PieData data = new PieData(dataSet);
-//        data.setDrawValues(false); // disable values in pie pieces
-//        data.setValueTextSize(10f);
-//        data.setValueTextColor(Color.WHITE);
-//        data.setValueFormatter(new PercentFormatter(balanceChart));
-
-//        Legend l = balanceChart.getLegend();
-//        l.setEnabled(false); // disable legends
-//
-//        balanceChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-//
-//            @Override
-//            public void onValueSelected(Entry e, Highlight h) {
-//                PieEntry pe = (PieEntry) e;
-//                int index = (Integer) e.getData();
-//                int currentColor = dataSet.getColor(index);
-//                System.out.println("GET DATA:  " + e.getData());
-//                System.out.println("h: " + h);
-//                System.out.println("e: " + e);
-//
-//                coinNameText.setText(pe.getLabel());
-//                coinNameText.setTextColor(currentColor);
-//                int id = getContext().getResources().getIdentifier("com.example.enigmaapp:drawable/" + pe.getLabel().toLowerCase(), null, null);
-//                coinIcon.setImageResource(id);
-////                coinIcon.setImageResource(R.drawable.btc);
-////                final int newColor = res.getColor(R.color.new_color);
-////                coinIcon.setColorFilter(currentColor, PorterDuff.Mode.SRC_ATOP);
-////                coinIcon.setColorFilter(currentColor);
-//
-//                // set percentage in center of the chart pie
-//                String value = e.getY() + "%";
-//                balanceChart.setCenterText(value);
-//                balanceChart.setCenterTextColor(currentColor);
-//                balanceChart.setCenterTextSize(20f);
-//            }
-//
-//            @Override
-//            public void onNothingSelected() {
-//                balanceChart.setCenterText("");
-//                coinNameText.setText("");
-//                coinIcon.setImageResource(0);
-//            }
-//        });
-//
-//        balanceChart.setData(data);
-
         return v;
     }
 
-    private void addDataToChart(List<BalanceItemResult> balanceItemResults) {
-        for (int i = 0; i < balanceItemResults.size(); i++) {
-            String data = balanceItemResults.get(i).getValue();
-            float val = Float.parseFloat(data);
-//            float val = (float) Float.parseFloat(data) + 1.00f;
-            yValues.add(new PieEntry(val, balanceItemResults.get(i).getName(), i));
+    private void addDataToChart(List<BalanceItemResult> balanceItems) {
+        for (int i = 0; i < balanceItems.size(); i++) {
+            float val = Float.parseFloat(balanceItems.get(i).getValue());
+            total_values += val;
+            yValues.add(new PieEntry(val, balanceItems.get(i).getName(), i));
         }
     }
 
@@ -204,17 +121,16 @@ public class BalanceFragment extends Fragment {
         PieDataSet dataSet = new PieDataSet(yValues, "");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
-        dataSet.setColors(new int[]{
-                Color.rgb(230, 32, 26),
+        dataSet.setColors(Color.rgb(230, 32, 26),
                 Color.rgb(49, 93, 158),
                 Color.rgb(251, 167, 70),
                 Color.rgb(139, 147, 180),
                 Color.rgb(70, 117, 69),
-                Color.rgb(187, 160, 37)
-        });
+                Color.rgb(187, 160, 37));
 
         PieData data = new PieData(dataSet);
-        data.setDrawValues(false); // disable values in pie pieces
+        data.setDrawValues(false); // disables values in pie pieces
+        data.setValueTextSize(16);
 
         Legend l = balanceChart.getLegend();
         l.setEnabled(false); // disable legends
@@ -233,7 +149,7 @@ public class BalanceFragment extends Fragment {
                 coinIcon.setImageResource(id);
 
                 // set percentage in center of the chart pie
-                String value = e.getY() + "%";
+                String value = decim.format(Double.valueOf(e.getY() / total_values * 100)) + "%";
                 balanceChart.setCenterText(value);
                 balanceChart.setCenterTextColor(currentColor);
                 balanceChart.setCenterTextSize(20f);
@@ -250,8 +166,6 @@ public class BalanceFragment extends Fragment {
         // set initial item to show
         int currentColor = dataSet.getColor(0);
 
-        if (dataSet.getEntryForIndex(0).getY() > 0) {
-
         String label = dataSet.getEntryForIndex(0).getLabel();
         coinNameText.setText(label);
         coinNameText.setTextColor(currentColor);
@@ -259,15 +173,12 @@ public class BalanceFragment extends Fragment {
         coinIcon.setImageResource(id);
 
         // set percentage in center of the chart pie
-        String value = dataSet.getEntryForIndex(0).getY() + "%";
+        String value = decim.format(Double.valueOf((dataSet.getEntryForIndex(0).getY()) / total_values * 100)) + "%";
         balanceChart.setCenterText(value);
         balanceChart.setCenterTextColor(currentColor);
         balanceChart.setCenterTextSize(20f);
 
-        }
-
         balanceChart.setData(data);
         balanceChart.setVisibility(View.VISIBLE);
     }
-
 }
