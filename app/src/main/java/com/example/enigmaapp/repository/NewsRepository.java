@@ -1,6 +1,7 @@
 package com.example.enigmaapp.repository;
 
 import android.app.Application;
+import android.os.Build;
 import android.view.View;
 import android.widget.Toast;
 
@@ -9,7 +10,15 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.enigmaapp.web.news.NewsItemResult;
 import com.example.enigmaapp.web.RetrofitNewsClient;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,10 +39,6 @@ public class NewsRepository {
         return allNews;
     }
 
-    public void setNews(MutableLiveData<List<NewsItemResult>> allNews) {
-        this.allNews = allNews;
-    }
-
     public void fetchNews(String token, String keyword) {
         Call<ArrayList<NewsItemResult>> call = RetrofitNewsClient.getInstance().getRetrofitInterface()
                 .executeGetNews(token, keyword);
@@ -45,7 +50,10 @@ public class NewsRepository {
                     return;
                 }
                 progressBarNews.setVisibility(View.GONE);
-                allNews.setValue(response.body());
+                List<NewsItemResult> list = new ArrayList<>();
+                list.addAll(response.body());
+                Collections.sort(list);
+                allNews.setValue(list);
             }
 
             @Override

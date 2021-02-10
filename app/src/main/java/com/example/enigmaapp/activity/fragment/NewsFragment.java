@@ -48,7 +48,7 @@ public class NewsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_news, container, false);
 
-        token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsZXZlbCI6MX0sImlhdCI6MTYxMjg1NzE0NCwiZXhwIjoxNjEyOTQzNTQ0fQ.bv3RTNLOsf1uv3H78iGO74jPbAPby7DY-LfHP8RCfe4";
+        token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsZXZlbCI6MX0sImlhdCI6MTYxMjk0NDkzNywiZXhwIjoxNjEzMDMxMzM3fQ.7YtEwFIu2rCaAZFF9QtT0wxvBKnew_H0OrY2GwWEeOc";
 
         progressBarNews = v.findViewById(R.id.progress_bar_news);
         progressBarNews.setVisibility(View.VISIBLE);

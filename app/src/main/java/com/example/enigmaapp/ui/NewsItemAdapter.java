@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.net.Uri;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.LinearLayout;
+
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,13 +18,16 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.news.KeywordsAdapter;
 import com.example.enigmaapp.web.news.NewsItemResult;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.shape.ShapeAppearanceModel;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.example.enigmaapp.activity.fragment.NewsFragment.fetchNews;
 import static com.example.enigmaapp.activity.fragment.NewsFragment.toggleFilterChip;
@@ -32,18 +35,16 @@ import static com.example.enigmaapp.activity.fragment.NewsFragment.updateFilterK
 
 public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter.ItemHolder> {
 
+    public static final long AVERAGE_MONTH_IN_MILLIS = DateUtils.DAY_IN_MILLIS * 30;
     private OnItemClickListener listener;
     private Context context;
 
     RecyclerView.LayoutManager manager;
 
-//    private ArrayList<String> keywords = new ArrayList<>();
-
     public NewsItemAdapter(Context context) {
         super(DIFF_CALLBACK);
         this.context = context;
         manager = new GridLayoutManager(context, 7, GridLayoutManager.VERTICAL, false);
-
     }
 
     private static final DiffUtil.ItemCallback<NewsItemResult> DIFF_CALLBACK = new DiffUtil.ItemCallback<NewsItemResult>() {
@@ -70,16 +71,27 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-//        keywords.clear();
         ArrayList<String> keywords = new ArrayList<>();
         holder.keywordsChipGroup.removeAllViews();
 
         NewsItemResult currentNewsItem = getItem(position);
 
-        String date = currentNewsItem.getDate();
+        String dateStr = currentNewsItem.getDate();
+
+        DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+        Date date = null;
+        try {
+            date = format.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+//        System.out.println(" date::::::::::::::::: " + date); // Sat Jan 02 00:00:00 GMT 2010
+        long mills = date.getTime();
+        String formattedTimeAgo = getRelationTime(mills);
+//        System.out.println(" formatted::::::::::::::::: " + formattedTimeAgo); // Sat Jan 02 00:00:00 GMT 2010
         String text = currentNewsItem.getTitle();
 
-        holder.date.setText(date);
+        holder.date.setText(formattedTimeAgo);
         holder.text.setText(text);
 
         String[] keys = currentNewsItem.getKeywords().split(",");
@@ -87,50 +99,6 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
             if (k.trim().equals("")) break;
             keywords.add(k.trim());
         }
-//        holder.keywordsLayout.setLayoutParams(new LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.WRAP_CONTENT
-//        ));
-
-//        if (keywords.size() > 0 && repeat <= keywords.size()) {
-//            for (int i = 0; i < keywords.size(); i++) {
-//                repeat++;
-//                TextView valueTV = new TextView(context.getApplicationContext());
-//                valueTV.setText(keywords.get(i));
-//                valueTV.setTextSize(13);
-//                valueTV.setTextColor(context.getResources().getColor(R.color.textColor));
-//                valueTV.setBackground(context.getResources().getDrawable(R.drawable.underline_text));
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    valueTV.setTypeface(context.getResources().getFont(R.font.poppins_regular));
-//                }
-//                valueTV.setLayoutParams(new LinearLayout.LayoutParams(
-//                        LinearLayout.LayoutParams.WRAP_CONTENT,
-//                        LinearLayout.LayoutParams.WRAP_CONTENT
-//                ));
-//                holder.keywordsLayout.addView(valueTV);
-//
-//                if (repeat != keywords.size()) {
-//                    Space space = new Space(context.getApplicationContext());
-//                    space.setMinimumWidth(20);
-//                    holder.keywordsLayout.addView(space);
-//                }
-//            }
-//        }
-
-        System.out.println("__________________________________________________________________________");
-        System.out.println("______________________ Title: __________________________ " + text);
-        System.out.println("______________________ Keywords: __________________________ " + keywords);
-        System.out.println("____________________________________________________________________________________________________");
-
-//            KeywordsAdapter gridAdapter = new KeywordsAdapter(context, keywords);
-//            holder.gridView.setAdapter(gridAdapter);
-
-
-//            holder.gridView.setLayoutParams(new GridView.LayoutParams(
-//                    GridLayoutManager.LayoutParams.MATCH_PARENT,
-//                    GridLayoutManager.LayoutParams.MATCH_PARENT
-//            ));
-
 
         if (keywords.size() > 0) {
             holder.keywordsTopBorder.setVisibility(View.VISIBLE);
@@ -149,7 +117,6 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
                 chip.setTextAppearance(R.style.ChipTextAppearance);
 
                 chip.setOnClickListener(v -> {
-                    System.out.println("Chip clicked !!!!!!!!!!!!!!!!!!! " + chip.getText().toString());
                     updateFilterKeyword(chip.getText().toString());
                     toggleFilterChip();
                     fetchNews();
@@ -159,15 +126,8 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
             }
         }
 
-//        if (keywords.size() > 0) {
-//            LinearLayout row = (LinearLayout) holder.keywordsLayout.inflate(context, R.layout.keyword_row, null);
-//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//            row.setLayoutParams(params);
-//        }
-
         holder.text.setOnClickListener(v -> {
             String webUrl = currentNewsItem.getLink();
-//            String webUrl = "https://ir.thomsonreuters.com/news-releases/news-release-details/thomson-reuters-announces-closing-sale-refinitiv-london-stock";
 
             // To open in browser:
             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -199,12 +159,36 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
         });
     }
 
+    private String getRelationTime(long time) {
+        final long now = new Date().getTime();
+        final long delta = now - time;
+        long resolution;
+        if (delta <= DateUtils.MINUTE_IN_MILLIS) {
+            resolution = DateUtils.SECOND_IN_MILLIS;
+        } else if (delta <= DateUtils.HOUR_IN_MILLIS) {
+            resolution = DateUtils.MINUTE_IN_MILLIS;
+        } else if (delta <= DateUtils.DAY_IN_MILLIS) {
+            resolution = DateUtils.HOUR_IN_MILLIS;
+        } else if (delta <= DateUtils.WEEK_IN_MILLIS) {
+            resolution = DateUtils.DAY_IN_MILLIS;
+        } else if (delta <= AVERAGE_MONTH_IN_MILLIS) {
+            String ago = ((delta / DateUtils.WEEK_IN_MILLIS) > 1) ? " weeks ago" : " week ago";
+            return ((int) (delta / DateUtils.WEEK_IN_MILLIS)) + ago;
+        } else if (delta <= DateUtils.YEAR_IN_MILLIS) {
+            String ago = ((delta / AVERAGE_MONTH_IN_MILLIS) > 1) ? " months ago" : " month ago";
+            return ((int) (delta / AVERAGE_MONTH_IN_MILLIS)) + ago;
+        } else {
+            String ago = ((delta / DateUtils.YEAR_IN_MILLIS) > 1) ? " years ago" : " year ago";
+            return ((int) (delta / DateUtils.YEAR_IN_MILLIS)) + ago;
+        }
+        return DateUtils.getRelativeTimeSpanString(time, now, resolution).toString();
+    }
+
+
     public class ItemHolder extends RecyclerView.ViewHolder {
         private TextView date;
         private TextView text;
         private TextView keywordsTopBorder;
-        //        private GridView gridView;
-//        private RecyclerView childRecyclerView;
         private ChipGroup keywordsChipGroup;
 
         public ItemHolder(@NonNull View itemView) {
@@ -212,7 +196,6 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
             date = itemView.findViewById(R.id.news_fragment_card_date);
             text = itemView.findViewById(R.id.news_fragment_card_text);
             keywordsTopBorder = itemView.findViewById(R.id.news_keywords_top_border);
-//            gridView = itemView.findViewById(R.id.news_child_grid_view);
             keywordsChipGroup = itemView.findViewById(R.id.news_keywords_chip_group);
 
             itemView.setOnClickListener(v -> {

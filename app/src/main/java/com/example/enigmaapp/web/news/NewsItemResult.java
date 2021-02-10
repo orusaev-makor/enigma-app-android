@@ -2,7 +2,12 @@ package com.example.enigmaapp.web.news;
 
 import com.google.gson.annotations.SerializedName;
 
-public class NewsItemResult {
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class NewsItemResult implements Comparable<NewsItemResult>{
     private int id;
     @SerializedName("source_id")
     private int sourceId;
@@ -15,6 +20,31 @@ public class NewsItemResult {
     @SerializedName("img_url")
     private String imgUrl;
 
+
+    @Override
+    public int compareTo(NewsItemResult other) {
+        DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+
+        // convert date to compare
+        Date myDate = null;
+        try {
+            myDate = format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // convert other's date to compare
+        Date otherDate = null;
+        try {
+            otherDate = format.parse(other.date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // returns in "new to old" order
+        return otherDate.compareTo(myDate);
+    }
+
     public int getId() {
         return id;
     }
@@ -23,28 +53,12 @@ public class NewsItemResult {
         this.id = id;
     }
 
-    public int getSourceId() {
-        return sourceId;
-    }
-
-    public void setSourceId(int sourceId) {
-        this.sourceId = sourceId;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getLink() {
         return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
     }
 
     public String getDate() {
@@ -59,23 +73,4 @@ public class NewsItemResult {
         return keywords;
     }
 
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
-    }
-
-    public String getGuid() {
-        return guid;
-    }
-
-    public void setGuid(String guid) {
-        this.guid = guid;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
 }
