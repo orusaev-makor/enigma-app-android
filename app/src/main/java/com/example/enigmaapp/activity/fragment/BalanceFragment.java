@@ -1,5 +1,7 @@
 package com.example.enigmaapp.activity.fragment;
 
+import android.app.Application;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -42,6 +44,7 @@ public class BalanceFragment extends Fragment {
     private ImageView coinIcon;
     private float total_values = 0;
     private DecimalFormat decim = new DecimalFormat("#,##0.00");
+    private Context context;
 
     public BalanceFragment() {
         // Required empty public constructor
@@ -50,6 +53,7 @@ public class BalanceFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = requireContext();
     }
 
     @Override
@@ -169,14 +173,17 @@ public class BalanceFragment extends Fragment {
         String label = dataSet.getEntryForIndex(0).getLabel();
         coinNameText.setText(label);
         coinNameText.setTextColor(currentColor);
-        int id = getContext().getResources().getIdentifier("com.example.enigmaapp:drawable/" + label.toLowerCase(), null, null);
-        coinIcon.setImageResource(id);
 
-        // set percentage in center of the chart pie
-        String value = decim.format(Double.valueOf((dataSet.getEntryForIndex(0).getY()) / total_values * 100)) + "%";
-        balanceChart.setCenterText(value);
-        balanceChart.setCenterTextColor(currentColor);
-        balanceChart.setCenterTextSize(20f);
+        if (context != null) {
+            int id = context.getResources().getIdentifier("com.example.enigmaapp:drawable/" + label.toLowerCase(), null, null);
+            coinIcon.setImageResource(id);
+
+            // set percentage in center of the chart pie
+            String value = decim.format(Double.valueOf((dataSet.getEntryForIndex(0).getY()) / total_values * 100)) + "%";
+            balanceChart.setCenterText(value);
+            balanceChart.setCenterTextColor(currentColor);
+            balanceChart.setCenterTextSize(20f);
+        }
 
         balanceChart.setData(data);
         balanceChart.setVisibility(View.VISIBLE);
