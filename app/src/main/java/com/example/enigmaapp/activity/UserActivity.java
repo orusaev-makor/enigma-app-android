@@ -31,6 +31,7 @@ import com.example.enigmaapp.activity.fragment.SettlementFragment;
 import com.example.enigmaapp.activity.fragment.StatisticsFragment;
 import com.example.enigmaapp.activity.fragment.TradeFragment;
 import com.google.android.material.navigation.NavigationView;
+
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.BATCH_FILTER_REQUEST_CODE;
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.UNITARY_FILTER_REQUEST_CODE;
 import static com.example.enigmaapp.activity.fragment.TradeFragment.TRADE_FILTER_REQUEST_CODE;
@@ -45,7 +46,9 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_user);
 
         Intent intent = getIntent();
@@ -84,10 +87,11 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         });
 
         // Initial Fragment:
-        BalanceFragment fragment = new BalanceFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frame_layout, fragment, "Balance");
-        ft.commit();
+        if (savedInstanceState == null) {
+            BalanceFragment fragment = new BalanceFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frame_layout, fragment, "Balance").commit();
+        }
     }
 //
 //    @Override

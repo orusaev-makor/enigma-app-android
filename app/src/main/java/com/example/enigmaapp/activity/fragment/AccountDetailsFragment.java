@@ -15,7 +15,10 @@ import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.accounts.AccountResult;
 import com.example.enigmaapp.web.accounts.AccountsItemResult;
 
+import java.io.Serializable;
+
 public class AccountDetailsFragment extends Fragment {
+    private static final String ACCOUNT_ITEM__KEY = "accounts_item_key";
     private AccountsItemResult accountsItem;
     private TextView accountName;
     private TextView accountType;
@@ -23,8 +26,16 @@ public class AccountDetailsFragment extends Fragment {
     private TextView accountCurrency;
     private Button submitBtn;
 
-    public AccountDetailsFragment(AccountsItemResult accountsItem) {
-        this.accountsItem = accountsItem;
+    public AccountDetailsFragment() {
+        // Required empty public constructor
+    }
+
+    public static AccountDetailsFragment newInstance(AccountsItemResult accountsItem) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ACCOUNT_ITEM__KEY, accountsItem);
+        AccountDetailsFragment f = new AccountDetailsFragment();
+        f.setArguments(bundle);
+        return f;
     }
 
     @Override
@@ -35,6 +46,9 @@ public class AccountDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        accountsItem = (AccountsItemResult) getArguments().getSerializable(
+                ACCOUNT_ITEM__KEY);
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_account_details, container, false);
 

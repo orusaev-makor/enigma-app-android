@@ -27,7 +27,6 @@ public class BatchItemResult {
     @SerializedName("sent_at")
     private String sentAt;
     private String counterparty;
-    @SerializedName("product_name")
     private String product;
     private String status;
 

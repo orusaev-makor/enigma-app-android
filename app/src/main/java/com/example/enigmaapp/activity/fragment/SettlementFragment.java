@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -80,14 +81,28 @@ public class SettlementFragment extends Fragment {
     public static StringBuilder currencyStringBuilder;
     public static StringBuilder counterpartyStringBuilder;
 
+    public SettlementFragment() {
+        this.isBatch = true;
+    }
+
     public SettlementFragment(boolean isBatch) {
-        // Required empty public constructor
+        System.out.println("_________________________ SettlementFragment : isBatch: " + isBatch );
         this.isBatch = isBatch;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putCharSequence("fragmentTag", getTag());
+        outState.putBoolean("isBatch", isBatch);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            this.isBatch = savedInstanceState.getBoolean("isBatch");
+        }
         Log.d(TAG, "onCreate: got tag ____________________ " + getTag());
     }
 

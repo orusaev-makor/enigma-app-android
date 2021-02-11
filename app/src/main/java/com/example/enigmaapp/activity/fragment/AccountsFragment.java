@@ -104,7 +104,8 @@ public class AccountsFragment extends Fragment {
 
     private void openAccountDetailsFragment(AccountsItemResult accountsItem) {
         FragmentTransaction ft = getParentFragmentManager().beginTransaction();
-        AccountDetailsFragment frg = new AccountDetailsFragment(accountsItem);
+        AccountDetailsFragment frg = AccountDetailsFragment.newInstance(accountsItem);
+//        AccountDetailsFragment frg = new AccountDetailsFragment(accountsItem);
         ft.replace(R.id.frame_layout, frg, "Account Details");
         ft.commit();
     }

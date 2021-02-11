@@ -2,7 +2,9 @@ package com.example.enigmaapp.web.accounts;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AccountsItemResult {
+import java.io.Serializable;
+
+public class AccountsItemResult implements Serializable {
     private String username;
 
     @SerializedName("company_name")
