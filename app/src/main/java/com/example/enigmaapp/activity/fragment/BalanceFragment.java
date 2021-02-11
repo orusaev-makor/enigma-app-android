@@ -39,7 +39,7 @@ import java.util.List;
 
 public class BalanceFragment extends Fragment {
     private PieChart balanceChart;
-    private final ArrayList<PieEntry> yValues = new ArrayList<>();
+//    private final ArrayList<PieEntry> yValues = new ArrayList<>();
     private TextView coinNameText;
     private ImageView coinIcon;
     private float total_values = 0;
@@ -97,14 +97,14 @@ public class BalanceFragment extends Fragment {
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(BalanceViewModel.class);
 
-
         viewModel.getBalanceMap().observe(requireActivity(), balanceItemResults -> {
             balanceAdapter.submitList(balanceItemResults);
-            addDataToChart(balanceItemResults);
-            setChart();
 
+            // must init values here to avoid duplication of data on device rotation:
+            final ArrayList<PieEntry> yValues = new ArrayList<>();
+            addDataToChart(yValues, balanceItemResults);
+            setChart(yValues);
         });
-
 
         String token = loginViewModel.getCurrentUser().getToken();
 
@@ -113,7 +113,7 @@ public class BalanceFragment extends Fragment {
         return v;
     }
 
-    private void addDataToChart(List<BalanceItemResult> balanceItems) {
+    private void addDataToChart(ArrayList<PieEntry> yValues, List<BalanceItemResult> balanceItems) {
         for (int i = 0; i < balanceItems.size(); i++) {
             float val = Float.parseFloat(balanceItems.get(i).getValue());
             total_values += val;
@@ -121,7 +121,7 @@ public class BalanceFragment extends Fragment {
         }
     }
 
-    private void setChart() {
+    private void setChart(ArrayList<PieEntry> yValues) {
         PieDataSet dataSet = new PieDataSet(yValues, "");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
