@@ -114,6 +114,9 @@ public class BalanceFragment extends Fragment {
     }
 
     private void addDataToChart(ArrayList<PieEntry> yValues, List<BalanceItemResult> balanceItems) {
+        // reset old totals
+        total_values = 0;
+
         for (int i = 0; i < balanceItems.size(); i++) {
             float val = Float.parseFloat(balanceItems.get(i).getValue());
             total_values += val;
