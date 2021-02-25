@@ -3,6 +3,7 @@ package com.example.enigmaapp.web;
 import com.example.enigmaapp.web.accounts.AccountsItemResult;
 import com.example.enigmaapp.web.login.LoginResult;
 import com.example.enigmaapp.web.news.NewsItemResult;
+import com.example.enigmaapp.web.news.NewsResult;
 import com.example.enigmaapp.web.settings.ExposureLimitItemResult;
 import com.example.enigmaapp.web.settings.MaxQtyPerTradeItemResult;
 import com.example.enigmaapp.web.settlement.BatchResult;
@@ -65,8 +66,8 @@ public interface RetrofitInterface {
 
     // News:
     @GET("/article")
-    Call<ArrayList<NewsItemResult>> executeGetNews(@Header("Authorization") String token,
-                                                   @Query("keyword") String keyword);
+    Call<NewsResult> executeGetNews(@Header("Authorization") String token,
+                                    @Query("keyword") String keyword);
 
 
     // Accounts:

@@ -1,7 +1,6 @@
 package com.example.enigmaapp.repository;
 
 import android.app.Application;
-import android.os.Build;
 import android.view.View;
 import android.widget.Toast;
 
@@ -9,16 +8,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.enigmaapp.web.news.NewsItemResult;
 import com.example.enigmaapp.web.RetrofitNewsClient;
+import com.example.enigmaapp.web.news.NewsResult;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,24 +33,24 @@ public class NewsRepository {
     }
 
     public void fetchNews(String token, String keyword) {
-        Call<ArrayList<NewsItemResult>> call = RetrofitNewsClient.getInstance().getRetrofitInterface()
+        Call<NewsResult> call = RetrofitNewsClient.getInstance().getRetrofitInterface()
                 .executeGetNews(token, keyword);
-        call.enqueue(new Callback<ArrayList<NewsItemResult>>() {
+        call.enqueue(new Callback<NewsResult>() {
             @Override
-            public void onResponse(Call<ArrayList<NewsItemResult>> call, Response<ArrayList<NewsItemResult>> response) {
+            public void onResponse(Call<NewsResult> call, Response<NewsResult> response) {
                 if (!response.isSuccessful()) {
                     System.out.println("fetchAccounts - Code: " + response.code() + "Error: " + response.message());
                     return;
                 }
                 progressBarNews.setVisibility(View.GONE);
                 List<NewsItemResult> list = new ArrayList<>();
-                list.addAll(response.body());
+                list.addAll(response.body().getArticles());
                 Collections.sort(list);
                 allNews.setValue(list);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<NewsItemResult>> call, Throwable t) {
+            public void onFailure(Call<NewsResult> call, Throwable t) {
                 System.out.println("t.getMessage(): " + t.getMessage());
                 Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
