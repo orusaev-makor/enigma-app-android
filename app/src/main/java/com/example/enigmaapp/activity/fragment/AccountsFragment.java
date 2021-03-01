@@ -51,7 +51,7 @@ public class AccountsFragment extends Fragment {
 
         // TODO: add back create action button after read only version
         // Move fo "New Account" screen:
-//        addAccountFab = v.findViewById(R.id.account_create_btn);
+//        addAccountFab = v.findViewById(R.id.account_create_fab);
 //        addAccountFab.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

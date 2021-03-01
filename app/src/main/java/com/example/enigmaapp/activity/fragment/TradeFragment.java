@@ -94,7 +94,7 @@ public class TradeFragment extends Fragment {
 
         // TODO: add back create action button after read only version
         // Move fo "New Trade" screen:
-//        addTradeFab = v.findViewById(R.id.trade_create_btn);
+//        addTradeFab = v.findViewById(R.id.trade_create_fab);
 //        addTradeFab.setOnClickListener(v12 -> openNewTradeFragment());
 
         // Move fo "Filter Trade" screen:
@@ -223,22 +223,19 @@ public class TradeFragment extends Fragment {
     }
 
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Fragment frg = null;
-                        frg = getParentFragmentManager().findFragmentByTag("Trade");
-                        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Fragment frg = null;
+                    frg = getParentFragmentManager().findFragmentByTag("Trade");
+                    FragmentTransaction ft = getParentFragmentManager().beginTransaction();
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            ft.detach(frg).commitNow();
-                            ft.attach(frg).commitNow();
-                        } else {
-                            ft.detach(frg).attach(frg).commit();
-                        }
-
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        ft.detach(frg).commitNow();
+                        ft.attach(frg).commitNow();
+                    } else {
+                        ft.detach(frg).attach(frg).commit();
                     }
+
                 }
             });
 

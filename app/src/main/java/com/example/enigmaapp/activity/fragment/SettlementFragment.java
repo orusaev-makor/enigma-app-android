@@ -114,7 +114,7 @@ public class SettlementFragment extends Fragment {
 
 //        TODO: add back create action button after read only version
 //        Batch:
-//        addSettlementFab = v.findViewById(R.id.settlement_create_btn);
+//        addSettlementFab = v.findViewById(R.id.settlement_create_fab);
 //        addSettlementFab.setOnClickListener(v1 -> openAddScreen(isBatch));
 
         // Move fo "Filter Settlement" screen:

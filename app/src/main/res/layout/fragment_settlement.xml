@@ -9,7 +9,7 @@
 
     TODO: add back create action button after read only version
 <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/settlement_create_btn"-->
+<!--        android:id="@+id/settlement_create_fab"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:layout_alignParentBottom="true"-->
