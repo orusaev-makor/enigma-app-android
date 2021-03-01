@@ -48,7 +48,7 @@ public class SettlementFragment extends Fragment {
     private String token;
     private TextView batch;
     private TextView unitary;
-    private FloatingActionButton addSettlementBtn;
+    private FloatingActionButton addSettlementFab;
     private ImageView filterBtn;
     private ImageView uploadBtn;
     private ImageView refreshBtn;
@@ -114,8 +114,8 @@ public class SettlementFragment extends Fragment {
 
 //        TODO: add back create action button after read only version
 //        Batch:
-//        addSettlementBtn = v.findViewById(R.id.settlement_create_btn);
-//        addSettlementBtn.setOnClickListener(v1 -> openAddScreen(isBatch));
+//        addSettlementFab = v.findViewById(R.id.settlement_create_btn);
+//        addSettlementFab.setOnClickListener(v1 -> openAddScreen(isBatch));
 
         // Move fo "Filter Settlement" screen:
         filterBtn = v.findViewById(R.id.ic_action_filter);

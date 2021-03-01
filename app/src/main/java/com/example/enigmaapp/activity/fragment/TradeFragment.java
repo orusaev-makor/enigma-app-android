@@ -41,7 +41,7 @@ import static com.example.enigmaapp.repository.LoginRepository.mCurrentUser;
 
 public class TradeFragment extends Fragment {
     public static final int TRADE_FILTER_REQUEST_CODE = 1;
-    private FloatingActionButton createTradeBtn;
+    private FloatingActionButton addTradeFab;
     private ImageView filterBtn;
     private ImageView uploadBtn;
     private ImageView refreshBtn;
@@ -94,8 +94,8 @@ public class TradeFragment extends Fragment {
 
         // TODO: add back create action button after read only version
         // Move fo "New Trade" screen:
-//        createTradeBtn = v.findViewById(R.id.trade_create_btn);
-//        createTradeBtn.setOnClickListener(v12 -> openNewTradeFragment());
+//        addTradeFab = v.findViewById(R.id.trade_create_btn);
+//        addTradeFab.setOnClickListener(v12 -> openNewTradeFragment());
 
         // Move fo "Filter Trade" screen:
         filterBtn = v.findViewById(R.id.ic_action_filter);

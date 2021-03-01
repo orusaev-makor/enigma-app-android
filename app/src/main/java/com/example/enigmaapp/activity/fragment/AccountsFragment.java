@@ -27,7 +27,7 @@ import static com.example.enigmaapp.activity.UserActivity.actionBar;
 
 public class AccountsFragment extends Fragment {
 
-    private FloatingActionButton createAccountBtn;
+    private FloatingActionButton addAccountFab;
     private View accountLayout;
 
     public AccountsFragment() {
@@ -51,8 +51,8 @@ public class AccountsFragment extends Fragment {
 
         // TODO: add back create action button after read only version
         // Move fo "New Account" screen:
-//        createAccountBtn = v.findViewById(R.id.account_create_btn);
-//        createAccountBtn.setOnClickListener(new View.OnClickListener() {
+//        addAccountFab = v.findViewById(R.id.account_create_btn);
+//        addAccountFab.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                FragmentTransaction ft = getParentFragmentManager().beginTransaction();
