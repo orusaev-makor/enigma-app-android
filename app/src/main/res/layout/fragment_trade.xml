@@ -1,71 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center|top"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     tools:context=".activity.fragment.TradeFragment">
 
-    <TextView
+    <!--        TODO: add back create action button after read only version -->
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/trade_create_btn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:backgroundTint="@color/textColor"-->
+<!--        android:contentDescription="@string/add_trade"-->
+<!--        android:src="@drawable/ic_action_add_circle"-->
+<!--        app:fabSize="normal"-->
+<!--        app:tint="@color/colorPrimary" />-->
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:fontFamily="@font/poppins_regular"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="@string/trade"
-        android:textColor="@color/textColor"
-        android:textSize="30sp" />
+        android:gravity="center|top"
+        android:orientation="vertical">
 
-    <!--        Date filters and button actions -->
-
-    <include
-        android:id="@+id/layout_trade_top_section"
-        layout="@layout/section_top_filters"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll_trade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="75dp"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/trade"
+            android:textColor="@color/textColor"
+            android:textSize="30sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/trade_fragment_recycler_view"
+        <!--        Date filters and button actions -->
+
+        <include
+            android:id="@+id/layout_trade_top_section"
+            layout="@layout/section_top_filters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_trade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:paddingLeft="-10dp"
-                android:paddingRight="-10dp"
-                tools:listitem="@layout/trade_item" />
+                android:orientation="vertical">
 
-            <ProgressBar
-                android:id="@+id/progress_bar_trade"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/trade_fragment_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingLeft="-10dp"
+                    android:paddingRight="-10dp"
+                    tools:listitem="@layout/trade_item" />
 
-    </androidx.core.widget.NestedScrollView>
-    <!--        TODO: add back create action button after read only version -->
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--        android:id="@+id/trade_create_btn"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="end"-->
-    <!--        android:layout_margin="16dp"-->
-    <!--        android:backgroundTint="@color/textColor"-->
-    <!--        android:src="@drawable/ic_action_add_circle"-->
-    <!--        app:fabSize="normal"-->
-    <!--        app:tint="@color/colorPrimary"-->
-    <!--        android:contentDescription="@string/add_trade" />-->
+                <ProgressBar
+                    android:id="@+id/progress_bar_trade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
-</LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
+    </LinearLayout>
+
+</RelativeLayout>
