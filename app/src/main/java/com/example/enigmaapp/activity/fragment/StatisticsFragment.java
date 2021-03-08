@@ -49,7 +49,7 @@ public class StatisticsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_statistics, container, false);
 
         final Typeface tfRegular = ResourcesCompat.getFont(getContext(), R.font.poppins_regular);
-        statisticsChart = (BarChart) v.findViewById(R.id.statisticsBarChart);
+        statisticsChart = v.findViewById(R.id.statisticsBarChart);
 
         BarDataSet barDataSet1 = new BarDataSet(barEntries1(), "Nominal (1,000$)");
         barDataSet1.setColor(getResources().getColor(R.color.statisticsNominalBar));
@@ -108,7 +108,6 @@ public class StatisticsFragment extends Fragment {
         float barWidth = 0.14f;
         data.setBarWidth(barWidth);
 
-
         //IMPORTANT *****
         statisticsChart.getXAxis().setAxisMaximum(0);
         statisticsChart.getXAxis().setAxisMaximum(0 + statisticsChart.getBarData().getGroupWidth(groupSpace, barSpace) * 4); // 4 is the number of bars
@@ -136,7 +135,6 @@ public class StatisticsFragment extends Fragment {
         barEntries.add(new BarEntry(2, 30));
         barEntries.add(new BarEntry(3, 25));
         barEntries.add(new BarEntry(4, 50));
-
 
         return barEntries;
     }

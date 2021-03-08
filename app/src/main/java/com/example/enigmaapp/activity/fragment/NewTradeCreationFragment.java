@@ -19,8 +19,7 @@ import com.example.enigmaapp.R;
 
 
 public class NewTradeCreationFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-    private Button submitBtn;
-    private Button closeBtn;
+    private Button submitBtn, closeBtn;
     ArrayAdapter<String> executionTypeAdapter;
     ArrayAdapter<String> productAdapter;
     ArrayAdapter<String> companyAdapter;
@@ -125,7 +124,6 @@ public class NewTradeCreationFragment extends Fragment implements AdapterView.On
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
-
 
     private void setBrokerAdapter(Spinner spinnerBroker, String[] brokerOptions) {
         brokerAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_broker) {

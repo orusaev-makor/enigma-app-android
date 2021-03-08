@@ -42,9 +42,8 @@ import static com.example.enigmaapp.repository.LoginRepository.mCurrentUser;
 public class TradeFragment extends Fragment {
     public static final int TRADE_FILTER_REQUEST_CODE = 1;
     private FloatingActionButton addTradeFab;
-    private ImageView filterBtn;
-    private ImageView uploadBtn;
-    private ImageView refreshBtn;
+    private ImageView filterBtn, uploadBtn, refreshBtn;
+    private TextView fromDate, toDate;
     private View topSection;
     private int page = 1;
     public static ProgressBar progressBarTrade;
@@ -69,7 +68,6 @@ public class TradeFragment extends Fragment {
     public TradeFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -112,9 +110,9 @@ public class TradeFragment extends Fragment {
         });
 
         topSection = v.findViewById(R.id.layout_trade_top_section);
-        TextView fromDate = topSection.findViewById(R.id.trade_from_date);
+        fromDate = topSection.findViewById(R.id.trade_from_date);
         fromDate.setText(prefs.getString("startDateTradeFilter", "-"));
-        TextView toDate = topSection.findViewById(R.id.trade_to_date);
+        toDate = topSection.findViewById(R.id.trade_to_date);
         toDate.setText(prefs.getString("endDateTradeFilter", getTodayDate()));
 
         // getting token only after fetch request was made

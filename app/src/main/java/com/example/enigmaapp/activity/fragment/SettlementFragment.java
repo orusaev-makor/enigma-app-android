@@ -46,12 +46,9 @@ public class SettlementFragment extends Fragment {
     public static final int UNITARY_FILTER_REQUEST_CODE = 3;
     private static final String TAG = "SettlementFragment";
     private String token;
-    private TextView batch;
-    private TextView unitary;
+    private TextView batch, unitary;
     private FloatingActionButton addSettlementFab;
-    private ImageView filterBtn;
-    private ImageView uploadBtn;
-    private ImageView refreshBtn;
+    private ImageView filterBtn, uploadBtn, refreshBtn;
     private View topSection;
     private int page = 1;
     private boolean isBatch;

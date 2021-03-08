@@ -21,10 +21,8 @@ import static com.example.enigmaapp.activity.UserActivity.actionBar;
 public class NewAccountFragment extends Fragment {
 
     Button submitBtn;
-    TextView currencyEdit;
-    TextView accountTypeEdit;
-    EditText detailsEdit;
-    EditText nameEdit;
+    TextView currencyEdit, accountTypeEdit;
+    EditText detailsEdit, nameEdit;
 
     public NewAccountFragment() {
         // Required empty public constructor

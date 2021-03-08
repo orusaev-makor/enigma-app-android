@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.dataset.DatasetExecutionType;
 import com.example.enigmaapp.web.dataset.ExecutionType;
 
 import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.lastTradeExecutionPos;
@@ -57,23 +56,23 @@ public class ExecutionTypeFilterAdapter extends ListAdapter<ExecutionType,Execut
     public void onBindViewHolder(@NonNull ExecutionTypeFilterAdapter.ItemHolder holder, int position) {
         ExecutionType currentExecutionType = getItem(position);
 
-        holder.textViewExecutionTypeName.setText(currentExecutionType.getName());
+        holder.executionType.setText(currentExecutionType.getName());
         if (currentExecutionType.getIsChecked() && lastCheckedPos == position || lastTradeExecutionPos == position) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
-            holder.textViewExecutionTypeName.setTextColor(context.getResources().getColor(R.color.textColor));
+            holder.executionType.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {
             holder.checkedIcon.setVisibility(View.INVISIBLE);
-            holder.textViewExecutionTypeName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
+            holder.executionType.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
         }
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
-        private TextView textViewExecutionTypeName;
+        private TextView executionType;
         private ImageView checkedIcon;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
-            textViewExecutionTypeName = itemView.findViewById(R.id.filter_option_name);
+            executionType = itemView.findViewById(R.id.filter_option_name);
             checkedIcon = itemView.findViewById(R.id.filter_option_checked_icon);
 
             itemView.setOnClickListener(v -> {

@@ -37,8 +37,7 @@ import static com.example.enigmaapp.activity.fragment.SettlementFragment.UNITARY
 import static com.example.enigmaapp.activity.fragment.TradeFragment.TRADE_FILTER_REQUEST_CODE;
 
 public class UserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private String passedUsername;
-    private String passedToken;
+    private String passedUsername, passedToken;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;

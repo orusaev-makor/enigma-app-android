@@ -15,6 +15,8 @@ import com.example.enigmaapp.R;
 
 public class ForgotPasswordFragment extends Fragment {
 
+    private Button sendBtn;
+
     public ForgotPasswordFragment() {
         // Required empty public constructor
     }
@@ -31,7 +33,7 @@ public class ForgotPasswordFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_forgot_password, container, false);
 
         // Send "Forgot Password" email and show "Login" screen:
-        Button sendBtn = v.findViewById(R.id.forgot_password_send_btn);
+        sendBtn = v.findViewById(R.id.forgot_password_send_btn);
         sendBtn.setOnClickListener(v12 -> {
             // TODO: add password recovery process
 //                openLoginScreen();

@@ -14,9 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.web.dataset.Currency;
-import com.example.enigmaapp.web.dataset.DatasetCounterparty;
-
-import java.util.ArrayList;
 
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.clickedCurrencies;
 
@@ -52,26 +49,26 @@ public class CurrencyFilterMultiAdapter extends ListAdapter<Currency, CurrencyFi
     @Override
     public void onBindViewHolder(@NonNull CurrencyOptionHolder holder, int position) {
         Currency currentCurrency = getItem(position);
-        holder.textViewCurrencyName.setText(currentCurrency.getName());
+        holder.currency.setText(currentCurrency.getName());
         if (currentCurrency.getIsChecked() || clickedCurrencies.indexOf(currentCurrency.getName()) != -1) {
             // need to update true if currency is in the clicked list due to last search:
             currentCurrency.setIsChecked(true);
 
             holder.checkedIcon.setVisibility(View.VISIBLE);
-            holder.textViewCurrencyName.setTextColor(context.getResources().getColor(R.color.textColor));
+            holder.currency.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {
             holder.checkedIcon.setVisibility(View.INVISIBLE);
-            holder.textViewCurrencyName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
+            holder.currency.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
         }
     }
 
     public class CurrencyOptionHolder extends RecyclerView.ViewHolder {
-        private TextView textViewCurrencyName;
+        private TextView currency;
         private ImageView checkedIcon;
 
         public CurrencyOptionHolder(@NonNull View itemView) {
             super(itemView);
-            textViewCurrencyName = itemView.findViewById(R.id.filter_option_name);
+            currency = itemView.findViewById(R.id.filter_option_name);
             checkedIcon = itemView.findViewById(R.id.filter_option_checked_icon);
 
             itemView.setOnClickListener(v -> {

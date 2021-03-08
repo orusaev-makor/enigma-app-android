@@ -16,9 +16,8 @@ import com.google.android.material.button.MaterialButton;
 
 
 public class NewTradeReviewAndSubmitFragment extends Fragment {
-    private Button closeBtn;
+    private Button closeBtn, createBtn;
     private MaterialButton backBtn;
-    private Button createBtn;
 
     public NewTradeReviewAndSubmitFragment() {
         // Required empty public constructor

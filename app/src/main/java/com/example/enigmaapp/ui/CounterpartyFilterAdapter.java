@@ -63,25 +63,25 @@ public class CounterpartyFilterAdapter extends ListAdapter<DatasetCounterparty, 
     public void onBindViewHolder(@NonNull CounterpartyOptionHolder holder, int position) {
         DatasetCounterparty Counterparty = getItem(position);
 
-        holder.textViewCounterpartyName.setText(Counterparty.getName());
+        holder.counterparty.setText(Counterparty.getName());
 
         if (Counterparty.getIsChecked() && lastCheckedPos == position || lastBatchCounterpartyPos == position) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
-            holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textColor));
+            holder.counterparty.setTextColor(context.getResources().getColor(R.color.textColor));
         } else{
             holder.checkedIcon.setVisibility(View.INVISIBLE);
-            holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
+            holder.counterparty.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
         }
     }
 
     public class CounterpartyOptionHolder extends RecyclerView.ViewHolder {
 
-        private TextView textViewCounterpartyName;
+        private TextView counterparty;
         private ImageView checkedIcon;
 
         public CounterpartyOptionHolder(@NonNull View itemView) {
             super(itemView);
-            textViewCounterpartyName = itemView.findViewById(R.id.filter_option_name);
+            counterparty = itemView.findViewById(R.id.filter_option_name);
             checkedIcon = itemView.findViewById(R.id.filter_option_checked_icon);
 
             itemView.setOnClickListener(new View.OnClickListener() {

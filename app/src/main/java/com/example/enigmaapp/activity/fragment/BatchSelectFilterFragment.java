@@ -27,8 +27,7 @@ import static com.example.enigmaapp.activity.fragment.SettlementFragment.selecte
 public class BatchSelectFilterFragment extends Fragment {
 
     private String mFilterType;
-    private TextView titleText;
-    private TextView subtitleText;
+    private TextView titleText, subtitleText;
     private MaterialButton resetBtn;
     private Button submitBtn;
     private SettlementViewModel settlementViewModel;
@@ -43,7 +42,6 @@ public class BatchSelectFilterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

@@ -42,18 +42,14 @@ public interface RetrofitInterface {
     @DELETE("/auth")
     Call<Void> executeLogout(@Header("Authorization") String token);
 
-
     // Balance:
-//    @GET("/balance/248")
     @GET("/balance")
     Call<HashMap<String, String>> executeGetBalance(@Header("Authorization") String token);
-
 
     // Trades:
     @GET("/trade")
     Call<TradeResult> executeGetTrades(@Header("Authorization") String token,
                                        @QueryMap HashMap<String, String> params);
-
 
     // Settlements:
     @GET("/settlement_batch")
@@ -63,15 +59,12 @@ public interface RetrofitInterface {
     Call<BatchResult> executeGetUnitary(@Header("Authorization") String token,
                                         @QueryMap Map<String, String> params);
 
-
     // News:
     @GET("/article")
     Call<NewsResult> executeGetNews(@Header("Authorization") String token,
                                     @Query("keyword") String keyword);
 
-
     // Accounts:
-//    @GET("/account/248")
     @GET("/account")
     Call<ArrayList<AccountsItemResult>> executeGetAccounts(@Header("Authorization") String token);
 
@@ -82,7 +75,6 @@ public interface RetrofitInterface {
 
     @GET("/max_qty_per_trade")
     Call<ArrayList<MaxQtyPerTradeItemResult>> executeGetMaxQtyPerTrade(@Header("Authorization") String token);
-
 
     // Datasets:
     @GET("/dataset/trade")

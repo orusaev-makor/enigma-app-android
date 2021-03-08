@@ -20,10 +20,7 @@ import java.io.Serializable;
 public class AccountDetailsFragment extends Fragment {
     private static final String ACCOUNT_ITEM__KEY = "accounts_item_key";
     private AccountsItemResult accountsItem;
-    private TextView accountName;
-    private TextView accountType;
-    private TextView accountDetails;
-    private TextView accountCurrency;
+    private TextView accountName, accountType, accountDetails, accountCurrency;
     private Button submitBtn;
 
     public AccountDetailsFragment() {
@@ -63,7 +60,7 @@ public class AccountDetailsFragment extends Fragment {
         if (accountsItem.getAccountDetails() != null) {
             details = accountsItem.getAccountDetails();
         }
-            accountDetails.setText(details);
+        accountDetails.setText(details);
 
 
         accountCurrency = v.findViewById(R.id.account_details_currency);

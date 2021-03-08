@@ -19,8 +19,7 @@ import com.google.android.material.button.MaterialButton;
  * create an instance of this fragment.
  */
 public class SelectTradeFragment extends Fragment {
-    private Button createBtn;
-    private Button closeBtn;
+    private Button createBtn, closeBtn;
     private MaterialButton resetBtn;
 
     // TODO: Rename parameter arguments, choose names that match

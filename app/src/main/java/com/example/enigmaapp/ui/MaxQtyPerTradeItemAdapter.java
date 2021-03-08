@@ -67,8 +67,7 @@ public class MaxQtyPerTradeItemAdapter extends ListAdapter<MaxQtyPerTradeItemRes
     public class ItemHolder extends RecyclerView.ViewHolder {
 
         private ImageView image;
-        private TextView name;
-        private TextView amount;
+        private TextView name, amount;
 
         public ItemHolder(View itemView) {
             super(itemView);

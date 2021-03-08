@@ -45,16 +45,16 @@ public class CounterpartyFilterMultiAdapter extends RecyclerView.Adapter<Counter
     @Override
     public void onBindViewHolder(@NonNull CounterpartyOptionHolder holder, int position) {
         DatasetCounterparty currentCounterparty = counterparties.get(position);
-        holder.textViewCounterpartyName.setText(currentCounterparty.getName());
+        holder.counterparty.setText(currentCounterparty.getName());
         if (currentCounterparty.getIsChecked() || clickedCounterparties.indexOf(currentCounterparty.getName()) != -1) {
             // need to update true if counterparty is in the clicked list due to last search:
             currentCounterparty.setIsChecked(true);
 
             holder.checkedIcon.setVisibility(View.VISIBLE);
-            holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textColor));
+            holder.counterparty.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {
             holder.checkedIcon.setVisibility(View.INVISIBLE);
-            holder.textViewCounterpartyName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
+            holder.counterparty.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
         }
     }
 
@@ -62,12 +62,12 @@ public class CounterpartyFilterMultiAdapter extends RecyclerView.Adapter<Counter
     public int getItemCount() { return counterparties.size(); }
 
     public class CounterpartyOptionHolder extends RecyclerView.ViewHolder {
-        private TextView textViewCounterpartyName;
+        private TextView counterparty;
         private ImageView checkedIcon;
 
         public CounterpartyOptionHolder(@NonNull View itemView) {
             super(itemView);
-            textViewCounterpartyName = itemView.findViewById(R.id.filter_option_name);
+            counterparty = itemView.findViewById(R.id.filter_option_name);
             checkedIcon = itemView.findViewById(R.id.filter_option_checked_icon);
 
             itemView.setOnClickListener(v -> {

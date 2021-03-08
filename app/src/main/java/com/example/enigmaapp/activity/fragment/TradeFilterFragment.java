@@ -46,19 +46,15 @@ import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.
 
 public class TradeFilterFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
 
-    private Button closeBtn;
-    private Button submitBtn;
+    private Button closeBtn, submitBtn;
     private MaterialButton resetBtn;
     private static TextView dateText;
-    private EditText tradeIdTextEdit;
 
-    private TextView productText;
-    private TextView executionText;
-    private TextView batchedText;
+    private EditText tradeIdTextEdit;
+    private TextView productText, executionText, batchedText;
 
     private View statusSelectView;
     private TradeViewModel tradeViewModel;
-
 
     public TradeFilterFragment() {
         // Required empty public constructor

@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.dataset.DatasetProduct;
 import com.example.enigmaapp.web.dataset.Product;
 
 import static com.example.enigmaapp.activity.fragment.BatchSelectFilterFragment.lastBatchProductPos;
@@ -60,26 +59,26 @@ public class ProductFilterAdapter extends ListAdapter<Product, ProductFilterAdap
     public void onBindViewHolder(@NonNull ProductOptionHolder holder, int position) {
         Product currentProduct = getItem(position);
 
-        holder.textViewProductName.setText(currentProduct.getName());
+        holder.product.setText(currentProduct.getName());
         if (currentProduct.getIsChecked() && lastCheckedPos == position || lastTradeProductPos == position && isTradeFilter) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
-            holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textColor));
+            holder.product.setTextColor(context.getResources().getColor(R.color.textColor));
         } else if (currentProduct.getIsChecked() && lastCheckedPos == position || lastBatchProductPos == position && !isTradeFilter) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
-            holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textColor));
+            holder.product.setTextColor(context.getResources().getColor(R.color.textColor));
         }else{
             holder.checkedIcon.setVisibility(View.INVISIBLE);
-            holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
+            holder.product.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
         }
     }
 
     class ProductOptionHolder extends RecyclerView.ViewHolder {
-        private TextView textViewProductName;
+        private TextView product;
         private ImageView checkedIcon;
 
         public ProductOptionHolder(@NonNull View itemView) {
             super(itemView);
-            textViewProductName = itemView.findViewById(R.id.filter_option_name);
+            product = itemView.findViewById(R.id.filter_option_name);
             checkedIcon = itemView.findViewById(R.id.filter_option_checked_icon);
 
             itemView.setOnClickListener(v -> {

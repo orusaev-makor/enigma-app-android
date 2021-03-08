@@ -38,7 +38,6 @@ public class NewsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +49,6 @@ public class NewsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_news, container, false);
 
-//        token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJsZXZlbCI6MX0sImlhdCI6MTYxMzAzMDUwOCwiZXhwIjoxNjEzMTE2OTA4fQ.kFodYLUFsqnMbMAAY0ozD7ZOaj0lg5j1mwzrYSdo4Iw";
         token = "Bearer " + mCurrentUser.getToken();
         progressBarNews = v.findViewById(R.id.progress_bar_news);
         progressBarNews.setVisibility(View.VISIBLE);

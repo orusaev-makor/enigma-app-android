@@ -67,8 +67,7 @@ public class ExposureLimitItemAdapter extends ListAdapter<ExposureLimitItemResul
     public class ItemHolder extends RecyclerView.ViewHolder {
 
         private ImageView image;
-        private TextView name;
-        private TextView amount;
+        private TextView name, amount;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);

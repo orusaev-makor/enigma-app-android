@@ -44,17 +44,11 @@ import static com.example.enigmaapp.activity.fragment.SettlementFragment.setUnit
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 
 public class UnitaryFilterFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
-    private Button closeBtn;
-    private Button submitBtn;
-    private MaterialButton resetBtn;
     private static TextView dateText;
-
-    private RadioButton send;
-    private RadioButton receive;
-
-    private TextView counterpartyText;
-    private TextView currencyText;
-
+    private Button closeBtn, submitBtn;
+    private MaterialButton resetBtn;
+    private RadioButton send, receive;
+    private TextView counterpartyText, currencyText;
     private View statusSelectView;
     private SettlementViewModel settlementViewModel;
 

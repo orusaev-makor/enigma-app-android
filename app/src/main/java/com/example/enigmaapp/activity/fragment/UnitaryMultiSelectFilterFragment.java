@@ -37,8 +37,7 @@ import static com.example.enigmaapp.activity.fragment.SettlementFragment.currenc
 public class UnitaryMultiSelectFilterFragment extends Fragment {
 
     private String mFilterType;
-    private TextView titleText;
-    private TextView subtitleText;
+    private TextView titleText, subtitleText;
     private MaterialButton resetBtn;
     private Button submitBtn;
     private HashMap<String, String> params = new HashMap<>();

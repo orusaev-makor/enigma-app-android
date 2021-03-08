@@ -92,7 +92,7 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
         String text = currentNewsItem.getTitle();
 
         holder.date.setText(formattedTimeAgo);
-        holder.text.setText(text);
+        holder.title.setText(text);
 
         String[] keys = currentNewsItem.getKeywords().split(",");
         for (String k : keys) {
@@ -126,7 +126,7 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
             }
         }
 
-        holder.text.setOnClickListener(v -> {
+        holder.title.setOnClickListener(v -> {
             String webUrl = currentNewsItem.getLink();
 
             // To open in browser:
@@ -186,15 +186,13 @@ public class NewsItemAdapter extends ListAdapter<NewsItemResult, NewsItemAdapter
 
 
     public class ItemHolder extends RecyclerView.ViewHolder {
-        private TextView date;
-        private TextView text;
-        private TextView keywordsTopBorder;
+        private TextView date, title, keywordsTopBorder;
         private ChipGroup keywordsChipGroup;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.news_fragment_card_date);
-            text = itemView.findViewById(R.id.news_fragment_card_text);
+            title = itemView.findViewById(R.id.news_fragment_card_text);
             keywordsTopBorder = itemView.findViewById(R.id.news_keywords_top_border);
             keywordsChipGroup = itemView.findViewById(R.id.news_keywords_chip_group);
 

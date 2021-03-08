@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.accounts.AccountsItemResult;
 import com.example.enigmaapp.web.balance.BalanceItemResult;
 
 import java.text.DecimalFormat;
@@ -51,8 +50,8 @@ public class BalanceItemAdapter extends ListAdapter<BalanceItemResult, BalanceIt
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
         BalanceItemResult currentBalance = getItem(position);
 
-        holder.balanceName.setText(currentBalance.getName());
-        DecimalFormat decim = new DecimalFormat("#,##0.00");
+        holder.balance.setText(currentBalance.getName());
+        DecimalFormat decim = new DecimalFormat("#,##0.00000000");
 
         String currentValue = decim.format(Double.valueOf(currentBalance.getValue()));
         String LargeVal = currentValue.substring(0, currentValue.indexOf("."));
@@ -74,14 +73,12 @@ public class BalanceItemAdapter extends ListAdapter<BalanceItemResult, BalanceIt
 
     public class ItemHolder extends RecyclerView.ViewHolder {
         private ImageView balanceIcon;
-        private TextView balanceName;
-        private TextView balanceValueLarge;
-        private TextView balanceValueSmall;
+        private TextView balance, balanceValueLarge, balanceValueSmall;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
             balanceIcon = itemView.findViewById(R.id.balance_item_icon);
-            balanceName = itemView.findViewById(R.id.balance_item_name);
+            balance = itemView.findViewById(R.id.balance_item_name);
             balanceValueLarge = itemView.findViewById(R.id.balance_item_value_large);
             balanceValueSmall = itemView.findViewById(R.id.balance_item_value_small);
         }

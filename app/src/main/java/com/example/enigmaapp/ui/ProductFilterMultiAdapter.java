@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
-import com.example.enigmaapp.web.dataset.DatasetCurrency;
 import com.example.enigmaapp.web.dataset.DatasetProduct;
 
 import java.util.ArrayList;
@@ -44,13 +43,13 @@ public class ProductFilterMultiAdapter extends RecyclerView.Adapter<ProductFilte
     @Override
     public void onBindViewHolder(@NonNull ProductOptionHolder holder, int position) {
         DatasetProduct currentCurrency = products.get(position);
-        holder.textViewProductName.setText(currentCurrency.getName());
+        holder.product.setText(currentCurrency.getName());
         if (currentCurrency.getIsChecked()) {
             holder.checkedIcon.setVisibility(View.VISIBLE);
-            holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textColor));
+            holder.product.setTextColor(context.getResources().getColor(R.color.textColor));
         } else {
             holder.checkedIcon.setVisibility(View.INVISIBLE);
-            holder.textViewProductName.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
+            holder.product.setTextColor(context.getResources().getColor(R.color.textSecondaryColor));
         }
     }
 
@@ -60,12 +59,12 @@ public class ProductFilterMultiAdapter extends RecyclerView.Adapter<ProductFilte
     }
 
     public class ProductOptionHolder extends RecyclerView.ViewHolder {
-        private TextView textViewProductName;
+        private TextView product;
         private ImageView checkedIcon;
 
         public ProductOptionHolder(@NonNull View itemView) {
             super(itemView);
-            textViewProductName = itemView.findViewById(R.id.filter_option_name);
+            product = itemView.findViewById(R.id.filter_option_name);
             checkedIcon = itemView.findViewById(R.id.filter_option_checked_icon);
 
             itemView.setOnClickListener(v -> {

@@ -68,7 +68,7 @@ public class AccountsItemAdapter extends ListAdapter<AccountsItemResult, Account
         if (isFiat && cryptoCurrency != null) return;
         if (!isFiat && currency != null) return;
 
-        holder.accountName.setText(currentAccountItem.getAccountName());
+        holder.account.setText(currentAccountItem.getAccountName());
 
         String coinName = currentAccountItem.getCurrency();
          if (coinName == null) {
@@ -96,15 +96,14 @@ public class AccountsItemAdapter extends ListAdapter<AccountsItemResult, Account
     }
 
     public class ItemHolder extends RecyclerView.ViewHolder {
-        private ImageView favIcon;
-        private ImageView currencyIcon;
-        private TextView accountName;
+        private ImageView favIcon, currencyIcon;
+        private TextView account;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
             favIcon = itemView.findViewById(R.id.account_item_fav_icon);
             currencyIcon = itemView.findViewById(R.id.account_item_currency_icon);
-            accountName = itemView.findViewById(R.id.account_item_name);
+            account = itemView.findViewById(R.id.account_item_name);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();

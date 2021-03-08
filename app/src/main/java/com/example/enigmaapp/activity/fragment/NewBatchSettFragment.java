@@ -19,8 +19,7 @@ import com.example.enigmaapp.R;
 
 
 public class NewBatchSettFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-    private Button createBtn;
-    private Button closeBtn;
+    private Button createBtn, closeBtn;
     ArrayAdapter<String> counterpartyAdapter;
     ArrayAdapter<String> productAdapter;
 

@@ -21,8 +21,7 @@ import static com.example.enigmaapp.activity.UserActivity.actionBar;
 
 
 public class NewUnitarySettFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-    private Button createBtn;
-    private Button closeBtn;
+    private Button createBtn, closeBtn;
     ArrayAdapter<String> onBehalfAdapter;
     ArrayAdapter<String> typeAdapter;
     ArrayAdapter<String> currencyAdapter;

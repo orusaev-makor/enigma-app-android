@@ -77,15 +77,15 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
         });
 
         // check if show Batch ID:
-        holder.textViewBatchId.setText(currentItem.isBatch() ? "ID " + currentItem.getBatchId() : "");
-        holder.textViewBatchId.setVisibility(currentItem.isBatch() ? View.VISIBLE : View.GONE);
+        holder.batchId.setText(currentItem.isBatch() ? "ID " + currentItem.getBatchId() : "");
+        holder.batchId.setVisibility(currentItem.isBatch() ? View.VISIBLE : View.GONE);
 
-        holder.textViewProduct.setText(currentItem.getName());
-        holder.textViewCounterparty.setText(currentItem.getCounterparty());
+        holder.product.setText(currentItem.getName());
+        holder.counterparty.setText(currentItem.getCounterparty());
 
         // remove time from "sent at" and set the date:
         String date = currentItem.getDate().substring(0, currentItem.getDate().indexOf(" "));
-        holder.textViewSentAt.setText(date);
+        holder.sentAt.setText(date);
 
         // set status and it's colour:
         String status = currentItem.getStatus();
@@ -101,10 +101,10 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
             desiredColor = res.getColor(R.color.inSet);
         }
 
-        holder.textViewStatus.setTextColor(desiredColor);
-        holder.textViewStatus.setText(status);
+        holder.status.setTextColor(desiredColor);
+        holder.status.setText(status);
 
-        holder.textViewStatus.setTextColor(desiredColor);
+        holder.status.setTextColor(desiredColor);
 
         // set bullet point by status colour:
         Drawable unwrappedDrawable = ContextCompat.getDrawable(context, R.drawable.ic_bullet_point).mutate();
@@ -124,32 +124,19 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
-        private TextView textViewBatchId;
-        private TextView textViewProduct;
-        private TextView textViewCounterparty;
-        private TextView textViewSentAt;
-        private TextView textViewStatus;
-        private View bulletPoint;
-        private View details;
+        private TextView batchId, product, counterparty, sentAt, status;
+        private View bulletPoint, details;
 
         // details fields:
-        private TextView settlementBatchId;
-        private TextView settlementId;
-        private TextView side;
-        private TextView type;
-        private TextView amount;
-        private TextView wallet;
-        private TextView settledAmount;
-        private TextView openAmount;
-        private TextView counterpartyAccount;
+        private TextView settlementBatchId, settlementId, side, type, amount, wallet, settledAmount, openAmount, counterpartyAccount;
 
         public ItemHolder(View itemView) {
             super(itemView);
-            textViewBatchId = itemView.findViewById(R.id.settlement_item_id);
-            textViewProduct = itemView.findViewById(R.id.settlement_item_product);
-            textViewCounterparty = itemView.findViewById(R.id.settlement_item_counterparty);
-            textViewSentAt = itemView.findViewById(R.id.settlement_item_sent_at);
-            textViewStatus = itemView.findViewById(R.id.settlement_item_status);
+            batchId = itemView.findViewById(R.id.settlement_item_id);
+            product = itemView.findViewById(R.id.settlement_item_product);
+            counterparty = itemView.findViewById(R.id.settlement_item_counterparty);
+            sentAt = itemView.findViewById(R.id.settlement_item_sent_at);
+            status = itemView.findViewById(R.id.settlement_item_status);
             bulletPoint = itemView.findViewById(R.id.settlement_item_bullet_point);
             details = itemView.findViewById(R.id.settlement_item_expand_section);
 

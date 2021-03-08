@@ -73,24 +73,24 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.Item
             }
         });
 
-        holder.textViewProduct.setText(currentTrade.getProduct());
-        holder.textViewPrice.setText(decim.format(Double.valueOf(currentTrade.getPrice())));
+        holder.product.setText(currentTrade.getProduct());
+        holder.price.setText(decim.format(Double.valueOf(currentTrade.getPrice())));
 
         String side = currentTrade.getSide();
         if (side.equalsIgnoreCase("BUY")) {
             int buyColor = context.getResources().getColor(R.color.green);
-            holder.textViewProduct.setTextColor(buyColor);
-            holder.textViewPrice.setTextColor(buyColor);
+            holder.product.setTextColor(buyColor);
+            holder.price.setTextColor(buyColor);
         } else {
             int sellColor = context.getResources().getColor(R.color.red);
-            holder.textViewProduct.setTextColor(sellColor);
-            holder.textViewPrice.setTextColor(sellColor);
+            holder.product.setTextColor(sellColor);
+            holder.price.setTextColor(sellColor);
         }
 
-        holder.textViewDate.setText(String.valueOf(currentTrade.getDate()));
+        holder.date.setText(String.valueOf(currentTrade.getDate()));
 
         String quantity = "QTY - " + decim.format(Double.valueOf(currentTrade.getQuantity()));
-        holder.textViewQuantity.setText(quantity);
+        holder.quantity.setText(quantity);
     }
 
     @Override
@@ -99,25 +99,18 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.Item
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
-        private TextView textViewProduct;
-        private TextView textViewPrice;
-        private TextView textViewDate;
-        private TextView textViewQuantity;
+        private TextView product, price, date, quantity;
         private View details;
 
         // details fields:
-        private TextView tradeId;
-        private TextView batchId;
-        private TextView executionType;
-        private TextView status;
-        private TextView nominal;
+        private TextView tradeId, batchId, executionType, status, nominal;
 
         public ItemHolder(View itemView) {
             super(itemView);
-            textViewProduct = itemView.findViewById(R.id.trade_item_product);
-            textViewPrice = itemView.findViewById(R.id.trade_item_price);
-            textViewDate = itemView.findViewById(R.id.trade_item_date);
-            textViewQuantity = itemView.findViewById(R.id.trade_item_quantity);
+            product = itemView.findViewById(R.id.trade_item_product);
+            price = itemView.findViewById(R.id.trade_item_price);
+            date = itemView.findViewById(R.id.trade_item_date);
+            quantity = itemView.findViewById(R.id.trade_item_quantity);
             details = itemView.findViewById(R.id.trade_item_expand_section);
 
             // details fields:
