@@ -36,8 +36,8 @@ import static com.example.enigmaapp.activity.fragment.SettlementFragment.setBatc
 
 public class BatchFilterFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
 
-    private Button closeBtn, submitBtn;
-    private MaterialButton resetBtn;
+    private Button closeBtn;
+    private MaterialButton resetBtn, submitBtn;
 
     private TextView productText, counterpartyText;
 
