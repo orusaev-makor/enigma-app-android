@@ -187,8 +187,13 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.app_bar_logout:
                 // TODO: add logout process
-                LoginFragment loginFragment = new LoginFragment();
-                ft.replace(R.id.frame_layout, loginFragment, "Login");
+//                LoginFragment loginFragment = new LoginFragment();
+//                ft.replace(R.id.frame_layout, loginFragment, "Login");
+
+                // start previous activity
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
 
             default:
                 break;

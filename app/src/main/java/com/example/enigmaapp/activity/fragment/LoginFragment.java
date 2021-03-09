@@ -20,13 +20,6 @@ import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.LoginViewModel;
 
 public class LoginFragment extends Fragment {
-    private static FragmentActivity myContext;
-
-    @Override
-    public void onAttach(Activity activity) {
-        myContext = (FragmentActivity) activity;
-        super.onAttach(activity);
-    }
 
     public LoginFragment() {
         // Required empty public constructor

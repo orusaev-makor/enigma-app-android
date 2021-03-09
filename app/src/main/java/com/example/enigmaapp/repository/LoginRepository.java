@@ -87,7 +87,7 @@ public class LoginRepository {
         Intent intent = new Intent(application.getBaseContext(), UserActivity.class);
         intent.putExtra("usernameExtra", username);
         intent.putExtra("tokenExtra", token);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         application.getBaseContext().startActivity(intent);
     }
 
