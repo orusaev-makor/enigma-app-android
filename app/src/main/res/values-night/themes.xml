@@ -5,8 +5,12 @@
         <item name="colorPrimary">@color/white</item>
 <!--        <item name="colorPrimaryVariant">#0D2757</item>-->
 <!--        <item name="colorPrimaryVariant">#1A1A1A</item>-->
-        <item name="colorOnPrimary">#0D2757</item>
-<!--        <item name="colorOnPrimary">#262626</item>-->
+
+
+        <!-- effects title of calendar: -->
+<!--        <item name="colorOnPrimary">#0D2757</item>-->
+        <item name="colorOnPrimary">#262626</item>
+
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/textHintColor</item>
         <item name="colorOnSecondary">@color/black</item>

@@ -46,8 +46,8 @@ import static com.example.enigmaapp.activity.fragment.TradeSelectFilterFragment.
 
 public class TradeFilterFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
 
-    private Button closeBtn, submitBtn;
-    private MaterialButton resetBtn;
+    private Button closeBtn;
+    private MaterialButton resetBtn, submitBtn;
     private static TextView dateText;
 
     private EditText tradeIdTextEdit;
@@ -75,8 +75,8 @@ public class TradeFilterFragment extends Fragment implements CompoundButton.OnCh
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(TradeViewModel.class);
 
-        tradeIdTextEdit = v.findViewById(R.id.filter_trade_trade_id_edit);
-        tradeIdTextEdit.setText(prefs.getString("tradeIdTradeFilter", ""));
+//        tradeIdTextEdit = v.findViewById(R.id.filter_trade_trade_id_edit);
+//        tradeIdTextEdit.setText(prefs.getString("tradeIdTradeFilter", ""));
 
         productText = v.findViewById(R.id.filter_trade_product_edit);
         productText.setText(prefs.getString("productTradeFilter", ""));
@@ -93,7 +93,7 @@ public class TradeFilterFragment extends Fragment implements CompoundButton.OnCh
         // Submit "Filter" and go back to "Trade" screen
         submitBtn = v.findViewById(R.id.filter_trade_submit_btn);
         submitBtn.setOnClickListener(v19 -> {
-            setTradeIdParam();
+//            setTradeIdParam();
             sendDataToPrevPg();
             setTradeParams();
         });
@@ -135,16 +135,16 @@ public class TradeFilterFragment extends Fragment implements CompoundButton.OnCh
         return v;
     }
 
-    private void setTradeIdParam() {
-        if (tradeIdTextEdit.getText().toString().equals("")) {
-            enteredTradeId = null;
-            prefEditor.putString("tradeIdTradeFilter", "");
-        } else {
-            enteredTradeId = tradeIdTextEdit.getText().toString();
-            prefEditor.putString("tradeIdTradeFilter", tradeIdTextEdit.getText().toString());
-        }
-        prefEditor.apply();
-    }
+//    private void setTradeIdParam() {
+//        if (tradeIdTextEdit.getText().toString().equals("")) {
+//            enteredTradeId = null;
+//            prefEditor.putString("tradeIdTradeFilter", "");
+//        } else {
+//            enteredTradeId = tradeIdTextEdit.getText().toString();
+//            prefEditor.putString("tradeIdTradeFilter", tradeIdTextEdit.getText().toString());
+//        }
+//        prefEditor.apply();
+//    }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
