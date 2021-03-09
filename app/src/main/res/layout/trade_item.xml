@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<?xml version="1.0" encoding="utf-8"?><!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
 <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
 <!--    android:id="@+id/trade_fragment_card_view"-->
 <!--    android:layout_width="match_parent"-->
@@ -7,29 +6,28 @@
 <!--    android:background="@drawable/trade_top_border"-->
 <!--    app:cardElevation="0.5dp">-->
 
-<com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:strokeColor="@color/cardBorder"
-    app:strokeWidth="0.5dp"
     app:cardCornerRadius="0dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    app:strokeColor="@color/cardBorder"
+    app:strokeWidth="0.5dp">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@drawable/trade_top_border"
-        android:scaleType="fitXY"
-        tools:ignore="ContentDescription" />
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="10dp"-->
+<!--        android:background="@drawable/trade_top_border"-->
+<!--        android:scaleType="fitXY"-->
+<!--        tools:ignore="ContentDescription" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:orientation="vertical"
-        android:paddingLeft="30dp"
-        android:paddingTop="10sp"
+        android:paddingTop="16sp"
         android:paddingRight="30dp">
 
         <LinearLayout
@@ -38,20 +36,35 @@
             android:orientation="horizontal"
             android:weightSum="1">
 
-            <TextView
-                android:id="@+id/trade_item_product"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="BTC-USD"
-                android:textColor="@color/red"
-                android:textSize="26sp" />
+                android:paddingLeft="10dp">
+
+                <View
+                    android:id="@+id/trade_item_bullet_point"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_bullet_point" />
+
+                <TextView
+                    android:id="@+id/trade_item_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu_mono_regular"
+                    android:text="BTC-USD"
+                    android:textColor="@color/red"
+                    android:textSize="26sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/trade_item_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
+                android:fontFamily="@font/ubuntu_mono_regular"
                 android:gravity="end"
                 android:text="10'000.00"
                 android:textColor="@color/red"
@@ -63,40 +76,41 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10sp"
             android:orientation="horizontal"
+            android:paddingLeft="30dp"
             android:weightSum="1">
 
             <TextView
                 android:id="@+id/trade_item_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_light"
                 android:layout_weight="0.5"
+                android:fontFamily="@font/ubuntu_mono_regular"
                 android:text="2020-10-05"
                 android:textColor="@color/textColorDark"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/trade_item_quantity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_light"
                 android:layout_weight="0.5"
+                android:fontFamily="@font/ubuntu_mono_regular"
                 android:gravity="end"
                 android:text="QTY - 1.00"
                 android:textColor="@color/textColorDark"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <include
             android:id="@+id/trade_item_expand_section"
-            android:visibility="gone"
             layout="@layout/trade_item_expand"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
 
 
-<!--    </androidx.cardview.widget.CardView>-->
+    <!--    </androidx.cardview.widget.CardView>-->

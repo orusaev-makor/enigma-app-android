@@ -61,7 +61,7 @@ public class BalanceFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_balance, container, false);
 
-        final Typeface tfRegular = ResourcesCompat.getFont(getContext(), R.font.poppins_regular);
+        final Typeface tfRegular = ResourcesCompat.getFont(getContext(), R.font.ubuntu_mono_regular);
 
         LoginViewModel loginViewModel = new ViewModelProvider(requireActivity(),
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
@@ -145,12 +145,14 @@ public class BalanceFragment extends Fragment {
 
             @Override
             public void onValueSelected(Entry e, Highlight h) {
+                final Typeface tfMedium = ResourcesCompat.getFont(getContext(), R.font.ubuntu_medium);
                 PieEntry pe = (PieEntry) e;
                 int index = (Integer) e.getData();
                 int currentColor = dataSet.getColor(index);
 
                 coinNameText.setText(pe.getLabel());
                 coinNameText.setTextColor(currentColor);
+                coinNameText.setTypeface(tfMedium);
                 int id = getContext().getResources().getIdentifier("com.example.enigmaapp:drawable/" + pe.getLabel().toLowerCase(), null, null);
                 coinIcon.setImageResource(id);
 

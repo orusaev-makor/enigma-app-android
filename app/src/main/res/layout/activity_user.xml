@@ -17,12 +17,11 @@
         android:layout_height="match_parent" />
 
     <com.google.android.material.navigation.NavigationView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/nav_view"
         app:menu="@menu/drawer_menu"
         android:background="@color/colorPrimaryDark"
-
         app:headerLayout="@layout/menu_header"
         android:fitsSystemWindows="true"
         app:itemTextAppearance="@style/NavigationDrawerStyle"

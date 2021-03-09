@@ -2,12 +2,16 @@ package com.example.enigmaapp.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.enigmaapp.R;
@@ -56,8 +60,6 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.Item
 
         if (isExpanded) {
             previousTradeExpandedPosition = position;
-            holder.tradeId.setText(currentTrade.getTradeId());
-            holder.batchId.setText((currentTrade.getBatchId() != null) ? currentTrade.getBatchId() : "-");
             holder.executionType.setText(currentTrade.getExecutionType());
             holder.status.setText(currentTrade.getStatus());
             holder.status.setTextColor(desiredColor);
@@ -91,6 +93,18 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.Item
 
         String quantity = "QTY - " + decim.format(Double.valueOf(currentTrade.getQuantity()));
         holder.quantity.setText(quantity);
+
+
+        // set bullet point by status colour:
+        Drawable unwrappedDrawable = ContextCompat.getDrawable(context, R.drawable.ic_bullet_point).mutate();
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, desiredColor);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            holder.bulletPoint.setBackground(wrappedDrawable);
+        } else {
+            holder.bulletPoint.setBackgroundDrawable(wrappedDrawable);
+        }
     }
 
     @Override
@@ -100,7 +114,7 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.Item
 
     class ItemHolder extends RecyclerView.ViewHolder {
         private TextView product, price, date, quantity;
-        private View details;
+        private View bulletPoint, details;
 
         // details fields:
         private TextView tradeId, batchId, executionType, status, nominal;
@@ -111,11 +125,10 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.Item
             price = itemView.findViewById(R.id.trade_item_price);
             date = itemView.findViewById(R.id.trade_item_date);
             quantity = itemView.findViewById(R.id.trade_item_quantity);
+            bulletPoint = itemView.findViewById(R.id.trade_item_bullet_point);
             details = itemView.findViewById(R.id.trade_item_expand_section);
 
             // details fields:
-            tradeId = details.findViewById(R.id.details_trade_id);
-            batchId = details.findViewById(R.id.details_trade_batch_id);
             executionType = details.findViewById(R.id.details_trade_execution_type);
             status = details.findViewById(R.id.details_trade_status);
             nominal = details.findViewById(R.id.details_trade_nominal);

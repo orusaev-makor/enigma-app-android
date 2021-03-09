@@ -36,6 +36,7 @@
         <item name="color">@color/textColor</item>
     </style>
 
+
     <style name="Theme.EnigmaApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopOverlay" parent="Theme.AppCompat.Light" />
