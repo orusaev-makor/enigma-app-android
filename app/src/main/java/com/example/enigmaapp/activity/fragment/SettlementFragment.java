@@ -341,13 +341,11 @@ public class SettlementFragment extends Fragment {
     private void setUnselectedTextView(TextView textView) {
         textView.setTextColor(getResources().getColor(R.color.textSecondaryColor));
         textView.setBackground(getResources().getDrawable(R.drawable.underline_unselected_tab));
-        textView.setTypeface(ResourcesCompat.getFont(getContext(), R.font.poppins_regular));
     }
 
     private void setSelectedTextView(TextView textView) {
         textView.setTextColor(getResources().getColor(R.color.textColor));
         textView.setBackground(getResources().getDrawable(R.drawable.underline_selected_tab));
-        textView.setTypeface(ResourcesCompat.getFont(getContext(), R.font.poppins_semi_bold));
     }
 
     private void openSettlementScreen(Boolean isBatch) {

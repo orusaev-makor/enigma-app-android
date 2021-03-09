@@ -45,8 +45,8 @@ import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTod
 
 public class UnitaryFilterFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
     private static TextView dateText;
-    private Button closeBtn, submitBtn;
-    private MaterialButton resetBtn;
+    private Button closeBtn;
+    private MaterialButton resetBtn, submitBtn;
     private RadioButton send, receive;
     private TextView counterpartyText, currencyText;
     private View statusSelectView;
@@ -220,13 +220,13 @@ public class UnitaryFilterFragment extends Fragment implements CompoundButton.On
         if (side.equals("send")) {
             send.setTextColor(getContext().getResources().getColor(R.color.textColor));
             send.setButtonTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.textColor)));
-            receive.setTextColor(getContext().getResources().getColor(R.color.textSecondaryColor));
-            receive.setButtonTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.textSecondaryColor)));
+            receive.setTextColor(getContext().getResources().getColor(R.color.textHintColor));
+            receive.setButtonTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.textHintColor)));
         } else {
             receive.setTextColor(getContext().getResources().getColor(R.color.textColor));
             receive.setButtonTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.textColor)));
-            send.setTextColor(getContext().getResources().getColor(R.color.textSecondaryColor));
-            send.setButtonTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.textSecondaryColor)));
+            send.setTextColor(getContext().getResources().getColor(R.color.textHintColor));
+            send.setButtonTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.textHintColor)));
         }
     }
 

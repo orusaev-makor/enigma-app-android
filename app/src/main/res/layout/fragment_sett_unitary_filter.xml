@@ -20,16 +20,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="16sp"
             android:weightSum="1">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.9"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/ubuntu_regular"
                 android:text="Settlement Filter"
                 android:textColor="@color/textColor"
-                android:textSize="25dp" />
+                android:textSize="25sp" />
 
             <Button
                 android:id="@+id/close_btn"
@@ -44,10 +45,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:text="Unitary"
+            android:fontFamily="@font/ubuntu_regular"
+            android:layout_marginTop="11dp"
+            android:text="@string/unitary"
             android:textColor="@color/textHintColor"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
 
         <TextView
@@ -60,28 +62,14 @@
             android:drawableRight="@drawable/ic_date_picker"
             android:drawableTint="@color/textColor"
             android:ems="10"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/ubuntu_regular"
             android:gravity="left|center"
             android:hint="03 Dec 2020"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="@color/textColor"
-            android:textColorHint="@color/textSecondaryColor"
+            android:textColorHint="@color/textHintColor"
             android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/filter_unitary_input_id"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/edit_text_border"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/textColor"
-            android:hint="Input ID"
-            android:focusable="false"
-            android:paddingLeft="10dp"
-            android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/filter_unitary_counterparty"
@@ -93,13 +81,13 @@
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:textColor="@color/textColor"
             android:drawableTint="@color/textColor"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/ubuntu_regular"
             android:gravity="left|center"
             android:hint="@string/counterparty"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_gravity="start|center"
-            android:textColorHint="@color/textSecondaryColor"
+            android:textColorHint="@color/textHintColor"
             android:textSize="16dp" />
 
         <TextView
@@ -112,19 +100,19 @@
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
             android:textColor="@color/textColor"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/ubuntu_regular"
             android:gravity="left|center"
             android:hint="Currencies"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:textColorHint="@color/textSecondaryColor"
+            android:textColorHint="@color/textHintColor"
             android:textSize="16dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/ubuntu_regular"
             android:text="Direction"
             android:textColor="@color/textColor"
             android:textSize="16dp" />
@@ -141,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:buttonTint="@color/textSecondaryColor"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/ubuntu_regular"
                 android:text="To Send"
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16dp" />
@@ -151,10 +139,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:buttonTint="@color/textSecondaryColor"
-                android:fontFamily="@font/poppins_regular"
+                android:buttonTint="@color/textHintColor"
+                android:fontFamily="@font/ubuntu_regular"
                 android:text="To Receive"
-                android:textColor="@color/textSecondaryColor"
+                android:textColor="@color/textHintColor"
                 android:textSize="16dp" />
 
         </RadioGroup>
@@ -172,6 +160,7 @@
             android:layout_marginBottom="40dp"
             android:weightSum="1">
 
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/filter_settlement_reset_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -183,20 +172,29 @@
                 android:textColor="@color/textColor"
                 android:textSize="15sp"
                 app:backgroundTint="@android:color/transparent"
-                app:cornerRadius="6dp"
+                app:cornerRadius="0dp"
                 app:rippleColor="#33AAAAAA"
                 app:strokeColor="@color/textColor"
+                android:textAllCaps="false"
                 app:strokeWidth="1dp" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/filter_settlement_submit_btn"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="0dp"
-                android:layout_height="37sp"
-                android:layout_margin="0.5dp"
-                android:layout_marginLeft="4dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="0.5"
-                android:background="@drawable/back_btn_border"
-                android:text="Filter" />
+                android:text="@string/filter"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:backgroundTint="@color/actionBtnColor"
+                app:cornerRadius="0dp"
+                app:rippleColor="#33AAAAAA"
+                android:textAllCaps="false"
+                android:fontFamily="@font/ubuntu_medium"
+                app:strokeWidth="0dp" />
 
         </LinearLayout>
 

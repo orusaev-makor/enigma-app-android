@@ -62,6 +62,7 @@
             app:cornerRadius="0dp"
             app:rippleColor="#33AAAAAA"
             app:strokeColor="@color/textColor"
+            android:textAllCaps="false"
             android:fontFamily="@font/ubuntu_regular"
             app:strokeWidth="1dp" />
 

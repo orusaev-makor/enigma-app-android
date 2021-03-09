@@ -64,6 +64,7 @@
                 app:rippleColor="#33AAAAAA"
                 app:strokeColor="@color/textColor"
                 android:fontFamily="@font/ubuntu_regular"
+                android:textAllCaps="false"
                 app:strokeWidth="1dp" />
 
 <!--            <Button-->
