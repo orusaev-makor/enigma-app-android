@@ -10,32 +10,21 @@
     app:strokeColor="@color/cardBorder"
     app:strokeWidth="1dp">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@drawable/trade_top_border"
-        android:contentDescription="TODO"
-        android:scaleType="fitXY"
-        tools:ignore="ContentDescription" />
+    <!--    <ImageView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="10dp"-->
+    <!--        android:background="@drawable/trade_top_border"-->
+    <!--        android:contentDescription="TODO"-->
+    <!--        android:scaleType="fitXY"-->
+    <!--        tools:ignore="ContentDescription" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:orientation="vertical"
-        android:paddingTop="5sp"
+        android:paddingTop="16sp"
         android:paddingRight="30dp">
-
-        <TextView
-            android:id="@+id/settlement_item_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_light"
-            android:text="ID 380"
-            android:paddingLeft="30dp"
-            android:visibility="visible"
-            android:textColor="@color/textColorDark"
-            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,8 +35,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:layout_weight="0.5">
+                android:layout_weight="0.5"
+                android:paddingLeft="10dp">
 
                 <View
                     android:id="@+id/settlement_item_bullet_point"
@@ -56,66 +45,70 @@
                     android:layout_gravity="center"
                     android:background="@drawable/ic_bullet_point" />
 
-            <TextView
-                android:id="@+id/settlement_item_product"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_light"
-                android:text="BTC-USD"
-                android:textColor="@color/textColor"
-                android:textSize="22sp" />
+                <TextView
+                    android:id="@+id/settlement_item_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu_mono_regular"
+                    android:text="BTC-USD"
+                    android:textColor="@color/textColor"
+                    android:textSize="26sp" />
+
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/settlement_item_counterparty"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="end"
-                android:text="72M LLC Brevy"
-                android:textColor="@color/textColor"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5sp"
-            android:paddingLeft="30dp"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <TextView
-                android:id="@+id/settlement_item_sent_at"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:fontFamily="@font/poppins_light"
-                android:text="2020-10-05"
-                android:textColor="@color/textColorDark"
-                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/settlement_item_status"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/ubuntu_mono_regular"
                 android:gravity="end"
                 android:text="PENDING"
                 android:textAllCaps="true"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5sp"
+            android:orientation="horizontal"
+            android:paddingLeft="30dp"
+            android:paddingBottom="10dp"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/settlement_item_sent_at"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:fontFamily="@font/ubuntu_mono_regular"
+                android:text="2020-10-05"
+                android:textColor="@color/textColorDark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/settlement_item_counterparty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:fontFamily="@font/ubuntu_mono_regular"
+                android:gravity="end"
+                android:text="72M LLC Brevy"
+                android:textColor="@color/textColor"
+                android:textSize="21sp" />
 
         </LinearLayout>
 
         <include
             android:id="@+id/settlement_item_expand_section"
-            android:visibility="gone"
             layout="@layout/settlement_item_expand"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="-10dp"
-            android:paddingRight="-10dp" />
+            android:paddingRight="-10dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 

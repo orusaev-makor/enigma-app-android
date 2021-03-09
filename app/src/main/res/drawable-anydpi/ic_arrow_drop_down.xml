@@ -10,7 +10,7 @@
       android:translateX="-3"
       android:translateY="-3">
     <path
-        android:fillColor="@color/textSecondaryColor"
+        android:fillColor="@color/textHintColor"
         android:pathData="M7,10l5,5 5,-5z"/>
   </group>
 </vector>

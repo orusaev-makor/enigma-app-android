@@ -77,8 +77,8 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
         });
 
         // check if show Batch ID:
-        holder.batchId.setText(currentItem.isBatch() ? "ID " + currentItem.getBatchId() : "");
-        holder.batchId.setVisibility(currentItem.isBatch() ? View.VISIBLE : View.GONE);
+//        holder.batchId.setText(currentItem.isBatch() ? "ID " + currentItem.getBatchId() : "");
+//        holder.batchId.setVisibility(currentItem.isBatch() ? View.VISIBLE : View.GONE);
 
         holder.product.setText(currentItem.getName());
         holder.counterparty.setText(currentItem.getCounterparty());
@@ -132,7 +132,7 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
 
         public ItemHolder(View itemView) {
             super(itemView);
-            batchId = itemView.findViewById(R.id.settlement_item_id);
+//            batchId = itemView.findViewById(R.id.settlement_item_id);
             product = itemView.findViewById(R.id.settlement_item_product);
             counterparty = itemView.findViewById(R.id.settlement_item_counterparty);
             sentAt = itemView.findViewById(R.id.settlement_item_sent_at);

@@ -28,8 +28,7 @@ public class BatchSelectFilterFragment extends Fragment {
 
     private String mFilterType;
     private TextView titleText, subtitleText;
-    private MaterialButton resetBtn;
-    private Button submitBtn;
+    private MaterialButton resetBtn, submitBtn;
     private SettlementViewModel settlementViewModel;
 
     public static int lastBatchProductPos = -1;

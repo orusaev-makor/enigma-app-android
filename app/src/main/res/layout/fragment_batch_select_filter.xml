@@ -59,21 +59,40 @@
             android:textColor="@color/textColor"
             android:textSize="15sp"
             app:backgroundTint="@android:color/transparent"
-            app:cornerRadius="6dp"
+            app:cornerRadius="0dp"
             app:rippleColor="#33AAAAAA"
             app:strokeColor="@color/textColor"
+            android:fontFamily="@font/ubuntu_regular"
             app:strokeWidth="1dp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/batch_select_submit_btn"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="0dp"
-            android:layout_height="37sp"
-            android:layout_margin="0.5dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
             android:layout_weight="0.5"
-            android:background="@drawable/back_btn_border"
-            android:text="@string/add" />
+            android:text="@string/add"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            app:backgroundTint="@color/actionBtnColor"
+            app:cornerRadius="0dp"
+            app:rippleColor="#33AAAAAA"
+            android:textAllCaps="false"
+            android:fontFamily="@font/ubuntu_medium"
+            app:strokeWidth="0dp" />
+
+<!--        <Button-->
+<!--            android:id="@+id/batch_select_submit_btn"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="37sp"-->
+<!--            android:layout_margin="0.5dp"-->
+<!--            android:layout_marginStart="4dp"-->
+<!--            android:layout_marginLeft="4dp"-->
+<!--            android:layout_weight="0.5"-->
+<!--            android:background="@drawable/back_btn_border"-->
+<!--            android:text="@string/add" />-->
 
     </LinearLayout>
 
