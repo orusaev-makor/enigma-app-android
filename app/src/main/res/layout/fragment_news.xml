@@ -8,6 +8,7 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
     tools:context=".activity.fragment.NewsFragment">
 
         <TextView
@@ -16,7 +17,8 @@
             android:layout_height="wrap_content"
             android:text="@string/news"
             android:layout_marginTop="75dp"
-            android:fontFamily="@font/poppins_regular"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/ubuntu_regular"
             android:textColor="@color/textColor"
             android:textSize="30sp" />
 
@@ -24,8 +26,9 @@
             android:id="@+id/news_fragment_filters_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
             android:text="@string/filters"
-            android:layout_marginTop="6dp"
+            android:fontFamily="@font/ubuntu_light"
             android:textColor="@color/textColor"
             android:textSize="15sp" />
 
@@ -34,9 +37,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="No filters added"
-        android:fontFamily="@font/poppins_light"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/ubuntu_light"
         android:textSize="13sp"
-        android:textColor="@color/textColor"
+        android:textColor="@color/textHintColor"
         />
 
         <com.google.android.material.chip.ChipGroup
@@ -56,7 +60,7 @@
                 app:chipIconTint="@color/textColor"
                 app:chipCornerRadius="3dp"
                 android:textColor="@color/textColor"
-                app:chipBackgroundColor="@color/colorPrimaryDark"
+                app:chipBackgroundColor="@color/colorPrimary"
                 app:chipStrokeColor="@color/navy"
                 app:chipStrokeWidth="1dp" />
 

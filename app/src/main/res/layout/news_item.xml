@@ -12,7 +12,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
@@ -27,20 +26,21 @@
             android:id="@+id/news_fragment_card_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/ubuntu_medium"
             android:text="Now"
-            android:textColor="@color/red"
-            android:textSize="15sp" />
+            android:textColor="@color/newsTime"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/news_fragment_card_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/ubuntu_regular"
             android:text="In this week's issue, we look at volume and open interest trends on retail spot and futures market, examine the recent regulatory actions against derivatives venues, and assess the implications for BTC in the medium-term."
             android:textColor="@color/textColor"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/news_keywords_top_border"

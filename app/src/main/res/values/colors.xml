@@ -69,4 +69,7 @@
     <!--    Filter : -->
     <color name="check">#0569CD</color>
 
+    <!--    News : -->
+    <color name="newsTime">#0396E6</color>
+
 </resources>
