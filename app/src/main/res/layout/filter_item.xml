@@ -10,20 +10,21 @@
     app:strokeColor="@color/cardBorder"
     app:strokeWidth="0.5dp">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@drawable/trade_top_border"
-        android:scaleType="fitXY"
-        tools:ignore="ContentDescription" />
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="10dp"-->
+<!--        android:background="@drawable/trade_top_border"-->
+<!--        android:scaleType="fitXY"-->
+<!--        tools:ignore="ContentDescription" />-->
 
     <TextView
         android:id="@+id/filter_option_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:drawableTint="@color/check"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/edit_text_border"
         android:text="Filter option name"
+        android:fontFamily="@font/ubuntu_regular"
         android:gravity="left|center"
         android:textColor="@color/textSecondaryColor"
         android:paddingLeft="30dp"

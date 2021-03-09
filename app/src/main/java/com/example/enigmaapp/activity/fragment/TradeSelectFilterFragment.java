@@ -32,8 +32,8 @@ import static com.example.enigmaapp.activity.fragment.TradeFragment.selectedProd
 public class TradeSelectFilterFragment extends Fragment {
     private String mFilterType;
     private TextView titleText, subtitleText;
-    private MaterialButton resetBtn;
-    private Button submitBtn;
+    private MaterialButton resetBtn, submitBtn;
+//    private Button submitBtn;
     private TradeViewModel tradeViewModel;
 
     public static int lastTradeProductPos = -1;
