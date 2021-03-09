@@ -15,7 +15,7 @@
             android:id="@+id/toolBar"
             android:fitsSystemWindows="true"
             app:theme="@style/backArrowTheme"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             app:titleTextColor="@color/textColor"
             app:popupTheme="@style/Theme.EnigmaApp.AppBarOverlay"/>
 

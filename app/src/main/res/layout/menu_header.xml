@@ -6,19 +6,10 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-
-    <ImageView
-        android:id="@+id/ivVectorImage"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/ic_enigma_logo_with_writing" />
-
     <androidx.cardview.widget.CardView
         android:layout_width="41dp"
         android:layout_height="45dp"
         android:layout_gravity="center"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
         android:elevation="0dp"
         android:backgroundTint="@color/avatarBgc"
@@ -38,7 +29,7 @@
         android:text="Client Name"
         android:layout_gravity="center"
         android:textColor="@color/textColor"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="@font/ubuntu_medium"
         android:textSize="14sp"
         android:layout_marginTop="10dp" />
 

@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/ubuntu_regular"
             android:text="Hello, Client"
             android:textColor="@color/textColor"
             android:textSize="30sp" />
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/poppins_semi_bold"
+            android:fontFamily="@font/ubuntu_regular"
             android:text="@string/my_balance"
             android:textColor="@color/textColor"
             android:textSize="18sp" />
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/poppins_semi_bold"
+                android:fontFamily="@font/ubuntu_regular"
                 android:text="@string/my_cryptocurrency"
                 android:textColor="@color/textColor"
                 android:textSize="18sp"

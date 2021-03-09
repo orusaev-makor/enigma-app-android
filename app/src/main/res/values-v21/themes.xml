@@ -11,12 +11,13 @@
         <item name="colorSecondaryVariant">@color/textColorDark</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:dialogTheme">@style/MyDialogTheme</item>
         <item name="android:datePickerDialogTheme">@style/MyDialogTheme</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">

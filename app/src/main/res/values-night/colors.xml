@@ -3,8 +3,8 @@
 
 <!--    <color name="colorPrimary">#0D2757</color>-->
     <color name="colorPrimary">#262626</color>
-<!--    <color name="colorSecondary">#0D2757</color>-->
-    <color name="colorSecondary">#212121</color>
+    <color name="colorSecondary">#0D2757</color>
+<!--    <color name="colorSecondary">#212121</color>-->
 <!--    <color name="colorPrimaryDark">#061839</color>-->
     <color name="colorPrimaryDark">#1A1A1A</color>
     <color name="colorAccent">#80FFFFFF</color>
@@ -13,6 +13,10 @@
     <color name="textColorDark">#B6B6B6</color>
 <!--    <color name="textHintColor">#E9EAEB</color>-->
     <color name="textHintColor">#B6B6B6</color>
+
+    <color name="colorPrimaryVariant">#1A1A1A</color>
+
+    <color name="actionBtnColor">#0396E6</color>
 
     <!--    Trade & Settlement : -->
     <color name="textSecondaryColor">#80FFFFFF</color>
@@ -26,7 +30,8 @@
     <!--    Borders : -->
     <color name="cardBorder">#B3DEDFE3</color>
     <color name="cardBorderNoDarkTheme">@color/colorPrimaryDark</color>
-    <color name="dropDownItemBorder">#0D2757</color>
+<!--    <color name="dropDownItemBorder">#0D2757</color>-->
+    <color name="dropDownItemBorder">#262626</color>
 
     <!--    Menu : -->
     <color name="avatarBgc">#E9EAEB</color>

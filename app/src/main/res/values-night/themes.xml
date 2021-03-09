@@ -3,8 +3,10 @@
     <style name="Theme.EnigmaApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">#0D2757</item>
+<!--        <item name="colorPrimaryVariant">#0D2757</item>-->
+<!--        <item name="colorPrimaryVariant">#1A1A1A</item>-->
         <item name="colorOnPrimary">#0D2757</item>
+<!--        <item name="colorOnPrimary">#262626</item>-->
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/textHintColor</item>
         <item name="colorOnSecondary">@color/black</item>
@@ -13,10 +15,11 @@
         <item name="colorSurface">@color/colorPrimaryDark</item>
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
 </resources>

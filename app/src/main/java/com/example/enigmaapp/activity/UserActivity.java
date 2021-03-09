@@ -13,12 +13,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.activity.fragment.AccountsFragment;
@@ -59,6 +61,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         actionBar = UserActivity.this.getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
 
         mDrawerLayout = findViewById(R.id.drawerLayout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
@@ -92,6 +95,16 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
             ft.replace(R.id.frame_layout, fragment, "Balance").commit();
         }
     }
+
+    // hide soft keyboard on touch outside EditText
+    @Override
+    public void onUserInteraction() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
 //
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

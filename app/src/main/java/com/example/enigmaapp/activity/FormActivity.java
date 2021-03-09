@@ -3,9 +3,11 @@ package com.example.enigmaapp.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.enigmaapp.R;
 import com.example.enigmaapp.activity.fragment.BatchFilterFragment;
@@ -27,6 +29,15 @@ public class FormActivity extends AppCompatActivity {
         }
 
         setCurrentForm(formType);
+    }
+
+    // hide soft keyboard on touch outside EditText
+    @Override
+    public void onUserInteraction() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
     private void setCurrentForm(String formType) {

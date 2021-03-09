@@ -130,8 +130,10 @@
                 android:layout_marginRight="15dp"
                 android:text="@string/sign_in"
                 android:fontFamily="@font/ubuntu_medium"
-                android:textColor="@color/colorSecondary"
-                app:backgroundTint="@color/textColor" />
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/actionBtnColor" />
 
         </LinearLayout>
 
