@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/ubuntu_regular"
         android:text="@string/statistics"
         android:textColor="@color/textColor"
         android:textSize="30sp" />
@@ -46,9 +46,10 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
                 android:checked="true"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Monthly"
+                android:fontFamily="@font/ubuntu_regular"
+                android:text="@string/monthly"
                 android:textColor="@color/textColor"
+                android:textAllCaps="false"
                 android:textSize="12sp" />
 
             <Button
@@ -57,9 +58,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Quarterly"
+                android:fontFamily="@font/ubuntu_regular"
+                android:text="@string/quarterly"
                 android:textColor="@color/textColor"
+                android:textAllCaps="false"
                 android:textSize="12sp" />
 
             <Button
@@ -68,9 +70,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/statisticsToggleBGC"
-                android:fontFamily="@font/poppins_regular"
-                android:text="Yearly"
+                android:fontFamily="@font/ubuntu_regular"
+                android:text="@string/yearly"
                 android:textColor="@color/textColor"
+                android:textAllCaps="false"
                 android:textSize="12sp" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 

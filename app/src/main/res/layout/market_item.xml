@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:weightSum="1">
 
         <LinearLayout
@@ -22,6 +22,8 @@
             android:layout_weight="0.2"
             android:background="#315D9E"
             android:gravity="center"
+            android:paddingTop="10sp"
+            android:paddingBottom="12sp"
             android:orientation="vertical">
 
             <ImageView
@@ -33,7 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semi_bold"
+                android:fontFamily="@font/ubuntu_medium"
                 android:text="BTC"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -49,13 +51,14 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:paddingTop="10sp"
+            android:paddingBottom="12sp"
             android:layout_weight="0.2"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_arrow_up"
                 app:tint="@color/green" />
@@ -64,10 +67,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:fontFamily="@font/poppins_semi_bold"
+                android:fontFamily="@font/ubuntu_mono_regular"
                 android:text="+2.4%"
                 android:textColor="@color/green"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>

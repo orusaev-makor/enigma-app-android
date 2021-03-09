@@ -25,7 +25,7 @@
     <color name="requestIncreaseBGC">#1A8B93B4</color>
 
     <!--    Statistics : -->
-    <color name="statisticsToggleBGC">#50FFFFFF</color>
+<!--    <color name="statisticsToggleBGC">#50FFFFFF</color>-->
 
     <!--    Borders : -->
     <color name="cardBorder">#212121</color>

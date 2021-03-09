@@ -128,5 +128,8 @@
     <string name="pending">Pending</string>
     <string name="settled">Settled</string>
     <string name="in_sett">In Sett</string>
+    <string name="yearly">Yearly</string>
+    <string name="quarterly">Quarterly</string>
+    <string name="monthly">Monthly</string>
 
 </resources>
