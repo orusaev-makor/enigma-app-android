@@ -20,8 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/nav_view"
-        android:background="@color/colorPrimaryDark"
         app:menu="@menu/drawer_menu"
+        android:background="@color/colorPrimaryDark"
+
         app:headerLayout="@layout/menu_header"
         android:fitsSystemWindows="true"
         app:itemTextAppearance="@style/NavigationDrawerStyle"
