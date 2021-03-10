@@ -121,7 +121,7 @@ public class SettlementRepository {
             SettlementSummary summary = new SettlementSummary(item.getProduct(),
                     item.getCounterparty(), item.getSentAt(), item.getStatus(), item.getSettlementId(),
                     item.getBatchId(), true, item.getSide(), item.getType(), item.getAmount(),
-                    item.getSettledAmount(), item.getCounterpartyAccount());
+                    item.getSettledAmount(), item.getCounterpartyAccount(),item.getOpenedAmount(), item.getEnigmaAccount());
             allBatchSettlements.add(summary);
         }
     }
@@ -132,7 +132,7 @@ public class SettlementRepository {
             SettlementSummary summary = new SettlementSummary(item.getCurrency(),
                     item.getCounterparty(), item.getSentAt(), item.getStatus(), item.getSettlementId(),
                     item.getBatchId(), false, item.getSide(), item.getType(), item.getAmount(),
-                    item.getSettledAmount(), item.getCounterpartyAccount());
+                    item.getSettledAmount(), item.getCounterpartyAccount(),item.getOpenedAmount(), item.getEnigmaAccount());
             allUnitarySettlements.add(summary);
         }
     }
@@ -215,15 +215,16 @@ public class SettlementRepository {
         private String side;
         private String type;
         private String amount;
-        private String settledAmount;
+        private String settleAmount;
+        private String openAmount;
         private String counterpartyAccount;
-//        private TextView wallet;
+        private String enigmaAccount;
 //        private TextView openAmount;
 
 
         public SettlementSummary(String name, String counterparty, String date, String status,
                                  String id, String batchId, boolean isBatch, String side, String type,
-                                 String amount, String settledAmount, String counterpartyAccount) {
+                                 String amount, String settledAmount, String counterpartyAccount,String openAmount, String enigmaAccount) {
             this.name = name;
             this.counterparty = counterparty;
             this.date = date;
@@ -234,8 +235,26 @@ public class SettlementRepository {
             this.side = side;
             this.type = type;
             this.amount = amount;
-            this.settledAmount = settledAmount;
+            this.settleAmount = settledAmount;
             this.counterpartyAccount = counterpartyAccount;
+            this.openAmount = openAmount;
+            this.enigmaAccount = enigmaAccount;
+        }
+
+        public String getSettleAmount() {
+            return settleAmount;
+        }
+
+        public void setSettleAmount(String settleAmount) {
+            this.settleAmount = settleAmount;
+        }
+
+        public String getEnigmaAccount() {
+            return enigmaAccount;
+        }
+
+        public void setEnigmaAccount(String enigmaAccount) {
+            this.enigmaAccount = enigmaAccount;
         }
 
         public String getSide() {
@@ -262,12 +281,12 @@ public class SettlementRepository {
             this.amount = amount;
         }
 
-        public String getSettledAmount() {
-            return settledAmount;
+        public String getOpenAmount() {
+            return openAmount;
         }
 
-        public void setSettledAmount(String settledAmount) {
-            this.settledAmount = settledAmount;
+        public void setOpenAmount(String openAmount) {
+            this.openAmount = openAmount;
         }
 
         public String getCounterpartyAccount() {

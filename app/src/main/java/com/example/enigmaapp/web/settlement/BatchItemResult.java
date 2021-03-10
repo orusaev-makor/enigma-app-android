@@ -11,6 +11,8 @@ public class BatchItemResult {
     private String amount;
     @SerializedName("settled_amount")
     private String settledAmount;
+    @SerializedName("opened_amount")
+    private String openedAmount;
     private String currency;
     @SerializedName("rejection_reason")
     private String rejectionReason;
@@ -29,6 +31,14 @@ public class BatchItemResult {
     private String counterparty;
     private String product;
     private String status;
+
+    public String getSettledAmount() {
+        return settledAmount;
+    }
+
+    public void setSettledAmount(String settledAmount) {
+        this.settledAmount = settledAmount;
+    }
 
     public String getSettlementId() {
         return settlementId;
@@ -54,12 +64,12 @@ public class BatchItemResult {
         this.amount = amount;
     }
 
-    public String getSettledAmount() {
-        return settledAmount;
+    public String getOpenedAmount() {
+        return openedAmount;
     }
 
-    public void setSettledAmount(String settledAmount) {
-        this.settledAmount = settledAmount;
+    public void setOpenedAmount(String openedAmount) {
+        this.openedAmount = openedAmount;
     }
 
     public String getCurrency() {

@@ -3,100 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:gravity="center"
-    android:background="@color/colorPrimaryDark"
-    android:paddingLeft="30dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="30dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="20dp"
         android:weightSum="1">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:drawablePadding="5dp"
-            android:backgroundTint="@color/textColorDark"
-            android:text="@string/settl_batch_id"
-            android:fontFamily="@font/poppins_light"
-            android:textColor="@color/textColorDark"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.49"
-            android:text="@string/settl_id"
-            android:gravity="end"
-            android:fontFamily="@font/poppins_light"
-            android:textColor="@color/textColorDark"
-            android:textSize="16sp"
-            />
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <TextView
-            android:id="@+id/details_settlement_batch_id"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="380"
-            android:textColor="@color/textColor"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/details_settlement_id"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.49"
-            android:gravity="end"
-            android:text="9085"
-            android:textColor="@color/textColor"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10sp"
-        android:weightSum="1">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_marginTop="25sp"
-            android:fontFamily="@font/poppins_light"
-            android:text="@string/side"
+            android:fontFamily="@font/ubuntu_regular"
             android:gravity="start"
+            android:text="@string/side"
             android:textColor="@color/textColorDark"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_marginTop="25sp"
+            android:layout_weight="0.49"
+            android:fontFamily="@font/ubuntu_regular"
             android:gravity="end"
             android:text="@string/type"
-            android:fontFamily="@font/poppins_light"
             android:textColor="@color/textColorDark"
-            android:textSize="16sp" />
-
+            android:textSize="15sp" />
 
     </LinearLayout>
 
@@ -113,7 +50,8 @@
             android:layout_weight="0.5"
             android:text="To send"
             android:textColor="@color/textColor"
-            android:textSize="18sp" />
+            android:fontFamily="@font/ubuntu_mono_regular"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/details_settlement_type"
@@ -122,38 +60,37 @@
             android:layout_weight="0.49"
             android:gravity="end"
             android:text="Crypto"
+            android:fontFamily="@font/ubuntu_mono_regular"
             android:textColor="@color/textColor"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp"
         android:weightSum="1">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:fontFamily="@font/poppins_light"
-            android:textSize="16sp"
+            android:fontFamily="@font/ubuntu_regular"
             android:text="@string/amount"
             android:textColor="@color/textColorDark"
-            />
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.49"
-            android:text="@string/open_amount"
+            android:fontFamily="@font/ubuntu_regular"
             android:gravity="end"
-            android:fontFamily="@font/poppins_light"
-            android:textSize="16sp"
+            android:text="Enigma Account"
             android:textColor="@color/textColorDark"
-             />
+            android:textSize="15sp" />
 
     </LinearLayout>
 
@@ -169,46 +106,48 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:text="1.00000000"
+            android:fontFamily="@font/ubuntu_mono_regular"
             android:textColor="@color/textColor"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/details_settlement_wallet"
+            android:id="@+id/details_settlement_enigma_account"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.49"
             android:gravity="end"
             android:text="BTC Wallet"
+            android:fontFamily="@font/ubuntu_mono_regular"
             android:textColor="@color/textColor"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp"
         android:weightSum="1">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:fontFamily="@font/ubuntu_regular"
             android:text="@string/settled_amount"
             android:textColor="@color/textColorDark"
-            android:fontFamily="@font/poppins_light"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.49"
+            android:fontFamily="@font/ubuntu_regular"
             android:gravity="end"
             android:text="@string/open_amount"
             android:textColor="@color/textColorDark"
-            android:fontFamily="@font/poppins_light"
-            android:textSize="16sp"/>
+            android:textSize="15sp" />
 
     </LinearLayout>
 
@@ -224,8 +163,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:text="0.00000000"
+            android:fontFamily="@font/ubuntu_mono_regular"
             android:textColor="@color/textColor"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/details_settlement_open_amount"
@@ -234,39 +174,40 @@
             android:layout_weight="0.49"
             android:gravity="end"
             android:text="1.00000000"
+            android:fontFamily="@font/ubuntu_mono_regular"
             android:textColor="@color/textColor"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:fontFamily="@font/ubuntu_regular"
+        android:gravity="center"
         android:text="@string/counterparty_account"
         android:textColor="@color/textColorDark"
-        android:fontFamily="@font/poppins_light"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_marginTop="30sp"
-        />
+        android:textSize="15sp" />
+
     <TextView
         android:id="@+id/details_settlement_counterparty_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="BTC Wallet 2 LLC/ Brevy"
-        android:textSize="18sp"
-        android:textColor="@color/textColor"
         android:gravity="center"
-        />
+        android:text="BTC Wallet 2 LLC/ Brevy"
+        android:fontFamily="@font/ubuntu_mono_regular"
+        android:textColor="@color/textColor"
+        android:textSize="15sp" />
 
     // TODO: add back after read only version
-<!--        <include-->
-<!--            layout="@layout/section_bottom_actions"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="30sp"-->
-<!--            android:layout_marginBottom="30dp"-->
-<!--            />-->
+    <!--        <include-->
+    <!--            layout="@layout/section_bottom_actions"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginTop="30sp"-->
+    <!--            android:layout_marginBottom="30dp"-->
+    <!--            />-->
 
 
 </LinearLayout>

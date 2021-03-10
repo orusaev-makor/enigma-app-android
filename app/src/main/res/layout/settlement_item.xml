@@ -56,11 +56,19 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/settlement_item_arrow"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.05"
+                android:visibility="invisible" />
+
             <TextView
                 android:id="@+id/settlement_item_status"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.45"
                 android:fontFamily="@font/ubuntu_mono_regular"
                 android:gravity="end"
                 android:text="PENDING"
@@ -81,7 +89,7 @@
                 android:id="@+id/settlement_item_sent_at"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
+                android:layout_weight="0.4"
                 android:fontFamily="@font/ubuntu_mono_regular"
                 android:text="2020-10-05"
                 android:textColor="@color/textColorDark"
@@ -91,7 +99,7 @@
                 android:id="@+id/settlement_item_counterparty"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
+                android:layout_weight="0.6"
                 android:fontFamily="@font/ubuntu_mono_regular"
                 android:gravity="end"
                 android:text="72M LLC Brevy"
