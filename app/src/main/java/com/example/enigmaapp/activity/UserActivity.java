@@ -28,6 +28,7 @@ import com.example.enigmaapp.activity.fragment.BalanceFragment;
 import com.example.enigmaapp.activity.fragment.LoginFragment;
 import com.example.enigmaapp.activity.fragment.MarketFragment;
 import com.example.enigmaapp.activity.fragment.NewsFragment;
+import com.example.enigmaapp.activity.fragment.ProfileFragment;
 import com.example.enigmaapp.activity.fragment.SettingsFragment;
 import com.example.enigmaapp.activity.fragment.SettlementFragment;
 import com.example.enigmaapp.activity.fragment.StatisticsFragment;
@@ -184,6 +185,10 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
             case R.id.app_bar_settings:
                 SettingsFragment settingsFragment = new SettingsFragment();
                 ft.replace(R.id.frame_layout, settingsFragment, "Settings");
+                break;
+            case R.id.app_bar_profile:
+                ProfileFragment profileFragment = new ProfileFragment();
+                ft.replace(R.id.frame_layout, profileFragment, "Profile");
                 break;
             case R.id.app_bar_logout:
                 // TODO: add logout process

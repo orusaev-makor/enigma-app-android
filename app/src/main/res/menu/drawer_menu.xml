@@ -19,9 +19,7 @@
             android:icon="@drawable/ic_menu_settlement"
             android:title="Settlement" />
 
-        <item
-            android:id="@+id/app_bar_feeds"
-            android:title="Feeds">
+        <item android:title="Feeds">
             <menu>
                 <group android:checkableBehavior="single">
                     <item
@@ -36,9 +34,7 @@
             </menu>
         </item>
 
-        <item
-            android:id="@+id/app_bar_profile"
-            android:title="Profile">
+        <item android:title="Profile">
             <menu>
                 <group android:checkableBehavior="single">
                     <item
@@ -57,21 +53,25 @@
             </menu>
         </item>
 
-    <item android:title="">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/dark_mode_switch"
-                    android:icon="@drawable/ic_menu_night"
-                    android:title="Dark mode"
-                    app:actionLayout="@layout/switch_item" />
-                <item
-                    android:id="@+id/app_bar_logout"
-                    android:icon="@drawable/ic_menu_logout"
-                    android:title="Logout" />
-            </group>
-        </menu>
-    </item>
+        <item android:title="">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/app_bar_profile"
+                        android:icon="@drawable/ic_menu_profile"
+                        android:title="Profile" />
+                    <item
+                        android:id="@+id/dark_mode_switch"
+                        android:icon="@drawable/ic_menu_night"
+                        android:title="Dark mode"
+                        app:actionLayout="@layout/switch_item" />
+                    <item
+                        android:id="@+id/app_bar_logout"
+                        android:icon="@drawable/ic_menu_logout"
+                        android:title="Logout" />
+                </group>
+            </menu>
+        </item>
 
     </group>
 
