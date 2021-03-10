@@ -19,7 +19,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:orientation="vertical"
         android:paddingTop="10sp">
 
@@ -48,7 +48,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/ubuntu_regular"
                 android:textAllCaps="true"
                 android:text="usd"
                 android:textColor="@color/textColor"
@@ -59,11 +59,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
-                android:fontFamily="@font/poppins_regular"
+                android:fontFamily="@font/ubuntu_regular"
                 android:gravity="end"
                 android:paddingEnd="20dp"
                 android:paddingRight="20dp"
-                android:text="10'000'000"
+                android:text="10,000,000"
                 android:textColor="@color/textColor"
                 android:textSize="22sp" />
         </LinearLayout>

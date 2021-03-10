@@ -15,7 +15,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="30dp"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/ubuntu_regular"
         android:gravity="center"
         android:text="@string/your_request_has_been_sent_and_will_be_reviewed_by_us"
         android:textColor="@color/textColor"
