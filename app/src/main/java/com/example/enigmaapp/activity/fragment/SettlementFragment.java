@@ -10,7 +10,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -38,7 +37,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.enigmaapp.activity.MainActivity.prefs;
-import static com.example.enigmaapp.activity.UserActivity.actionBar;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 
 public class SettlementFragment extends Fragment {
@@ -50,7 +48,7 @@ public class SettlementFragment extends Fragment {
     private FloatingActionButton addSettlementFab;
     private ImageView filterBtn, uploadBtn, refreshBtn;
     private View topSection;
-    private int page = 1;
+    public static int settlementCurrentPage = 1;
     private boolean isBatch;
     public static ProgressBar progressBarSettlement;
     public static SettlementItemAdapter settlementAdapter;
@@ -148,11 +146,11 @@ public class SettlementFragment extends Fragment {
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(SettlementViewModel.class);
 
-        pageParams.put("current_page", String.valueOf(page));
-        if (page == 1 && isBatch) {
+        pageParams.put("current_page", String.valueOf(settlementCurrentPage));
+        if (settlementCurrentPage == 1 && isBatch) {
             settlementViewModel.resetBatchList();
         }
-        if (page == 1 && !isBatch) {
+        if (settlementCurrentPage == 1 && !isBatch) {
             settlementViewModel.resetUnitaryList();
         }
         settlementViewModel.setBatchParams(pageParams);
@@ -195,8 +193,8 @@ public class SettlementFragment extends Fragment {
         nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v15, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             // check if scrolled till bottom
             if (scrollY == v15.getChildAt(0).getMeasuredHeight() - v15.getMeasuredHeight()) {
-                page++;
-                pageParams.put("current_page", String.valueOf(page));
+                settlementCurrentPage++;
+                pageParams.put("current_page", String.valueOf(settlementCurrentPage));
                 progressBarSettlement.setVisibility(View.VISIBLE);
                 if (isBatch) {
                     settlementViewModel.setBatchParams(pageParams);

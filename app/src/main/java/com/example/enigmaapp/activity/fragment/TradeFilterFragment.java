@@ -21,7 +21,6 @@ import com.example.enigmaapp.R;
 import com.example.enigmaapp.model.TradeViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,6 +31,7 @@ import java.util.TimeZone;
 import static android.app.Activity.RESULT_OK;
 import static com.example.enigmaapp.activity.MainActivity.prefEditor;
 import static com.example.enigmaapp.activity.MainActivity.prefs;
+import static com.example.enigmaapp.activity.fragment.TradeFragment.tradesCurrentPage;
 import static com.example.enigmaapp.activity.fragment.TradeFragment.selectedBatched;
 import static com.example.enigmaapp.activity.fragment.TradeFragment.selectedEndDate;
 import static com.example.enigmaapp.activity.fragment.TradeFragment.selectedExecutionType;
@@ -96,6 +96,8 @@ public class TradeFilterFragment extends Fragment implements CompoundButton.OnCh
 //            setTradeIdParam();
             sendDataToPrevPg();
             setTradeParams();
+            // reset current page from previous scrolls:
+            tradesCurrentPage = 1;
         });
 
         // Reset "Filter Trade" screen

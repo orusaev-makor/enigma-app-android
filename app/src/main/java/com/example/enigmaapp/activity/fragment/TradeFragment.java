@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -20,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -45,7 +42,7 @@ public class TradeFragment extends Fragment {
     private ImageView filterBtn, uploadBtn, refreshBtn;
     private TextView fromDate, toDate;
     private View topSection;
-    private int page = 1;
+    public static int tradesCurrentPage = 1;
     public static ProgressBar progressBarTrade;
     public static TradeItemAdapter tradeAdapter;
     private NestedScrollView nestedScrollView;
@@ -130,8 +127,8 @@ public class TradeFragment extends Fragment {
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(TradeViewModel.class);
 
-        pageParams.put("current_page", String.valueOf(page));
-        if (page == 1) {
+        pageParams.put("current_page", String.valueOf(tradesCurrentPage));
+        if (tradesCurrentPage == 1) {
             tradeViewModel.resetTradesList();
         }
 
@@ -153,8 +150,8 @@ public class TradeFragment extends Fragment {
                     // check if scrolled till bottom
                     if (scrollY == v12.getChildAt(0).getMeasuredHeight() - v12.getMeasuredHeight()) {
                         // when reach last item position
-                        page++;
-                        pageParams.put("current_page", String.valueOf(page));
+                        tradesCurrentPage++;
+                        pageParams.put("current_page", String.valueOf(tradesCurrentPage));
                         tradeViewModel.setParams(pageParams);
                         progressBarTrade.setVisibility(View.VISIBLE);
                         tradeViewModel.fetchTrades(token);

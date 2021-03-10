@@ -41,6 +41,7 @@ import static com.example.enigmaapp.activity.fragment.SettlementFragment.selecte
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedUnitaryStartDate;
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedUnitaryStatuses;
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.setUnitaryParams;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.settlementCurrentPage;
 import static com.example.enigmaapp.activity.fragment.TradeFilterFragment.getTodayDate;
 
 public class UnitaryFilterFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
@@ -105,6 +106,8 @@ public class UnitaryFilterFragment extends Fragment implements CompoundButton.On
         submitBtn.setOnClickListener(v15 -> {
             sendDataToPrevPg();
             setUnitaryParams();
+            // reset current page from previous scrolls:
+            settlementCurrentPage = 1;
         });
 
         // Reset "Filter Settlement" screen

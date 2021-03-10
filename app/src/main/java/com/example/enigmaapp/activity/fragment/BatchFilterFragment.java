@@ -32,6 +32,7 @@ import static com.example.enigmaapp.activity.fragment.SettlementFragment.selecte
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedBatchProductId;
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.selectedBatchStatuses;
 import static com.example.enigmaapp.activity.fragment.SettlementFragment.setBatchParams;
+import static com.example.enigmaapp.activity.fragment.SettlementFragment.settlementCurrentPage;
 
 
 public class BatchFilterFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
@@ -77,6 +78,8 @@ public class BatchFilterFragment extends Fragment implements CompoundButton.OnCh
             public void onClick(View v) {
                 sendDataToPrevPg();
                 setBatchParams();
+                // reset current page from previous scrolls:
+                settlementCurrentPage = 1;
             }
         });
 
