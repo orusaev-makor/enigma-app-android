@@ -468,7 +468,7 @@
                 android:id="@+id/new_trade_back_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 app:backgroundTint="@android:color/transparent"
-                app:cornerRadius="6dp"
+                app:cornerRadius="0dp"
                 app:rippleColor="#33AAAAAA"
                 app:strokeColor="@color/textColor"
                 app:strokeWidth="1dp"
@@ -488,7 +488,7 @@
             <!--            android:text="Finish"-->
             <!--            android:textColor="@color/colorSecondary"-->
             <!--            android:textSize="15sp"-->
-            <!--            app:cornerRadius="8dp"-->
+            <!--            app:cornerRadius="0dp"-->
             <!--            app:rippleColor="#33AAAAAA"-->
             <!--            app:strokeColor="@color/textColor"-->
             <!--            app:strokeWidth="2dp" />-->
@@ -500,6 +500,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_weight="0.5"
                 android:background="@drawable/back_btn_border"
+                android:stateListAnimator="@null"
                 android:text="@string/finish" />
 
         </LinearLayout>

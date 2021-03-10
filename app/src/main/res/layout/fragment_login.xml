@@ -134,6 +134,7 @@
                 android:textSize="17sp"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
+                android:stateListAnimator="@null"
                 app:backgroundTint="@color/actionBtnColor" />
 
         </LinearLayout>

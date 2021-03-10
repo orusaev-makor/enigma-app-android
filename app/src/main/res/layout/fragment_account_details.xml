@@ -146,6 +146,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:backgroundTint="@color/actionBtnColor"
+            android:stateListAnimator="@null"
             android:text="@string/make_account_default" />
 
     </LinearLayout>

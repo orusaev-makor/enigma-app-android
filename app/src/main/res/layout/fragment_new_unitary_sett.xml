@@ -215,6 +215,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/back_btn_border"
+        android:stateListAnimator="@null"
         android:text="@string/create" />
 
 
