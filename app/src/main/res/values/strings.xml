@@ -31,11 +31,6 @@
     <string name="news">News</string>
     <string name="filters">Filters</string>
 
-    <!--    Accounts -->
-    <string name="account">Account</string>
-    <string name="bank_account">Bank Account</string>
-    <string name="cryptocurrency_wallet">Cryptocurrency Wallet</string>
-
     <!--    Balance -->
     <string name="my_cryptocurrency">My Cryptocurrency</string>
     <string name="my_balance">My Balance</string>
@@ -131,5 +126,19 @@
     <string name="yearly">Yearly</string>
     <string name="quarterly">Quarterly</string>
     <string name="monthly">Monthly</string>
+    <string name="make_account_default">Make Account Default</string>
+
+    <!--    Accounts -->
+    <string name="account">Account</string>
+    <string name="bank_account">Bank Account</string>
+    <string name="cryptocurrency_wallet">Cryptocurrency Wallet</string>
+    <string name="name">Name</string>
+    <string name="account_type">Account Type</string>
+    <string name="details">Details</string>
+    <string name="write_all_the_information_of_your_bank">write all the information of your bank</string>
+    <string name="send_request">Send request</string>
+    <string name="choose_account_type">Choose account type</string>
+    <string name="write_name_for_your_account">write name for your account</string>
+
 
 </resources>

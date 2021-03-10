@@ -7,8 +7,8 @@
     app:cardCornerRadius="0dp"
     app:cardElevation="0dp"
     app:strokeColor="@color/cardBorder"
-    android:background="@color/colorPrimaryDark"
-    android:backgroundTint="@color/colorPrimaryDark"
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary"
     app:strokeWidth="1dp">
 
 
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:paddingBottom="14dp"
         android:paddingTop="13dp"
         android:layout_marginTop="10dp">
@@ -42,7 +42,7 @@
             android:id="@+id/account_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_light"
+            android:fontFamily="@font/ubuntu_regular"
             android:gravity="left"
             android:text="USD Iban Client Test"
             android:textColor="@color/textColor"

@@ -5,10 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".activity.fragment.NewAccountFragment">
@@ -18,10 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/ubuntu_regular"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="Add Account"
+        android:text="@string/add_account"
         android:textColor="@color/textColor"
         android:textSize="30sp" />
 
@@ -30,20 +28,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="@font/ubuntu_regular"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="Name"
+        android:text="@string/name"
         android:textColor="@color/textColor"
         android:textSize="16sp" />
 
     <EditText
         android:id="@+id/new_account_name_edit"
         android:layout_width="match_parent"
-        android:layout_height="60sp"
+        android:layout_height="50sp"
         android:background="@drawable/new_account_border"
-        android:fontFamily="@font/poppins_regular"
-        android:hint="write name for your account"
+        android:fontFamily="@font/ubuntu_regular"
+        android:hint="@string/write_name_for_your_account"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:textColorHint="@color/textHintColor"
@@ -54,10 +52,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="@font/ubuntu_regular"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="Account Type"
+        android:text="@string/account_type"
         android:textColor="@color/textColor"
         android:textSize="16sp" />
 
@@ -69,8 +67,9 @@
         android:drawableRight="@drawable/ic_arraow_forward"
         app:drawableTint="@color/textHintColor"
         android:background="@drawable/new_account_border"
-        android:text="Choose account type"
+        android:text="@string/choose_account_type"
         android:gravity="left|center"
+        android:fontFamily="@font/ubuntu_regular"
         android:textColor="@color/textHintColor"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
@@ -81,10 +80,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="@font/ubuntu_regular"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="Details"
+        android:text="@string/details"
         android:textColor="@color/textColor"
         android:textSize="16sp" />
 
@@ -92,10 +91,10 @@
     <EditText
         android:id="@+id/new_account_details_edit"
         android:layout_width="match_parent"
-        android:layout_height="60sp"
+        android:layout_height="50sp"
         android:background="@drawable/new_account_border"
-        android:fontFamily="@font/poppins_regular"
-        android:hint="write all the information of your bank"
+        android:fontFamily="@font/ubuntu_regular"
+        android:hint="@string/write_all_the_information_of_your_bank"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:textColorHint="@color/textHintColor"
@@ -107,10 +106,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="@font/ubuntu_regular"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="Currency"
+        android:text="@string/currency"
         android:textColor="@color/textColor"
         android:textSize="16sp" />
 
@@ -124,6 +123,7 @@
         android:background="@drawable/new_account_border"
         android:text="USD"
         android:gravity="left|center"
+        android:fontFamily="@font/ubuntu_regular"
         android:textColor="@color/textHintColor"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
@@ -132,13 +132,16 @@
 
     <Button
         android:id="@+id/new_account_submit_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="274dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="80dp"
-        android:background="@drawable/back_btn_border"
-        android:text="Send request" />
+        app:cornerRadius="0dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/actionBtnColor"
+        android:text="@string/send_request" />
 
 </LinearLayout>
 </ScrollView>
