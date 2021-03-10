@@ -67,7 +67,7 @@
                     android:fontFamily="@font/ubuntu_regular"
                     android:inputType="textEmailAddress"
                     android:textSize="16sp"
-                    android:text="bitcoinOfAmerica" />
+                    android:text="client_test_64" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,7 +92,7 @@
                     android:fontFamily="@font/ubuntu_regular"
                     android:inputType="textPassword"
                     android:textSize="16sp"
-                    android:text="Makor26!" />
+                    android:text="0azUdf;c" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

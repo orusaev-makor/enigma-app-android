@@ -157,7 +157,7 @@ public class TradeFragment extends Fragment {
                         pageParams.put("current_page", String.valueOf(page));
                         tradeViewModel.setParams(pageParams);
                         progressBarTrade.setVisibility(View.VISIBLE);
-                        tradeViewModel.fetchTradeDataset(token);
+                        tradeViewModel.fetchTrades(token);
                     }
                 });
         return v;
