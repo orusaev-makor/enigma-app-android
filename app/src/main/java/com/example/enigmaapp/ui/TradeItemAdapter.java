@@ -55,24 +55,24 @@ public class TradeItemAdapter extends RecyclerView.Adapter<TradeItemAdapter.Item
         Resources res = context.getResources();
         String packageName = context.getPackageName();
 
-        int colorId = res.getIdentifier(currentTrade.getStatus(), "color", packageName);
+        String status = currentTrade.getStatus();
+        int colorId = res.getIdentifier(status, "color", packageName);
         int desiredColor = res.getColor(colorId);
 
         if (isExpanded) {
+            String capitalizedStatus = status.substring(0, 1).toUpperCase() + status.substring(1);
+
             previousTradeExpandedPosition = position;
             holder.executionType.setText(currentTrade.getExecutionType());
-            holder.status.setText(currentTrade.getStatus());
+            holder.status.setText(capitalizedStatus);
             holder.status.setTextColor(desiredColor);
             holder.nominal.setText(decim.format(Double.valueOf(currentTrade.getNominal())));
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTradeExpandedPosition = isExpanded ? -1 : position;
-                notifyItemChanged(previousTradeExpandedPosition);
-                notifyItemChanged(position);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            mTradeExpandedPosition = isExpanded ? -1 : position;
+            notifyItemChanged(previousTradeExpandedPosition);
+            notifyItemChanged(position);
         });
 
         holder.product.setText(currentTrade.getProduct());

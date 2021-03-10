@@ -89,6 +89,7 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
 
         // set status and it's colour:
         String status = currentItem.getStatus();
+        String capitalizedStatus = status.substring(0, 1).toUpperCase() + status.substring(1);
 
         Resources res = context.getResources();
         String packageName = context.getPackageName();
@@ -102,7 +103,7 @@ public class SettlementItemAdapter extends RecyclerView.Adapter<SettlementItemAd
         }
 
         holder.status.setTextColor(desiredColor);
-        holder.status.setText(status);
+        holder.status.setText(capitalizedStatus);
 
         holder.status.setTextColor(desiredColor);
 

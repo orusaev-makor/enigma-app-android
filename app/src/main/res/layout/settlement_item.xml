@@ -64,7 +64,6 @@
                 android:fontFamily="@font/ubuntu_mono_regular"
                 android:gravity="end"
                 android:text="PENDING"
-                android:textAllCaps="true"
                 android:textSize="15sp" />
 
         </LinearLayout>
