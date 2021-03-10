@@ -36,6 +36,7 @@
             android:fontFamily="@font/ubuntu_light"
             android:hint="Search"
             android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="5dp"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textHintColor"
             android:textSize="16sp"
