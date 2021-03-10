@@ -8,7 +8,10 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/textColor</item>
         <item name="colorSecondaryVariant">@color/textColorDark</item>
+
+        <!-- Changes app name text color in action bars of device where you can close an app or clear all: -->
         <item name="colorOnSecondary">@color/black</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryVariant</item>
 
@@ -30,6 +33,9 @@
         <item name="android:textColorPrimary">@color/textColor</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryVariant</item>
+
+        <!-- Changes app name text color in action bars of device where you can close an app or clear all: -->
+        <item name="colorOnSecondary">@color/black</item>
     </style>
 
 <!--    <style name="UbuntuTextViewStyle" parent="android:Widget.TextView">-->
