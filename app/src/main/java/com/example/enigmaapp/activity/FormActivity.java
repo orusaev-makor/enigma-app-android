@@ -28,7 +28,7 @@ public class FormActivity extends AppCompatActivity {
             formType = intent.getStringExtra("formTypeExtra");
         }
 
-        setCurrentForm(formType);
+            setCurrentForm(formType);
     }
 
     // hide soft keyboard on touch outside EditText

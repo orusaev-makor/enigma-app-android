@@ -11,7 +11,14 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryVariant</item>
+
         <!-- Customize your theme here. -->
+<!--        <item name="fontFamily">@font/ubuntu_regular</item>-->
+<!--        <item name="android:textViewStyle">@style/UbuntuTextViewStyle</item>-->
+<!--        <item name="android:editTextStyle">@style/UbuntuEditTextStyle</item>-->
+<!--        <item name="android:buttonStyle">@style/UbuntuButtonStyle</item>-->
+<!--        <item name="materialButtonStyle">@style/UbuntuMaterialButtonStyle</item>-->
+
         <item name="android:dialogTheme">@style/MyDialogTheme</item>
         <item name="android:datePickerDialogTheme" tools:targetApi="lollipop">@style/MyDialogTheme</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
@@ -24,6 +31,22 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryVariant</item>
     </style>
+
+<!--    <style name="UbuntuTextViewStyle" parent="android:Widget.TextView">-->
+<!--        <item name="android:fontFamily">@font/ubuntu_regular</item>-->
+<!--    </style>-->
+
+<!--    <style name="UbuntuEditTextStyle" parent="android:Widget.EditText">-->
+<!--        <item name="android:fontFamily">@font/ubuntu_regular</item>-->
+<!--    </style>-->
+
+<!--    <style name="UbuntuButtonStyle" parent="android:Widget.Holo.Button">-->
+<!--        <item name="android:fontFamily">@font/ubuntu_regular</item>-->
+<!--    </style>-->
+
+<!--    <style name="UbuntuMaterialButtonStyle" parent="android:Widget.Material.Button" tools:ignore="NewApi">-->
+<!--        <item name="android:fontFamily">@font/ubuntu_regular</item>-->
+<!--    </style>-->
 
     <style name="backArrowTheme" parent="Theme.EnigmaApp">
         <item name="android:textColorSecondary">@color/textColor</item>
