@@ -45,12 +45,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ubuntu_regular"
             android:layout_marginTop="11dp"
+            android:fontFamily="@font/ubuntu_regular"
             android:text="@string/unitary"
             android:textColor="@color/textHintColor"
             android:textSize="16sp" />
-
 
         <TextView
             android:id="@+id/filter_unitary_date"
@@ -75,18 +74,18 @@
             android:id="@+id/filter_unitary_counterparty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="40dp"
+            android:layout_gravity="start|center"
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_border"
             android:drawableRight="@drawable/ic_arrow_drop_down"
-            android:textColor="@color/textColor"
             android:drawableTint="@color/textColor"
             android:fontFamily="@font/ubuntu_regular"
             android:gravity="left|center"
             android:hint="@string/counterparty"
+            android:minHeight="40dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:layout_gravity="start|center"
+            android:textColor="@color/textColor"
             android:textColorHint="@color/textHintColor"
             android:textSize="16dp" />
 
@@ -94,17 +93,17 @@
             android:id="@+id/filter_unitary_currencies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="40dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_border"
             android:drawableRight="@drawable/ic_arrow_drop_down"
             android:drawableTint="@color/textColor"
-            android:textColor="@color/textColor"
             android:fontFamily="@font/ubuntu_regular"
             android:gravity="left|center"
             android:hint="Currencies"
+            android:minHeight="40dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            android:textColor="@color/textColor"
             android:textColorHint="@color/textHintColor"
             android:textSize="16dp" />
 
@@ -160,7 +159,6 @@
             android:layout_marginBottom="40dp"
             android:weightSum="1">
 
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/filter_settlement_reset_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -169,13 +167,13 @@
                 android:layout_marginRight="4dp"
                 android:layout_weight="0.5"
                 android:text="Reset"
+                android:textAllCaps="false"
                 android:textColor="@color/textColor"
                 android:textSize="15sp"
                 app:backgroundTint="@android:color/transparent"
                 app:cornerRadius="0dp"
                 app:rippleColor="#33AAAAAA"
                 app:strokeColor="@color/textColor"
-                android:textAllCaps="false"
                 app:strokeWidth="1dp" />
 
             <com.google.android.material.button.MaterialButton
@@ -186,14 +184,14 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_weight="0.5"
+                android:fontFamily="@font/ubuntu_medium"
                 android:text="@string/filter"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="17sp"
                 app:backgroundTint="@color/actionBtnColor"
                 app:cornerRadius="0dp"
                 app:rippleColor="#33AAAAAA"
-                android:textAllCaps="false"
-                android:fontFamily="@font/ubuntu_medium"
                 app:strokeWidth="0dp" />
 
         </LinearLayout>

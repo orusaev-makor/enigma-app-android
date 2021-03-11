@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/edit_text_border"
         android:bottomLeftRadius="3dp"
         android:bottomRightRadius="3dp"
         android:topLeftRadius="3dp"
@@ -50,8 +50,6 @@
             android:id="@+id/new_unitary_spinner_on_behalf"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginLeft="-10dp"
             android:layout_marginRight="-10dp"
             android:drawSelectorOnTop="true"
@@ -66,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/edit_text_border"
         android:bottomLeftRadius="3dp"
         android:bottomRightRadius="3dp"
         android:topLeftRadius="3dp"
@@ -76,8 +74,6 @@
             android:id="@+id/new_unitary_spinner_type"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginLeft="-10dp"
             android:layout_marginRight="-10dp"
             android:drawSelectorOnTop="true"
@@ -92,7 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/edit_text_border"
         android:bottomLeftRadius="3dp"
         android:bottomRightRadius="3dp"
         android:topLeftRadius="3dp"
@@ -102,8 +98,6 @@
             android:id="@+id/new_unitary_spinner_currency"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginLeft="-10dp"
             android:layout_marginRight="-10dp"
             android:drawSelectorOnTop="true"
@@ -118,7 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/edit_text_border"
         android:bottomLeftRadius="3dp"
         android:bottomRightRadius="3dp"
         android:topLeftRadius="3dp"
@@ -128,8 +122,6 @@
             android:id="@+id/new_unitary_spinner_account"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginLeft="-10dp"
             android:layout_marginRight="-10dp"
             android:drawSelectorOnTop="true"
@@ -180,7 +172,6 @@
             android:textSize="16sp" />
     </RadioGroup>
 
-
     <EditText
         android:id="@+id/new_unitary_amount_edit"
         android:layout_width="match_parent"
@@ -207,16 +198,15 @@
         android:textColorHint="@color/textSecondaryColor"
         android:textSize="16sp" />
 
-
     <Button
         android:id="@+id/new_unitary_create_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/back_btn_border"
         android:stateListAnimator="@null"
-        android:text="@string/create" />
-
+        android:text="@string/create"
+        android:textAllCaps="false" />
 
 </LinearLayout>

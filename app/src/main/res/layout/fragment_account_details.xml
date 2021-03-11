@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -91,7 +88,6 @@
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
-
         <TextView
             android:id="@+id/account_details_details"
             android:layout_width="match_parent"
@@ -133,21 +129,21 @@
             android:textSize="16sp"
             app:drawableTint="@color/textColor" />
 
-
         <Button
             android:id="@+id/account_details_submit_btn"
             android:layout_width="274dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/ubuntu_regular"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="40dp"
-            app:cornerRadius="0dp"
+            android:backgroundTint="@color/actionBtnColor"
+            android:fontFamily="@font/ubuntu_regular"
+            android:stateListAnimator="@null"
+            android:text="@string/make_account_default"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:backgroundTint="@color/actionBtnColor"
-            android:stateListAnimator="@null"
-            android:text="@string/make_account_default" />
+            app:cornerRadius="0dp" />
 
     </LinearLayout>
+
 </ScrollView>

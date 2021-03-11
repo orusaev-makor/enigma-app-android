@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -25,11 +24,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:fontFamily="@font/ubuntu_regular"
-            android:textSize="16sp"
-            android:textColor="@color/rejected"
             android:buttonTint="@color/rejected"
-            android:text="@string/rejected" />
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="@string/rejected"
+            android:textColor="@color/rejected"
+            android:textSize="16sp" />
 
 
         <CheckBox
@@ -37,11 +36,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:fontFamily="@font/ubuntu_regular"
-            android:textColor="@color/pending"
             android:buttonTint="@color/pending"
-            android:textSize="16sp"
-            android:text="@string/booked" />
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="@string/booked"
+            android:textColor="@color/pending"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,32 +55,33 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:fontFamily="@font/ubuntu_regular"
-            android:textColor="@color/validated"
             android:buttonTint="@color/validated"
-            android:textSize="16sp"
-            android:text="@string/validated" />
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="@string/validated"
+            android:textColor="@color/validated"
+            android:textSize="16sp" />
 
         <CheckBox
             android:id="@+id/checkBoxCanceledTrade"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:fontFamily="@font/ubuntu_regular"
-            android:textColor="@color/canceled"
             android:buttonTint="@color/canceled"
-            android:textSize="16sp"
-            android:text="@string/canceled" />
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="@string/canceled"
+            android:textColor="@color/canceled"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <CheckBox
         android:id="@+id/checkBoxOpenTrade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/ubuntu_regular"
-        android:textColor="@color/open"
-        android:buttonTint="@color/open"
         android:layout_marginTop="-8dp"
-        android:textSize="16sp"
-        android:text="@string/open" />
+        android:buttonTint="@color/open"
+        android:fontFamily="@font/ubuntu_regular"
+        android:text="@string/open"
+        android:textColor="@color/open"
+        android:textSize="16sp" />
+
 </LinearLayout>

@@ -8,19 +8,19 @@
     tools:context=".activity.fragment.TradeFragment">
 
     <!--        TODO: add back create action button after read only version -->
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/trade_create_fab"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentRight="true"-->
-<!--        android:layout_margin="16dp"-->
-<!--        android:backgroundTint="@color/textColor"-->
-<!--        android:contentDescription="@string/add_trade"-->
-<!--        android:src="@drawable/ic_action_add_circle"-->
-<!--        app:fabSize="normal"-->
-<!--        app:tint="@color/colorPrimary" />-->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/trade_create_fab"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_alignParentRight="true"-->
+    <!--        android:layout_margin="16dp"-->
+    <!--        android:backgroundTint="@color/textColor"-->
+    <!--        android:contentDescription="@string/add_trade"-->
+    <!--        android:src="@drawable/ic_action_add_circle"-->
+    <!--        app:fabSize="normal"-->
+    <!--        app:tint="@color/colorPrimary" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,10 +32,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
+            android:layout_marginBottom="12dp"
             android:fontFamily="@font/ubuntu_regular"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:layout_marginBottom="12dp"
             android:text="@string/trade"
             android:textColor="@color/textColor"
             android:textSize="30sp" />

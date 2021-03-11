@@ -43,11 +43,10 @@
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="0.1"
-                android:textColor="@color/textColor"
-                android:background="@drawable/ic_action_close"/>
+                android:background="@drawable/ic_action_close"
+                android:textColor="@color/textColor" />
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,7 +75,6 @@
                 android:textSize="16sp" />
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -165,12 +163,10 @@
             android:background="@drawable/edit_text_border"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/comment"
+            android:paddingStart="10dp"
             android:paddingLeft="10dp"
             android:textColorHint="@color/textSecondaryColor"
-            android:textSize="16sp"
-            android:paddingStart="10dp"
-            />
-
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -186,8 +182,10 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_weight="0.5"
+                android:stateListAnimator="@null"
                 android:text="@string/reset"
                 android:textColor="@color/textColor"
                 android:textSize="15sp"
@@ -195,21 +193,19 @@
                 app:cornerRadius="0dp"
                 app:rippleColor="#33AAAAAA"
                 app:strokeColor="@color/textColor"
-                app:strokeWidth="1dp"
-                android:stateListAnimator="@null"
-                android:layout_marginEnd="4dp" />
+                app:strokeWidth="1dp" />
 
             <Button
                 android:id="@+id/select_trade_create_btn"
                 android:layout_width="0dp"
                 android:layout_height="37sp"
                 android:layout_margin="0.5dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="0.5"
                 android:background="@drawable/back_btn_border"
-                android:text="@string/create"
                 android:stateListAnimator="@null"
-                android:layout_marginStart="4dp" />
+                android:text="@string/create" />
 
         </LinearLayout>
 

@@ -38,8 +38,7 @@
             android:id="@+id/exposure_limit_recycled_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/settings_item"
-            />
+            tools:listitem="@layout/settings_item" />
 
         <include
             android:id="@+id/request_increase_exposure_limit"
@@ -59,13 +58,11 @@
             android:textColor="@color/textColor"
             android:textSize="18sp" />
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/max_qty_per_trade_recycled_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/settings_item"
-            />
+            tools:listitem="@layout/settings_item" />
 
         <include
             android:id="@+id/request_increase_quantity_limit"

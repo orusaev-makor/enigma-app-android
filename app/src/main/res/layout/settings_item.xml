@@ -38,10 +38,10 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="0.1"
+                android:contentDescription="@string/currency_icon"
                 android:paddingStart="20dp"
                 android:paddingLeft="20dp"
-                android:src="@drawable/usd"
-                android:contentDescription="@string/currency_icon"  />
+                android:src="@drawable/usd" />
 
             <TextView
                 android:id="@+id/settings_item_name"
@@ -49,8 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:fontFamily="@font/ubuntu_regular"
-                android:textAllCaps="true"
                 android:text="usd"
+                android:textAllCaps="true"
                 android:textColor="@color/textColor"
                 android:textSize="22sp" />
 
@@ -68,39 +68,39 @@
                 android:textSize="22sp" />
         </LinearLayout>
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="7dp"-->
-<!--            android:layout_marginBottom="17dp"-->
-<!--            android:weightSum="1">-->
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="7dp"-->
+        <!--            android:layout_marginBottom="17dp"-->
+        <!--            android:weightSum="1">-->
 
-<!--            <TextView-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="0.15"-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:paddingStart="20dp"-->
-<!--                android:paddingLeft="20dp"-->
-<!--                android:text="85%"-->
-<!--                android:textColor="@color/textColor"-->
-<!--                android:textSize="12sp" />-->
+        <!--            <TextView-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="0.15"-->
+        <!--                android:fontFamily="@font/poppins_regular"-->
+        <!--                android:paddingStart="20dp"-->
+        <!--                android:paddingLeft="20dp"-->
+        <!--                android:text="85%"-->
+        <!--                android:textColor="@color/textColor"-->
+        <!--                android:textSize="12sp" />-->
 
-<!--            <ProgressBar-->
-<!--                android:id="@+id/determinateBar"-->
-<!--                style="@android:style/Widget.ProgressBar.Horizontal"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="6dp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_weight="0.85"-->
-<!--                android:max="100"-->
-<!--                android:paddingEnd="20dp"-->
-<!--                android:paddingRight="20dp"-->
-<!--                android:progress="85"-->
-<!--                android:progressDrawable="@drawable/progress_bar"-->
-<!--                android:secondaryProgress="0" />-->
+        <!--            <ProgressBar-->
+        <!--                android:id="@+id/determinateBar"-->
+        <!--                style="@android:style/Widget.ProgressBar.Horizontal"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="6dp"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:layout_weight="0.85"-->
+        <!--                android:max="100"-->
+        <!--                android:paddingEnd="20dp"-->
+        <!--                android:paddingRight="20dp"-->
+        <!--                android:progress="85"-->
+        <!--                android:progressDrawable="@drawable/progress_bar"-->
+        <!--                android:secondaryProgress="0" />-->
 
-<!--        </LinearLayout>-->
+        <!--        </LinearLayout>-->
 
     </LinearLayout>
 

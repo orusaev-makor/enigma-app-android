@@ -38,8 +38,8 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="0.1"
-            android:textColor="@color/textColor"
-            android:background="@drawable/ic_action_close"/>
+            android:background="@drawable/ic_action_close"
+            android:textColor="@color/textColor" />
 
     </LinearLayout>
 
@@ -49,6 +49,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/edit_text_border"
+        android:drawableEnd="@drawable/ic_date_picker"
         android:drawableRight="@drawable/ic_date_picker"
         android:drawableTint="@color/textColor"
         android:ems="10"
@@ -58,14 +59,13 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColorHint="@color/textSecondaryColor"
-        android:textSize="16sp"
-        android:drawableEnd="@drawable/ic_date_picker" />
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/edit_text_border"
         android:bottomLeftRadius="3dp"
         android:bottomRightRadius="3dp"
         android:topLeftRadius="3dp"
@@ -75,11 +75,9 @@
             android:id="@+id/new_batch_spinner_product"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:drawSelectorOnTop="true"
             android:layout_marginLeft="-10dp"
             android:layout_marginRight="-10dp"
+            android:drawSelectorOnTop="true"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:spinnerMode="dropdown"
@@ -87,12 +85,11 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/edit_text_border"
         android:bottomLeftRadius="3dp"
         android:bottomRightRadius="3dp"
         android:topLeftRadius="3dp"
@@ -102,11 +99,9 @@
             android:id="@+id/new_batch_spinner_counterparty"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:drawSelectorOnTop="true"
             android:layout_marginLeft="-10dp"
             android:layout_marginRight="-10dp"
+            android:drawSelectorOnTop="true"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:spinnerMode="dropdown"
@@ -116,11 +111,12 @@
 
     <Button
         android:id="@+id/new_batch_create_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="164dp"
+        android:layout_height="41dp"
         android:layout_marginTop="300dp"
         android:background="@drawable/back_btn_border"
         android:stateListAnimator="@null"
-        android:text="@string/finish" />
+        android:text="@string/finish"
+        android:textAllCaps="false" />
 
 </LinearLayout>

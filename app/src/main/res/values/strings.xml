@@ -30,10 +30,12 @@
     <!--    News -->
     <string name="news">News</string>
     <string name="filters">Filters</string>
+    <string name="no_filters_added">No filters added</string>
 
     <!--    Balance -->
     <string name="my_cryptocurrency">My Cryptocurrency</string>
     <string name="my_balance">My Balance</string>
+    <string name="currency_image">Currency Image</string>
 
     <!--    Trade -->
     <string name="trade">Trade</string>
@@ -153,5 +155,6 @@
     <string name="current_password">Current password</string>
     <string name="new_password">New password</string>
     <string name="confirm_new_password">Confirm new password</string>
+
 
 </resources>

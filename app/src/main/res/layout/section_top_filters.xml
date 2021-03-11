@@ -18,16 +18,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="@string/from"
             android:fontFamily="@font/ubuntu_light"
+            android:text="@string/from"
             android:textSize="18sp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="@string/to"
             android:fontFamily="@font/ubuntu_light"
+            android:text="@string/to"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -45,8 +45,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="04 Apr 2020"
             android:fontFamily="@font/ubuntu_regular"
+            android:text="04 Apr 2020"
             android:textColor="@color/textColor"
             android:textSize="15sp" />
 
@@ -55,9 +55,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:fontFamily="@font/ubuntu_regular"
             android:text="06 Oct 2020"
             android:textColor="@color/textColor"
-            android:fontFamily="@font/ubuntu_regular"
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -75,28 +75,28 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginEnd="25dp"
-            android:src="@drawable/ic_upload"
-            app:tint="@color/textColor"
+            android:layout_marginRight="25dp"
             android:contentDescription="@string/upload"
-            android:layout_marginRight="25dp" />
+            android:src="@drawable/ic_upload"
+            app:tint="@color/textColor" />
 
         <ImageView
             android:id="@+id/ic_action_refresh"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginEnd="25dp"
-            android:src="@drawable/ic_refresh"
-            app:tint="@color/textColor"
+            android:layout_marginRight="25dp"
             android:contentDescription="@string/refresh"
-            android:layout_marginRight="25dp" />
+            android:src="@drawable/ic_refresh"
+            app:tint="@color/textColor" />
 
         <ImageView
             android:id="@+id/ic_action_filter"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
+            android:contentDescription="@string/filter"
             android:src="@drawable/ic_filter"
-            app:tint="@color/textColor"
-            android:contentDescription="@string/filter"/>
+            app:tint="@color/textColor" />
 
     </LinearLayout>
 

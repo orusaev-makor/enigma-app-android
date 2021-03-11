@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,11 +33,10 @@
             android:textSize="18sp" />
 
         <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/balance_recycled_view"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           tools:listitem="@layout/balance_item"
-           />
+            android:id="@+id/balance_recycled_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/balance_item" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -46,45 +44,47 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/colorPrimaryDark"
             app:cardCornerRadius="5dp"
+            app:cardElevation="0dp"
             app:strokeColor="@color/cardBorderNoDarkTheme"
-            app:strokeWidth="1dp"
-            app:cardElevation="0dp">
+            app:strokeWidth="1dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/ubuntu_regular"
                 android:text="@string/my_cryptocurrency"
                 android:textColor="@color/textColor"
-                android:textSize="18sp"
-                android:layout_marginStart="18dp" />
+                android:textSize="18sp" />
 
             <com.github.mikephil.charting.charts.PieChart
-                android:layout_marginTop="40dp"
                 android:id="@+id/balancePieChart"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp" />
 
             <ImageView
                 android:id="@+id/clicked_coin_icon"
                 android:layout_width="22sp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
                 android:layout_marginBottom="55dp"
-                android:layout_gravity="center|bottom" />
+                android:contentDescription="@string/currency_image" />
+
             <TextView
                 android:id="@+id/clicked_coin_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:layout_marginTop="320dp"
                 android:layout_marginBottom="35dp"
                 android:fontFamily="@font/poppins_medium"
-                android:textColor="@color/textColor"
-                android:textSize="12sp"
                 android:gravity="center"
-                android:layout_gravity="bottom" />
+                android:textColor="@color/textColor"
+                android:textSize="12sp" />
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>

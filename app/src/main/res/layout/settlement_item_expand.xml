@@ -11,8 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="20dp"
+        android:orientation="horizontal"
         android:weightSum="1">
 
         <TextView
@@ -48,9 +48,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:fontFamily="@font/ubuntu_mono_regular"
             android:text="To send"
             android:textColor="@color/textColor"
-            android:fontFamily="@font/ubuntu_mono_regular"
             android:textSize="15sp" />
 
         <TextView
@@ -58,9 +58,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.49"
+            android:fontFamily="@font/ubuntu_mono_regular"
             android:gravity="end"
             android:text="Crypto"
-            android:fontFamily="@font/ubuntu_mono_regular"
             android:textColor="@color/textColor"
             android:textSize="15sp" />
 
@@ -105,8 +105,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="1.00000000"
             android:fontFamily="@font/ubuntu_mono_regular"
+            android:text="1.00000000"
             android:textColor="@color/textColor"
             android:textSize="15sp" />
 
@@ -115,9 +115,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.49"
+            android:fontFamily="@font/ubuntu_mono_regular"
             android:gravity="end"
             android:text="BTC Wallet"
-            android:fontFamily="@font/ubuntu_mono_regular"
             android:textColor="@color/textColor"
             android:textSize="15sp" />
 
@@ -162,8 +162,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="0.00000000"
             android:fontFamily="@font/ubuntu_mono_regular"
+            android:text="0.00000000"
             android:textColor="@color/textColor"
             android:textSize="15sp" />
 
@@ -172,9 +172,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.49"
+            android:fontFamily="@font/ubuntu_mono_regular"
             android:gravity="end"
             android:text="1.00000000"
-            android:fontFamily="@font/ubuntu_mono_regular"
             android:textColor="@color/textColor"
             android:textSize="15sp" />
 
@@ -194,9 +194,9 @@
         android:id="@+id/details_settlement_counterparty_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_mono_regular"
         android:gravity="center"
         android:text="BTC Wallet 2 LLC/ Brevy"
-        android:fontFamily="@font/ubuntu_mono_regular"
         android:textColor="@color/textColor"
         android:textSize="15sp" />
 

@@ -75,7 +75,6 @@
                 android:textColor="@color/textColor"
                 android:textSize="16sp" />
 
-
             <CheckBox
                 android:id="@+id/checkBoxHedge"
                 android:layout_width="0dp"
@@ -150,20 +149,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/edit_text_border"
             android:bottomLeftRadius="3dp"
             android:bottomRightRadius="3dp"
             android:topLeftRadius="3dp"
             android:topRightRadius="3dp">
+
             <Spinner
                 android:id="@+id/new_trade_spinner_execution"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:drawSelectorOnTop="true"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginRight="-10dp"
+                android:drawSelectorOnTop="true"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:spinnerMode="dropdown"
@@ -175,20 +173,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/edit_text_border"
             android:bottomLeftRadius="3dp"
             android:bottomRightRadius="3dp"
             android:topLeftRadius="3dp"
             android:topRightRadius="3dp">
+
             <Spinner
                 android:id="@+id/new_trade_spinner_product"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:drawSelectorOnTop="true"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginRight="-10dp"
+                android:drawSelectorOnTop="true"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:spinnerMode="dropdown"
@@ -200,20 +197,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/edit_text_border"
             android:bottomLeftRadius="3dp"
             android:bottomRightRadius="3dp"
             android:topLeftRadius="3dp"
             android:topRightRadius="3dp">
+
             <Spinner
                 android:id="@+id/new_trade_spinner_company"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:drawSelectorOnTop="true"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginRight="-10dp"
+                android:drawSelectorOnTop="true"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:spinnerMode="dropdown"
@@ -224,20 +220,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/edit_text_border"
             android:bottomLeftRadius="3dp"
             android:bottomRightRadius="3dp"
             android:topLeftRadius="3dp"
             android:topRightRadius="3dp">
+
             <Spinner
                 android:id="@+id/new_trade_spinner_client"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:drawSelectorOnTop="true"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginRight="-10dp"
+                android:drawSelectorOnTop="true"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:spinnerMode="dropdown"
@@ -248,20 +243,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/edit_text_border"
             android:bottomLeftRadius="3dp"
             android:bottomRightRadius="3dp"
             android:topLeftRadius="3dp"
             android:topRightRadius="3dp">
+
             <Spinner
                 android:id="@+id/new_trade_spinner_broker"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:drawSelectorOnTop="true"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginRight="-10dp"
+                android:drawSelectorOnTop="true"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:spinnerMode="dropdown"
@@ -354,9 +348,10 @@
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="40dp"
-            android:stateListAnimator="@null"
             android:background="@drawable/back_btn_border"
-            android:text="@string/review_amp_submit" />
+            android:stateListAnimator="@null"
+            android:text="@string/review_amp_submit"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 </ScrollView>

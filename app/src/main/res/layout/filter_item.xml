@@ -10,38 +10,37 @@
     app:strokeColor="@color/cardBorder"
     app:strokeWidth="0.5dp">
 
-<!--    <ImageView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="10dp"-->
-<!--        android:background="@drawable/trade_top_border"-->
-<!--        android:scaleType="fitXY"-->
-<!--        tools:ignore="ContentDescription" />-->
+    <!--    <ImageView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="10dp"-->
+    <!--        android:background="@drawable/trade_top_border"-->
+    <!--        android:scaleType="fitXY"-->
+    <!--        tools:ignore="ContentDescription" />-->
 
     <TextView
         android:id="@+id/filter_option_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:drawableTint="@color/check"
         android:background="@drawable/edit_text_border"
-        android:text="Filter option name"
         android:fontFamily="@font/ubuntu_regular"
         android:gravity="left|center"
-        android:textColor="@color/textSecondaryColor"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
-        android:textSize="16sp" />
+        android:text="Filter option name"
+        android:textColor="@color/textSecondaryColor"
+        android:textSize="16sp"
+        app:drawableTint="@color/check" />
 
     <ImageView
         android:id="@+id/filter_option_checked_icon"
-        android:layout_gravity="end|center"
-        android:layout_marginRight="25dp"
         android:layout_width="25dp"
         android:layout_height="25dp"
+        android:layout_gravity="end|center"
+        android:layout_marginRight="25dp"
         android:background="@drawable/ic_check"
-        android:scaleType="fitXY"
         android:backgroundTint="@color/check"
+        android:scaleType="fitXY"
         android:visibility="invisible"
-        tools:ignore="ContentDescription"
-        />
+        tools:ignore="ContentDescription" />
 
 </com.google.android.material.card.MaterialCardView>

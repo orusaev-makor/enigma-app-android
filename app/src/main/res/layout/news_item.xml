@@ -46,8 +46,8 @@
             android:id="@+id/news_keywords_top_border"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:visibility="gone"
-            android:background="@drawable/news_top_border"/>
+            android:background="@drawable/news_top_border"
+            android:visibility="gone" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/news_keywords_chip_group"

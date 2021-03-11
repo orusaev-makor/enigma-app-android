@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary"
     app:cardCornerRadius="0dp"
     app:cardElevation="0dp"
     app:strokeColor="@color/cardBorder"
-    android:background="@color/colorPrimary"
-    android:backgroundTint="@color/colorPrimary"
     app:strokeWidth="1dp">
 
 
@@ -22,11 +22,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
-        android:paddingBottom="14dp"
+        android:orientation="horizontal"
         android:paddingTop="13dp"
-        android:layout_marginTop="10dp">
+        android:paddingBottom="14dp">
 
         <ImageView
             android:id="@+id/account_item_fav_icon"
@@ -35,30 +35,29 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="5dp"
             android:contentDescription="@string/favorite_icon"
-            android:gravity="left|center"
-/>
+            android:gravity="left|center" />
 
         <TextView
             android:id="@+id/account_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@color/starFavoriteMarked"
+            android:drawableTint="@color/starFavoriteMarked"
             android:fontFamily="@font/ubuntu_regular"
             android:gravity="left"
             android:text="USD Iban Client Test"
             android:textColor="@color/textColor"
-            android:textSize="16sp"
-            android:drawableTint="@color/starFavoriteMarked"
-            android:drawableLeft="@color/starFavoriteMarked" />
+            android:textSize="16sp" />
     </LinearLayout>
 
-        <ImageView
-            android:id="@+id/account_item_currency_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:contentDescription="@string/currency_icon"
-            android:layout_gravity="right|center"
-            android:layout_marginRight="25dp"
-            android:src="@drawable/usd" />
+    <ImageView
+        android:id="@+id/account_item_currency_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="right|center"
+        android:layout_marginRight="25dp"
+        android:contentDescription="@string/currency_icon"
+        android:src="@drawable/usd" />
 
 
 </com.google.android.material.card.MaterialCardView>

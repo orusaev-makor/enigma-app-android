@@ -10,10 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".activity.fragment.MarketFragment"
         android:paddingLeft="30dp"
         android:paddingTop="10sp"
-        android:paddingRight="30dp">
+        android:paddingRight="30dp"
+        tools:context=".activity.fragment.MarketFragment">
 
 
         <TextView
@@ -33,34 +33,34 @@
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_border"
-            android:fontFamily="@font/ubuntu_light"
-            android:hint="Search"
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="5dp"
-            app:cornerRadius="0dp"
+            android:fontFamily="@font/ubuntu_light"
+            android:hint="Search"
+            android:paddingStart="10dp"
             android:paddingLeft="10dp"
+            android:paddingEnd="10dp"
             android:textColorHint="@color/textHintColor"
             android:textSize="16sp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"/>
+            app:cornerRadius="0dp" />
 
-<!--        <com.github.mikephil.charting.charts.LineChart-->
-<!--            android:id="@+id/marketItemLineChart"-->
-<!--            android:layout_width="150dp"-->
-<!--            android:layout_height="65dp" />-->
+        <!--        <com.github.mikephil.charting.charts.LineChart-->
+        <!--            android:id="@+id/marketItemLineChart"-->
+        <!--            android:layout_width="150dp"-->
+        <!--            android:layout_height="65dp" />-->
 
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/market_fragment_recycler_view"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                tools:listitem="@layout/market_item" />-->
+        <!--            <androidx.recyclerview.widget.RecyclerView-->
+        <!--                android:id="@+id/market_fragment_recycler_view"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:layout_marginTop="30dp"-->
+        <!--                tools:listitem="@layout/market_item" />-->
 
         <include
-            android:layout_marginTop="30dp"
             layout="@layout/market_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:paddingLeft="-10dp"
             android:paddingRight="-10dp" />
 

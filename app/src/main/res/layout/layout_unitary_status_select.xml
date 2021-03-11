@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -25,23 +24,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="16sp"
-            android:textColor="@color/rejected"
             android:buttonTint="@color/rejected"
-            android:text="@string/rejected" />
-
+            android:fontFamily="@font/poppins_regular"
+            android:text="@string/rejected"
+            android:textColor="@color/rejected"
+            android:textSize="16sp" />
 
         <CheckBox
             android:id="@+id/checkBoxPendingUnitary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/pending"
             android:buttonTint="@color/pending"
-            android:textSize="16sp"
-            android:text="Pending" />
+            android:fontFamily="@font/poppins_regular"
+            android:text="Pending"
+            android:textColor="@color/pending"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,32 +54,32 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/settled"
             android:buttonTint="@color/settled"
-            android:textSize="16sp"
-            android:text="Settled" />
+            android:fontFamily="@font/poppins_regular"
+            android:text="Settled"
+            android:textColor="@color/settled"
+            android:textSize="16sp" />
 
         <CheckBox
             android:id="@+id/checkBoxInSetUnitary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/inSet"
             android:buttonTint="@color/inSet"
-            android:textSize="16sp"
-            android:text="In sett" />
+            android:fontFamily="@font/poppins_regular"
+            android:text="In sett"
+            android:textColor="@color/inSet"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <CheckBox
         android:id="@+id/checkBoxValidatedUnitary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_regular"
-        android:textColor="@color/validated"
-        android:buttonTint="@color/validated"
         android:layout_marginTop="-8dp"
-        android:textSize="16sp"
-        android:text="@string/validated" />
+        android:buttonTint="@color/validated"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/validated"
+        android:textColor="@color/validated"
+        android:textSize="16sp" />
 </LinearLayout>

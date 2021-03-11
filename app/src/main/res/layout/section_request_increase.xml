@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/request_increase_limit"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     android:paddingBottom="5dp"
-    android:weightSum="1"
-    android:id="@+id/request_increase_limit"
-    >
+    android:weightSum="1">
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.65"
         android:layout_marginTop="10dp"
+        android:layout_weight="0.65"
         android:fontFamily="@font/ubuntu_light"
+        android:gravity="end"
         android:text="@string/request_increase_limit"
         android:textColor="@color/textColor"
-        android:gravity="end"
         android:textSize="14sp" />
 
     <ImageView
         android:layout_width="0dp"
         android:layout_height="20dp"
-        android:layout_weight="0.3"
-        android:src="@drawable/ic_arraow_forward"
-        app:tint="@color/textColor"
-        android:gravity="start"
         android:layout_marginTop="10dp"
-        android:contentDescription="@string/submit" />
+        android:layout_weight="0.3"
+        android:contentDescription="@string/submit"
+        android:gravity="start"
+        android:src="@drawable/ic_arraow_forward"
+        app:tint="@color/textColor" />
 
 </LinearLayout>
