@@ -140,5 +140,12 @@
     <string name="choose_account_type">Choose account type</string>
     <string name="write_name_for_your_account">write name for your account</string>
 
+    <!--    Profile -->
+    <string name="profile">Profile</string>
+    <string name="profile_image">Profile image</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="change_password">Change Password</string>
+    <string name="save">Save</string>
 
 </resources>

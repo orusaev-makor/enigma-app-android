@@ -21,7 +21,7 @@
             android:layout_marginTop="75dp"
             android:layout_marginBottom="25dp"
             android:fontFamily="@font/ubuntu_regular"
-            android:text="Profile"
+            android:text="@string/profile"
             android:textColor="@color/textColor"
             android:textSize="25sp" />
 
@@ -33,7 +33,8 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/ic_profile_background"
             android:padding="20sp"
-            android:src="@drawable/ic_action_profile" />
+            android:src="@drawable/ic_action_profile"
+            android:contentDescription="@string/profile_image" />
 
         <TextView
             android:id="@+id/full_name_title"
@@ -43,7 +44,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/ubuntu_regular"
-            android:text="Full Name"
+            android:text="@string/full_name"
             android:textColor="@color/textColorDark"
             android:textSize="14sp" />
 
@@ -69,7 +70,7 @@
             android:layout_below="@+id/profile_name_edit_text"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/ubuntu_regular"
-            android:text="Email"
+            android:text="@string/email"
             android:textColor="@color/textColorDark"
             android:textSize="14sp" />
 
@@ -94,7 +95,7 @@
             android:layout_below="@+id/profile_email_edit_text"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/ubuntu_regular"
-            android:text="Company"
+            android:text="@string/company"
             android:textColor="@color/textColorDark"
             android:textSize="14sp" />
 
@@ -119,7 +120,7 @@
             android:layout_below="@+id/profile_company_edit_text"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/ubuntu_regular"
-            android:text="Phone number"
+            android:text="@string/phone_number"
             android:textColor="@color/textColorDark"
             android:textSize="14sp" />
 
@@ -147,7 +148,7 @@
             android:layout_marginRight="4dp"
 
             android:fontFamily="@font/ubuntu_medium"
-            android:text="Save"
+            android:text="@string/save"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="17sp"
@@ -166,7 +167,7 @@
             android:layout_marginRight="4dp"
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/ubuntu_regular"
-            android:text="Change Password"
+            android:text="@string/change_password"
             android:textAllCaps="false"
             android:textColor="@color/textColor"
             android:textSize="15sp"
