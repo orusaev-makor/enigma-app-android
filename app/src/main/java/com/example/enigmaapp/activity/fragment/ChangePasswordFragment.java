@@ -29,7 +29,7 @@ public class ChangePasswordFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_change_password, container, false);
 
-        saveBtn = v.findViewById(R.id.profile_new_password_btn);
+        saveBtn = v.findViewById(R.id.change_pass_save_btn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

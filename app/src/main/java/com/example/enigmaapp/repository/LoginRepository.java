@@ -57,7 +57,7 @@ public class LoginRepository {
             public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                 if (!response.isSuccessful()) {
                     System.out.println("Code: " + response.code() + "Error: " + response.message());
-                    loginErrorMsg.setText(response.message());
+                    loginErrorMsg.setText((response.code() == 403) ? "Incorrect username or password" : response.message());
                     return;
                 }
 
