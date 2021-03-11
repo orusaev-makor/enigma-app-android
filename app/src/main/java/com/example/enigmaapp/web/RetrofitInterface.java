@@ -31,13 +31,16 @@ public interface RetrofitInterface {
     @GET("/historial_pnl/{id}")
     Call<ArrayList<com.example.enigmaapp.HistoricalPnl>> getHistoricalPnl(@Header("Authorization") String token,
                                                                           @Path("id") int userId);
-
     // User Auth :
     @PUT("/auth")
     Call<LoginResult> executeLogin(@Body HashMap<String, String> map);
 
     @POST("/auth/password")
     Call<Void> executeForgotPassword(@Body HashMap<String, String> map);
+
+    @PUT("/auth/password_change")
+    Call<Void> executeChangePassword(@Header("Authorization") String token,
+                                     @Body HashMap<String, String> map);
 
     @DELETE("/auth")
     Call<Void> executeLogout(@Header("Authorization") String token);

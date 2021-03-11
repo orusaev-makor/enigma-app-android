@@ -11,6 +11,7 @@ import com.example.enigmaapp.db.User;
 import com.example.enigmaapp.repository.LoginRepository;
 import com.example.enigmaapp.web.login.LoginResult;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class LoginViewModel extends AndroidViewModel {
@@ -29,7 +30,7 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public LoginResult getCurrentUser() {
-        return repository.getmCurrentUser();
+        return repository.getCurrentUser();
     }
 
     public void logoutCurrentUser() {
@@ -39,5 +40,10 @@ public class LoginViewModel extends AndroidViewModel {
     public void deleteAllUsers() {
         repository.deleteAllUsers();
     }
+
     public LiveData<List<User>> getAllUsers() { return allUsers; }
+
+    public void changePassword(HashMap<String, String> map, TextView changePassErrorMsg) {
+        repository.changePassword(map, changePassErrorMsg);
+    }
 }

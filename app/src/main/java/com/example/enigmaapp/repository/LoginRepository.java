@@ -16,13 +16,19 @@ import com.example.enigmaapp.db.UserDatabase;
 import com.example.enigmaapp.service.DatasetService;
 import com.example.enigmaapp.web.RetrofitClient;
 import com.example.enigmaapp.web.login.LoginResult;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 public class LoginRepository {
 
@@ -31,7 +37,7 @@ public class LoginRepository {
 
     private Application application;
     private UserDao userDao;
-    private LiveData<List<User>> allUsers  = new MutableLiveData<>();
+    private LiveData<List<User>> allUsers = new MutableLiveData<>();
 
     public LoginRepository(Application application) {
         this.application = application;
@@ -40,8 +46,29 @@ public class LoginRepository {
         allUsers = userDao.getAllUsers();
     }
 
-    public LoginResult getmCurrentUser() {
+    public LoginResult getCurrentUser() {
         return mCurrentUser;
+    }
+
+    public void changePassword(HashMap<String, String> map, TextView changePassErrorMsg) {
+        Call<Void> call = RetrofitClient.getInstance().getRetrofitInterface().executeChangePassword(mCurrentUser.getToken(), map);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!response.isSuccessful()) {
+                    changePassErrorMsg.setText("Passwords entered incorrectly, please try again.");
+                    return;
+                }
+                changePassErrorMsg.setText("");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                System.out.println("t.getMessage(): " + t.getMessage());
+                Toast.makeText(application, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void fetchUser(String username, String password, TextView loginErrorMsg) {
@@ -120,14 +147,18 @@ public class LoginRepository {
     public void insert(User user) {
         new InsertUserAsyncTask(userDao).execute(user);
     }
+
     public void deleteAllUsers() {
         new DeleteAllUsersAsyncTask(userDao).execute();
     }
+
     public LiveData<List<User>> getAllUsers() {
         return allUsers;
     }
+
     private static class DeleteAllUsersAsyncTask extends AsyncTask<Void, Void, Void> {
         private UserDao userDao;
+
         private DeleteAllUsersAsyncTask(UserDao userDao) {
             this.userDao = userDao;
         }
@@ -138,8 +169,10 @@ public class LoginRepository {
             return null;
         }
     }
+
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void> {
         private UserDao userDao;
+
         private InsertUserAsyncTask(UserDao userDao) {
             this.userDao = userDao;
         }
