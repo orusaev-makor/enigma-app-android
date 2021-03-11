@@ -148,4 +148,10 @@
     <string name="change_password">Change Password</string>
     <string name="save">Save</string>
 
+    <!--    Change password -->
+    <string name="change_password_title">Change password</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+
 </resources>
