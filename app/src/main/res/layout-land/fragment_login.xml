@@ -8,8 +8,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="28dp"
-        android:paddingRight="28dp"
+        android:paddingLeft="120dp"
+        android:paddingRight="120dp"
         tools:context=".activity.fragment.LoginFragment">
 
         <View

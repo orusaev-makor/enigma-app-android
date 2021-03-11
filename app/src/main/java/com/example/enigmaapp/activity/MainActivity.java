@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.inputmethod.InputMethodManager;
 
+import com.example.enigmaapp.activity.fragment.BalanceFragment;
 import com.example.enigmaapp.activity.fragment.LoginFragment;
 import com.example.enigmaapp.R;
 
@@ -45,10 +46,11 @@ public class MainActivity extends AppCompatActivity {
 //                .get(LoginViewModel.class);
 
         // Initial Fragment:
-        LoginFragment frg = new LoginFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frame_layout, frg, "Login");
-        ft.commit();
+        if (savedInstanceState == null) {
+            LoginFragment fragment = new LoginFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frame_layout, fragment, "Login").commit();
+        }
     }
 
     // hide soft keyboard on touch outside EditText
